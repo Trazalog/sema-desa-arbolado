@@ -30,7 +30,6 @@
   <!-- Bootstrap datetimepicker -->
   <link rel="stylesheet" href="<?php base_url();?>lib/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css">
 
-  <link rel="stylesheet" href="<?php base_url();?>application/css/etapa/list.css">
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

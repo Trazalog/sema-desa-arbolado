@@ -1,7 +1,7 @@
 <ul class="sidebar-menu menu" data-widget="tree">
     <li class="header">MAIN NAVIGATION</li>
-    <li><a href="#" data-link="general/Proceso"><i class="fa fa-circle-o"></i>Proceso</a></li>
-    <li class="active treeview">
+   <li><a href="<?php echo base_url('Login/usuarios')?>"><i class="fa fa-user"></i>Administracion usuarios</a></li>
+     <!--<li class="active treeview">
         <a href="#">
             <i class="fa fa-fw fa-check"></i> <span>Almancenes</span>
             <span class="pull-right-container">
@@ -21,5 +21,5 @@
         </ul>
     </li>
     <li><a href="#" data-link="general/Componente"><i class="fa fa-circle-o"></i>Header(Cabera)</a></li>
-    <li><a href="#" data-link="general/Tabla"><i class="fa fa-circle-o"></i>ABM Tablas</a></li>
+    <li><a href="#" data-link="general/Tabla"><i class="fa fa-circle-o"></i>ABM Tablas</a></li> -->
 </ul>

@@ -20,7 +20,15 @@ if(!function_exists('editar')){
 
     function editar()
     {
-        redirect(HOST.'DnatoArbolado/main/changeuser');
+        redirect(HOST.'DnatoArbolado/main/changeuser?control=sistema');
+    }
+    
+}
+if(!function_exists('admin_usuarios')){
+
+    function admin_usuarios()
+    {
+        redirect(HOST.'DnatoArbolado/main/users');
     }
     
 }
