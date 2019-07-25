@@ -63,7 +63,8 @@ class Main extends CI_Controller {
             $this->load->view('container');
             $this->load->view('index', $data);
             $this->load->view('footer');*/
-           // var_dump($this->session->userdata);die;
+         
+        
            redirect('http://localhost/'.$this->session->userdata['direccion']);
          
            

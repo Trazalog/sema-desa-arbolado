@@ -9,16 +9,16 @@ class Login extends CI_Controller {
    function index(){
        if(!isset($this->session->userdata['direccion']))
        {
-      $dir = 'sema-desa-arbolado';
+      $dir = 'sema-desa-arbolado/web';
       login($dir);
        }
        else
        {
-        if($this->session->userdata['direccion'] == 'sema-desa-arbolado/Dash')
+        if($this->session->userdata['direccion'] == 'sema-desa-arbolado/web/Dash')
         {
             redirect('Dash');
         }else{
-            $this->session->set_userdata('direccionsalida','sema-desa-arbolado/Login');
+            $this->session->set_userdata('direccionsalida','sema-desa-arbolado/web/Login');
             logout();
         }
        }
