@@ -46,6 +46,11 @@
     <!-- <script src="<?php base_url() ?>lib/dist/js/pages/dashboard.js"></script> -->
     <!-- AdminLTE for demo purposes -->
     <!-- <script src="<?php base_url() ?>lib/dist/js/demo.js"></script> -->
+    <!--Validator -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+    <script src="<?php echo base_url('js/tabla.js');?>"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpKOoFiMIRpJ5r8g0zPiNjCswiJ4BdbFc"></script>
+
 
 
 

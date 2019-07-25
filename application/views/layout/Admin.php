@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="lib/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="lib/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
   <!-- Ionicons -->
   <link rel="stylesheet" href="lib/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
@@ -29,6 +30,7 @@
 
   <!-- Bootstrap datetimepicker -->
   <link rel="stylesheet" href="<?php base_url();?>lib/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('css/general.css')?>">
 
 
 
@@ -41,7 +43,11 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
+  <style>
+  #map {
+        height: 100%;
+      }
+</style>
   <?php $this->load->view('layout/general_scripts') ?>
 
 </head>

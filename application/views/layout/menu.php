@@ -1,25 +1,50 @@
 <ul class="sidebar-menu menu" data-widget="tree">
-    <li class="header">MAIN NAVIGATION</li>
+    <li class="header">Navegacion</li>
    <li><a href="<?php echo base_url('Login/usuarios')?>"><i class="fa fa-user"></i>Administracion usuarios</a></li>
-     <!--<li class="active treeview">
+     <li class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-check"></i> <span>Almancenes</span>
+            <i class="fa fa-fw fa-check"></i> <span>Arbolado ABM</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#" data-link="almacen/Articulo"><i class="fa fa-fw fa-barcode"></i>Artículos</a></li>
-            <li><a href="#" data-link="almacen/Lote"><i class="fa fa-fw fa-cubes"></i>Stock</a></li>
-            <li><a href="#" data-link="almacen/Ordeninsumo"><i class="fa fa-fw fa-check"></i>Entrega Materiales</a></li>
-            <li><a href="#" data-link="almacen/Remito"><i class="fa fa-fw fa-paperclip "></i>Recepcion Materiales</a>
-            </li>
-            <li><a href="#" data-link="almacen/Lote/puntoPedList"><i class="fa fa-fw fa-bookmark"></i>Punto de
-                    Pedido</a></li>
-            <li><a href="#" data-link="almacen/Notapedido"><i class="fa fa-fw fa-cart-plus"></i>Pedido Materiales</a>
+            <li><a href="#" class="link" data-link="Censista"><i class="fa fa-fw fa-cubes"></i>Censistas</a></li>
+            <li><a href="#" class="link" data-link="Area"><i class="fa fa-fw fa-map"></i>Areas Gerograficas</a></li>
+            <li><a href="#" class="link" data-link="Departamento"><i class="fa fa-fw fa-cubes"></i>Departamentos</a></li>
+            <li><a href="#" class="link" data-link="Manzana"><i class="fa fa-fw fa-cubes"></i>Manzanas</a></li>
+            <li><a href="#" class="link" data-link="Calle"><i class="glyphicon glyphicon-road "></i>Calles</a> </li>
+            <li><a href="#" class="link" data-link="Arbol"><i class="glyphicon glyphicon-tree-conifer"></i>Tipo de Arboles</a></li>
             </li>
         </ul>
     </li>
-    <li><a href="#" data-link="general/Componente"><i class="fa fa-circle-o"></i>Header(Cabera)</a></li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-fw fa-check"></i> <span>Censos</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="#" class="link" data-link="Censo/Nuevo"><i class="fa fa-fw fa-cubes"></i>Nuevo Censo</a></li>
+            <li><a href="#" class="link" data-link="Censo"><i class="fa fa-fw fa-cubes"></i>Lista Censos</a></li>
+            </li>
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-fw fa-check"></i> <span>Reportes</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="#" class="link" data-link="Censo/Nuevo"><i class="fa fa-fw fa-cubes"></i>Nuevo Censo</a></li>
+            <li><a href="#" class="link" data-link="Censo"><i class="fa fa-fw fa-cubes"></i>Lista Censos</a></li>
+            </li>
+        </ul>
+    </li>
+    <li><a href="#" class="link" data-link="Mapa"><i class="fa fa-fw fa-map"></i>Mapa</a></li>
+  <!--  <li><a href="#" data-link="general/Componente"><i class="fa fa-circle-o"></i>Header(Cabera)</a></li>
     <li><a href="#" data-link="general/Tabla"><i class="fa fa-circle-o"></i>ABM Tablas</a></li> -->
 </ul>
