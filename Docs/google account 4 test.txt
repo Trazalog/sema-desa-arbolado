@@ -1,0 +1,11 @@
+Cuenta creada para obtener un API_KEY para el equipo de desarrollo
+
+arboladoSJ19@gmail.com / arbo19lado
+
+
+https://console.cloud.google.com/
+
+
+
+key=API_KEY
+AIzaSyA8uycP4C17mnn5thIBhvJ5qB_0k5Zlaao
