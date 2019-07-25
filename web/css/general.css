@@ -1,0 +1,14 @@
+.btn span.glyphicon {
+    opacity: 0;
+}
+
+.btn.active span.glyphicon {
+    opacity: 1;
+}
+
+.outline {
+    color: #007bff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #80e489;
+}
