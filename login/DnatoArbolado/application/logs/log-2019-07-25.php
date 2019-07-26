@@ -273,3 +273,28 @@ DEBUG - 2019-07-25 21:33:56 --> Session: "sess_save_path" is empty; using "sessi
 DEBUG - 2019-07-25 21:33:56 --> UTF-8 Support Enabled
 DEBUG - 2019-07-25 21:33:56 --> Global POST, GET and COOKIE data sanitized
 DEBUG - 2019-07-25 21:33:56 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+DEBUG - 2019-07-25 21:50:50 --> UTF-8 Support Enabled
+DEBUG - 2019-07-25 21:50:50 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2019-07-25 21:50:50 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+DEBUG - 2019-07-25 21:50:50 --> UTF-8 Support Enabled
+DEBUG - 2019-07-25 21:50:50 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2019-07-25 21:50:50 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+DEBUG - 2019-07-25 21:50:50 --> UTF-8 Support Enabled
+DEBUG - 2019-07-25 21:50:50 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2019-07-25 21:50:50 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+DEBUG - 2019-07-25 21:50:51 --> UTF-8 Support Enabled
+DEBUG - 2019-07-25 21:50:51 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2019-07-25 21:50:51 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+DEBUG - 2019-07-25 21:50:51 --> cURL Class Initialized
+DEBUG - 2019-07-25 21:50:51 --> Total execution time: 0.1992
+DEBUG - 2019-07-25 21:53:41 --> UTF-8 Support Enabled
+DEBUG - 2019-07-25 21:53:41 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2019-07-25 21:53:41 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+DEBUG - 2019-07-25 21:53:41 --> UTF-8 Support Enabled
+DEBUG - 2019-07-25 21:53:41 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2019-07-25 21:53:41 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+DEBUG - 2019-07-25 21:53:41 --> UTF-8 Support Enabled
+DEBUG - 2019-07-25 21:53:42 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2019-07-25 21:53:42 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+DEBUG - 2019-07-25 21:53:42 --> cURL Class Initialized
+DEBUG - 2019-07-25 21:53:42 --> Total execution time: 0.2146
