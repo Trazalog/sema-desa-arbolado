@@ -542,5 +542,5 @@ $config['banned_users'] = array('unban', 'ban');
 | This is about email sender
 |
 */
-$config['register'] = 'guillegouiric@gmail.com';
-$config['forgot'] = 'guillegouiric@gmail.com';
+$config['register'] = '';
+$config['forgot'] = '';
