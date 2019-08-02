@@ -1,0 +1,26 @@
+{
+    "punto": {
+        "id": "punto2",
+        "tipoarbol": "",
+        "calle": "Rawson",
+        "numero": "1100",
+        "barrio": "",
+        "taza": "no",
+        "tipotaza": "",
+        "fuste": "",
+        "alineacion": "",
+        "raices": "",
+        "cavidad": "",
+        "alttotal": "",
+        "altfuste": "",
+        "circ": "",
+        "copa": "",
+        "observaciones": "Literalmente estaba el arbol de harry potter en el medio de la vereda",
+        "ramas": "",
+        "estado": "",
+        "foto": "",
+        "acequia": "",
+        "cables": "",
+        "follaje": ""
+    }
+}

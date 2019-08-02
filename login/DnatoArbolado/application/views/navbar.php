@@ -38,8 +38,8 @@
                               </ul>
                             </li>
                            
-                            ';
-                           // <li><a href="'.site_url().'main/settings"><i class="glyphicon glyphicon-cog" aria-hidden="true"></i> Configuracion</a></li>
+                           ';
+                           # <li><a href="'.site_url().'main/settings"><i class="glyphicon glyphicon-cog" aria-hidden="true"></i> Configuracion</a></li> ';
                         }
                       }
                     ?>

@@ -7,12 +7,11 @@ class Arbol extends CI_Controller {
       $this->load->helper('file');
       $this->load->model('Arboles');
      
-     if(!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/Dash')
+      if(!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/web/Dash')
      {
-      $this->session->set_userdata('direccionsalida','sema-desa-arbolado/Login');
+      $this->session->set_userdata('direccionsalida','sema-desa-arbolado/web/Login');
       logout();
      }
-     
    }
    function index(){
       $data['lista'] = $this->Arboles->listar()->arboles->arbol;
