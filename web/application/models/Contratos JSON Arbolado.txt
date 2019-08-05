@@ -1,0 +1,297 @@
+
+URL = http://localhost:8080/(recurso *)
+
+Arboles => recurso = /listaarboles
+         MET GET
+         RSP JSON = {
+                        "arboles": {
+                            "arbol": [
+                                {
+                                    "id": 1,
+                                    "nombre": "Roble"
+                                },
+                                {
+                                    "id": 2,
+                                    "nombre": "Algarrobo"
+                                },
+                                ...N
+                            ]
+                        }
+                    }
+Areas => recurso = /listaareas
+         MET GET
+         RSP JSON = {
+                    "areas": {
+                        "area": [
+                            {
+                                "id": 1,
+                                "nombre": "Area Geografica 1",
+                                "iddepartamento": 1,
+                                "departamento": "Rawson",
+                                "idcensista": 1,
+                                "nombrecensista": "Sin Asignar",
+                                "manzanas": [
+                                    {
+                                        "id": 12,
+                                        "nombre": "manzana 14",
+                                        "calles": [
+                                            {
+                                                "id": 14,
+                                                "nombre": "Libertador"
+                                            },
+                                            {
+                                                "id": 15,
+                                                "nombre": "Rawson"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": 12,
+                                        "nombre": "manzana 15",
+                                        "calles": []
+                                    }
+                                ]
+                            },
+                            {
+                                "id": 2,
+                                "nombre": "Area Geografica 2",
+                                "iddepartamento": 1,
+                                "departamento": "Rawson",
+                                "idcensista": 2,
+                                "nombrecensista": "Hugo Gallardo",
+                                "manzanas": [
+                                    {
+                                        "id": 12,
+                                        "nombre": "manzana 14",
+                                        "calles": [
+                                            {
+                                                "id": 14,
+                                                "nombre": "Libertador"
+                                            },
+                                            {
+                                                "id": 16,
+                                                "nombre": "Laprida"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": 12,
+                                        "nombre": "manzana 15",
+                                        "calles": [
+                                            {
+                                                "id": 4,
+                                                "nombre": "Quiroga"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+
+Calles => recurso = /listacalles
+          MET GET
+          RSP JSON = {
+                        "calles": {
+                            "calle": [
+                                {
+                                    "id": 1,
+                                    "nombre": "Rawson"
+                                },
+                                {
+                                    "id": 2,
+                                    "nombre": "Santa Fe"
+                                },
+                                ...N
+                            ]
+                        }
+                    }
+Censistas => recurso = /listacensistas
+             MET GET
+             RSP JSON = {
+                            "censistas": {
+                                "censista": [
+                                    {
+                                        "id": 1,
+                                        "nombre": "Elba",
+                                        "apellido": "Sura",
+                                        "direccion": "trinidad",
+                                        "telefono": 155263748
+                                    },
+                                    {
+                                        "id": 2,
+                                        "nombre": "Armando",
+                                        "apellido": "Paredes",
+                                        "direccion": "San Martin",
+                                        "telefono": 155211748
+                                    },
+                                    ...N
+                                ]
+                            }
+                        }
+
+Censos => recurso = /listacensos
+          MET GET
+          RSP JSON = {
+                        "censos": {
+                            "censo": [
+                                {
+                                    "id": 1,
+                                    "fecha": "2019-05-08",
+                                    "nombre": "Censo Mayo"
+                                },
+                                {
+                                    "id": 2,
+                                    "fecha": "2019-06-02",
+                                    "nombre": "Censo Junio"
+                                },
+                                ...N
+                            ]
+                        }
+                    }
+    
+    => recurso = /listacensosarmadostodo
+       MET GET
+       RSP JSON = {
+                    "censos": {
+                        "censo": [
+                            {
+                                "id": 1,
+                                "idcenso": 1,
+                                "iddepartamento": 5,
+                                "nombredepartamento": "Rawson",
+                                "idareageo": 2,
+                                "nombreareageo": "Area Geografica 1",
+                                "idmanzana": 3,
+                                "nombremanzana": "Manzana 3",
+                                "calles": [
+                                    {
+                                        "id": 1,
+                                        "nombre": "Patagonia"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": 2,
+                                "idcenso": 2,
+                                "iddepartamento": 2,
+                                "nombredepartamento": "Chimbas",
+                                "idareageo": 4,
+                                "nombreareageo": "Area Geografica 4",
+                                "idmanzana": 5,
+                                "nombremanzana": "Manzana 5",
+                                "calles": []
+                            },
+                            {
+                                "id": 3,
+                                "idcenso": 2,
+                                "iddepartamento": 8,
+                                "nombredepartamento": "San Martin",
+                                "idareageo": 1,
+                                "nombreareageo": "Area Geografica 1",
+                                "idmanzana": 15,
+                                "nombremanzana": "Manzana 15",
+                                "calles": [
+                                    {
+                                        "id": 1,
+                                        "nombre": "Patagonia"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "nombre": "Maradona"
+                                    }
+                                ]
+                            },
+                        ...N
+                        ]
+                    }
+                }
+Departamentos => recurso = /listadepartamentos
+                 MET GET
+                 RSP JSON = {
+                                "departamentos": {
+                                    "departamento": [
+                                        {
+                                            "id": 1,
+                                            "nombre": "Rawson"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "nombre": "Chimbas"
+                                        },
+                                        ...N
+                                    ]
+                                }
+                            }
+
+Manzanas => recurso = /listamanzanas
+           MET GET
+           RSP JSON = {
+                        "manzanas": {
+                            "manzana": [
+                                {
+                                    "id": 1,
+                                    "nombre": "Manzana 1"
+                                },
+                                {
+                                    "id": 2,
+                                    "nombre": "Manzana 2"
+                                },
+                                ...N
+                            ]
+                        }
+                    }
+
+Mapas => recurso = /puntosmapa
+         MET GET
+         RSP JSON = {
+                        "puntos": {
+                            "punto": [
+                                {
+                                    "id": 1,
+                                    "lat": -31.5361,
+                                    "lng": -67.5264,
+                                    "direccion": "Patagonia 1417 O",
+                                    "tipo": "Brachichix"
+                                },
+                                {
+                                    "id": 2,
+                                    "lat": -31.5358,
+                                    "lng": -67.4464,
+                                    "direccion": "Rawson 1100 O",
+                                    "tipo": "Roble"
+                                },
+                                ...N
+                            ]
+                        }
+                    }
+    => recurso = puntosmapa/:id
+       MET GET
+       RSP JSON = {
+                    "punto": {
+                        "id": "punto2",
+                        "tipoarbol": "",
+                        "calle": "Rawson",
+                        "numero": "1100",
+                        "barrio": "",
+                        "taza": "no",
+                        "tipotaza": "",
+                        "fuste": "",
+                        "alineacion": "",
+                        "raices": "",
+                        "cavidad": "",
+                        "alttotal": "",
+                        "altfuste": "",
+                        "circ": "",
+                        "copa": "",
+                        "observaciones": "Literalmente estaba el arbol de harry potter en el medio de la vereda",
+                        "ramas": "",
+                        "estado": "",
+                        "foto": "",
+                        "acequia": "",
+                        "cables": "",
+                        "follaje": ""
+                    }
+                }
+       

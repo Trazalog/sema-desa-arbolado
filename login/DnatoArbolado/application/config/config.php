@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/DnatoArbolado'; //change link
+$config['base_url'] = 'http://localhost/sema-desa-arbolado/login/DnatoArbolado'; //change link
 
 /*
 |--------------------------------------------------------------------------
@@ -542,5 +542,5 @@ $config['banned_users'] = array('unban', 'ban');
 | This is about email sender
 |
 */
-$config['register'] = 'guillegouiric@gmail.com';
-$config['forgot'] = 'guillegouiric@gmail.com';
+$config['register'] = '';
+$config['forgot'] = '';

@@ -11,13 +11,11 @@ class Area extends CI_Controller {
       $this->load->model('Manzanas');
       $this->load->model('Calles');
       $this->load->model('Censos');
-     
-     if(!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/Dash')
-     {
-      $this->session->set_userdata('direccionsalida','sema-desa-arbolado/Login');
-      logout();
-     }
-     
+      if(!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/web/Dash')
+      {
+       $this->session->set_userdata('direccionsalida','sema-desa-arbolado/web/Login');
+       logout();
+      }
    }
    function index(){
       $data['lista'] = $this->Areas->listar()->areas->area;

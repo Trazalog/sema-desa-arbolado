@@ -23,7 +23,7 @@
                             <input type="number" id="Telefono" name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Telefono" />
                         </div>
 
-                    <?}?>
+                    <?php } ?>
             <div class="row">
                 <div class="col-xs-10">
                 </div>
