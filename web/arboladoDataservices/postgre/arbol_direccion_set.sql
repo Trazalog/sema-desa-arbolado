@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.arbol_direccion_set(p_calle character varying, p_altura character varying, p_manz_id integer, p_nombre character varying, p_info_id integer, p_cens_id integer, p_lat character varying, p_long character varying, p_tipo character varying, p_imagen bytea, p_taza character varying)
+CREATE OR REPLACE FUNCTION public.arbol_direccion_set(p_calle character varying, p_altura character varying, p_manz_id integer, p_nombre character varying, p_info_id integer, p_cens_id integer, p_lat character varying, p_long character varying, p_tipo character varying, p_imagen bytea, p_taza character varying, p_barrio character varying)
  RETURNS character varying
  LANGUAGE plpgsql
 AS $function$
@@ -16,8 +16,10 @@ AS $function$
 				inner join arb_calles on arb_direcciones.call_id = arb_calles.call_id
 				where arb_calles.nombre = p_calle 
 				and arb_direcciones.altura = p_altura
-				and arb_direcciones.manz_id = p_manz_id;
-			
+				and arb_direcciones.manz_id = p_manz_id
+				and arb_direcciones.barrio = coalesce (p_barrio,'');
+			/** TODO: JOINEAR CON DIRECCIONES TAMBIEN*/
+
 		    RAISE INFO 'v_dire_id % - p_calle % - p_altura % -> En bloque 1', v_dire_id,p_calle,p_altura;
 			
 		    exception
@@ -48,10 +50,10 @@ AS $function$
 									where ca.nombre = p_calle
 									and ca.depa_id = v_depa_id;
 		    	    end;
-		    	    
+						/**TODO: ACA AGREGAR E BARRIO  */  	    
 		    	  /** Intento insertar la direcciòn ya que no existe **/
-		    		insert into arb_direcciones (call_id, altura, manz_id)
-		    		values(v_call_id, p_altura, p_manz_id);
+		    		insert into arb_direcciones (call_id, altura, manz_id, barrio)
+		    		values(v_call_id, p_altura, p_manz_id, p_barrio);
 		    		
 		    		RAISE INFO 'p_calle % - p_altura % - p_manz_id % -> En bloque 2', p_calle,p_altura,p_manz_id;
 		    		

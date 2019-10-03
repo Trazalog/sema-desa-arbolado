@@ -21,14 +21,11 @@
 
       for(i=0;i<puntos.length;i++){
 
-          var lat = puntos[i].lat.replace(/['"]+/g, '');
-          var lng = puntos[i].long.replace(/['"]+/g, '');
-         alert(lat);
-         alert(lng);
           var marker = new google.maps.Marker({
           //position:  {lat: puntos[i].lat, lng: puntos[i].long},          
           // position:  {lat: -31.5109472, lng: -68.6211062},
-          position:  {lat: lat, lng: lng},
+          position:  {lat: parseFloat(puntos[i].lat), 
+                      lng: parseFloat(puntos[i].long)},
           map: map,
           title: 'Hello World!',
           idarbol :puntos[i].id,
