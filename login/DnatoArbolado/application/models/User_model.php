@@ -217,6 +217,39 @@ class User_model extends CI_Model {
             $this->db->query($q);
             return $this->db->insert_id();
     }
+		// Agrego usr y pass a user store de wso2
+    public function addUserWSO2($cleanPost){
+        $string = array(
+            'UM_USER_NAME'=>$cleanPost['email'],
+            'UM_USER_PASSWORD'=>$cleanPost['password_orig']
+        );
+        $q = $this->db->insert_string('wso2am.UM_USER',$string);             
+        $this->db->query($q);
+        return $this->db->insert_id();
+		}
+		// agrego usuario a BD arbolado
+		public function addUserLocal($cleanPost){
+		
+			$_post_perfil = array(
+				"firstname"=> $cleanPost["firstname"],
+				"lastname"=> $cleanPost["lastname"],
+				"email"=> $cleanPost["email"],
+				"password_orig"=> $cleanPost["password_orig"]
+			);
+
+			$datos ['_post_perfil_local'] = $_post_perfil;
+			$data = json_encode($datos);
+		
+			$parametros["http"]["method"] = "POST";
+			$parametros["http"]["header"] = "Accept: application/json";	 
+			$parametros["http"]["header"] = "Content-Type: application/json";	 
+			$parametros["http"]["content"] = $data;		 
+			$param = stream_context_create($parametros);
+			$resource = '/perfil/local';	 	
+			$url = REST.$resource;
+			$array = file_get_contents($url, false, $param);
+			return json_decode($array);
+		}
     
     //update profile user
     public function updateProfile($post)

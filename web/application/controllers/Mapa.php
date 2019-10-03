@@ -16,10 +16,9 @@ class Mapa extends CI_Controller {
    }
    function index()
    {
-      $data['puntos'] = $this->Mapas->listar()->puntos->punto;
-      
-      $this->load->view('mapa/mapa',$data);
-      
+      $data['puntos'] = $this->Mapas->listar()->puntos->punto;   
+         
+      $this->load->view('mapa/mapa',$data);      
    }
    function getDetalle()
    {

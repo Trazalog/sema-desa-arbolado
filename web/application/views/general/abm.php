@@ -6,9 +6,36 @@
         <div class="box-body">
         <form role="form" id="formulario">
             <div class="form-group" style="width:40%" >
-                     <label  for="Nombre" class="form-label"><?php echo $nombre;?>:</label>
+                    <label  for="Nombre" class="form-label"><?php echo $nombre;?>:</label>
                     <input type="text" name="texto"  id="Nombre" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte nombre del <?php echo $nombre;?>" />
                     </div>
+										
+										<!-- departamentos -->
+										<?php  if($nombre == 'Calle'){?>
+											<label for="">Departamento:</label>
+											<div class="col-md-6 col-xs-12 input-group" >
+											<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">
+											<datalist id="departamentos">
+											<?php foreach($departamentos as $fila)
+											{
+													echo  "<option data-json='".json_encode($fila)."'value='".$fila->nombre."'>";
+											}
+													?>
+											</datalist>
+                <span class="input-group-btn">
+                    <button class='btn btn-primary' 
+                   data-toggle="modal" data-target="#modal_departamentos">
+                    <i class="glyphicon glyphicon-search"></i></button>
+                    </span> 
+            </div>
+
+
+
+
+										<?php } ?>
+
+
+
                     <?php if($nombre == 'Censista'){?>
                         <div class="form-group" style="width:40%">
                             <label  class="form-label">Apellido:</label>

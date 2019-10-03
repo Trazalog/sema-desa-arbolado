@@ -1,13 +1,13 @@
 <?php $this->load->view('mapa/modal_detalles')?>
 <div class="box"> 
-      <div class="box-header">
-          <h3 class="box-title">Mapa:</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body" style="height: 500px; width:1000px">
-        <div id="map" style="height: 100%"></div>
-        </div><!-- /.box-body -->
-      </div><!-- /.box -->
-      <script>
+  <div class="box-header">
+    <h3 class="box-title">Mapa:</h3>
+  </div><!-- /.box-header -->
+  <div class="box-body" style="height: 500px; width:1000px">
+    <div id="map" style="height: 100%"></div>
+  </div><!-- /.box-body -->
+</div><!-- /.box -->
+<script>
     var map;
       puntos = '<?php echo json_encode($puntos)?>';
       puntos = JSON.parse(puntos);
@@ -16,15 +16,26 @@
         center: {lat: -31.5361, lng: -68.5264},
         zoom: 8
       });
+
+      
+
       for(i=0;i<puntos.length;i++){
-      var marker = new google.maps.Marker({
-          position:  {lat: puntos[i].lat, lng: puntos[i].lng},
+
+          var lat = puntos[i].lat.replace(/['"]+/g, '');
+          var lng = puntos[i].long.replace(/['"]+/g, '');
+         alert(lat);
+         alert(lng);
+          var marker = new google.maps.Marker({
+          //position:  {lat: puntos[i].lat, lng: puntos[i].long},          
+          // position:  {lat: -31.5109472, lng: -68.6211062},
+          position:  {lat: lat, lng: lng},
           map: map,
           title: 'Hello World!',
           idarbol :puntos[i].id,
           tipo: puntos[i].tipo,
           direccion: puntos[i].direccion
         });
+        console.log('lat '+ puntos[i].lat + '-- ' + 'long ' + puntos[i].long)
         google.maps.event.addListener(marker, 'click', function() {
         var marker = this;
         

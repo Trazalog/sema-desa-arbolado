@@ -10,9 +10,10 @@ class Mapas extends CI_Model
     function listar()
     {
         
-        $parametros["http"]["method"] = "GET";		 
+        $parametros["http"]["method"] = "GET";	
+        $parametros["http"]["header"] = "Accept: application/json";		 	 
         $param = stream_context_create($parametros);
-        $resource = 'puntosmapa';	 	
+        $resource = '/puntosmapa';	 	
         $url = REST.$resource;
         $array = file_get_contents($url, false, $param);
         return json_decode($array);
