@@ -7,7 +7,7 @@
         <div class="box-body">
         <form role="form" id="formulario">
             <div class="form-group" style="width:40%" >
-                     <label  class="form-label">Departamento:</label>
+                    <label  class="form-label">Departamento:</label>
                     <select  name="select"  id="Nombre" class="form-control">
                         <option value="" disabled selected>-Seleccione Departamento-</option>
                         <?php

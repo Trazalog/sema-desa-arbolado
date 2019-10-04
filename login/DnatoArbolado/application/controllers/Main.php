@@ -73,68 +73,68 @@ class Main extends CI_Controller {
 	}
 	
 	public function checkLoginUser(){
-	     //user data from session
+	    //user data from session
 	    $data = $this->session->userdata;
 	    if(empty($data)){
 	        redirect(site_url().'main/login/');
 	    }
 	    
-	$this->load->library('user_agent');
-        $browser = $this->agent->browser();
-        $os = $this->agent->platform();
-        $getip = $this->input->ip_address();
-        
-        $result = $this->user_model->getAllSettings();
-        $stLe = $result->site_title;
-	$tz = $result->timezone;
+			$this->load->library('user_agent');
+			$browser = $this->agent->browser();
+			$os = $this->agent->platform();
+			$getip = $this->input->ip_address();
+			
+			$result = $this->user_model->getAllSettings();
+			$stLe = $result->site_title;
+			$tz = $result->timezone;
 	    
-	$now = new DateTime();
-        $now->setTimezone(new DateTimezone($tz));
-        $dTod =  $now->format('Y-m-d');
-        $dTim =  $now->format('H:i:s');
-        
-        $this->load->helper('cookie');
-        $keyid = rand(1,9000);
-        $scSh = sha1($keyid);
-        $neMSC = md5($data['email']);
-        $setLogin = array(
-            'name'   => $neMSC,
-            'value'  => $scSh,
-            'expire' => strtotime("+2 year"),
-        );
-        $getAccess = get_cookie($neMSC);
+			$now = new DateTime();
+			$now->setTimezone(new DateTimezone($tz));
+			$dTod =  $now->format('Y-m-d');
+			$dTim =  $now->format('H:i:s');
+			
+			$this->load->helper('cookie');
+			$keyid = rand(1,9000);
+			$scSh = sha1($keyid);
+			$neMSC = md5($data['email']);
+			$setLogin = array(
+					'name'   => $neMSC,
+					'value'  => $scSh,
+					'expire' => strtotime("+2 year"),
+			);
+			$getAccess = get_cookie($neMSC);
 	    
-        if(!$getAccess && $setLogin["name"] == $neMSC){
-            $config = array(
-                'protocol'  => 'smtp',
-                'smtp_host' => 'ssl://smtp.gmail.com',
-                'smtp_port' => 	465,
-                'smtp_user' => 'soportetrazalog24@gmail.com',
-                'smtp_pass' => '123trazalog24',
-                'smtp_timeout' => 90,
-                'newline'      => "\r\n",
-                'crlf'         => "\r\n",
-                'mailtype'     => 'html',
-                'charset'      => 'utf-8'
-            );
-            $this->load->library('email',$config);
-            $this->load->library('sendmail');
-            $bUrl = base_url();
-            $message = $this->sendmail->secureMail($data['first_name'],$data['last_name'],$data['email'],$dTod,$dTim,$stLe,$browser,$os,$getip,$bUrl);
-            $to_email = $data['email'];
-            $this->email->from($this->config->item('register'), 'New sign-in! from '.$browser.'');
-            $this->email->to($to_email);
-            $this->email->subject('New sign-in! from '.$browser.'');
-            $this->email->message($message);
-            $this->email->set_mailtype("html");
-            $this->email->send();
-            
-            $this->input->set_cookie($setLogin, TRUE);
-            redirect(site_url().'main/');
-        }else{
-            $this->input->set_cookie($setLogin, TRUE);
-            redirect(site_url().'main/');
-        }
+			if(!$getAccess && $setLogin["name"] == $neMSC){
+					$config = array(
+							'protocol'  => 'smtp',
+							'smtp_host' => 'ssl://smtp.gmail.com',
+							'smtp_port' => 	465,
+							'smtp_user' => 'soportetrazalog24@gmail.com',
+							'smtp_pass' => '123trazalog24',
+							'smtp_timeout' => 90,
+							'newline'      => "\r\n",
+							'crlf'         => "\r\n",
+							'mailtype'     => 'html',
+							'charset'      => 'utf-8'
+					);
+					$this->load->library('email',$config);
+					$this->load->library('sendmail');
+					$bUrl = base_url();
+					$message = $this->sendmail->secureMail($data['first_name'],$data['last_name'],$data['email'],$dTod,$dTim,$stLe,$browser,$os,$getip,$bUrl);
+					$to_email = $data['email'];
+					$this->email->from($this->config->item('register'), 'New sign-in! from '.$browser.'');
+					$this->email->to($to_email);
+					$this->email->subject('New sign-in! from '.$browser.'');
+					$this->email->message($message);
+					$this->email->set_mailtype("html");
+					$this->email->send();
+					
+					$this->input->set_cookie($setLogin, TRUE);
+					redirect(site_url().'main/');
+			}else{
+					$this->input->set_cookie($setLogin, TRUE);
+					redirect(site_url().'main/');
+			}
 	}
 	
 	public function settings(){
@@ -305,7 +305,7 @@ class Main extends CI_Controller {
 	}
 
     //edit user
-	public function changeuser() 
+		public function changeuser() 
     {
         $data = $this->session->userdata;
         if(empty($data['role'])){
@@ -415,7 +415,7 @@ class Main extends CI_Controller {
 	    if($dataLevel == "is_admin"){
             $this->form_validation->set_rules('firstname', 'First Name', 'required');
             $this->form_validation->set_rules('lastname', 'Last Name', 'required');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            //$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('role', 'role', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
             $this->form_validation->set_rules('passconf', 'Password Confirmation', 'required|matches[password]');
@@ -440,15 +440,20 @@ class Main extends CI_Controller {
                     $cleanPost['role'] = $this->input->post('role');
                     $cleanPost['firstname'] = $this->input->post('firstname');
                     $cleanPost['lastname'] = $this->input->post('lastname');
-                    $cleanPost['banned_users'] = 'unban';
+										$cleanPost['banned_users'] = 'unban';
+										// resguardo la password y encodeo en md5                 
+                    $cleanPost['password_orig'] = md5( $cleanPost['password'] );
                     $cleanPost['password'] = $hashed;
                     unset($cleanPost['passconf']);
-
+										// inserto en DB WSO2
+										$this->user_model->addUserWSO2($cleanPost);
+										// llamar al servicio post de perfil customizado no lleva foto
+										$restResponse = $this->user_model->addUserLocal($cleanPost);	
                     //insert to database
                     if(!$this->user_model->addUser($cleanPost)){
                         $this->session->set_flashdata('flash_message', 'Hubo un problema agregando el usuario');
                     }else{
-                        $this->session->set_flashdata('success_message', 'Usuario agregado correctamente');
+										     $this->session->set_flashdata('success_message', 'Usuario agregado correctamente');
                     }
                     redirect(site_url().'main/users/');
                 };
@@ -544,8 +549,7 @@ class Main extends CI_Controller {
                 }else{
                     //insert to database
                     $id = $this->user_model->insertUser($clean);
-                    $token = $this->user_model->insertToken($id);
-    
+										$token = $this->user_model->insertToken($id);	
                     //generate token
                     $qstring = $this->base64url_encode($token);
                     $url = site_url() . 'main/complete/token/' . $qstring;
@@ -671,13 +675,13 @@ class Main extends CI_Controller {
     //check login failed or success
     public function login()
     {
-        $data = $this->session->userdata;
-        if(!empty($data['email'])){
+			$data = $this->session->userdata;
+			if(!empty($data['email'])){
 	        redirect(site_url().'main/');
 	    }else{
-	        $this->load->library('curl');
+	        	$this->load->library('curl');
             $this->load->library('recaptcha');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            //$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('password', 'Password', 'required');
             
             $data['title'] = "Bienvenido!";
