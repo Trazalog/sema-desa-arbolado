@@ -15,6 +15,7 @@ class Departamento extends CI_Controller {
      
    }
    function index(){
+     // $data['lista'] = $this->Departamentos->listar()->departamentos->departamento;
       $data['lista'] = $this->Departamentos->listar()->departamentos->departamento;
       $data['titulo'] = 'ABM Departamentos';
       $data['nombre'] = 'Departamento';
@@ -29,9 +30,10 @@ class Departamento extends CI_Controller {
       
    }
    function Guardar_Nuevo()
- {
+   {
      $data['nombre'] = $this->input->post('datonombre');
-     echo json_encode($data);
- }
+     $resp = $this->Departamentos->Guardar_Nuevo($data);
+     echo json_encode($resp);
+   }
 }
 ?>

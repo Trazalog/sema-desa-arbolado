@@ -33,6 +33,7 @@ class Calle extends CI_Controller {
    function Guardar_Nuevo()
    {
      $data['nombre'] = $this->input->post('datonombre');
+     $data['depa_id']= $this->input->post('depa_id');
      echo json_encode($data);
    }
 }

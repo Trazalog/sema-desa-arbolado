@@ -15,17 +15,29 @@
 											<label for="">Departamento:</label>
 											<div class="col-md-6 col-xs-12 input-group" >
 											<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">
-											<datalist id="departamentos">
+										
+											<!-- <input list="departamentos" id="id_inputdepartamentos" placeholder="id_departamentopo" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">-->
+											<datalist id="departamentos"> 
 											<?php foreach($departamentos as $fila)
-											{
-													echo  "<option data-json='".json_encode($fila)."'value='".$fila->nombre."'>";
-											}
-													?>
+												{
+														echo  "<option data-json='".json_encode($fila)."' value='".$fila->nombre."' data-id='".$fila->id."'   >";							
+												}
+
+												//var_dump($fila->id);
+											?>
+
+											
+
+
+
+
+
+
 											</datalist>
-                <span class="input-group-btn">
-                    <button class='btn btn-primary' 
-                   data-toggle="modal" data-target="#modal_departamentos">
-                    <i class="glyphicon glyphicon-search"></i></button>
+										<span class="input-group-btn">
+												<button class='btn btn-primary' 
+											data-toggle="modal" data-target="#modal_departamentos">
+												<i class="glyphicon glyphicon-search"></i></button>
                     </span> 
             </div>
 
@@ -93,114 +105,126 @@
             }
         }
     });
-}else{
-    $('#formulario').bootstrapValidator({
-        message: 'Este Valor no es valido',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            texto: {
-                message: 'El Nombre ingresado no es valido',
-                validators: {
-                    notEmpty: {
-                        message: 'Ingrese algun Valor'
-                    },
-                    regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'El nombre solo puede usar caracteres alfabeticos o numeros'
-                    }
-                }
-            }
-        }
-    });
-}
-});
-  
-function Guardar(nombre)
-  {
+		}else{
+				$('#formulario').bootstrapValidator({
+						message: 'Este Valor no es valido',
+						feedbackIcons: {
+								valid: 'glyphicon glyphicon-ok',
+								invalid: 'glyphicon glyphicon-remove',
+								validating: 'glyphicon glyphicon-refresh'
+						},
+						fields: {
+								texto: {
+										message: 'El Nombre ingresado no es valido',
+										validators: {
+												notEmpty: {
+														message: 'Ingrese algun Valor'
+												},
+												regexp: {
+														regexp: /^[a-zA-Z0-9_]+$/,
+														message: 'El nombre solo puede usar caracteres alfabeticos o numeros'
+												}
+										}
+								}
+						}
+				});
+		}
+	});
+	
+
+
+
+
+	function Guardar(nombre){
+
     $('#formulario').bootstrapValidator('validate');
     estado= $('#formulario').data('bootstrapValidator').isValid();
     if(estado)
     {
-        datonombre = document.getElementById('Nombre').value
+				datonombre = document.getElementById('Nombre').value;
+				//dataId = $('#inputdepartamentos').data('id');
+
+				//alert(dataId);
         switch(nombre)
         {
         case 'Arbol':
         $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Arbol/Guardar_Nuevo', 
-        success: function(result){
-            linkTo('Arbol');
-        }
-        });
-        
-        break;
+					type: 'POST',
+					data: { datonombre:datonombre },
+					url: 'Arbol/Guardar_Nuevo', 
+					success: function(result){
+							linkTo('Arbol');
+					}
+        });        
+				break;				
         case 'Area geografica':
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Area/Guardar_Nuevo', 
-        success: function(result){
-            console.log(result);
-            linkTo('Area');
-        }
-        });
-        
-        break;
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre },
+								url: 'Area/Guardar_Nuevo', 
+								success: function(result){
+										console.log(result);
+										linkTo('Area');
+								}
+							});        
+							break;
+				
         case 'Censista':
-        apellido = document.getElementById('Apellido').value
-        direccion = document.getElementById('Direccion').value
-        telefono = document.getElementById('Telefono').value
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre, apellido:apellido, direccion: direccion, telefono:telefono },
-        url: 'Censista/Guardar_Nuevo', 
-        success: function(result){
-            console.log(result);
-            linkTo('Censista');
-        }
-        });
-        break;
+							apellido = document.getElementById('Apellido').value
+							direccion = document.getElementById('Direccion').value
+							telefono = document.getElementById('Telefono').value
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre, apellido:apellido, direccion: direccion, telefono:telefono },
+								url: 'Censista/Guardar_Nuevo', 
+								success: function(result){
+										console.log(result);
+										linkTo('Censista');
+								}
+							});
+				break;				
         case 'Departamento':
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Departamento/Guardar_Nuevo', 
-        success: function(result){
-            console.log(result);
-            linkTo('Departamento');
-        }
-        });
-        break;
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre },
+								url: 'Departamento/Guardar_Nuevo', 
+								success: function(result){
+										console.log(result);
+										linkTo('Departamento');
+								}
+							});
+							break;
+				
         case 'Calle':
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Calle/Guardar_Nuevo', 
-        success: function(result){
-            console.log(result);
-            linkTo('Calle');
-        }
-        });
-        break;
+
+
+
+
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre },
+								url: 'Calle/Guardar_Nuevo', 
+								success: function(result){
+										console.log(result);
+										linkTo('Calle');
+								}
+							});
+							break;
+				
         case 'Manzana':
         $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Manzana/Guardar_Nuevo', 
-        success: function(result){
+					type: 'POST',
+					data: { datonombre:datonombre },
+					url: 'Manzana/Guardar_Nuevo', 
+					success: function(result){
             console.log(result);
             linkTo('Manzana');
-        }
-            });
+        	}
+        });
         break;
         default:
         break;
         }
     }
-}
+	}
   </script>
