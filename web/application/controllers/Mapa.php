@@ -16,13 +16,17 @@ class Mapa extends CI_Controller {
    }
    function index()
    {
-      //TODO:LLAMAR AL SERVICE TREE_LIST HECHO NUEVO 
-
-			// $data['puntos'] = $this->Mapas->listar()->puntos->punto;
-			$data['puntos'] = $this->Mapas->listar()->arbol_list->area;   
-      //var_dump($data);   
+      
       $this->load->view('mapa/mapa',$data);      
    }
+
+   // retorna listado de arboles por id de censo
+   function getArbolesCensoId(){
+      $cens_id = $this->input->post('cens_id');      
+      $data['puntos'] = $this->Mapas->listar($cens_id)->arbol_list->area;   
+      echo json_encode($data);
+   }
+   // retorna formulario de arbol por info_id
    function getDetalle()
    {
       $id = $this->input->post('id');

@@ -106,7 +106,7 @@
       <param name="usua_id" optional="false" sqlType="INTEGER"/>
    </query>
    <query id="setArbol" useConfig="arbolado">
-      <sql>select public.arbol_direccion_set(&#xd;:calle&#xd;,:altura&#xd;,CAST(:manz_id AS INTEGER)&#xd;,:nombre&#xd;,CAST(:info_id AS INTEGER)&#xd;,CAST(:cens_id AS INTEGER)&#xd;,:lat&#xd;,:long&#xd;,:tipo&#xd;,:imagen, :taza) resultado;</sql>
+      <sql>select public.arbol_direccion_set(&#xd;:calle&#xd;,:altura&#xd;,CAST(:manz_id AS INTEGER)&#xd;,:nombre&#xd;,CAST(:info_id AS INTEGER)&#xd;,CAST(:cens_id AS INTEGER)&#xd;,:lat&#xd;,:long&#xd;,:tipo&#xd;,:imagen&#xd;,:taza&#xd;,:barrio) resultado;</sql>
       <result outputType="json">{&#xd;   "resultado":{&#xd;           "codigo": "$resultado"&#xd;             }&#xd;}</result>
       <param name="nombre" sqlType="STRING"/>
       <param name="info_id" optional="false" sqlType="STRING"/>
@@ -119,10 +119,11 @@
       <param name="altura" sqlType="STRING"/>
       <param name="manz_id" sqlType="STRING"/>
       <param name="taza" sqlType="STRING"/>
+      <param name="barrio" sqlType="STRING"/>
    </query>
    <query id="getArbol" useConfig="arbolado">
-      <sql>SELECT &#xd;    arbo_id, nombre, info_id, cens_id, lat, long, tipo, imagen, dire_id, taza&#xd;FROM &#xd;    arb_arboles &#xd;WHERE &#xd;    arbo_id = CAST(:arbo_id AS INTEGER)</sql>
-      <result outputType="json">{&#xd;  "arbol":{&#xd;       "arbo_id": "$arbo_id",&#xd;       "nombre": "$nombre", &#xd;       "info_id": "$info_id",&#xd;       "cens_id": "$cens_id",&#xd;       "lat": "$lat",&#xd;       "long": "$long",&#xd;       "tipo": "$tipo",&#xd;       "imagen": "$imagen",&#xd;       "dire_id": "$dire_id",&#xd;       "taza": "$taza" &#xd;       }&#xd;}</result>
+      <sql>SELECT &#xd;    arbo_id, nombre, info_id, cens_id, lat, long, tipo, imagen, arb_arboles.dire_id, taza, barrio&#xd;FROM &#xd;    arb_arboles &#xd;JOIN &#xd;    arb_direcciones on arb_direcciones.dire_id = arb_arboles.dire_id&#xd;WHERE &#xd;    arbo_id = CAST(:arbo_id AS INTEGER)</sql>
+      <result outputType="json">{&#xd;  "arbol":{&#xd;       "arbo_id": "$arbo_id",&#xd;       "nombre": "$nombre", &#xd;       "info_id": "$info_id",&#xd;       "cens_id": "$cens_id",&#xd;       "lat": "$lat",&#xd;       "long": "$long",&#xd;       "tipo": "$tipo",&#xd;       "imagen": "$imagen",&#xd;       "dire_id": "$dire_id",&#xd;       "taza": "$taza",&#xd;       "barrio": "$barrio" &#xd;       }&#xd;}</result>
       <param name="arbo_id" optional="false" sqlType="STRING"/>
    </query>
    <query id="setPerfil" useConfig="arbolado">
@@ -230,6 +231,11 @@
          <with-param name="email" query-param="email"/>
       </call-query>
    </operation>
+   <operation name="getArbolxid">
+      <call-query href="getArbol">
+         <with-param name="arbo_id" query-param="arbo_id"/>
+      </call-query>
+   </operation>
    <resource method="GET" path="/listaareas-ver">
       <call-query href="listaareas-ver">
          <with-param name="arge_id" query-param="arge_id"/>
@@ -325,6 +331,7 @@
          <with-param name="altura" query-param="altura"/>
          <with-param name="manz_id" query-param="manz_id"/>
          <with-param name="taza" query-param="taza"/>
+         <with-param name="barrio" query-param="barrio"/>
       </call-query>
    </resource>
    <resource method="GET" path="/arbol/{id}">

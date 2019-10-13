@@ -7,31 +7,20 @@ class Mapas extends CI_Model
 	{
 		parent::__construct();
     }
-    function listar()
+
+    // retorna listado de arboles por id de censo
+    function listar($cens_id)
     {
         
-        // $parametros["http"]["method"] = "GET";	
-        // $parametros["http"]["header"] = "Accept: application/json";		 	 
-        // $param = stream_context_create($parametros);
-        // $resource = '/puntosmapa';	 	
-        // $url = REST.$resource;
-        // $array = file_get_contents($url, false, $param);
-        // return json_decode($array);
-
-				//TODO: HACER SERVICIO COMO TREE_LIST PERO FILTRADO POR CENS_ID
-				
 				$parametros["http"]["method"] = "GET";
         $parametros["http"]["header"] = "Accept: application/json";	 
-        $param = stream_context_create($parametros);
-    		//	$resource = '/perfil/local';	 
-        //$url = REST.$resource;
-        //$url = 'http://dev-trazalog.com.ar:8280/services/arboladoDS/tree_list/1';
-				
-				$url = 'http://pc-pc:8280/services/arboladoDS/tree_list/censo/1';
-        $array = file_get_contents($url, false, $param);     
-        return json_decode($array);
+        $param = stream_context_create($parametros);   	
+        
+        $resource = '/tree_list/censo/';
+        $url = REST.$resource.$cens_id;  
+        $array = file_get_contents($url, false, $param); 
 
-       // var_dump($array);        
+        return json_decode($array);
     }
     function Detalles($id)
     {
@@ -59,7 +48,11 @@ class Mapas extends CI_Model
         $param = stream_context_create($parametros);
     		//	$resource = '/perfil/local';	 
         //$url = REST.$resource;
-        $url = 'http://dev-trazalog.com.ar:8280/services/arboladoDS/formulario/1';
+
+        $resource = '/formulario/';	
+        $url = REST.$resource.$id;
+
+       // $url = 'http://dev-trazalog.com.ar:8280/services/arboladoDS/formulario/1';
 
         $array = file_get_contents($url, false, $param);
         
