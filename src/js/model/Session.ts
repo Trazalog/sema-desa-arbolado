@@ -4,16 +4,24 @@ import * as store from "store2";
 export class Session {
 
 
-    public static create(session_id: string,  username: string) {
+    public static create(username: string, access_token: string,  refresh_token: string, scope: string, token_type: string, expires_in: string) {
 
-        store.set("session_id", session_id);
         store.set("username", username);
+        store.set("access_token", access_token);
+        store.set("refresh_token", refresh_token);
+        store.set("scope", scope);
+        store.set("token_type", token_type);
+        store.set("expires_in", expires_in);
     }
 
     public static invalidate() {
 
-        store.remove("session_id");
         store.remove("username");
+        store.remove("access_token");
+        store.remove("refresh_token");
+        store.remove("scope");
+        store.remove("token_type");
+        store.remove("expires_in");
 
         store.clearAll();
     }
@@ -21,19 +29,23 @@ export class Session {
 
     public static exists() {
 
-        return store.size() === 2 &&
-            store.has("session_id") &&
-            store.has("username");
-    }
-
-    public static getSessionID(){
-
-        return store.get("session_id");
+        return store.size() === 6 &&
+            store.has("username") &&
+            store.has("access_token") &&
+            store.has("refresh_token") &&
+            store.has("scope") &&
+            store.has("token_type") &&
+            store.has("expires_in")
     }
 
 
     public static getSessionUsername(){
 
         return store.get("username");
+    }
+
+    public static getAccessToken() {
+
+        return store.get("access_token");
     }
 }

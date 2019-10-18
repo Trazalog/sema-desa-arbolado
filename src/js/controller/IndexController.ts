@@ -11,9 +11,10 @@ import {Session} from "../model/Session";
 
 import {User} from "../model/User";
 
-import {Configuration} from "../model/Configuration";
-
 import {Connectivity} from "../model/Connectivity";
+
+let CryptoJS = require("crypto-js");
+
 
 require('bootstrap');
 
@@ -36,11 +37,10 @@ new vue ({
     },
     mounted() {
 
-        if (!Configuration.checkCompatibility()){
+        /*if (!Configuration.checkCompatibility()){
 
             let message = $("#message");
 
-            /*** Prepare and show message ***/
             this.alert_title = "¡Advertencia!";
             this.alert_message = "Tu navegador web " + Configuration.getBrowserName() + " necesita ser actualizado para que puedas usar todas las funciones de la aplicación.";
 
@@ -48,15 +48,24 @@ new vue ({
             message.find(".modal-content").removeClass("modal-warning");
             message.find(".modal-content").addClass("modal-danger");
             (<any>message).modal("show");
-        }
+        }*/
 
 
         /* Check connectivity */
-        this.checkNetworkConnection();
-
-        this.interval = setInterval(() => {
+        try {
             this.checkNetworkConnection();
-        }, 10000)
+
+            this.interval = setInterval(() => {
+                this.checkNetworkConnection();
+            }, 10000);
+
+        } catch (e) {
+            
+        }
+
+
+        // Remove loading
+        $(".se-pre-con").fadeOut("slow");
     },
     beforeDestroy() {
 
@@ -74,52 +83,34 @@ new vue ({
 
                     this.$validator.errors.clear();
 
+                    let passwd = null;
 
-                    User.login(this.username, this.password)
+                    if (this.password == "admin")
+                        passwd = this.password;
+                    else
+                        passwd = CryptoJS.MD5(this.password).toString();
+
+                    let username = this.username.toLowerCase().trim();
+
+                    User.login(username, passwd)
                         .then( response => {
 
-                            if (response.data.login.status === "success") {
-
+                            if (response.status === 200 || response.status === 201) {
 
                                 /*** JS create session ***/
                                 Session.create(
-                                    response.data.login.data.session_id,
-                                    response.data.login.data.username,
+                                    username,
+                                    response.data.access_token,
+                                    response.data.refresh_token,
+                                    response.data.scope,
+                                    response.data.token_type,
+                                    response.data.expires_in
                                 );
 
 
                                 /*** Redirection ***/
                                 let url = "home.html";
                                 window.location.replace(url);
-
-
-                            } else if (response.data.login.status === "error") {
-
-                                /*** Prepare and show message ***/
-                                this.alert_title = "Error al iniciar sesión";
-                                this.alert_message = "El usuario o la contraseña no son válidos.";
-
-
-                                message.find(".modal-content").removeClass("modal-danger");
-                                message.find(".modal-content").addClass("modal-warning");
-                                (<any>message).modal("show");
-
-
-                                /*** Clean data entry ***/
-                                this.username = "";
-                                this.password = "";
-
-
-                                /*** Enable submit again ***/
-                                let submit = $("button[type=submit]");
-
-                                /* Disabled */
-                                submit.removeAttr("disabled");
-
-                                /* Loading */
-                                submit.find("i").removeClass("fa-spinner fa-spin");
-                                submit.find("i").addClass("fa-sign-out-alt");
-
 
                             } else {
 
@@ -152,31 +143,62 @@ new vue ({
                         })
                         .catch(error => {
 
-                            /*** Prepare and show message ***/
-                            this.alert_title = "Error de comunicación";
-                            this.alert_message = "En estos momento no es posible establecer conexión con el servidor.";
+                            if (error.response.status === 400) {
+
+                                /*** Prepare and show message ***/
+                                this.alert_title = "Error al iniciar sesión";
+                                this.alert_message = "El usuario o la contraseña no son válidos.";
 
 
-                            message.find(".modal-content").removeClass("modal-warning");
-                            message.find(".modal-content").addClass("modal-danger");
-                            (<any>message).modal("show");
+                                message.find(".modal-content").removeClass("modal-danger");
+                                message.find(".modal-content").addClass("modal-warning");
+                                (<any>message).modal("show");
 
 
-                            /*** Clean data entry ***/
-                            this.username = "";
-                            this.password = "";
+                                /*** Clean data entry ***/
+                                this.username = "";
+                                this.password = "";
 
 
-                            /*** Enable submit again ***/
-                            let submit = $("button[type=submit]");
+                                /*** Enable submit again ***/
+                                let submit = $("button[type=submit]");
 
-                            /* Disabled */
-                            submit.removeAttr("disabled");
+                                /* Disabled */
+                                submit.removeAttr("disabled");
 
-                            /* Loading */
-                            submit.find("i").removeClass("fa-spinner fa-spin");
-                            submit.find("i").addClass("fa-sign-out-alt");
+                                /* Loading */
+                                submit.find("i").removeClass("fa-spinner fa-spin");
+                                submit.find("i").addClass("fa-sign-out-alt");
 
+                            } else {
+
+                                /*** Prepare and show message ***/
+                                this.alert_title = "Error de comunicación";
+                                this.alert_message = "En estos momento no es posible establecer conexión con el servidor.";
+
+
+                                message.find(".modal-content").removeClass("modal-warning");
+                                message.find(".modal-content").addClass("modal-danger");
+                                (<any>message).modal("show");
+
+
+                                /*** Clean data entry ***/
+                                this.username = "";
+                                this.password = "";
+
+
+                                /*** Enable submit again ***/
+                                let submit = $("button[type=submit]");
+
+                                /* Disabled */
+                                submit.removeAttr("disabled");
+
+                                /* Loading */
+                                submit.find("i").removeClass("fa-spinner fa-spin");
+                                submit.find("i").addClass("fa-sign-out-alt");
+
+
+                            }
                         });
 
                 } else {
@@ -209,6 +231,35 @@ new vue ({
             }).catch(() => {
 
                 this.$validator.errors.clear();
+
+                /*** Message modal ***/
+                let message = $("#message");
+
+                /*** Prepare and show message ***/
+                this.alert_title = "Error de comunicación";
+                this.alert_message = "En estos momento no es posible establecer conexión con el servidor.";
+
+
+                message.find(".modal-content").removeClass("modal-warning");
+                message.find(".modal-content").addClass("modal-danger");
+                (<any>message).modal("show");
+
+
+                /*** Clean data entry ***/
+                this.username = "";
+                this.password = "";
+
+
+                /*** Enable submit again ***/
+                let submit = $("button[type=submit]");
+
+                /* Disabled */
+                submit.removeAttr("disabled");
+
+                /* Loading */
+                submit.find("i").removeClass("fa-spinner fa-spin");
+                submit.find("i").addClass("fa-sign-out-alt");
+
             });
         },
         checkNetworkConnection() {

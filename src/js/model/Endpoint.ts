@@ -1,24 +1,41 @@
 export class Endpoint {
 
     private static _PROTOCOL: string = "https";
+    //private static _PROTOCOL: string = "http";
 
-    private static _HOSTNAME_BACKEND: string = "demo3989873.mockable.io";
+    //private static _HOSTNAME_BACKEND: string = "demo3989873.mockable.io";
+    //private static _HOSTNAME_BACKEND: string = "35.196.55.250";
+    private static _HOSTNAME_BACKEND: string = "dev-trazalog.com.ar";
 
-    private static _PORT_BACKEND: string = "443";
+    private static _PORT_BACKEND: string = "8246";
+    //private static _PORT_BACKEND: string = "8283";
+
+    private static _TIMEOUT: number = 90000; // in ms 1000ms = 1seg.
 
 
     /* ENDPOINTS
     * ==========
     */
 
-    /* User login */
-    private static _URL_LOGIN: string = "/user/login";
+    private static _URL_LOGIN: string = "/token";
+    //private static _URL_LOGIN: string = "/user/login";
 
-    /* Ger user profile */
-    private static _URL_GET_USER_PROFILE: string = "/user/profile/get";
+    private static _URL_GET_USER_PROFILE: string = "/arbolado/api/ds/v1.0.0/perfil";
 
-    /* Save user profile */
-    private static _URL_UPDATE_USER_PROFILE: string = "/user/profile/update";
+    private static _URL_UPDATE_USER_PROFILE: string = "/arbolado/api/ds/v1.0.0/perfil";
+
+    private static _URL_GET_USER_TREE: string = "/arbolado/api/v1.0.0/area";
+
+    private static _URL_INSTANCE_FORM: string = "/arbolado/api/ds/v1.0.0/request_box";
+
+    private static _URL_PUT_FORM: string = "/arbolado/api/ds/v1.0.0/_put_formulario_batch_req";
+
+    private static _URL_POST_NEW_TREE: string = "/arbolado/api/ds/v1.0.0/arbol";
+
+    private static _URL_GET_TREE_DATA: string = "/arbolado/api/ds/v1.0.0/arbol";
+
+    private static _URL_GET_FORM: string = "/arbolado/api/ds/v1.0.0/formulario/";
+
 
 
 
@@ -70,5 +87,65 @@ export class Endpoint {
 
     static set URL_UPDATE_USER_PROFILE(value: string) {
         this._URL_UPDATE_USER_PROFILE = value;
+    }
+
+
+    static get URL_GET_USER_TREE(): string {
+        return this._URL_GET_USER_TREE;
+    }
+
+    static set URL_GET_USER_TREE(value: string) {
+        this._URL_GET_USER_TREE = value;
+    }
+
+
+    static get TIMEOUT(): number {
+        return this._TIMEOUT;
+    }
+
+    static set TIMEOUT(value: number) {
+        this._TIMEOUT = value;
+    }
+
+    static get URL_INSTANCE_FORM():string{
+        return this._URL_INSTANCE_FORM;
+    }
+
+    static set URL_INSTANCE_FORM(value){
+        this._URL_INSTANCE_FORM=value;
+    }
+
+    static get URL_GET_FORM(): string {
+        return this._URL_GET_FORM;
+    }
+
+    static set URL_GET_FORM(value: string) {
+        this._URL_GET_FORM = value;
+    }
+
+
+    static get URL_PUT_FORM(): string {
+        return this._URL_PUT_FORM;
+    }
+
+    static set URL_PUT_FORM(value: string) {
+        this._URL_PUT_FORM = value;
+    }
+
+
+    static get URL_POST_NEW_TREE(): string {
+        return this._URL_POST_NEW_TREE;
+    }
+
+    static set URL_POST_NEW_TREE(value: string) {
+        this._URL_POST_NEW_TREE = value;
+    }
+
+    static get URL_GET_TREE_DATA(): string {
+        return this._URL_GET_TREE_DATA;
+    }
+
+    static set URL_GET_TREE_DATA(value: string) {
+        this._URL_GET_TREE_DATA = value;
     }
 }

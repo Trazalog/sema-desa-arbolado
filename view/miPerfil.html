@@ -3,7 +3,7 @@
 <head>
     <script type="text/javascript">
 
-        if (localStorage.getItem("session_id") == null) {
+        if (localStorage.getItem("access_token") == null) {
 
             window.location.replace("/");
         }
@@ -11,7 +11,7 @@
     </script>
 
     <!-- Title -->
-    <title>Arbolado 2019 | Mi Perfil</title>
+    <title>Arbolado 2019</title>
 
     <!-- Main Icon -->
     <link rel="icon" type="text/css" href="../resource/image/main-icon.png">
@@ -26,6 +26,10 @@
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 </head>
 <body id="bodyMiPerfil">
+
+<!-- Loading -->
+<div class="se-pre-con"></div>
+
 
     <div id="mainMiPerfil">
 
@@ -146,7 +150,6 @@
 
                     <label for="phone"></label>
                     <input id="phone" name="phone" type="text" class="form-control" placeholder="Teléfono"
-                           data-vv-as="teléfono"
                            :class="{'validate-error': errors.has('phone')}"
                            v-validate="{ required:true, min:7, max:12, numeric:true }"
                            v-model="phone">

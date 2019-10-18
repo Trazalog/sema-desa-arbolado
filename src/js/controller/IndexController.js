@@ -5,8 +5,8 @@ import VeeValidate, { Validator } from 'vee-validate';
 import * as es from 'vee-validate/dist/locale/es';
 import { Session } from "../model/Session";
 import { User } from "../model/User";
-import { Configuration } from "../model/Configuration";
 import { Connectivity } from "../model/Connectivity";
+var CryptoJS = require("crypto-js");
 require('bootstrap');
 Validator.localize('es', es);
 Vue.use(VeeValidate, {
@@ -24,21 +24,30 @@ new vue({
         connection_quality: ''
     },
     mounted: function () {
-        var _this = this;
-        if (!Configuration.checkCompatibility()) {
-            var message = $("#message");
-            /*** Prepare and show message ***/
+        /*if (!Configuration.checkCompatibility()){
+
+            let message = $("#message");
+
             this.alert_title = "¡Advertencia!";
             this.alert_message = "Tu navegador web " + Configuration.getBrowserName() + " necesita ser actualizado para que puedas usar todas las funciones de la aplicación.";
+
+
             message.find(".modal-content").removeClass("modal-warning");
             message.find(".modal-content").addClass("modal-danger");
-            message.modal("show");
-        }
+            (<any>message).modal("show");
+        }*/
+        var _this = this;
         /* Check connectivity */
-        this.checkNetworkConnection();
-        this.interval = setInterval(function () {
-            _this.checkNetworkConnection();
-        }, 10000);
+        try {
+            this.checkNetworkConnection();
+            this.interval = setInterval(function () {
+                _this.checkNetworkConnection();
+            }, 10000);
+        }
+        catch (e) {
+        }
+        // Remove loading
+        $(".se-pre-con").fadeOut("slow");
     },
     beforeDestroy: function () {
         clearInterval(this.interval);
@@ -51,32 +60,20 @@ new vue({
                 var message = $("#message");
                 if (isValid) {
                     _this.$validator.errors.clear();
-                    User.login(_this.username, _this.password)
+                    var passwd = null;
+                    if (_this.password == "admin")
+                        passwd = _this.password;
+                    else
+                        passwd = CryptoJS.MD5(_this.password).toString();
+                    var username_1 = _this.username.toLowerCase().trim();
+                    User.login(username_1, passwd)
                         .then(function (response) {
-                        if (response.data.login.status === "success") {
+                        if (response.status === 200 || response.status === 201) {
                             /*** JS create session ***/
-                            Session.create(response.data.login.data.session_id, response.data.login.data.username);
+                            Session.create(username_1, response.data.access_token, response.data.refresh_token, response.data.scope, response.data.token_type, response.data.expires_in);
                             /*** Redirection ***/
                             var url = "home.html";
                             window.location.replace(url);
-                        }
-                        else if (response.data.login.status === "error") {
-                            /*** Prepare and show message ***/
-                            _this.alert_title = "Error al iniciar sesión";
-                            _this.alert_message = "El usuario o la contraseña no son válidos.";
-                            message.find(".modal-content").removeClass("modal-danger");
-                            message.find(".modal-content").addClass("modal-warning");
-                            message.modal("show");
-                            /*** Clean data entry ***/
-                            _this.username = "";
-                            _this.password = "";
-                            /*** Enable submit again ***/
-                            var submit = $("button[type=submit]");
-                            /* Disabled */
-                            submit.removeAttr("disabled");
-                            /* Loading */
-                            submit.find("i").removeClass("fa-spinner fa-spin");
-                            submit.find("i").addClass("fa-sign-out-alt");
                         }
                         else {
                             /*** Prepare and show message ***/
@@ -98,22 +95,42 @@ new vue({
                         }
                     })
                         .catch(function (error) {
-                        /*** Prepare and show message ***/
-                        _this.alert_title = "Error de comunicación";
-                        _this.alert_message = "En estos momento no es posible establecer conexión con el servidor.";
-                        message.find(".modal-content").removeClass("modal-warning");
-                        message.find(".modal-content").addClass("modal-danger");
-                        message.modal("show");
-                        /*** Clean data entry ***/
-                        _this.username = "";
-                        _this.password = "";
-                        /*** Enable submit again ***/
-                        var submit = $("button[type=submit]");
-                        /* Disabled */
-                        submit.removeAttr("disabled");
-                        /* Loading */
-                        submit.find("i").removeClass("fa-spinner fa-spin");
-                        submit.find("i").addClass("fa-sign-out-alt");
+                        if (error.response.status === 400) {
+                            /*** Prepare and show message ***/
+                            _this.alert_title = "Error al iniciar sesión";
+                            _this.alert_message = "El usuario o la contraseña no son válidos.";
+                            message.find(".modal-content").removeClass("modal-danger");
+                            message.find(".modal-content").addClass("modal-warning");
+                            message.modal("show");
+                            /*** Clean data entry ***/
+                            _this.username = "";
+                            _this.password = "";
+                            /*** Enable submit again ***/
+                            var submit = $("button[type=submit]");
+                            /* Disabled */
+                            submit.removeAttr("disabled");
+                            /* Loading */
+                            submit.find("i").removeClass("fa-spinner fa-spin");
+                            submit.find("i").addClass("fa-sign-out-alt");
+                        }
+                        else {
+                            /*** Prepare and show message ***/
+                            _this.alert_title = "Error de comunicación";
+                            _this.alert_message = "En estos momento no es posible establecer conexión con el servidor.";
+                            message.find(".modal-content").removeClass("modal-warning");
+                            message.find(".modal-content").addClass("modal-danger");
+                            message.modal("show");
+                            /*** Clean data entry ***/
+                            _this.username = "";
+                            _this.password = "";
+                            /*** Enable submit again ***/
+                            var submit = $("button[type=submit]");
+                            /* Disabled */
+                            submit.removeAttr("disabled");
+                            /* Loading */
+                            submit.find("i").removeClass("fa-spinner fa-spin");
+                            submit.find("i").addClass("fa-sign-out-alt");
+                        }
                     });
                 }
                 else {
@@ -135,6 +152,24 @@ new vue({
                 }
             }).catch(function () {
                 _this.$validator.errors.clear();
+                /*** Message modal ***/
+                var message = $("#message");
+                /*** Prepare and show message ***/
+                _this.alert_title = "Error de comunicación";
+                _this.alert_message = "En estos momento no es posible establecer conexión con el servidor.";
+                message.find(".modal-content").removeClass("modal-warning");
+                message.find(".modal-content").addClass("modal-danger");
+                message.modal("show");
+                /*** Clean data entry ***/
+                _this.username = "";
+                _this.password = "";
+                /*** Enable submit again ***/
+                var submit = $("button[type=submit]");
+                /* Disabled */
+                submit.removeAttr("disabled");
+                /* Loading */
+                submit.find("i").removeClass("fa-spinner fa-spin");
+                submit.find("i").addClass("fa-sign-out-alt");
             });
         },
         checkNetworkConnection: function () {

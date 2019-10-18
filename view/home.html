@@ -3,7 +3,7 @@
 <head>
     <script type="text/javascript">
 
-        if (localStorage.getItem("session_id") == null) {
+        if (localStorage.getItem("access_token") == null) {
 
             window.location.replace("/");
         }
@@ -11,7 +11,7 @@
     </script>
 
     <!-- Title -->
-    <title>Arbolado 2019 | Menú</title>
+    <title>Arbolado 2019</title>
 
     <!-- Main Icon -->
     <link rel="icon" type="text/css" href="../resource/image/main-icon.png">
@@ -27,25 +27,28 @@
 </head>
 <body id="bodyMenu">
 
+    <!-- Loading -->
+    <div class="se-pre-con"></div>
+
     <div id="mainHome">
 
        <main-header></main-header>
 
         <div class="list-group">
 
-            <a href="areasAsignadas.html" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="areasAsignadas.html" class="list-group-item list-group-item-action flex-column align-items-start text-dark">
                 <div class="d-flex w-100 justify-content-center">
                     <h5 class="mb-1 main-font"><i class="fas fa-map-marked-alt"></i> Censar</h5>
                 </div>
                 <p class="mb-1 main-font text-center">Área geográfica.</p>
             </a>
-            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="misArbolesCensados.html" class="list-group-item list-group-item-action flex-column align-items-start text-dark">
                 <div class="d-flex w-100 justify-content-center">
                     <h5 class="mb-1 main-font"><i class="fas fa-tree"></i> Árboles</h5>
                 </div>
                 <p class="mb-1 main-font text-center">Ver mis árboles censados.</p>
             </a>
-            <a href="miPerfil.html" class="list-group-item list-group-item-action flex-column align-items-start">
+            <a href="miPerfil.html" class="list-group-item list-group-item-action flex-column align-items-start text-dark">
                 <div class="d-flex w-100 justify-content-center">
                     <h5 class="mb-1 main-font"><i class="fas fa-user-tag"></i> Perfil</h5>
                 </div>

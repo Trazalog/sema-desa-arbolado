@@ -16,6 +16,8 @@ import {Session} from "../model/Session";
 
 import {User} from "../model/User";
 
+let CryptoJS = require("crypto-js");
+
 Validator.localize('es', es);
 
 Vue.use(VeeValidate, {
@@ -47,14 +49,14 @@ new vue ({
 
         User.getProfile().then(response => {
 
-            if (response.data.profile.status === "success") {
+            if (response.status === 200) {
 
                 /* Creo un objeto usuario y le asigno la respuesta del servicio */
                 let user = new User(
-                    response.data.profile.data.full_name,
-                    response.data.profile.data.email,
-                    response.data.profile.data.phone,
-                    response.data.profile.data.picture);
+                    response.data.usuario.nom_usuario + " " + response.data.usuario.ape_usuario,
+                    response.data.usuario.email,
+                    response.data.usuario.telefono,
+                    this.picture);
 
 
                 /* Hago uso del objeto en memoria y mediante getter o setter obtengo los datos para actualizar los campos Vue */
@@ -81,6 +83,13 @@ new vue ({
 
         }).catch(error => {
 
+            if (error.response.status === 401) {
+
+                Session.invalidate();
+
+                window.location.replace("/");
+            }
+
             /*** Prepare and show message ***/
             this.alert_title = "Error de comunicación";
             this.alert_message = "En estos momento no es posible establecer conexión con el servidor.";
@@ -92,6 +101,10 @@ new vue ({
             (<any>message).modal("show");
 
         });
+
+
+        // Remove loading
+        $(".se-pre-con").fadeOut("slow");
     },
     methods: {
         validateForm: function () {
@@ -106,10 +119,32 @@ new vue ({
                     let user = new User(this.full_name, this.email, this.phone, this.picture);
 
                     /* Set old and new password */
-                    user.password = this.password;
+                    if (this.password.length > 0)
+                        user.password = this.password;
+                    else
+                        user.password = CryptoJS.MD5(this.password).toString();
+
+                    let username = Session.getSessionUsername();
+
+                    let nombre = this._full_name.split(" ")[0];
+                    let apellido = this._full_name.split(" ")[1];
+
+                    let data = {
+                        "_post_perfil":{
+                            "nombre": nombre,
+                            "apellido": apellido,
+                            "direccion": "",
+                            "telefono": user.phone,
+                            "nick": username,
+                            "email": user.email,
+                            "foto": user.picture,
+                            "pass": user.password
+                        }
+                    };
 
                     /* Enviar datos actualizados */
-                    user.updateProfile().then(response => {
+                    user.updateProfile(data)
+                        .then(response => {
 
                         if (response.data.profile.status === "success") {
 
@@ -134,6 +169,12 @@ new vue ({
                             submit.find("i").removeClass("fa-spinner fa-spin");
                             submit.find("i").addClass("fa-sign-out-alt");
 
+
+                            /* Redirect to home */
+                            message.on('hidden.bs.modal', function () {
+
+                                window.location.replace("home.html");
+                            })
 
                         } else {
 
@@ -161,6 +202,14 @@ new vue ({
 
 
                     }).catch(error => {
+
+                        if (error.response.status === 401) {
+
+                            Session.invalidate();
+
+                            window.location.replace("/");
+                        }
+
 
                         /*** Prepare and show message ***/
                         this.alert_title = "Error de comunicación";

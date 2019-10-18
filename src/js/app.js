@@ -29,6 +29,7 @@ import '../../resource/css/style.css';
 
 
 /*** Import Image Files ***/
+import '../../resource/image/loading.gif';
 import '../../resource/image/main-icon.png';
 import '../../resource/image/main-icon-white.png';
 import '../../resource/image/default-profile-img.png';
@@ -37,6 +38,13 @@ import '../../resource/image/default-profile-img.png';
 /*** Register Service Worker ***/
 import * as OfflinePluginRuntime from 'offline-plugin/runtime';
 OfflinePluginRuntime.install();
+
+// const shouldSW = 'serviceWorker' in navigator
+// if (shouldSW) {
+//     navigator.serviceWorker.register('/service-worker.js').then(() => {
+//         console.log("Service Worker Registered!")
+//     })
+// }
 
 /*** JQuery document ready ***/
 $(function () {

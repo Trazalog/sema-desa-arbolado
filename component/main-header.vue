@@ -2,13 +2,13 @@
     <div id="mainHeader">
         <div class="col-12 text-center">
             <div class="row main-menu-bar">
-                <div class="col-6 text-left my-auto">
+                <div class="col-7 text-left my-auto">
                     <a href="home.html">
-                        <img class="text-center" src="../resource/image/main-icon-white.png" width="65" height="65" alt="Arbolado 2019">
+                        <img class="text-center header-logo" src="../resource/image/main-icon.png" alt="CENSARBO.SAN JUAN" width="50" height="50">
                     </a>
-                    <span style="color:#FEFEFE;">Arbolado</span>
+                    <span style="color:#FEFEFE; font-size: 10px">CENSARBO.SAN JUAN</span>
                 </div>
-                <div class="col-6 text-right">
+                <div class="col-5 text-right">
                     <p class="main-font text-white text-light mb-0 pb-0 text-mini">{{ username }}</p>
                     <p class="main-font text-white text-light mb-0 pb-1 text-mini">{{ current_date }}</p>
                     <a class=" main-font text-light" href="#" v-on:click="logout()"><i class="fas fa-sign-out-alt pr-1"></i>Salir</a>
@@ -33,7 +33,6 @@
         },
         methods: {
             setUsername() {
-
                 this.username = Session.getSessionUsername();
             },
             getCurrentDate() {

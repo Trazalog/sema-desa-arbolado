@@ -34,8 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import axios from "axios";
-import { Session } from "./Session";
 import { Endpoint } from "./Endpoint";
+import * as store from "store2";
+var uuidv4 = require('uuid/v4');
 var User = /** @class */ (function () {
     function User(full_name, email, phone, picture) {
         this._full_name = full_name;
@@ -46,23 +47,31 @@ var User = /** @class */ (function () {
     /*** Sign in ***/
     User.login = function (username, password) {
         return __awaiter(this, void 0, void 0, function () {
-            var url;
+            var url, params, data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         url = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_LOGIN;
+                        params = {
+                            grant_type: 'password',
+                            username: username,
+                            password: password
+                        };
+                        data = Object.entries(params)
+                            .map(function (_a) {
+                            var key = _a[0], val = _a[1];
+                            return key + "=" + encodeURIComponent(val);
+                        })
+                            .join('&');
                         return [4 /*yield*/, axios({
                                 method: "POST",
                                 url: url,
-                                timeout: 5000,
+                                timeout: Endpoint.TIMEOUT,
                                 withCredentials: false,
-                                params: {
-                                    username: username,
-                                    password: password
-                                },
+                                data: data,
                                 headers: {
-                                    'Cache-Control': 'no-cache',
-                                    'Content-Type': 'application/json'
+                                    "Content-Type": "application/x-www-form-urlencoded",
+                                    "Authorization": "Basic akRYQTNqTzNGbkJUMlo3d05EU0R1UEo1R2ZNYTp5eFV2b09UR0huZXBCRWxyN2diRmxCSjFfZllh"
                                 }
                             })];
                     case 1: return [2 /*return*/, _a.sent()];
@@ -73,24 +82,18 @@ var User = /** @class */ (function () {
     /*** get profile ***/
     User.getProfile = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var url, session_id, username;
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        url = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_PROFILE;
-                        session_id = Session.getSessionID();
-                        username = Session.getSessionUsername();
+                        url = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_PROFILE + "/" + encodeURIComponent(store.get("username"));
                         return [4 /*yield*/, axios({
                                 method: "GET",
                                 url: url,
-                                timeout: 5000,
+                                timeout: Endpoint.TIMEOUT,
                                 withCredentials: false,
-                                params: {
-                                    session_id: session_id,
-                                    username: username
-                                },
                                 headers: {
-                                    'Cache-Control': 'no-cache',
+                                    'Authorization': store.get("token_type") + ' ' + store.get('access_token'),
                                     'Content-Type': 'application/json'
                                 }
                             })];
@@ -100,32 +103,138 @@ var User = /** @class */ (function () {
         });
     };
     /*** update profile ***/
-    User.prototype.updateProfile = function () {
+    User.prototype.updateProfile = function (data) {
         return __awaiter(this, void 0, void 0, function () {
-            var url, session_id, username;
+            var url;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         url = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_UPDATE_USER_PROFILE;
-                        session_id = Session.getSessionID();
-                        username = Session.getSessionUsername();
                         return [4 /*yield*/, axios({
                                 method: "PUT",
                                 url: url,
-                                timeout: 5000,
+                                timeout: Endpoint.TIMEOUT,
                                 withCredentials: false,
-                                params: {
-                                    session_id: session_id,
-                                    username: username,
-                                    full_name: this._full_name,
-                                    password: this._password,
-                                    email: this._email,
-                                    phone: this._phone,
-                                    picture: this._picture
-                                },
+                                data: data,
                                 headers: {
-                                    'Cache-Control': 'no-cache',
+                                    'Authorization': store.get("token_type") + ' ' + store.get('access_token'),
                                     'Content-Type': 'application/json'
+                                }
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    /*** get user areas ***/
+    User.getArea = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_TREE + "/" + encodeURIComponent(store.get("username"));
+                        return [4 /*yield*/, axios({
+                                method: "GET",
+                                url: url,
+                                timeout: Endpoint.TIMEOUT,
+                                withCredentials: false,
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json',
+                                    'Authorization': store.get("token_type") + ' ' + store.get('access_token')
+                                }
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    /*** get user squares ***/
+    User.getSquare = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_TREE + "/" + encodeURIComponent(store.get("username"));
+                        return [4 /*yield*/, axios({
+                                method: "GET",
+                                url: url,
+                                timeout: Endpoint.TIMEOUT,
+                                withCredentials: false,
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Authorization': store.get("token_type") + ' ' + store.get('access_token')
+                                }
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    /*** get user trees ***/
+    User.getTree = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_TREE + "/" + encodeURIComponent(store.get("username"));
+                        return [4 /*yield*/, axios({
+                                method: "GET",
+                                url: url,
+                                timeout: Endpoint.TIMEOUT,
+                                withCredentials: false,
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Authorization': store.get("token_type") + ' ' + store.get('access_token')
+                                }
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    /*** get user trees ***/
+    User.getAllStreets = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_TREE + "/" + encodeURIComponent(store.get("username"));
+                        return [4 /*yield*/, axios({
+                                method: "GET",
+                                url: url,
+                                timeout: Endpoint.TIMEOUT,
+                                withCredentials: false,
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Authorization': store.get("token_type") + ' ' + store.get('access_token')
+                                }
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
+    /*** get user formulario dynamic ***/
+    User.getDynamicForm = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var url;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        url = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_FORM + "/1";
+                        return [4 /*yield*/, axios({
+                                method: "GET",
+                                url: url,
+                                timeout: Endpoint.TIMEOUT,
+                                withCredentials: false,
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Authorization': store.get("token_type") + ' ' + store.get('access_token')
                                 }
                             })];
                     case 1: return [2 /*return*/, _a.sent()];
@@ -189,6 +298,16 @@ var User = /** @class */ (function () {
         },
         set: function (value) {
             this._picture = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(User.prototype, "tree", {
+        get: function () {
+            return this._tree;
+        },
+        set: function (value) {
+            this._tree = value;
         },
         enumerable: true,
         configurable: true

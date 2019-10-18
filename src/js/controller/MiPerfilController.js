@@ -7,6 +7,7 @@ import * as es from 'vee-validate/dist/locale/es';
 import MainHeader from '../../../component/main-header.vue';
 import { Session } from "../model/Session";
 import { User } from "../model/User";
+var CryptoJS = require("crypto-js");
 Validator.localize('es', es);
 Vue.use(VeeValidate, {
     locale: 'es'
@@ -33,9 +34,9 @@ new vue({
         /*** Message modal ***/
         var message = $("#message");
         User.getProfile().then(function (response) {
-            if (response.data.profile.status === "success") {
+            if (response.status === 200) {
                 /* Creo un objeto usuario y le asigno la respuesta del servicio */
-                var user = new User(response.data.profile.data.full_name, response.data.profile.data.email, response.data.profile.data.phone, response.data.profile.data.picture);
+                var user = new User(response.data.usuario.nom_usuario + " " + response.data.usuario.ape_usuario, response.data.usuario.email, response.data.usuario.telefono, _this.picture);
                 /* Hago uso del objeto en memoria y mediante getter o setter obtengo los datos para actualizar los campos Vue */
                 _this.full_name = user.full_name;
                 _this.email = user.email;
@@ -52,6 +53,10 @@ new vue({
                 message.modal("show");
             }
         }).catch(function (error) {
+            if (error.response.status === 401) {
+                Session.invalidate();
+                window.location.replace("/");
+            }
             /*** Prepare and show message ***/
             _this.alert_title = "Error de comunicación";
             _this.alert_message = "En estos momento no es posible establecer conexión con el servidor.";
@@ -60,6 +65,8 @@ new vue({
             message.find(".modal-content").addClass("modal-danger");
             message.modal("show");
         });
+        // Remove loading
+        $(".se-pre-con").fadeOut("slow");
     },
     methods: {
         validateForm: function () {
@@ -71,9 +78,28 @@ new vue({
                     /* Crear nuevo obj User */
                     var user = new User(_this.full_name, _this.email, _this.phone, _this.picture);
                     /* Set old and new password */
-                    user.password = _this.password;
+                    if (_this.password.length > 0)
+                        user.password = _this.password;
+                    else
+                        user.password = CryptoJS.MD5(_this.password).toString();
+                    var username = Session.getSessionUsername();
+                    var nombre = _this._full_name.split(" ")[0];
+                    var apellido = _this._full_name.split(" ")[1];
+                    var data = {
+                        "_post_perfil": {
+                            "nombre": nombre,
+                            "apellido": apellido,
+                            "direccion": "",
+                            "telefono": user.phone,
+                            "nick": username,
+                            "email": user.email,
+                            "foto": user.picture,
+                            "pass": user.password
+                        }
+                    };
                     /* Enviar datos actualizados */
-                    user.updateProfile().then(function (response) {
+                    user.updateProfile(data)
+                        .then(function (response) {
                         if (response.data.profile.status === "success") {
                             /*** Prepare and show message ***/
                             _this.alert_title = "¡Excelente!";
@@ -89,6 +115,10 @@ new vue({
                             /* Loading */
                             submit.find("i").removeClass("fa-spinner fa-spin");
                             submit.find("i").addClass("fa-sign-out-alt");
+                            /* Redirect to home */
+                            message.on('hidden.bs.modal', function () {
+                                window.location.replace("home.html");
+                            });
                         }
                         else {
                             /*** Prepare and show message ***/
@@ -107,6 +137,10 @@ new vue({
                             submit.find("i").addClass("fa-sign-out-alt");
                         }
                     }).catch(function (error) {
+                        if (error.response.status === 401) {
+                            Session.invalidate();
+                            window.location.replace("/");
+                        }
                         /*** Prepare and show message ***/
                         _this.alert_title = "Error de comunicación";
                         _this.alert_message = "En estos momento no es posible establecer conexión con el servidor.";

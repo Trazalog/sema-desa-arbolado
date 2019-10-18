@@ -2,13 +2,13 @@
 <html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <script type="text/javascript">
-        if (localStorage.getItem("session_id") == null) {
+        if (localStorage.getItem("access_token") == null) {
 
             window.location.replace("/");
         }
     </script>
     <!-- Title -->
-    <title>Arbolado 2019 | Domicilio a censar</title>
+    <title>Arbolado 2019</title>
     <!-- Main Icon -->
     <link rel="icon" type="text/css" href="../resource/image/main-icon.png">
     <!-- Apple Icon -->
@@ -16,6 +16,7 @@
     <!-- Meta information and responsive scale -->
     <meta charset="UTF-8">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <!-- link rel="stylesheet" type="text/css" href="https://unpkg.com/vue-select@3.1.0/dist/vue-select.css"-->
 </head>
 
 
@@ -23,61 +24,99 @@
 
 <body id="bodydomicilioACensar">
 
-<div id="maindomicilioACensar">
+<!-- Loading -->
+<div class="se-pre-con"></div>
+
+
+<div id="mainDomicilioACensar">
 
     <main-header></main-header>
 
+
+    <!-- Modal -->
+    <div id="message" class="modal fade modal-back" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content modal-warning">
+                <div class="modal-header">
+                    <h5 class="col-12 modal-title text-light text-center main-font">{{ alert_title }}</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body  text-center">
+                    <h6 class="text-center text-light main-font">{{ alert_message }}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="col-12 text-center">
-        <h5 class="text-success main-font pb-2 pt-2">Complete los datos del domicilio</h5>
+        <h5 class="text-success main-font pb-2 pt-2">UBICACIÓN DEL ÁRBOL</h5>
 
         <!-- Form componentes here -->
-        <form id="domicilioACensarForm" name="domicilioACensarForm" action="#" method="post">
-            <!-- dropDown1 - Calle -->
+        <form id="domicilioACensarForm" name="domicilioACensarForm" action="#">
 
-            <select ref="calleLista" v-model="selectedStreet" class="col-12 form-control text-mini pl-0 ml-0">
+            <!--Dropdown de calle-->
+            <v-select placeholder="SELECCIONE UNA CALLE"
+                      :options="this.list_street"
+                      v-model="street_name"
+                      id="street_name"
+                      name="street_name"
+                      data-vv-as="nombre de la calle"
+                      :class="{'validate-error': errors.has('street_name')}"
+                      v-validate="{required:true}">
 
-                <option disabled value="">Calle...</option>
-
-                <option value="{{ item }}" v-for="item in streetList">
-                    {{ item }}
-                </option>
-
-                <option value="Otra">Otra</option>
-            </select>
-
-            <!-- End of dropDown1 Calle -->
-
+                <span slot="no-options">No hay coincidencias.</span>
+            </v-select>
+            <span class="text-danger text-center main-font">{{ errors.first('street_name') }}</span>
 
 
             <!-- input para Otra Calle -->
             <div ref="anotherStreetContainer" class="input-group-sm  mx-auto mt-2">
-                <input v-show="selectedStreet==='Otra'" ref="otraCalleInput" name="otraCalleInput" v-model="calleOtra"
+                <input v-show="street_name==='Otra'" ref="otraCalleInput" name="otraCalleInput" v-model="calleOtra"
                        v-validate.immediate="'required_if:calleLista,Otra'" data-vv-as="Calle - descripción" type="text"
                        :class="{'input': true, 'is-danger': errors.has('otraCalleInput') }" aria-required="true"
-                       aria-invalid="false" class="form-control" placeholder="ingresá la calle">
+                       aria-invalid="false" class="form-control" placeholder="INGRESE LA CALLE">
+
                 <span v-show="errors.has('otraCalleInput')" class="text-danger small text-center main-font">{{ errors.first('otraCalleInput') }}</span>
 
-                <input v-model="numero" v-validate="'numeric'" data-vv-as="Número" type="text" aria-required="true"
-                       aria-invalid="false" class="form-control mt-2" placeholder="Número..." id="domicilioNumero"
-                       name="domicilioNumero">
+
+
+                <input v-model="street_number" data-vv-as="Número" type="text" aria-required="true"
+                       aria-invalid="false" class="form-control mt-2" placeholder="NÚMERO" id="street_number"
+                       name="street_number"
+                       :class="{'validate-error': errors.has('street_number')}"
+                       v-validate="{ required:false, numeric:true, min:1, max:10 }">
+
+                <span v-show="errors.has('street_number')" class="text-danger small text-center main-font">{{ errors.first('street_number') }}</span>
+
             </div>
 
 
             <div class="input-group-sm  mx-auto mt-2">
-                <input v-model="barrio" type="text" aria-required="true" aria-invalid="false" class="form-control" placeholder="Barrio..." id="domicilioBarrio" name="domicilioBarrio">
+                <input v-model="neighborhood" type="text" aria-required="true" aria-invalid="false" class="form-control" placeholder="BARRIO" id="neighborhood" name="neighborhood"
+                       :class="{'validate-error': errors.has('neighborhood')}"
+                       v-validate="{ required:false, min:4, max:20 }">
             </div>
+            <span v-show="errors.has('neighborhood')" class="text-danger small text-center main-font">{{ errors.first('neighborhood') }}</span>
 
 
-            <!-- dropDown1 - Calle -->
-            <select class="col-12 form-control text-mini pl-0 ml-0 mt-2" v-model="domicilioTaza">
-                <option disabled value="">Taza...</option>
-                <option value="Con árbol">Taza con árbol</option>
-                <option value="Taza vacía">Taza vacía</option>
-                <option value="Taza con tacón">Taza con tacón</option>
-                <option value="Sin Taza">Sin Taza</option>
-            </select>
+            <!-- dropDown - taza-->
 
-            <!-- End of dropDown1 Calle -->
+            <v-select class="mt-2" placeholder="TAZA" :options="this.tazaList" v-model="address_taza"
+                      :class="{'validate-error': errors.has('address_taza')}"
+                      v-validate="{ required:true }"
+                      id="address_taza"
+                      name="address_taza"
+                      data-vv-as="taza">
+
+                <span slot="no-options">No hay coincidencias.</span>
+            </v-select>
+            <span class="text-danger small text-center main-font">{{ errors.first('address_taza') }}</span>
+
+            <!-- End of dropDown taza -->
 
         </form>
 
@@ -86,7 +125,7 @@
             <!-- Back -->
             <div class="col-6 text-left mt-4 pl-0">
                 <h4>
-                <a href="arbolesCensados.html" class="align-items-start">
+                <a href="#" @click="goBack" class="align-items-start">
                     <i class="fas fa-arrow-left" style="width: 50%;"></i>
                 </a>
                 </h4>
@@ -94,7 +133,7 @@
 
             <div class="col-6 text-right mt-4 pr-0">
                 <h4>
-                <a href="formulario.html" class="align-items-start">
+                <a href="#" @click="selectedLocation" class="align-items-start">
                     <i class="fas fa-arrow-right" style="width: 50%;"></i>
                 </a>
                 </h4>

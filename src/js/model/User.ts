@@ -3,6 +3,11 @@ import axios from "axios";
 import {Session} from "./Session";
 
 import {Endpoint} from "./Endpoint";
+import {Tree} from "./Tree";
+import * as store from "store2";
+
+const uuidv4 = require('uuid/v4');
+
 
 export class User {
 
@@ -12,6 +17,7 @@ export class User {
     private _email: string;
     private _phone: string;
     private _picture: string;
+    private _tree: [Tree];
 
 
     /*** Sign in ***/
@@ -19,18 +25,25 @@ export class User {
 
         let url: string = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_LOGIN;
 
+        const params = {
+            grant_type: 'password',
+            username: username,
+            password: password
+        };
+
+        const data = Object.entries(params)
+            .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
+            .join('&');
+
         return await axios({
             method: "POST",
             url: url,
-            timeout: 5000,
+            timeout: Endpoint.TIMEOUT,
             withCredentials: false,
-            params: {
-                username: username,
-                password: password
-            },
+            data: data,
             headers: {
-                'Cache-Control': 'no-cache',
-                'Content-Type': 'application/json'
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": "Basic akRYQTNqTzNGbkJUMlo3d05EU0R1UEo1R2ZNYTp5eFV2b09UR0huZXBCRWxyN2diRmxCSjFfZllh"
             }
         });
     }
@@ -38,52 +51,124 @@ export class User {
     /*** get profile ***/
     public static async getProfile(){
 
-        let url: string = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_PROFILE;
-
-        let session_id = Session.getSessionID();
-        let username = Session.getSessionUsername();
+        let url: string = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_PROFILE + "/" + encodeURIComponent(store.get("username"));
 
         return await axios({
             method: "GET",
             url: url,
-            timeout: 5000,
+            timeout: Endpoint.TIMEOUT,
             withCredentials: false,
-            params: {
-                session_id: session_id,
-                username: username
-            },
             headers: {
-                'Cache-Control': 'no-cache',
+                'Authorization': store.get("token_type") + ' ' + store.get('access_token'),
                 'Content-Type': 'application/json'
             }
         });
     }
 
     /*** update profile ***/
-    public async updateProfile(){
+    public async updateProfile(data){
 
         let url: string = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_UPDATE_USER_PROFILE;
-
-        let session_id = Session.getSessionID();
-        let username = Session.getSessionUsername();
 
         return await axios({
             method: "PUT",
             url: url,
-            timeout: 5000,
+            timeout: Endpoint.TIMEOUT,
             withCredentials: false,
-            params: {
-                session_id: session_id,
-                username: username,
-                full_name: this._full_name,
-                password: this._password,
-                email: this._email,
-                phone: this._phone,
-                picture: this._picture
-            },
+            data: data,
             headers: {
-                'Cache-Control': 'no-cache',
+                'Authorization': store.get("token_type") + ' ' + store.get('access_token'),
                 'Content-Type': 'application/json'
+            }
+        });
+    }
+
+
+    /*** get user areas ***/
+    public static async getArea(){
+
+        let url: string = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_TREE + "/" + encodeURIComponent(store.get("username"));
+
+        return await axios({
+            method: "GET",
+            url: url,
+            timeout: Endpoint.TIMEOUT,
+            withCredentials: false,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': store.get("token_type") + ' ' + store.get('access_token')
+            }
+        });
+    }
+
+
+    /*** get user squares ***/
+    public static async getSquare(){
+
+        let url: string = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_TREE + "/" + encodeURIComponent(store.get("username"));
+
+        return await axios({
+            method: "GET",
+            url: url,
+            timeout: Endpoint.TIMEOUT,
+            withCredentials: false,
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': store.get("token_type") + ' ' + store.get('access_token')
+            }
+        });
+    }
+
+
+    /*** get user trees ***/
+    public static async getTree(){
+
+        let url: string = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_TREE + "/" + encodeURIComponent(store.get("username"));
+
+        return await axios({
+            method: "GET",
+            url: url,
+            timeout: Endpoint.TIMEOUT,
+            withCredentials: false,
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': store.get("token_type") + ' ' + store.get('access_token')
+            }
+        });
+    }
+
+
+    /*** get user trees ***/
+    public static async getAllStreets(){
+
+        let url: string = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_USER_TREE + "/" + encodeURIComponent(store.get("username"));
+
+        return await axios({
+            method: "GET",
+            url: url,
+            timeout: Endpoint.TIMEOUT,
+            withCredentials: false,
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': store.get("token_type") + ' ' + store.get('access_token')
+            }
+        });
+    }
+
+    /*** get user formulario dynamic ***/
+    public static async getDynamicForm(){
+
+        let url: string = Endpoint.PROTOCOL + "://" + Endpoint.HOSTNAME_BACKEND + ":" + Endpoint.PORT_BACKEND + Endpoint.URL_GET_FORM + "/1";
+
+        return await axios({
+            method: "GET",
+            url: url,
+            timeout: Endpoint.TIMEOUT,
+            withCredentials: false,
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': store.get("token_type") + ' ' + store.get('access_token')
             }
         });
     }
@@ -142,5 +227,14 @@ export class User {
 
     set picture(value: string) {
         this._picture = value;
+    }
+
+
+    get tree(): [Tree] {
+        return this._tree;
+    }
+
+    set tree(value: [Tree]) {
+        this._tree = value;
     }
 }
