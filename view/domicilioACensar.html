@@ -59,6 +59,7 @@
         <form id="domicilioACensarForm" name="domicilioACensarForm" action="#">
 
             <!--Dropdown de calle-->
+            <label  class="col-12 text-primary text-center ml-0 mt-2 pb-0 mb-0" style="padding-left: 0px !important;">CALLE</label>
             <v-select placeholder="SELECCIONE UNA CALLE"
                       :options="this.list_street"
                       v-model="street_name"
@@ -74,6 +75,7 @@
 
 
             <!-- input para Otra Calle -->
+            <label v-show="street_name==='Otra'" class="col-12 text-primary text-center ml-0 mt-2 pb-0 mb-0" style="padding-left: 0px !important;">CALLE (OTRA)</label>
             <div ref="anotherStreetContainer" class="input-group-sm  mx-auto mt-2">
                 <input v-show="street_name==='Otra'" ref="otraCalleInput" name="otraCalleInput" v-model="calleOtra"
                        v-validate.immediate="'required_if:calleLista,Otra'" data-vv-as="Calle - descripción" type="text"
@@ -83,7 +85,7 @@
                 <span v-show="errors.has('otraCalleInput')" class="text-danger small text-center main-font">{{ errors.first('otraCalleInput') }}</span>
 
 
-
+                <label  class="col-12 text-primary text-center ml-0 mt-2 pb-0 mb-0" style="padding-left: 0px !important;">NÚMERO</label>
                 <input v-model="street_number" data-vv-as="Número" type="text" aria-required="true"
                        aria-invalid="false" class="form-control mt-2" placeholder="NÚMERO" id="street_number"
                        name="street_number"
@@ -95,6 +97,7 @@
             </div>
 
 
+            <label  class="col-12 text-primary text-center ml-0 mt-2 pb-0 mb-0" style="padding-left: 0px !important;">BARRIO</label>
             <div class="input-group-sm  mx-auto mt-2">
                 <input v-model="neighborhood" type="text" aria-required="true" aria-invalid="false" class="form-control" placeholder="BARRIO" id="neighborhood" name="neighborhood"
                        :class="{'validate-error': errors.has('neighborhood')}"
@@ -104,7 +107,7 @@
 
 
             <!-- dropDown - taza-->
-
+            <label  class="col-12 text-primary text-center ml-0 mt-2 pb-0 mb-0" style="padding-left: 0px !important;">TAZA</label>
             <v-select class="mt-2" placeholder="TAZA" :options="this.tazaList" v-model="address_taza"
                       :class="{'validate-error': errors.has('address_taza')}"
                       v-validate="{ required:true }"

@@ -157,6 +157,7 @@ new vue({
             });
         },
         setParamsAndRedirect: function (selected_area, area_id, selected_square, square_id, cens_id) {
+            $(".se-pre-con").show();
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     window.location.replace("domicilioACensar.html?" +

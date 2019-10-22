@@ -94,6 +94,17 @@ var vue1 = new vue({
             }
             return response;
         },
+        goBack: function () {
+            window.location.replace("domicilioACensar.html?" +
+                "selected_area=" + this.searchAndGetParamFromURL('selected_area') +
+                "&area_id=" + this.searchAndGetParamFromURL('area_id') +
+                "&selected_square=" + this.searchAndGetParamFromURL('selected_square') +
+                "&square_id=" + this.searchAndGetParamFromURL('square_id') +
+                "&current_lat=" + this.searchAndGetParamFromURL('current_lat') +
+                "&current_lng=" + this.searchAndGetParamFromURL('current_lng') +
+                "&cens_id=" + this.searchAndGetParamFromURL('cens_id')) +
+                "&form_id=" + this.searchAndGetParamFromURL("form_id");
+        },
         instanceForm: function () {
             /*Esto no debe hacerse si se esta editando un arbol treeID not null*/
             //console.log(this.searchAndGetParamFromURL('taza')); deprecated comment
@@ -126,8 +137,24 @@ var vue1 = new vue({
                 }
                 else {
                     $(".se-pre-con").fadeOut("slow");
-                    this.formID = this.searchAndGetParamFromURL("form_id");
-                    this.getFormElements(this.formID);
+                    //this.formID = this.searchAndGetParamFromURL("form_id");
+                    //this.getFormElements( this.formID);
+                    //appending photo component
+                    this.drawFile();
+                    //appending buttons to form
+                    this.drawButtons();
+                    //Setting values for params
+                    this.selected_area = this.searchAndGetParamFromURL("selected_area");
+                    this.area_id = this.searchAndGetParamFromURL("area_id");
+                    this.square_id = this.searchAndGetParamFromURL("square_id");
+                    this.current_lat = this.searchAndGetParamFromURL("current_lat");
+                    this.current_lng = this.searchAndGetParamFromURL("current_lng");
+                    this.selected_street = this.searchAndGetParamFromURL("selected_street");
+                    this.calleOtra = this.searchAndGetParamFromURL("calleOtra");
+                    this.number = this.searchAndGetParamFromURL("number");
+                    this.neighborhood = this.searchAndGetParamFromURL("neighborhood");
+                    this.cens_id = this.searchAndGetParamFromURL("cens_id");
+                    this.taza = this.searchAndGetParamFromURL("taza");
                 }
             }
             else {
@@ -165,6 +192,7 @@ var vue1 = new vue({
                 _this.cens_id = _this.searchAndGetParamFromURL("cens_id");
                 _this.taza = _this.searchAndGetParamFromURL("taza");
                 if (_this.taza != "Taza con árbol") {
+                    _this.formID = 0;
                     //drawing photo component
                     _this.drawFile();
                     //appending buttons to form
@@ -585,7 +613,7 @@ $(document).on('click', '#send_form', function () {
     console.log("formID: " + vue1.$data.formID);
     console.log("================================");
     if ($("#picture_input").val() != "" || $("#treePic").attr("src") != "/resource/image/main-icon.png") {
-        if (vue1.$data.taza !== "Sin Taza") {
+        if (vue1.$data.taza === "Taza con árbol") {
             var json_array_put = [];
             for (var i = 0; i < vue1.$data.idElements.length; i++) {
                 json_array_put.push({
@@ -704,6 +732,7 @@ $(document).on('click', '#send_form', function () {
             });
         }
         else {
+            console.log('No es taza con árbol');
             //Llamar solo servicio para enviar el domicilio y la foto del arbol.
             var calle = "";
             if (vue1.$data.selected_street === "Otra")
@@ -731,6 +760,7 @@ $(document).on('click', '#send_form', function () {
                     "taza": vue1.$data.taza
                 }
             };
+            console.log(data);
             Form.sendOnlyTreePicture(data)
                 .then(function (response) {
                 if (response.status === 200) {

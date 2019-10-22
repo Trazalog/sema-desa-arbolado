@@ -240,6 +240,7 @@ new vue({
         setParamsAndRedirect: function (selected_area, area_id, selected_square, square_id, cens_id) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
+                    $(".se-pre-con").show();
                     window.location.replace("domicilioACensar.html?" +
                         "selected_area=" + selected_area +
                         "&area_id=" + area_id +

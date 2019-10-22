@@ -162,6 +162,7 @@ new vue ({
             });
         },
         setParamsAndRedirect(selected_area: string, area_id: string, selected_square: string, square_id: string, cens_id: string){
+            $(".se-pre-con").show();
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
 

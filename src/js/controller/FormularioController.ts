@@ -77,8 +77,19 @@ let vue1 = new vue ({
         },
 
 
-       instanceForm() {
+    goBack(){
+        window.location.replace("domicilioACensar.html?" +
+         "selected_area=" + this.searchAndGetParamFromURL('selected_area') +
+        "&area_id=" +this.searchAndGetParamFromURL('area_id') +
+        "&selected_square=" + this.searchAndGetParamFromURL('selected_square') +
+        "&square_id=" + this.searchAndGetParamFromURL('square_id') +
+        "&current_lat=" + this.searchAndGetParamFromURL('current_lat') +
+        "&current_lng=" + this.searchAndGetParamFromURL('current_lng') +
+        "&cens_id=" + this.searchAndGetParamFromURL('cens_id'))+
+        "&form_id=" + this.searchAndGetParamFromURL("form_id");
+    },
 
+       instanceForm() {
            /*Esto no debe hacerse si se esta editando un arbol treeID not null*/
            //console.log(this.searchAndGetParamFromURL('taza')); deprecated comment
 
@@ -109,8 +120,25 @@ let vue1 = new vue ({
                            })
                    } else {
                        $(".se-pre-con").fadeOut("slow");
-                       this.formID = this.searchAndGetParamFromURL("form_id");
-                       this.getFormElements( this.formID);
+                       //this.formID = this.searchAndGetParamFromURL("form_id");
+                       //this.getFormElements( this.formID);
+
+                       //appending photo component
+                       this.drawFile();
+                       //appending buttons to form
+                       this.drawButtons();
+                       //Setting values for params
+                       this.selected_area = this.searchAndGetParamFromURL("selected_area");
+                       this.area_id = this.searchAndGetParamFromURL("area_id");
+                       this.square_id = this.searchAndGetParamFromURL("square_id");
+                       this.current_lat = this.searchAndGetParamFromURL("current_lat");
+                       this.current_lng = this.searchAndGetParamFromURL("current_lng");
+                       this.selected_street = this.searchAndGetParamFromURL("selected_street");
+                       this.calleOtra = this.searchAndGetParamFromURL("calleOtra");
+                       this.number = this.searchAndGetParamFromURL("number");
+                       this.neighborhood = this.searchAndGetParamFromURL("neighborhood");
+                       this.cens_id = this.searchAndGetParamFromURL("cens_id");
+                       this.taza = this.searchAndGetParamFromURL("taza");
 
                    }
                } else {
@@ -122,7 +150,6 @@ let vue1 = new vue ({
                }
        },
         getFormElements(newformid){
-
             axios.get('https://dev-trazalog.com.ar:8246/arbolado/api/ds/v1.0.0/formulario/'+newformid,  {
                 'headers': { 'Authorization': 'Bearer ' + store.get("access_token")
                 } })
@@ -150,6 +177,8 @@ let vue1 = new vue ({
                     this.taza = this.searchAndGetParamFromURL("taza");
 
                     if (this.taza != "Taza con árbol") {
+
+                        this.formID = 0;
                         //drawing photo component
                         this.drawFile();
                         //appending buttons to form
@@ -577,33 +606,24 @@ $(document).ready(function(){
 
 
 $(document).on('click','#foto_init',function(){
-
     $("#picture_input").trigger("click");
-
 });
 
 $(document).on('change', '#picture_input', function (event: any) {
-
     // event.target.files[0].size <= 9997152 bytes = 10 MB.
     if (event.target.files && event.target.files[0] && event.target.files[0].size <= 9997152) {
-
         let reader = new FileReader();
-
         reader.onload = (event: any) => {
-
             /*** Set base64 ***/
             $("#treePic").attr("src", event.target.result);
             //this.picture = event.target.result;
         };
-
         reader.readAsDataURL(event.target.files[0]);
     }
 });
 
 $(document).on('click','#send_form', function(){
-
     $(".se-pre-con").fadeIn("fast");
-
     console.log("selected_area: " + vue1.$data.selected_area);
     console.log("selected_square: " + vue1.$data.selected_square);
     console.log("current_lat: " + vue1.$data.current_lat);
@@ -614,11 +634,10 @@ $(document).on('click','#send_form', function(){
     console.log("neighborhood: " + vue1.$data.neighborhood);
     console.log("taza: " + vue1.$data.taza);
     console.log("formID: " + vue1.$data.formID);
-
     console.log("================================");
 
     if ($("#picture_input").val() != "" || $("#treePic").attr("src") != "/resource/image/main-icon.png"){
-        if (vue1.$data.taza !== "Sin Taza") {
+        if (vue1.$data.taza === "Taza con árbol") {
             let json_array_put = [];
             for (let i = 0; i < vue1.$data.idElements.length; i++){
                 json_array_put.push({
@@ -637,11 +656,8 @@ $(document).on('click','#send_form', function(){
 
 
             Form.sendDynamicFormData(data)
-
                 .then(response => {
-
                     if (response.status === 202) {
-
                         let calle = "";
                         if (vue1.$data.selected_street === "Otra")
                             calle = vue1.$data.calleOtra;
@@ -790,7 +806,7 @@ $(document).on('click','#send_form', function(){
             });
 
         } else {
-
+            console.log('No es taza con árbol');
             //Llamar solo servicio para enviar el domicilio y la foto del arbol.
 
             let calle = "";
@@ -822,7 +838,7 @@ $(document).on('click','#send_form', function(){
                     "taza": vue1.$data.taza
                 }
             };
-
+            console.log(data);
             Form.sendOnlyTreePicture(data)
                 .then(response => {
 
