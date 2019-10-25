@@ -2,7 +2,7 @@ var Connectivity = /** @class */ (function () {
     function Connectivity() {
     }
     Connectivity.checkInternetSpeed = function () {
-        if (navigator.connection.downlink == 0) {
+        if (!navigator.onLine) {
             return "offline";
         }
         else if (navigator.connection.downlink < 0.5 && navigator.connection.downlink > 0) {

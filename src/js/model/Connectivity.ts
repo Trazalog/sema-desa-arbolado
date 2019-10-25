@@ -2,7 +2,7 @@ export class Connectivity {
 
     public static checkInternetSpeed() {
 
-        if ((navigator as any).connection.downlink == 0){
+        if (!navigator.onLine){
 
             return "offline";
 

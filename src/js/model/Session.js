@@ -17,16 +17,18 @@ var Session = /** @class */ (function () {
         store.remove("scope");
         store.remove("token_type");
         store.remove("expires_in");
+        store.remove("get_tree_response");
         store.clearAll();
     };
     Session.exists = function () {
-        return store.size() === 6 &&
+        return store.size() === 7 &&
             store.has("username") &&
             store.has("access_token") &&
             store.has("refresh_token") &&
             store.has("scope") &&
             store.has("token_type") &&
-            store.has("expires_in");
+            store.has("expires_in") &&
+            store.has("get_tree_response");
     };
     Session.getSessionUsername = function () {
         return store.get("username");

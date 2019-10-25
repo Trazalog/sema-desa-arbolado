@@ -5,6 +5,7 @@ import {Session} from "./Session";
 import {Endpoint} from "./Endpoint";
 import {Tree} from "./Tree";
 import * as store from "store2";
+import {Connectivity} from "./Connectivity";
 
 const uuidv4 = require('uuid/v4');
 

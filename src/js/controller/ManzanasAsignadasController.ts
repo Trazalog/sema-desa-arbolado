@@ -80,16 +80,12 @@ new vue ({
         },
         getMySquares (){
 
-            let area = this.searchAndGetParamFromURL("selected_area");
-
             User.getSquare()
                 .then(response => {
 
                     let area = this.searchAndGetParamFromURL("selected_area");
 
                     let square_count = response.data.tree_list.data.area[area].square.length;
-
-                    console.log("cantidad manz: " + square_count);
 
                     if (square_count > 0) {
 
@@ -109,15 +105,47 @@ new vue ({
                         $("h5:first-child").append("<p class=\"text-dark main-font pt-5\">No se encontraron elementos.</p>");
 
                     }
-            }).catch((err)=>{
+            }).catch((error)=>{
 
                 // Remove loading
                 $(".se-pre-con").fadeOut("slow");
 
-                Session.invalidate();
+                if (!error.response) {
 
-                window.location.replace("/");
+                    let response = {
+                        data: store.get("get_tree_response")
+                    };
 
+                    let area = this.searchAndGetParamFromURL("selected_area");
+
+                    let square_count = response.data.tree_list.data.area[area].square.length;
+
+                    if (square_count > 0) {
+
+                        for (let i = 0; i < square_count; i++) {
+
+                            let square_name = response.data.tree_list.data.area[area].square[i].name;
+
+                            let square_id = response.data.tree_list.data.area[area].square[i].id;
+
+
+                            this.my_square_array_names.push(square_name);
+                            this.my_square_array_ids.push(square_id);
+                        }
+
+                    } else {
+
+                        $("h5:first-child").append("<p class=\"text-dark main-font pt-5\">No se encontraron elementos.</p>");
+
+                    }
+
+                } else {
+
+                    Session.invalidate();
+
+                    window.location.replace("/");
+
+                }
             });
         },
         selectedSquare(index: number) {

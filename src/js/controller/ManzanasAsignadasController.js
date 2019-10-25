@@ -6,6 +6,7 @@ import MainHeader from '../../../component/main-header.vue';
 import VeeValidate, { Validator } from 'vee-validate';
 import * as es from 'vee-validate/dist/locale/es';
 import { User } from "../model/User";
+import * as store from "store2";
 import { Session } from "../model/Session";
 Validator.localize('es', es);
 Vue.use(VeeValidate, {
@@ -77,12 +78,10 @@ new vue({
         },
         getMySquares: function () {
             var _this = this;
-            var area = this.searchAndGetParamFromURL("selected_area");
             User.getSquare()
                 .then(function (response) {
                 var area = _this.searchAndGetParamFromURL("selected_area");
                 var square_count = response.data.tree_list.data.area[area].square.length;
-                console.log("cantidad manz: " + square_count);
                 if (square_count > 0) {
                     for (var i = 0; i < square_count; i++) {
                         var square_name = response.data.tree_list.data.area[area].square[i].name;
@@ -94,11 +93,31 @@ new vue({
                 else {
                     $("h5:first-child").append("<p class=\"text-dark main-font pt-5\">No se encontraron elementos.</p>");
                 }
-            }).catch(function (err) {
+            }).catch(function (error) {
                 // Remove loading
                 $(".se-pre-con").fadeOut("slow");
-                Session.invalidate();
-                window.location.replace("/");
+                if (!error.response) {
+                    var response = {
+                        data: store.get("get_tree_response")
+                    };
+                    var area = _this.searchAndGetParamFromURL("selected_area");
+                    var square_count = response.data.tree_list.data.area[area].square.length;
+                    if (square_count > 0) {
+                        for (var i = 0; i < square_count; i++) {
+                            var square_name = response.data.tree_list.data.area[area].square[i].name;
+                            var square_id = response.data.tree_list.data.area[area].square[i].id;
+                            _this.my_square_array_names.push(square_name);
+                            _this.my_square_array_ids.push(square_id);
+                        }
+                    }
+                    else {
+                        $("h5:first-child").append("<p class=\"text-dark main-font pt-5\">No se encontraron elementos.</p>");
+                    }
+                }
+                else {
+                    Session.invalidate();
+                    window.location.replace("/");
+                }
             });
         },
         selectedSquare: function (index) {

@@ -6,6 +6,7 @@ import MainHeader from '../../../component/main-header.vue';
 import VeeValidate, { Validator } from 'vee-validate';
 import * as es from 'vee-validate/dist/locale/es';
 import { User } from "../model/User";
+import * as store from "store2";
 import { Session } from "../model/Session";
 Validator.localize('es', es);
 Vue.use(VeeValidate, {
@@ -43,10 +44,27 @@ new vueAAC({
                 }
                 // Remove loading
                 $(".se-pre-con").fadeOut("slow");
-            }).catch(function (err) {
-                console.log("error: " + err);
-                Session.invalidate();
-                window.location.replace("/");
+            }).catch(function (error) {
+                console.log("error: " + error);
+                if (!error.response) {
+                    var response = {
+                        data: store.get("get_tree_response")
+                    };
+                    var area_count = response.data.tree_list.data.area.length;
+                    for (var i = 0; i < area_count; i++) {
+                        var areaAux = response.data.tree_list.data.area[i].name;
+                        var areaId = response.data.tree_list.data.area[i].id;
+                        _this.my_area_array_names.push(areaAux);
+                        _this.my_area_array_ids.push(areaId);
+                        _this.cens_id = response.data.tree_list.data.area[i].cens_id;
+                    }
+                    // Remove loading
+                    $(".se-pre-con").fadeOut("slow");
+                }
+                else {
+                    Session.invalidate();
+                    window.location.replace("/");
+                }
             });
         },
         selectedArea: function (index) {
