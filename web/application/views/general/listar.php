@@ -18,11 +18,11 @@
                 <tr>
                   <th>Acciones</th>
                   <th><?php echo $nombre;?></th>
-                  <?php if(isset($lista[0]->apellido)){
-                    echo '<th>Apellido</th>';
-                    echo '<th>Direccion</th>';
-                    echo '<th>Telefono</th>';
-                  }?>
+                  <?php //if(isset($lista[0]->apellido)){
+                    //echo '<th>Apellido</th>';
+                    //echo '<th>Direccion</th>';
+                    //echo '<th>Telefono</th>';
+                  //}?>
                 </tr>
               </thead>
               <tbody>
@@ -35,17 +35,17 @@
                           $id=$fila->id;
                           echo '<tr  id="'.$id.'" data-json:'.json_encode($fila).'>';
 
-                          echo '<td>';
-                          echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$id.'")></i>';
-                          echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
-                          echo '</td>';
-                          echo '<td>'.$fila->nombre.'</td>';
-                        if(isset($fila->apellido))
-                        {
-                          echo '<td>'.$fila->apellido.'</td>';
-                          echo '<td>'.$fila->direccion.'</td>';
-                          echo '<td>'.$fila->telefono.'</td>';
-                        }
+                            echo '<td>';
+                            echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$id.'")></i>';
+                            echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
+                            echo '</td>';
+                            echo '<td>'.$fila->nombre.'</td>';
+                            if(isset($fila->apellido))
+                            {
+                              echo '<td>'.$fila->apellido.'</td>';
+                              echo '<td>'.$fila->direccion.'</td>';
+                              echo '<td>'.$fila->telefono.'</td>';
+                            }                            
                           echo '</tr>';
                         
                       }

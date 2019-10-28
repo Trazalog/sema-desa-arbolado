@@ -8,7 +8,7 @@
       </div>
 
       <div class="modal-body" id="modalBodyArticle">
-        <div class="form-group" style="width:90%" >
+        <!-- <div class="form-group" style="width:90%" >
             <label  class="form-label" id="direccion"></label>
         </div>
         <div id="tazadiv" hidden>
@@ -60,7 +60,7 @@
         </div>
         <div class="form-group" style="width:90%" >
                 <label  class="form-label" id="observacion"></label>
-         </div>
+         </div> -->
       </div>
 
       <div class="modal-footer">

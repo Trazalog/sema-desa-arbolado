@@ -41,6 +41,8 @@
         
     <script src="<?php base_url();?>lib/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 
+    
+
     <!-- <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script> -->
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <!-- <script src="<?php base_url() ?>lib/dist/js/pages/dashboard.js"></script> -->
@@ -54,6 +56,6 @@
 
 
 
-
+    
 
 

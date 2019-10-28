@@ -16,15 +16,25 @@ class Mapa extends CI_Controller {
    }
    function index()
    {
-      $data['puntos'] = $this->Mapas->listar()->puntos->punto;   
-         
+      
       $this->load->view('mapa/mapa',$data);      
    }
+
+   // retorna listado de arboles por id de censo
+   function getArbolesCensoId(){
+      $cens_id = $this->input->post('cens_id');      
+      $data['puntos'] = $this->Mapas->listar($cens_id)->arbol_list->area;   
+      echo json_encode($data);
+   }
+   // retorna formulario de arbol por info_id
    function getDetalle()
    {
-      $id = $this->input->post('id');
-      $response = $this->Mapas->Detalles($id);
-      echo json_encode($response->punto);
+      $id = $this->input->post('id');          
+      $data['html'] = json_decode($this->Mapas->Detalles($id))->formulario;
+
+      // transforma el json traido del DS en un html que se inserta en el modal formulario
+      $data['html'] =  form($data['html']);            
+      echo json_encode($data);
    }
 
 }

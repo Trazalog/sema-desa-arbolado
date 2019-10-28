@@ -14,43 +14,91 @@
 										<?php  if($nombre == 'Calle'){?>
 											<label for="">Departamento:</label>
 											<div class="col-md-6 col-xs-12 input-group" >
-											<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">
-											<datalist id="departamentos">
-											<?php foreach($departamentos as $fila)
-											{
-													echo  "<option data-json='".json_encode($fila)."'value='".$fila->nombre."'>";
-											}
+											<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off">
+										
+											<!-- <input list="departamentos" id="id_inputdepartamentos" placeholder="id_departamentopo" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">-->
+											<datalist id="departamentos"> 
+													<?php foreach($departamentos as $fila)
+														{
+																echo  "<option data-json='".json_encode($fila)."' value='".$fila->nombre."' data-id='".$fila->id."'   >";							
+														}
 													?>
 											</datalist>
-                <span class="input-group-btn">
-                    <button class='btn btn-primary' 
-                   data-toggle="modal" data-target="#modal_departamentos">
-                    <i class="glyphicon glyphicon-search"></i></button>
-                    </span> 
+											<span class="input-group-btn">
+													<button class='btn btn-primary' 
+												data-toggle="modal" data-target="#modal_departamentos">
+													<i class="glyphicon glyphicon-search"></i></button>
+											</span> 
+										<?php } ?>
+
+										<!-- ./ departamentos -->				
+
+										<!-- manzana -->
+											<?php  if($nombre == 'Manzana'){?>
+											<label for="">Area Geográfica:</label>
+											<div class="col-md-6 col-xs-12 input-group" >
+											<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off">
+										
+											<!-- <input list="departamentos" id="id_inputdepartamentos" placeholder="id_departamentopo" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">-->
+											<datalist id="departamentos"> 
+													<?php foreach($lista as $fila)
+														{
+																echo  "<option data-json='".json_encode($fila)."' value='".$fila->nombre."' data-id='".$fila->id."'   >";							
+														}
+													?>
+											</datalist>
+											<span class="input-group-btn">
+													<button class='btn btn-primary' 
+												data-toggle="modal" data-target="#modal_departamentos">
+													<i class="glyphicon glyphicon-search"></i></button>
+											</span> 
+											<?php } ?>
+				
+										<!-- ./ manzana -->				
+												
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
 
 
 
 
-										<?php } ?>
+									
 
 
+										<!-- CENSISTA -->
+											<?php if($nombre == 'Censista'){?>
+													<div class="form-group" style="width:40%">
+															<label  class="form-label">Apellido:</label>
+															<input type="text" id="Apellido"   name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Apellido" />
+													</div>
+													<div class="form-group" style="width:40%">
+															<label  class="form-label" >Direccion:</label>
+															<input type="text" id="Direccion"  name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Direccion" />
+													</div>
+													<div class="form-group" style="width:40%" >
+															<label  class="form-label">Telefono:</label>
+															<input type="number" id="Telefono" name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Telefono" />
+													</div>
 
-                    <?php if($nombre == 'Censista'){?>
-                        <div class="form-group" style="width:40%">
-                            <label  class="form-label">Apellido:</label>
-                            <input type="text" id="Apellido"   name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Apellido" />
-                        </div>
-                        <div class="form-group" style="width:40%">
-                            <label  class="form-label" >Direccion:</label>
-                            <input type="text" id="Direccion"  name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Direccion" />
-                        </div>
-                        <div class="form-group" style="width:40%" >
-                            <label  class="form-label">Telefono:</label>
-                            <input type="number" id="Telefono" name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Telefono" />
-                        </div>
-
-                    <?php } ?>
+											<?php } ?>
+										<!-- CENSISTA -->
             <div class="row">
                 <div class="col-xs-10">
                 </div>
@@ -93,114 +141,157 @@
             }
         }
     });
-}else{
-    $('#formulario').bootstrapValidator({
-        message: 'Este Valor no es valido',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            texto: {
-                message: 'El Nombre ingresado no es valido',
-                validators: {
-                    notEmpty: {
-                        message: 'Ingrese algun Valor'
-                    },
-                    regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
-                        message: 'El nombre solo puede usar caracteres alfabeticos o numeros'
-                    }
-                }
-            }
-        }
-    });
-}
-});
-  
-function Guardar(nombre)
-  {
+		}else{
+				$('#formulario').bootstrapValidator({
+						message: 'Este Valor no es valido',
+						feedbackIcons: {
+								valid: 'glyphicon glyphicon-ok',
+								invalid: 'glyphicon glyphicon-remove',
+								validating: 'glyphicon glyphicon-refresh'
+						},
+						fields: {
+								texto: {
+										message: 'El Nombre ingresado no es valido',
+										validators: {
+												notEmpty: {
+														message: 'Ingrese algun Valor'
+												},
+												regexp: {
+														regexp: /^[a-zA-Z0-9_]+$/,
+														message: 'El nombre solo puede usar caracteres alfabeticos o numeros'
+												}
+										}
+								}
+						}
+				});
+		}
+	});
+	
+
+
+
+
+	function Guardar(nombre){
+
     $('#formulario').bootstrapValidator('validate');
     estado= $('#formulario').data('bootstrapValidator').isValid();
     if(estado)
     {
-        datonombre = document.getElementById('Nombre').value
+				datonombre = document.getElementById('Nombre').value;
+				//TODO: TOMAR VALOR DE DEPARTAMENTO
+				var depa_id = "";
+// 				datoId = $("#departamentos option:selected").attr('data-id');
+
+// 				var value = $("#departamentos").ui.attribute.val();
+
+// alert(value);
+
+
+				//datoId = 
+
+				// var val = $('#item').val()
+				// var xyz = $('#departamentos option').filter(function() {
+				// 		return this.value == val;
+				// }).data('xyz');
+				// /* if value doesn't match an option, xyz will be undefined*/
+				// var msg = xyz ? 'xyz=' + xyz : 'No Match';
+				// alert(msg);
+
+
+
+
+
+				//datoId =  $('#departamentos').value;
+			//	alert(datoId);
+				//dataId = $('#inputdepartamentos').data('id');
+
+				//TODO:SACAR PA GUARDAR
+				//return;
+				//alert(dataId);
         switch(nombre)
         {
         case 'Arbol':
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Arbol/Guardar_Nuevo', 
-        success: function(result){
-            linkTo('Arbol');
-        }
-        });
-        
-        break;
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre },
+								url: 'Arbol/Guardar_Nuevo', 
+								success: function(result){
+										linkTo('Arbol');
+								}
+							});        
+				break;				
         case 'Area geografica':
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Area/Guardar_Nuevo', 
-        success: function(result){
-            console.log(result);
-            linkTo('Area');
-        }
-        });
-        
-        break;
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre },
+								url: 'Area/Guardar_Nuevo', 
+								success: function(result){
+										console.log(result);
+										linkTo('Area');
+								}
+							});        
+							break;
+				
         case 'Censista':
-        apellido = document.getElementById('Apellido').value
-        direccion = document.getElementById('Direccion').value
-        telefono = document.getElementById('Telefono').value
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre, apellido:apellido, direccion: direccion, telefono:telefono },
-        url: 'Censista/Guardar_Nuevo', 
-        success: function(result){
-            console.log(result);
-            linkTo('Censista');
-        }
-        });
-        break;
+							apellido = document.getElementById('Apellido').value
+							direccion = document.getElementById('Direccion').value
+							telefono = document.getElementById('Telefono').value
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre, apellido:apellido, direccion: direccion, telefono:telefono },
+								url: 'Censista/Guardar_Nuevo', 
+								success: function(result){
+										console.log(result);
+										linkTo('Censista');
+								}
+							});
+				break;				
         case 'Departamento':
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Departamento/Guardar_Nuevo', 
-        success: function(result){
-            console.log(result);
-            linkTo('Departamento');
-        }
-        });
-        break;
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre },
+								url: 'Departamento/Guardar_Nuevo', 
+								success: function(result){
+										console.log(result);
+										linkTo('Departamento');
+								}
+							});
+							break;
+				
         case 'Calle':
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Calle/Guardar_Nuevo', 
-        success: function(result){
-            console.log(result);
-            linkTo('Calle');
-        }
-        });
-        break;
+
+
+
+
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre,
+												depa_id: depa_id },
+								url: 'Calle/Guardar_Nuevo', 
+								success: function(result){
+										console.log(result);
+										linkTo('Calle');
+								}
+							});
+							break;
+				
         case 'Manzana':
-        $.ajax({
-        type: 'POST',
-        data: { datonombre:datonombre },
-        url: 'Manzana/Guardar_Nuevo', 
-        success: function(result){
-            console.log(result);
-            linkTo('Manzana');
-        }
-            });
-        break;
+							
+							
+							$.ajax({
+								type: 'POST',
+								data: { datonombre:datonombre,
+												arge_id:arge_id },
+								url: 'Manzana/Guardar_Nuevo', 
+								success: function(result){
+									console.log(result);
+									linkTo('Manzana');
+								}
+							});
+							break;
         default:
         break;
         }
     }
-}
+	}
   </script>

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Calle extends CI_Controller {
-    function __construct(){
+   function __construct(){
 
       parent::__construct();
       $this->load->helper('file');
@@ -33,7 +33,9 @@ class Calle extends CI_Controller {
    function Guardar_Nuevo()
    {
      $data['nombre'] = $this->input->post('datonombre');
-     echo json_encode($data);
+     $data['depa_id']= $this->input->post('depa_id');
+     $response = $this->Calles->Guardar_Nuevo($data);
+     echo json_encode($response);
    }
 }
 ?>

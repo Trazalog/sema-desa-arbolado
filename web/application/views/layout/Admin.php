@@ -163,6 +163,7 @@
         }
 
 </script>
+<?php $this->load->view(FRM."scripts") ?>;   
 
 </body>
 </html>

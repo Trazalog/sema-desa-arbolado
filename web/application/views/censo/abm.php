@@ -36,7 +36,7 @@
         <div class="row">
         <label for="" style="margin-left:15px">Area:</label>
             <div class="col-md-6 col-xs-12 input-group" style="margin-left:15px">
-                <input list="areas" id="inputareas" class="form-control" autocomplete="off" placeholder="Inserte Area" onchange="AgregarAreaInput()">
+                <input list="areas" id="inputareas" class="form-control" autocomplete="off" placeholder="Seleccione Area" onchange="AgregarAreaInput()">
                 <datalist id="areas">
                 <?php foreach($areas as $fila)
                 {
@@ -51,6 +51,30 @@
                     </span> 
             </div>
         </div>
+
+        <div class="row">
+        <label for="" style="margin-left:15px">Formulario:</label>
+            <div class="col-md-6 col-xs-12 input-group" style="margin-left:15px">
+                <input list="form" id="form" class="form-control" autocomplete="off" placeholder="Seleccione Formulario" onchange="">
+                <datalist id="form">
+                <?php foreach($formulario as $form)
+                {
+                    echo  "<option data-json='".json_encode($form)."'value='".$form->form_id."'>";
+                }
+                    ?>
+                </datalist>
+                <span class="input-group-btn">
+                    <button class='btn btn-primary' 
+                    data-toggle="modal" data-target="#modal_areas">
+                    <i class="glyphicon glyphicon-search"></i></button>
+                    </span> 
+            </div>
+        </div>        
+
+
+
+
+
         <div class="row" style="margin-top:25px">
             <div class="col-xs-12">
                 <table class="table" id="tablaareasasignadas">
