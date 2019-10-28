@@ -26,4 +26,14 @@ class Censos extends CI_Model
         $array = file_get_contents($url, false, $param);
         return json_decode($array);
     }
+
+    function getFormulario(){
+        $parametros["http"]["method"] = "GET";
+        $parametros["http"]["header"] = "Accept: application/json";	 
+        $param = stream_context_create($parametros);
+        $resource = '/getFromulario';	 	
+        $url = REST.$resource;
+        $array = file_get_contents($url, false, $param);
+        return json_decode($array);
+    }
 }

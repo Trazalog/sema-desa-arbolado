@@ -29,13 +29,12 @@ class Mapa extends CI_Controller {
    // retorna formulario de arbol por info_id
    function getDetalle()
    {
-      $id = $this->input->post('id');
-      $response = $this->Mapas->Detalles($id);
-      
+      $id = $this->input->post('id');          
+      $data['html'] = json_decode($this->Mapas->Detalles($id))->formulario;
 
-      echo json_encode($response);
-
-      // echo json_encode($response->punto);
+      // transforma el json traido del DS en un html que se inserta en el modal formulario
+      $data['html'] =  form($data['html']);            
+      echo json_encode($data);
    }
 
 }

@@ -9,14 +9,7 @@ class Departamentos extends CI_Model
     }
     function listar()
     {
-        
-        // $parametros["http"]["method"] = "GET";		 
-        // $param = stream_context_create($parametros);
-        // $resource = 'listadepartamentos';	 	
-        // $url = REST.$resource;
-        // $array = file_get_contents($url, false, $param);
-				// return json_decode($array);
-				
+        				
 				$parametros["http"]["method"] = "GET";
 				$parametros["http"]["header"] = "Accept: application/json";	
 				$param = stream_context_create($parametros);

@@ -21,12 +21,15 @@ class Calles extends CI_Model
 
 	function Guardar_Nuevo($data){
 
-	
-		$_post_setdepartamentos = array(
-			"nombre"=> $data["nombre"]				
-		);
+//TODO:SACAR HARCODE DE DEPARTAMENTO ID
 
-		$datos ['_post_setdepartamentos'] = $_post_setdepartamentos;
+		$data["depa_id"] = "1";
+
+		$_post_setcalle = array(
+			"nombre"=> $data["nombre"],
+			"depa_id"=>$data["depa_id"]				
+		);
+		$datos['_post_setcalle'] = $_post_setcalle;	
 		$data = json_encode($datos);
 
 		$parametros["http"]["method"] = "POST";
@@ -34,7 +37,7 @@ class Calles extends CI_Model
 		$parametros["http"]["header"] = "Content-Type: application/json";	
 		$parametros["http"]["content"] = $data;	
 		$param = stream_context_create($parametros);
-		$resource = '/setDepartamentos';	 				
+		$resource = '/setCalle';	 				
 		$url = REST.$resource;
 		$array = file_get_contents($url, false, $param);
 		return json_decode($array);	

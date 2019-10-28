@@ -23,6 +23,10 @@ if (!function_exists('form')) {
                     $html .= input($e);
                     break;
 
+                case 'numerico':
+                    $html .= numerico($e);
+                    break;    
+
                 case 'select':
                     $html .= select($e);
                     break;
@@ -33,6 +37,9 @@ if (!function_exists('form')) {
 
                 case 'check':
                     $html .= check($e);
+                   
+                    $valorCheck = check($e);
+                   
                     break;
 
                 case 'radio':
@@ -52,7 +59,7 @@ if (!function_exists('form')) {
                     break;
             }
         }
-
+				//echo '</fieldset>';	
         return $html . '<button class="btn btn-primary pull-right frm-save '.($modal?'hidden':null).'" onclick="frmGuardar(this)">Guardar</button></form>';
     }
 
@@ -65,11 +72,21 @@ if (!function_exists('form')) {
             </div>";
     }
 
-    function select($e)
+    function numerico($e)
     {
+        return
+            "<div class='form-group'>
+                <label for=''>$e->label" . ($e->requerido ? "<strong class='text-danger'> *</strong>" : null) . ":</label>
+                <input class='form-control' value='".(isset($e->valor)?$e->valor:null)."' type='text' placeholder='Escriba su Texto...' id='$e->name'  name='$e->name' " . ($e->requerido ? req() : null) . "/>
+            </div>";
+    }
+
+    function select($e)
+    {      
+
         $val = '<option value=""> -Seleccionar- </option>';
-        foreach ($e->values as $o) {
-            $val .= "<option value='$o->value' ".((isset($e->valor) && $e->valor== $o->value)?'selected':null).">$o->label</option>";
+        foreach ($e->valores->valor as $o) {
+            $val .= "<option value='$o->value' ".((isset($e->valor) && $e->valor== $o->value)?'selected':null).">$o->value</option>";
         }
 
         return
@@ -89,7 +106,8 @@ if (!function_exists('form')) {
 
     }
 
-    function check($e)
+		
+		function checkoriginal($e)
     {
         $html = "";
         foreach ($e->values as $key => $o) {
@@ -103,6 +121,20 @@ if (!function_exists('form')) {
         // $html .= "<input class='hidden' type='checkbox' name='$e->name[]' value=' ' checked>";
         return
             "<div class='form-group'><label>$e->label" . ($e->requerido ? "<strong class='text-danger'> *</strong>" : null) . ":</label><div style='margin-left: 10%;'> $html</div></div>";
+
+    }
+
+
+		function check($e)
+    {					
+				$html .= "<div class='checkbox'>
+                                <label>
+											<input type='checkbox' name='$e->label' class='flat-red i-check' value='$e->valor ? checked : null'>
+                                    $o->label
+                                </label>
+                            </div>";	
+
+				return "<div class='form-group'><label>$e->label" . ($e->requerido ? "<strong class='text-danger'> *</strong>" : null) . ":</label><div style='margin-left: 10%;'> $html</div></div>";
 
     }
 
