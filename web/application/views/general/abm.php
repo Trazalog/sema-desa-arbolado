@@ -1,119 +1,375 @@
-<div class="box"> 
-      <div class="box-header">
-          <h3 class="box-title"><?php echo $titulo;?></h3>
+<?php $this->load->view('censo/modal_areas')?>
+
+
+		<!--_________________________.TITULOS._________________________ -->
+
+		<div class="box"> 
+			<div class="box-header bg-green">
+				<h3 class="box-title"><?php echo $titulo;?></h3>
+					
+		</div>
+		<!--_________________________.Box Body._________________________ -->
+
+<div class="box-body ">
+
+<!--_________________________. FORMULARIO._________________________ -->
+
+<form role="form" id="formulario">
+			
+			<div class="form-group" style="width:40%" >
+					
+					<label  for="Nombre" class="form-label"><?php echo $nombre;?>:</label>
+					<input type="text" name="texto"  id="Nombre" 
+					<?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> 
+					class="form-control" placeholder="Inserte nombre del <?php echo $nombre;?>" />
             
-        </div><!-- /.box-header -->
-        <div class="box-body">
-        <form role="form" id="formulario">
-            <div class="form-group" style="width:40%" >
-                    <label  for="Nombre" class="form-label"><?php echo $nombre;?>:</label>
-                    <input type="text" name="texto"  id="Nombre" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte nombre del <?php echo $nombre;?>" />
-                    </div>
+			</div>
 										
-										<!-- departamentos -->
-										<?php  if($nombre == 'Calle'){?>
-											<label for="">Departamento:</label>
-											<div class="col-md-6 col-xs-12 input-group" >
-											<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off">
-										
-											<!-- <input list="departamentos" id="id_inputdepartamentos" placeholder="id_departamentopo" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">-->
-											<datalist id="departamentos"> 
-													<?php foreach($departamentos as $fila)
-														{
-																echo  "<option data-json='".json_encode($fila)."' value='".$fila->nombre."' data-id='".$fila->id."'   >";							
-														}
-													?>
-											</datalist>
-											<span class="input-group-btn">
-													<button class='btn btn-primary' 
-												data-toggle="modal" data-target="#modal_departamentos">
-													<i class="glyphicon glyphicon-search"></i></button>
-											</span> 
-										<?php } ?>
 
-										<!-- ./ departamentos -->				
+	<!-- //////////////////////////////////////////////////////////////////////////////////////// DEPARTAMENTOS //////////////////////////////////////////////////////////////////////////////////////// -->
 
-										<!-- manzana -->
-											<?php  if($nombre == 'Manzana'){?>
-											<label for="">Area Geográfica:</label>
-											<div class="col-md-6 col-xs-12 input-group" >
-											<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off">
-										
-											<!-- <input list="departamentos" id="id_inputdepartamentos" placeholder="id_departamentopo" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">-->
-											<datalist id="departamentos"> 
-													<?php foreach($lista as $fila)
-														{
-																echo  "<option data-json='".json_encode($fila)."' value='".$fila->nombre."' data-id='".$fila->id."'   >";							
-														}
-													?>
-											</datalist>
-											<span class="input-group-btn">
-													<button class='btn btn-primary' 
-												data-toggle="modal" data-target="#modal_departamentos">
-													<i class="glyphicon glyphicon-search"></i></button>
-											</span> 
-											<?php } ?>
-				
-										<!-- ./ manzana -->				
+
+	
+		<form class="formDepartamentos" id="formDepartamentos">
+
+				<div class="form-group">
+
+					<?php  if($nombre == 'Departamentos'){?>
+
+					<!--******************************************-->
+
+					<div class="col-md-12">
+
+
+							<label for="">Departamento:</label>
+
+													
+								<div class="col-md-5 input-group" >
+									<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off">
 												
+									<!-- <input list="departamentos" id="id_inputdepartamentos" placeholder="id_departamentopo" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">-->
+													
+									<datalist id="departamentos"> 
+										<?php foreach($departamentos as $fila)
+											{
+												echo  "<option data-json='".json_encode($fila)."' value='".$fila->nombre."' data-id='".$fila->id."'   >";							
+											}
+										?>
+									</datalist>
+													
+									<span class="input-group-btn">
+										<button class='btn btn-primary' data-toggle="modal" data-target="#modal_departamentos">
+										<i class="glyphicon glyphicon-search"></i></button>
+									</span>
+
+					</div> 
+					<!--_____________________________________________--> 
+
+					<div class="col-md-12">
+
+						<hr>     
+				
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-primary pull-right" onclick="Guardar('<?php echo $nombre;?>')">Aceptar</button>
+						</span>
+					</div>
+
+					<!--******************************************-->
+													
+													
+					<?php } ?>
+											
+
+		</form>
+	
+	</div>
+
+	
+	<!-- //////////////////////////////////////////////////////////////////////////////////////// DEPARTAMENTOS //////////////////////////////////////////////////////////////////////////////////////// -->
+
+	<!-- //////////////////////////////////////////////////////////////////////////////////////// CALLES //////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+	<form class="formCalles" id="formCalles">
+
+			<div class="form-group">
+
+				<?php  if($nombre == 'Calle'){?>
+
+		<!--******************************************-->
+
+			<div class="col-md-12">
+
+
+					<div class="col-md-6">
+
+						<label style="margin-left:10px"for="">Departamento:</label>
+							<div class="col-md-12  input-group" style="margin-left:15px">
+							
+								<select  name="select"  id="Nombre" class="form-control">
+									<option value="" disabled selected>-Seleccione Departamento-</option>
+									<?php
+										foreach($departamentos as $fila)
+										{
+										echo '<option value="'.$fila->id.'">'.$fila->nombre.'</option>' ;
+										}
+										?>
+								</select>	
+							</div> 
+
+					</div>					
+
+						<!--_____________________________________________-->
+
+					<div class="col-md-6 " >
+
+						<label for="" style="margin-left:10px">Area:</label>
+							<div class="col-md-12  input-group" style="margin-left:15px">
+								<input list="areas" id="inputareas" class="form-control" autocomplete="off" placeholder="Seleccione Area" onchange="AgregarAreaInput()">
+								<datalist id="areas">
+								<?php foreach($areas as $fila)
+								{
+									echo  "<option data-json='".json_encode($fila)."'value='".$fila->nombre."'>";
+								}
+									?>
+								</datalist>
+								<span class="input-group-btn">
+									<button class='btn btn-primary' 
+									data-toggle="modal" data-target="#modal_areas">
+									<i class="glyphicon glyphicon-search"></i></button>
+								</span>
+							</div> 
+
+					</div>
+				<!--_____________________________________________--> 
+
+				<div class="col-md-12">
+
+					<hr>     
+			
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-primary pull-right" onclick="Guardar('<?php echo $nombre;?>')">Aceptar</button>
+					</span>
+				</div>
+
+				<!--******************************************-->
+												
+												
+				<?php } ?>
+										
+
+	</form>
+	</div>
+
+	<!-- //////////////////////////////////////////////////////////////////////////////////////// CALLES //////////////////////////////////////////////////////////////////////////////////////// -->
 
 
 
+	<!-- //////////////////////////////////////////////////////////////////////////////////////// MANZANA //////////////////////////////////////////////////////////////////////////////////////// -->
 
 
 
+	<form class="formManzana" id="formManzana">
+
+		<div class="form-group"  >
+		
+		
+
+			<?php  if($nombre == 'Manzana'){?>
+
+		
+
+				<!--******************************************-->
+
+				<div class="col-md-12">					
+
+					<div class="col-md-6">
+
+						<label style="margin-left:10px"for="">Departamento:</label>
+							<div class="col-md-12  input-group" style="margin-left:15px">
+							
+							<select  name="select"  id="Nombre" class="form-control">
+                        <option value="" disabled selected>-Seleccione Departamento-</option>
+                        <?php
+                        foreach($departamentos as $fila)
+                        {
+                           echo '<option value="'.$fila->id.'">'.$fila->nombre.'</option>' ;
+                        }
+                        ?>
+                     </select>
+							
+
+								
+								
+							</div> 
+					</div>					
+					
+					<!--_____________________________________________-->
+
+					<div class="col-md-6 " >
+						
+						<label for="" style="margin-left:10px">Area:</label>
+							<div class="col-md-12  input-group" style="margin-left:15px">
+								<input list="areas" id="inputareas" class="form-control" autocomplete="off" placeholder="Seleccione Area" onchange="AgregarAreaInput()">
+								<datalist id="areas">
+								<?php foreach($areas as $fila)
+								{
+									echo  "<option data-json='".json_encode($fila)."'value='".$fila->nombre."'>";
+								}
+									?>
+								</datalist>
+
+								<span class="input-group-btn">
+									<button class='btn btn-primary' 
+									data-toggle="modal" data-target="#modal_areas">
+									<i class="glyphicon glyphicon-search"></i></button>
+								</span>
+
+							</div> 
+					
+					</div>
+
+					
+					
+						
+				</div>
+
+				<!--******************************************-->
+
+
+				<!--_____________________________________________-->  
+							
+					<div class="col-md-12">
+								<br>
+					</div>  
+
+				 <!--_____________________________________________--> 
+
+				 <div class="col-md-12">
+
+					<hr>     
+								
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-primary pull-right" onclick="Guardar('<?php echo $nombre;?>')">Aceptar</button>
+						</span>
+				</div>
+							
+											
+				<!--******************************************--> 								
+												
+		
+			<?php } ?>
+		
+		</div>
+																					
+	</form>	
+	</div>
+
+				
+	<!-- //////////////////////////////////////////////////////////////////////////////////////// MANZANA//////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+	<!-- //////////////////////////////////////////////////////////////////////////////////////// CENCISTA //////////////////////////////////////////////////////////////////////////////////////// -->
+
+	<form class="formCensista" id="formCensista">
+
+		<div class="form-group"  >
+
+				<?php if($nombre == 'Censista'){?>
+
+				<!--******************************************-->
+							
+				<div class="col-md-12">
+
+					<!--_____________________________________________-->
+					
+					<div class="col-md-4">
+						<div class="form-group" >											
+							<label  class="form-label">Apellido:</label>
+							<input type="text" id="Apellido"   name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Apellido" />
+						</div>
+					</div>
+
+					<!--_____________________________________________-->
+
+					<div class="col-md-4">
+						<div class="form-group" >
+							<label  class="form-label" >Direccion:</label>
+							<input type="text" id="Direccion"  name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Direccion" />
+						</div>
+					</div>
+
+					<!--_____________________________________________-->
+
+					<div class="col-md-4">
+						<div class="form-group"  >
+							<label  class="form-label">Telefono:</label>
+							<input type="number" id="Telefono" name="texto" 
+							<?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> 
+							class="form-control" placeholder="Inserte Telefono" />
+						</div>
+					</div>
+					
+					
+
+				</div>
+
+				<!--******************************************-->		
+
+				<div class="col-md-12">
+
+					<!--_____________________________________________-->
+								
+						<div class="col-md-12">
+
+							<hr>     
+								
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-primary pull-right" onclick="Guardar('<?php echo $nombre;?>')">Aceptar</button>
+								</span>
+						</div>
+
+					<!--_____________________________________________-->  
+							
+						<div class="col-md-12">
+							<br>
+						</div>  
+
+                 <!--******************************************-->           
+  
+
+			<?php } ?>
+
+												
+		</div>
+
+	<div class="row">
+								
+
+										
+	</form>	
+	</div>
+	<!-- //////////////////////////////////////////////////////////////////////////////////////// CENCISTA //////////////////////////////////////////////////////////////////////////////////////// -->
+
+
+																
+
+												
+				
+										
+
+				
+			
+			<!-- /.box-body -->
+		</div><!-- /.box -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+	</body>
 
 
 
+<!-- ///////////////////////////////////////// SCRIPT /////////////////////////////////////////-->
 
-
-
-
-
-
-
-
-
-            </div>
-
-
-
-
-									
-
-
-										<!-- CENSISTA -->
-											<?php if($nombre == 'Censista'){?>
-													<div class="form-group" style="width:40%">
-															<label  class="form-label">Apellido:</label>
-															<input type="text" id="Apellido"   name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Apellido" />
-													</div>
-													<div class="form-group" style="width:40%">
-															<label  class="form-label" >Direccion:</label>
-															<input type="text" id="Direccion"  name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Direccion" />
-													</div>
-													<div class="form-group" style="width:40%" >
-															<label  class="form-label">Telefono:</label>
-															<input type="number" id="Telefono" name="texto" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte Telefono" />
-													</div>
-
-											<?php } ?>
-										<!-- CENSISTA -->
-            <div class="row">
-                <div class="col-xs-10">
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-primary btn-block" onclick="Guardar('<?php echo $nombre;?>')">Aceptar</button>
-                </div>
-            </div>
-    </form>
-            
-         
-        </div><!-- /.box-body -->
-      </div><!-- /.box -->
-    </div><!-- /.col -->
-  </div><!-- /.row -->
-  </body>
   <script>
   $(document).ready(function() {
     nombre= '<?php echo $nombre?>';
@@ -169,7 +425,7 @@
 	
 
 
-
+//<!--________________________________________ GUARDAR ________________________________________-->
 
 	function Guardar(nombre){
 
@@ -180,11 +436,11 @@
 				datonombre = document.getElementById('Nombre').value;
 				//TODO: TOMAR VALOR DE DEPARTAMENTO
 				var depa_id = "";
-// 				datoId = $("#departamentos option:selected").attr('data-id');
+	// 				datoId = $("#departamentos option:selected").attr('data-id');
 
-// 				var value = $("#departamentos").ui.attribute.val();
+	// 				var value = $("#departamentos").ui.attribute.val();
 
-// alert(value);
+	// alert(value);
 
 
 				//datoId = 
@@ -294,4 +550,33 @@
         }
     }
 	}
+
+
+
+
+	
   </script>
+
+   <!-- ///////////////////////////////////////// SCRIPT /////////////////////////////////////////-->
+
+   <script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      'autoFill'    : true,
+      'buttons'     :true,
+      'fixedHeader': true,
+        dom: 'Bfrtip',
+        buttons: [
+             'excel', 'pdf', 'print'
+        ]
+    })
+  })
+
+</script>

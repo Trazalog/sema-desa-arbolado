@@ -7,6 +7,7 @@ class Manzana extends CI_Controller {
       $this->load->helper('file');
       $this->load->model('Manzanas');
       $this->load->model('Areas');
+      $this->load->model('Departamentos');
      
       if(!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/web/Dash')
       {
@@ -27,6 +28,8 @@ class Manzana extends CI_Controller {
     $data['nombre'] = 'Manzana';
     $data['accion'] = 'Nuevo';
     $data['lista'] = $this->Areas->listar()->areas->area;
+    $data['areas'] = $this->Areas->listar()->areas->area;
+    $data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
     
     
     $this->load->view('general/abm',$data);

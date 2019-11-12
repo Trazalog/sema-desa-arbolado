@@ -1,12 +1,24 @@
 <?php $this->load->view('area/modal_calles')?>
+<?php $this->load->view('censo/modal_areas')?>
 <div class="box"> 
-      <div class="box-header">
+      <div class="box-header bg-green ">
           <h3 class="box-title"><?php echo $titulo;?></h3>
             
         </div><!-- /.box-header -->
         <div class="box-body">
+
+
+         <!-- /// ----------------------------------- FORMULARIO ----------------------------------- /// -->
+
+         
         <form role="form" id="formulario">
-            <div class="form-group" style="width:40%" >
+
+            <!-- /// ____________________________ FORMULARIO GRUPO ____________________________ /// -->
+            
+            <div class="form-group"  >
+            <div class="col-md-4">           
+            
+
                     <label  class="form-label">Departamento:</label>
                     <select  name="select"  id="Nombre" class="form-control">
                         <option value="" disabled selected>-Seleccione Departamento-</option>
@@ -18,29 +30,92 @@
                         ?>
                      </select>
                     </div>
-                    <div class="form-group" style="width:40%" >
-                     <label  class="form-label">Area geografica:</label>
-                    <input type="text" class="form-control" placeholder="Inserte nombre del Area">
-                    </div>
-                    <div class="row">
-                    <label  class="form-label" style="margin-left:15px">Manzana:</label>
-                  <div class="col-md-6 col-xs-12 input-group" style="margin-left:15px">
-                 
-                <input type="text" id="manzana" class="form-control" placeholder="Inserte Nombre Manzana"autocomplete="off">
-                <span class="input-group-btn">
-                    <button class='btn btn-primary' 
-                    onclick='AgregarManzana()'>
-                    Agregar</button>
-                    </span> 
+
             </div>
+            
+
+            <!-- ____________________________ AREA GEOGRAFICA  ____________________________ -->
+            <div class="col-md-4">
+
+                <div class="form-group"  >      
+                        <label  class="form-label">Area geografica:</label>
+                        
+                        <!--<input type="text" class="form-control" placeholder="Inserte nombre del Area"> -->                                 
+                        
+                        <input list="areas" id="inputareas" class="form-control" autocomplete="off" placeholder="Seleccione Area" onchange="AgregarAreaInput()">
+								<datalist id="areas">
+								<?php foreach($areas as $fila)
+								{
+									echo  "<option data-json='".json_encode($fila)."'value='".$fila->nombre."'>";
+								}
+									?>
+								</datalist>
+								 
+                    </div>
+                        
+                </div>
+
+                <!-- ____________________________ MANZANA  ____________________________ -->
+
+                <div class="form-group"  >
+                        <label  class="form-label" style="margin-left:15px">Manzana:</label>
+                    <div class="col-md-4  input-group" style="margin-left:15px">
+                </div> 
+
+                    <!-- ____________________________ MANZANA  ____________________________ -->
+                
+                    <div class="form-group"  > 
+                        <div class="col-md-4">
+                        <input type="text" id="manzana" class="form-control" placeholder="Inserte Nombre Manzana"autocomplete="off">
+                        </div>
+                        
+                        <div class="col-md-12">
+
+							<hr>					 
+                               
+                            
+                            <span class="input-group-btn">
+                                <button class='btn btn-primary pull-right ' 
+                                onclick='AgregarManzana()'>
+                                Agregar</button>
+                            </span>
+                         </div> 
+                            
+                    
+                </div>
+                <div class="col-md-12">   
+                <hr>
+                </div>
+                
+            
+
+            
+            </div>
+
+            <!-- /// ____________________________ FORMULARIO GRUPO 2 ____________________________ /// -->
+
+            
+        
+        <!--<div class="row">
+                <div class="col-xs-10">
+                </div>
+                <div class="col-xs-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="Guardar()">Acepzczxtar</button>
+                </div>
+        </div>-->
+
+
         </div>
-        <div class="row" style="margin-top:25px">
-            <div class="col-xs-12">
+
+        <div class="box-body table-scroll">
+        
                 <table id="manzanas_asignadas" class="table">
                     <thead>
                         <tr>
                             <th>Acciones</th>
                             <th>Manzana</th>
+                            <th>Area Geografica</th>
+                            <th>Departamento</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,15 +123,11 @@
                 </table>
             </div>
         </div>
-    
-            <div class="row">
-                <div class="col-xs-10">
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-primary btn-block" onclick="Guardar()">Aceptar</button>
-                </div>
-            </div>
+  
+            
     </form>
+
+        <!-- /// ----------------------------------- FORMULARIO ----------------------------------- /// -->
             
          
         </div><!-- /.box-body -->
@@ -64,7 +135,15 @@
     </div><!-- /.col -->
   </div><!-- /.row -->
   </body>
+
+
+
+
+  <!-- ///////////////////////////////////////// SCRIPT /////////////////////////////////////////-->
+
+
   <script>
+
   var manzanasAsignadas=$('#manzanas_asignadas').DataTable();
   $(document).ready(function() {
     $('#formulario').bootstrapValidator({
@@ -93,6 +172,9 @@
         }
     });
 });
+
+//<!--________________________________________ GUARDAR ________________________________________-->
+
   
 function Guardar(nombre)
   {
@@ -103,6 +185,10 @@ function Guardar(nombre)
         console.log('ok');
     }
 }
+
+//<!--________________________________________ CHECK TABLA ________________________________________-->
+
+
 function checkTabla(idtabla, idrecipiente, json, acciones)
 {
   lenguaje = <?php echo json_encode($lang)?>;
@@ -111,6 +197,9 @@ function checkTabla(idtabla, idrecipiente, json, acciones)
     armaTabla(idtabla,idrecipiente,json,lenguaje,acciones);
   }
 }
+
+//<!--________________________________________ MOSTRAR CALLE ________________________________________-->
+
 function MuestraCalles()
 {
     if(document.getElementById('checkcalles').checked)
@@ -120,6 +209,8 @@ function MuestraCalles()
         document.getElementById('divcalles').hidden = true;
     }
 }
+
+//<!--________________________________________ AGREGAR MANZANA ________________________________________-->
 
 function AgregarManzana()
 {
@@ -148,3 +239,5 @@ $(document).off('click','.manzanas_asignadas_calle').on('click', '.manzanas_asig
     $('#modal_calles').modal('show');
 } );
   </script>
+
+  <!-- ///////////////////////////////////////// SCRIPT /////////////////////////////////////////-->

@@ -10,4 +10,3 @@ function isModalOpen() {
 </script>
 
 
-<div id="frm-list"></div>

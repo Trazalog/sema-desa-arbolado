@@ -1,5 +1,5 @@
 <div class="box"> 
-      <div class="box-header">
+      <div class="box-header bg-green">
           <h3 class="box-title"><?php echo $titulo;?></h3>
             
         </div><!-- /.box-header -->

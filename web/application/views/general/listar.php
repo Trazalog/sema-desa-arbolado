@@ -1,5 +1,5 @@
 <div class="box"> 
-      <div class="box-header">
+      <div class="box-header bg-green">
           <h3 class="box-title"><?php echo $titulo?></h3>
             
         </div><!-- /.box-header -->
@@ -8,6 +8,11 @@
                 <div class="col-xs-2">
                  <button type="button" class=" btn btn-primary btn-block" onclick="Nuevo('<?php echo $nombre;?>')">Nuevo</button>
                 </div>
+
+                <div class="col-md-12">
+                  <hr>
+                </div>
+
                 <div class="col-xs-10">
                  </div>
              </div>
@@ -61,7 +66,11 @@
   </div><!-- /.row -->
   </body>
   <script>
+  
+  
   $('#tabla_lista').dataTable();
+ 
+ 
   function Nuevo(nombre)
   {
     switch(nombre)
