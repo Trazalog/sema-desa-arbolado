@@ -1,0 +1,41 @@
+<api xmlns="http://ws.apache.org/ns/synapse" name="arboladoAPI" context="/arbolado/api">
+   <resource methods="GET" uri-template="/area/{usuario}">
+      <inSequence>
+         <log level="full" description="msg entrada"/>
+         <log level="custom" description="log usuario">
+            <property name="usuario" expression="uri.var.usuario"/>
+         </log>
+         <header name="Accept" scope="transport" value="application/json"/>
+         <send>
+            <endpoint key="ArboladoTreeDSS"/>
+         </send>
+      </inSequence>
+      <outSequence>
+         <log level="full">
+            <property name="MESSAGE" value="FIRST"/>
+         </log>
+         <datamapper config="gov:datamapper/dssatanvs.dmc" inputSchema="gov:datamapper/dssatanvs_inputSchema.json" outputSchema="gov:datamapper/dssatanvs_outputSchema.json" inputType="JSON" outputType="JSON"/>
+         <log level="full">
+            <property name="MESSAGE" value="LAST"/>
+         </log>
+         <send/>
+      </outSequence>
+      <faultSequence>
+         <log level="custom" description="Informe de error">
+            <property name="text" value="************Error Inesperado******************"/>
+            <property name="code" value="1000"/>
+            <property name="message" expression="//detail"/>
+         </log>
+         <payloadFactory media-type="json" description="Mensaje error">
+            <format>{"response" : {&#xd;                       "errorCode" : "1000", &#xd;                       "errorMessage" : "$1"&#xd;                       }&#xd;}</format>
+            <args>
+               <arg evaluator="json" expression="//detail"/>
+            </args>
+         </payloadFactory>
+         <property name="messageType" value="application/json" scope="axis2" type="STRING"/>
+         <property name="HTTP_SC" value="404" scope="axis2" type="STRING" description="Respuesta 404"/>
+         <send/>
+      </faultSequence>
+   </resource>
+</api>
+                        
