@@ -6,7 +6,7 @@
         <div class="box-body">
         <div class="row">
                 <div class="col-xs-2">
-                 <button type="button" class=" btn btn-primary btn-block" onclick="Nuevo('<?php echo $nombre;?>')">Nuevo</button>
+                 <button type="button" class=" btn-sm btn-primary btn-block" onclick="Nuevo('<?php echo $nombre;?>')">Nuevo</button>
                 </div>
 
                 <div class="col-md-12">
@@ -19,7 +19,7 @@
           <div class="row" style="margin-top:15px;">
             <div class="col-xs-12">
             <table id="tabla_lista" class="table table-bordered table-striped">
-            <thead class="thead-dark">
+            <thead class="thead-dark"bgcolor="#eeeeee">
                 <tr>
                   <th>Acciones</th>
                   <th><?php echo $nombre;?></th>

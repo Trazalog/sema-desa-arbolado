@@ -6,7 +6,11 @@ class Manzanas extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-    }
+	}
+	
+
+	//// LISTA MANZANAS
+
     function listar()
     {       
 
@@ -18,28 +22,49 @@ class Manzanas extends CI_Model
 		$array = file_get_contents($url, false, $param);
 		return json_decode($array);
 
-    }
+	}
+
+	//// LISTA AREAS
+
+	function listarAreas($depaId)
+	{
+	 
+		$parametros["http"]["method"] = "GET";
+		$parametros["http"]["header"] = "Accept: application/json";	 
+		$param = stream_context_create($parametros);
+		$resource = '/listaareas';	 	
+		$url = REST.$resource;
+		$array = file_get_contents($url, false, $param);
+	 	return json_decode($array);
+
+	}
+	
+	
+	
 
     function Guardar_Nuevo($data){
 
         
 //TODO:SACAR HARCODE DE DEPARTAMENTO ID
 
-		$data["depa_id"] = "1";
+		
 
-		$_post_setcalle = array(
+		$_post_setmanzana = array(
 			"nombre"=> $data["nombre"],
-			"depa_id"=>$data["depa_id"]				
+			"argeo"=>$data["argeo"]	,
+			"argeo"=>$data["argeo"]				
 		);
-		$datos['_post_setcalle'] = $_post_setcalle;	
+		
+		$datos['manzana_calle'] = $_post_setmanzana;	
 		$data = json_encode($datos);
+		 var_dump($data);
 
 		$parametros["http"]["method"] = "POST";
 		$parametros["http"]["header"] = "Accept: application/json";	
 		$parametros["http"]["header"] = "Content-Type: application/json";	
 		$parametros["http"]["content"] = $data;	
 		$param = stream_context_create($parametros);
-		$resource = '/setCalle';	 				
+		$resource = '';	 				
 		$url = REST.$resource;
 		$array = file_get_contents($url, false, $param);
 		return json_decode($array);	
@@ -47,4 +72,3 @@ class Manzanas extends CI_Model
 
 
     }
-

@@ -1,4 +1,4 @@
-<!-- 
+
 
 
 <div class="modal" id="modal_censista" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
@@ -18,7 +18,7 @@
                 <?php
                     foreach($censistas as $fila)
                     {
-                        echo '<option value='.$fila->id.'>'.$fila->nombre.' '.$fila->apellido.'</option>';
+                        echo '<option data-json=\''.json_encode($fila).'\' value='.$fila->id.'>'.$fila->nombre.' '.$fila->apellido.'</option>';
                     }
                 ?>
            </select>
@@ -31,21 +31,61 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>
 
 
 <!-- //////////////////////////////// SCRIPT /////////////////////////////////// -->
+<script>
 
-<!-- <script>
+
 function AsignarCensista()
 {
     idcensista = document.getElementById('censista').value;
     censista = $("#censista>option:selected").html();
     TrActual.children().eq(3).html(censista);
     TrActual.children().eq(0).find('.asignar_censista').hide();
+
     $('#modal_censista').modal('hide');
+
+    var asignar = {};
+
+    var json =  $("#censista>option:selected").attr('data-json');
+    jsoncensista = JSON.parse(json);
+    asignar.usua_id = jsoncensista.id;
+
+
+    var json =  $("#Nombre>option:selected").attr('data-json');
+    jsoncenso = JSON.parse(json);
+    asignar.cens_id = jsoncenso.id;
+
+
+
+    var json =  $("#"+jsoncenso.id).attr('data-json');
+    jsonarea = JSON.parse(json);
+    asignar.arge_id = jsonarea.idareageo;
+
+
+
+    $.ajax({
+        type: 'POST',
+        data: {
+            data: asignar
+        },
+        
+        url: 'Censo/AsignarCensista',
+        
+        success: function(result) {
+            
+        },
+        error: function() {
+            alert('Error');
+        }
+
+        
+    });
+    console.log(asignar)
 }
-</script> -->
+</script>
 
 
 

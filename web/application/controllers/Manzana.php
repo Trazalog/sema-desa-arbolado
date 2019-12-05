@@ -30,18 +30,25 @@ class Manzana extends CI_Controller {
     $data['lista'] = $this->Areas->listar()->areas->area;
     $data['areas'] = $this->Areas->listar()->areas->area;
     $data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
+    $data['areas'] = $this->Areas->listar()->areas->area;
     
     
     $this->load->view('general/abm',$data);
     
    }
+
+   //   Funcion Guardar Nuevo
+
    function Guardar_Nuevo()
    {
+     
       $data['nombre'] = $this->input->post('datonombre');
-      $data['arge_id'] = $this->input->post('arge_id');
+      $data['depa_id']= $this->input->post('depa_id');
+      $data['argeo'] = $this->input->post('argeo');  
 
       $response = $this->Manzanas->Guardar_Nuevo($data);
       echo json_encode($response);
    }
 }
 ?>
+

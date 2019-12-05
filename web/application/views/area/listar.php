@@ -1,4 +1,4 @@
-<?php $this->load->view('area/modal_censista')?>
+
 <div class="box"> 
       <div class="box-header bg-green">
           <h3 class="box-title"><?php echo $titulo?></h3>
@@ -23,12 +23,12 @@
           <div class="row" style="margin-top:15px;">
             <div class="col-xs-12">
             <table id="tabla_lista" class="table table-bordered table-striped">
-            <thead class="thead-dark">
+            <thead class="thead-dark" bgcolor="#eeeeee"  >
                 <tr>
                   <th>Acciones</th>
                   <th>Area Geografica</th>
                   <th>Departamento</th>
-                  <th>Asignado</th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -44,15 +44,11 @@
 
                           echo '<td>';
                           echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$id.'")></i>';
-                          if($fila->nombrecensista == 'Sin Asignar')
-                          {
-                            echo '<i class="fa fa-fw fa-plus text-light-blue asignar_censista" style="cursor: pointer; margin-left: 15px;" title="Asignar Censista" data-toggle="modal"></i>';
-                          }
                           echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
                           echo '</td>';
                           echo '<td>'.$fila->nombre.'</td>';
                           echo '<td>'.$fila->departamento.'</td>';
-                          echo '<td>'.$fila->nombrecensista.'</td>';
+                         
                    
                           echo '</tr>';
                           

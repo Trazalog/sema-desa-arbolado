@@ -18,6 +18,7 @@ class Calle extends CI_Controller {
    }
    function index(){
       $data['lista'] = $this->Calles->listar()->calles->calle;
+      
       $data['titulo'] = 'ABM Calles';
       $data['nombre'] = 'Calle';
       $this->load->view('general/listar',$data);
@@ -33,6 +34,9 @@ class Calle extends CI_Controller {
       
       
    }
+
+   // Funcion Guardar Nuevo
+   
    function Guardar_Nuevo()
    {
      $data['nombre'] = $this->input->post('datonombre');
