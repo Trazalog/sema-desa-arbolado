@@ -1,7 +1,10 @@
+<!-- 
+
+
 <div class="modal" id="modal_censista" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-green">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
             aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Asignar Censista</h4>
@@ -23,13 +26,17 @@
         </div>
 
       <div class="modal-footer">
-      <button type="button" class="btn btn-primary" onclick="AsignarCensista()">Aceptar</button>
+      <button type="button" class="btn btn-primary" onclick="AsignarCensista()">Asignar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
-</div>
-<script>
+</div> -->
+
+
+<!-- //////////////////////////////// SCRIPT /////////////////////////////////// -->
+
+<!-- <script>
 function AsignarCensista()
 {
     idcensista = document.getElementById('censista').value;
@@ -38,4 +45,8 @@ function AsignarCensista()
     TrActual.children().eq(0).find('.asignar_censista').hide();
     $('#modal_censista').modal('hide');
 }
-</script>
+</script> -->
+
+
+
+<!-- //////////////////////////////// SCRIPT /////////////////////////////////// -->

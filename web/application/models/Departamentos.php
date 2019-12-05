@@ -20,6 +20,10 @@ class Departamentos extends CI_Model
 
 
 		}
+
+// Funcion Guardar Nuevo
+
+
 		function Guardar_Nuevo($data){
 
 			$_post_setdepartamentos = array(
