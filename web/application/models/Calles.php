@@ -19,11 +19,13 @@ class Calles extends CI_Model
 		return json_decode($array);
 	}
 
+	
+	
 	function Guardar_Nuevo($data){
 
 //TODO:SACAR HARCODE DE DEPARTAMENTO ID
 
-		$data["depa_id"] = "1";
+		
 
 		$_post_setcalle = array(
 			"nombre"=> $data["nombre"],
@@ -31,6 +33,7 @@ class Calles extends CI_Model
 		);
 		$datos['_post_setcalle'] = $_post_setcalle;	
 		$data = json_encode($datos);
+		var_dump($data);
 
 		$parametros["http"]["method"] = "POST";
 		$parametros["http"]["header"] = "Accept: application/json";	

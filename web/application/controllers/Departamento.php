@@ -14,21 +14,27 @@ class Departamento extends CI_Controller {
       }
      
    }
+   
    function index(){
-     // $data['lista'] = $this->Departamentos->listar()->departamentos->departamento;
+     
       $data['lista'] = $this->Departamentos->listar()->departamentos->departamento;
       $data['titulo'] = 'ABM Departamentos';
       $data['nombre'] = 'Departamento';
       $this->load->view('general/listar',$data);
       
    }
+
    function Nuevo(){
       $data['titulo'] = 'Nuevo Departamento';
       $data['nombre'] = 'Departamento';
-      $data['accion'] = 'Nuevo';
+      $data['accion'] = 'Nuevo';      
       $this->load->view('general/abm',$data);
       
+      
    }
+
+   //   Funcion Guardar Nuevo
+   
    function Guardar_Nuevo()
    {
      $data['nombre'] = $this->input->post('datonombre');

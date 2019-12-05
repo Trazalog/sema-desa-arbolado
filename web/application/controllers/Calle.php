@@ -7,6 +7,7 @@ class Calle extends CI_Controller {
       $this->load->helper('file');
       $this->load->model('Calles');
       $this->load->model('Departamentos');
+      $this->load->model('Areas');
       
       if(!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/web/Dash')
       {
@@ -17,6 +18,7 @@ class Calle extends CI_Controller {
    }
    function index(){
       $data['lista'] = $this->Calles->listar()->calles->calle;
+      
       $data['titulo'] = 'ABM Calles';
       $data['nombre'] = 'Calle';
       $this->load->view('general/listar',$data);
@@ -27,9 +29,14 @@ class Calle extends CI_Controller {
       $data['nombre'] = 'Calle';
       $data['accion'] = 'Nuevo';
       $data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
+      $data['areas'] = $this->Areas->listar()->areas->area;
       $this->load->view('general/abm',$data);
       
+      
    }
+
+   // Funcion Guardar Nuevo
+   
    function Guardar_Nuevo()
    {
      $data['nombre'] = $this->input->post('datonombre');
