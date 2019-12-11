@@ -8,8 +8,7 @@ class Departamentos extends CI_Model
 		parent::__construct();
     }
     function listar()
-    {
-        				
+    {        				
 				$parametros["http"]["method"] = "GET";
 				$parametros["http"]["header"] = "Accept: application/json";	
 				$param = stream_context_create($parametros);
@@ -17,8 +16,6 @@ class Departamentos extends CI_Model
 				$url = REST.$resource;
 				$array = file_get_contents($url, false, $param);
 				return json_decode($array);	
-
-
 		}
 
 // Funcion Guardar Nuevo

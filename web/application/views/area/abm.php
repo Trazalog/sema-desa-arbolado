@@ -215,117 +215,35 @@
 
 
 function Guardar_Nuevo() {
+	
+	var arrayarge = []
+	var arrayarea;  
+	//Extraer de la Tabla cada JSON
+		$('#manzanas_asignadas tbody tr').each(function() {
+					var json = JSON.parse(this.dataset.json);
+					arrayarge.push(json);
+	});
+  console.log(arrayarge);
 
+	// AJAX 
+		$.ajax({
+			type: 'POST',
+			dataType: "json",
+			data: {
+					data: arrayarge
+			},
+			url: 'Area/Guardar_Nuevo',          
+			success: function(result) {
 
-    // variables array
+					linkTo('Area');		
+					// var arge_id = JSON.parse(result).respuesta.arge_id;
+					// agregarAreaCenso(cens_id, array);
+			},
+			error: function() {
+					alert('Error');
+			}
+	});   
 
-    var arrayarge = []
-    var arrayarea;
-
-    // _________________________________
-   
-    //Extraer de la Tabla cada JSON
-
-     $('#manzanas_asignadas tbody tr').each(function() {
-        var json = JSON.parse(this.dataset.json);
-        arrayarge.push(json);
-    });
-
-    console.log(arrayarge);
-
-    // _________________________________
-
-    // Armado de JSON
-
-    // var datosArea = JSON.parse('{ "_post_area": {"nombre": "' + $('#inputareas').val() + '", "depa_id": "' + $("#Nombre") 
-    //     .val() + '"}}');
-
-        
-    
-
-    arrayarea = JSON.parse(arrayarge[0]);
-
-     // _________________________________
-
-    // AJAX 
-
-     $.ajax({
-        type: 'POST',
-        dataType: "json",
-        data: {
-            data: arrayarge [0]
-        },
-        url: 'Area/Guardar_Nuevo',
-
-          
-        success: function(result) {
-            // var arge_id = JSON.parse(result).respuesta.arge_id;
-            // agregarAreaCenso(cens_id, array);
-        },
-        error: function() {
-            alert('Error');
-        }
-    });   
-
-
-
-   //console.log(array);
-
-
-
-    // // Ajax
-    
-    // $.ajax({
-    //     type: 'POST',
-    //     dataType: "json",
-    //     data: {
-    //         data: {array},
-    //     },
-    //     url: '',
-
-    //     success: function(result) {
-    //         var arge_id = JSON.parse(result).respuesta.depa_id;
-    //         agregarArea(depa_id, array);
-    //     },
-    //     error: function() {
-    //         alert('Error');
-    //     }
-    // });
-
-    
-    // // console.log(array);
-
-
-
-
-
-
-    // var array = [];
-    // var arrayareas = [];
-
-    // $('#manzanas_asignada').each(function() {
-    //     var json = JSON.parse(this.dataset.json);
-    //     array.push(json);
-    // });
-    // var datosArea = JSON.parse('{ "_post_area": {"nombre": "' + $('#inputareas').val() + '", "depa_id": "' + $("#Nombre") + '", "manz_id": "' + $("#manzana")
-    //     .val() + '"}}');
-    
-    // arrayarea.push(datosArea);
-
-    // $.ajax({
-    //     type: 'POST',
-    //     data: {
-    //         data: arrayarea[0]
-    //     },
-    //     url: '',
-    //     success: function(result) {
-    //         var cens_id = JSON.parse(result).respuesta.arge_id;
-    //         agregarArea(arge_id, array);
-    //     },
-    //     error: function() {
-    //         alert('Error');
-    //     }
-    // });
 }
 
 
@@ -345,7 +263,6 @@ function checkTabla(idtabla, idrecipiente, json, acciones)
 
 
 function MuestraCalles()
-
 {
     if(document.getElementById('checkcalles').checked)
     {
@@ -359,18 +276,12 @@ function MuestraCalles()
 
 
 function AgregarArea()
-
 {
-
     // Varaibles de datos de los campos a listar
-
     var data = {};
     data.area = $('#inputareas').val();
     data.departamento = $('#Nombre').find('option:selected').html();
     data.depa_id = $('#Nombre').val();
-    // data.manzana = $('#manzana').val();
-
-    //console.log(data);
     
     tr="";
     tr+="<tr data-json='"+JSON.stringify(data)+"' data-calles=''>";
@@ -383,16 +294,12 @@ function AgregarArea()
     // Limpiar Campos
     data.area = $('#inputareas').val('');
     data.departamento = $('#Nombre').val('');
-    // data.manzana = $('#manzana').val('');
 }
-
-
 $(document).off('click','.manzanas_asignadas_borrar').on('click', '.manzanas_asignadas_borrar', function()
   {
     var tableRow = manzanasAsignadas.row($(this).parents('tr'));
         manzanasAsignadas.row( tableRow ).remove().draw();
 } );
-
 $(document).off('click','.manzanas_asignadas_calle').on('click', '.manzanas_asignadas_calle', function()
   {
     checkTabla("tablacalles","modalcalles",`<?php echo json_encode($calles);?>`,"Add");

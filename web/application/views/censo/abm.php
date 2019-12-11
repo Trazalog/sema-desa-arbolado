@@ -32,28 +32,23 @@
 
                     <!-- ________________________________________________________ -->
 
-                    <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-                        <label style="margin-left:10px" for="Nombre" class="form-label">Seleccione Fecha:</label>
+                    <!-- <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+                        <label style="margin-left:10px" for="Fecha" class="form-label">Seleccione Fecha:</label>
                         <input type="date" name="texto" id="Fecha" class="form-control" />
-                    </div>
+                    </div> -->
 
                     <!-- ________________________________________________________ -->
 
                     <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
                         <label for="Nombre" class="form-label">Formulario:</label>
-
-
-
-                        <select name="select" id="Nombree" class="form-control">
+                        <select name="select" id="id_form" class="form-control">
                             <option value="" disabled selected>-Seleccione Formulario-</option>
-
                             <?php foreach($formulario as $fila)
                             {
-                                echo  "<option value='".$fila->form_id."'>".$fila->nombre.'</option>';    
+                              echo  "<option value='".$fila->form_id."'>".$fila->nombre.'</option>';    
                             }                                
                         ?>
                         </select>
-
                     </div>
 
                     <!-- ________________________________________________________ -->
@@ -68,7 +63,7 @@
 
             <!-- ____________________________ GRUPO 2 ____________________________ -->
 
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
 
                 <div class="form-group">
 
@@ -81,9 +76,9 @@
                                 class="form-control" autocomplete="off">
 
                             <datalist id="departamentos">
-                                <?php foreach($departamentos as $fila)
+                                <?php //foreach($departamentos as $fila)
                             {
-                                echo  "<option data-json='".json_encode($fila)."' value='".$fila->nombre."'>";
+                                //echo  "<option data-json='".json_encode($fila)."' value='".$fila->nombre."'>";
                             }
                                 ?>
                             </datalist>
@@ -95,12 +90,12 @@
                             </span>
 
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <!-- ____________________________ ROW____________________________ -->
 
-                    <div class="col-md-6 col-sm-6 mb-4 mb-lg-0">
+                    <!-- <div class="col-md-6 col-sm-6 mb-4 mb-lg-0">
                         <label for="" style="margin-left:10px">Area:</label>
                         <div class="col-md-12  input-group" style="margin-left:15px">
                             <input list="areas" id="inputareas" class="form-control" autocomplete="off"
@@ -114,23 +109,23 @@
                                     <i class="glyphicon glyphicon-search"></i></button>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
 
 
 
 
                     <!-- <div class="form-group">
                     <div class="col-md-4">
+                     -->
                     
-                    
-                
+<!--                 
                         <label for="" style="margin-left:10px">Formulario:</label>
                         <div class="col-md-12  input-group" style="margin-left:15px">
                             <input list="form" id="form" class="form-control" autocomplete="off" placeholder="Seleccione Formulario" onchange="">
                             <datalist id="form">
-                            <?php foreach($formulario as $form)
+                            <?php //foreach($formulario as $form)
                             {
-                                echo  "<option data-json='".json_encode($form)."'value='".$form->form_id."'>";
+                                //echo  "<option data-json='".json_encode($form)."'value='".$form->form_id."'>";
                             }
                                 ?>
                             </datalist>
@@ -141,22 +136,37 @@
                                 </span> 
                                 </div>
                                 </div>
-                    </div>
-
-                </div> -->
+                    </div> -->
 
 
+										<div class="col-md-12"> <button type="button" class="btn btn-primary pull-right"
+onclick="guardarCensoNuevo()">GUARDAR</button></div>
 
-
-
-
+</div>
 
 
 
+                </div>
 
-                    <div class="col-md-12">
+
+
+
+
+
+
+
+
+
+                    <!-- <div class="col-md-12">
                         <hr>
-                    </div>
+                    </div> -->
+
+
+										<div class="col-md-12">
+
+
+<!-- <button type="button" class="btn-sm btn-primary pull-right"
+		onclick="AgregarAreaInput()">Aceptar</button> -->
 
 
 
@@ -167,14 +177,6 @@
                 <!-- ____________________________ ROW____________________________ -->
 
 
-                <div class="col-md-12">
-
-
-                    <button type="button" class="btn-sm btn-primary pull-right"
-                        onclick="AgregarAreaInput()">Aceptar</button>
-
-
-                </div>
 
 
 
@@ -210,7 +212,7 @@
 
 <!-- ///////////////////////////////////////// TABLAS /////////////////////////////////////////-->
 
-<div class="box">
+<!-- <div class="box">
 
     <div class="row" style="margin-top:25px">
         <div class="box-body table-scroll">
@@ -229,13 +231,13 @@
                 </table>
             </div>
 
-            <!-- _________________SEPARADOR_________________ -->
+            <!- - _________________SEPARADOR_________________ - ->
 
             <div class="col-md-12">
                 <hr>
             </div>
 
-            <!-- _________________SEPARADOR_________________ -->
+            <!- - _________________SEPARADOR_________________ - ->
 
 
             <div class="col-md-12"> <button type="button" class="btn btn-primary pull-right"
@@ -246,7 +248,8 @@
     </div>
 
 
-</div><!-- /.box -->
+</div> -->
+<!-- /.box -->
 
 
 <!-- ///////////////////////////////////////// TABLAS /////////////////////////////////////////-->
@@ -259,6 +262,30 @@
 
 
 <script>
+
+function guardarCensoNuevo(){
+
+	nombre = $('#Nombre').val();	
+	id_form = $('#id_form').val();
+	$.ajax({
+        type: 'POST',
+        data: {				
+            nombre: nombre,				
+						form_id: id_form
+        },
+        url: 'Censo/guardarCenso',
+        success: function(result) {
+            
+						//var cens_id = JSON.parse(result).respuesta.cens_id;
+            //agregarAreaCenso(cens_id, array);
+        },
+        error: function() {
+            alert('Error');
+        }
+    });
+}
+
+
 
 TablaAsignadas = $('#tablaareasasignadas').DataTable();
 $('#tablaareas').DataTable();
@@ -302,7 +329,7 @@ function Guardar() {
         data.nombre = document.getElementById('Nombre').value;
         data.fecha = document.getElementById('Fecha').value;
         data = JSON.stringify(data);
-        //console.log(data);
+       
         $.ajax({
             type: 'POST',
             data: {
@@ -310,7 +337,7 @@ function Guardar() {
             },
             url: 'Censo/Guardar_Nuevo',
             success: function(result) {
-                linkTo('Censo');
+                linkTo('Area');
             }
         });
 
