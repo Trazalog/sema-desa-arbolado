@@ -9,7 +9,7 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#" class="link" data-link="Censista"><i class="fa fa-fw fa-cubes"></i>Censistas</a></li>
+            <!-- <li><a href="#" class="link" data-link="Censista"><i class="fa fa-fw fa-cubes"></i>Censistas</a></li> -->
             <li><a href="#" class="link" data-link="Area"><i class="fa fa-fw fa-map"></i>Areas Gerograficas</a></li>
             <li><a href="#" class="link" data-link="Departamento"><i class="fa fa-fw fa-cubes"></i>Departamentos</a></li>
             <li><a href="#" class="link" data-link="Manzana"><i class="fa fa-fw fa-cubes"></i>Manzanas</a></li>
