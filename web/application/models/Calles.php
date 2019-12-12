@@ -17,33 +17,24 @@ class Calles extends CI_Model
 		$url = REST.$resource;
 		$array = file_get_contents($url, false, $param);
 		return json_decode($array);
-	}
-
-	
-	
+	}	
+	// guarda calle nueva
 	function Guardar_Nuevo($data){
-
-//TODO:SACAR HARCODE DE DEPARTAMENTO ID
-
-		
 
 		$_post_setcalle = array(
 			"nombre"=> $data["nombre"],
 			"depa_id"=>$data["depa_id"]				
 		);
-		$datos['_post_setcalle'] = $_post_setcalle;	
-		$data = json_encode($datos);
-		var_dump($data);
+		$datos['_post_setcalle'] = $_post_setcalle;		
 
-		$parametros["http"]["method"] = "POST";
-		$parametros["http"]["header"] = "Accept: application/json";	
-		$parametros["http"]["header"] = "Content-Type: application/json";	
-		$parametros["http"]["content"] = $data;	
-		$param = stream_context_create($parametros);
-		$resource = '/setCalle';	 				
+		log_message('DEBUG', 'Calles/Guardar_Nuevo(): '.json_encode($datos));   
+		$resource = '/setCalle';	 
 		$url = REST.$resource;
-		$array = file_get_contents($url, false, $param);
-		return json_decode($array);	
+		var_dump($url);
+		$array = $this->rest->callAPI("POST",$url, $datos); 	
+		log_message('DEBUG', 'Departamentos/listadodepartaentos-> ' .json_encode($array));	
+		return json_decode($array['data']);
+
 	}
 
 

@@ -23,7 +23,8 @@ class Calle extends CI_Controller {
       $data['nombre'] = 'Calle';
       $this->load->view('general/listar',$data);
       
-   }
+	 }
+	 // levanta vista nueva calle
    function Nuevo(){
       $data['titulo'] = 'Nuevo Calle';
       $data['nombre'] = 'Calle';
@@ -31,16 +32,12 @@ class Calle extends CI_Controller {
       $data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
       $data['areas'] = $this->Areas->listar()->areas->area;
       $this->load->view('general/abm',$data);
-      
-      
    }
-
-   // Funcion Guardar Nuevo
-   
+   // Funcion Guardar Nuevo   
    function Guardar_Nuevo()
    {
      $data['nombre'] = $this->input->post('datonombre');
-     $data['depa_id']= $this->input->post('depa_id');
+     $data['depa_id']= $this->input->post('depaId');
      $response = $this->Calles->Guardar_Nuevo($data);
      echo json_encode($response);
    }

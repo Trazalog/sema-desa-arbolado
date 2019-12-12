@@ -87,12 +87,9 @@
       <param name="valor" sqlType="STRING"/>
       <param name="name" sqlType="STRING"/>
    </query>
-   <query id="instanciarForm" keyColumns="info_id" returnGeneratedKeys="true" returnUpdatedRowCount="true" useConfig="arbolado">
-      <sql>insert into &#xd;    frm_instancias_formularios(label, name, requerido, tida_id, form_id, orden, info_id, mostrar, cond_mostrar, deshabilitado, cond_habilitado,valo_id)&#xd;select &#xd;    label, name, requerido,tida_id, form_id, orden,(select COALESCE(MAX(info_id),0)+1 as info_id  from frm_instancias_formularios), mostrar, cond_mostrar, deshabilitado, cond_habilitado,valo_id &#xd;from frm_items&#xd;where &#xd;    frm_items.form_id =:form_id&#xd;and &#xd;    frm_items.eliminado = 0&#xd;order by &#xd;    frm_items.orden</sql>
-      <result element="GeneratedKeys" rowName="Entry" useColumnNumbers="true">
-         <element column="1" name="ID" xsdType="integer"/>
-         <element column="1" name="Value" xsdType="integer"/>
-      </result>
+   <query id="instanciarForm" useConfig="arbolado">
+      <sql>select public.instanciar_form(:form_id) info_id;</sql>
+      <result outputType="json">{"GeneratedKeys": {"Entry": [{&#xd;   "ID": $info_id,&#xd;   "Value": $info_id&#xd;}]}}</result>
       <param name="form_id" optional="false" sqlType="INTEGER"/>
    </query>
    <query id="info_id" useConfig="arbolado">
@@ -204,6 +201,15 @@
       <sql>insert into arb_calles(nombre, depa_id) values(:nombre, CAST(:depa_id AS INTEGER))</sql>
       <param name="nombre" sqlType="STRING"/>
       <param name="depa_id" sqlType="STRING"/>
+   </query>
+   <query id="getFromulario" useConfig="arbolado">
+      <sql>select * from frm_formularios where eliminado = 0</sql>
+      <result outputType="json">{&#xd; "formularios": {&#xd;    "formulario":[&#xd;        {&#xd;         "nombre": "$nombre",&#xd;         "form_id": "$form_id" &#xd;         }&#xd;    ] &#xd;  }&#xd;}</result>
+   </query>
+   <query id="getFormTemplate" useConfig="arbolado">
+      <sql>SELECT &#xd;    A.item_id as id_serial,&#xd;    name, label, requerido, &#xd;    tida_id, valo_id, orden, &#xd;    A.form_id, aux, B.valor as tipo, &#xd;    '' as valor, C.nombre, &#xd;    A.mostrar, A.cond_mostrar, A.deshabilitado,&#xd;    A.cond_habilitado&#xd;FROM &#xd;    frm_items as A&#xd;JOIN &#xd;    utl_tablas as B ON B.tabl_id = A.tida_id&#xd;JOIN&#xd;    frm_formularios as C on C.form_id = A.form_id&#xd;WHERE &#xd;    A.form_id = CAST(:form_id AS INTEGER)&#xd;AND &#xd;    A.eliminado = 0&#xd;ORDER BY &#xd;    A.orden</sql>
+      <result outputType="json">{&#xd;   "formulario":{&#xd;      "items":[&#xd;         {&#xd;            "id_serial": "$id_serial",&#xd;            "tipo": "$tipo",&#xd;            "label": "$label",&#xd;            "requerido": "$requerido",&#xd;            "name":"$name",            &#xd;            "@valoresValidos": "$valo_id-&gt;valo_id",&#xd;            "orden": "$orden",&#xd;            "id": "$form_id",&#xd;            "nombre": "$nombre",&#xd;            "mostrar": "$mostrar",&#xd;            "cond_mostrar": "$cond_mostrar",&#xd;            "deshabilitado": "$deshabilitado",&#xd;            "cond_habilitado": "$cond_habilitado"&#xd;         }&#xd;      ]&#xd;   }&#xd;}			</result>
+      <param name="form_id" sqlType="STRING"/>
    </query>
    <operation name="updform">
       <call-query href="actualizarForm">
@@ -434,6 +440,14 @@
       <call-query href="setCalle">
          <with-param name="nombre" query-param="nombre"/>
          <with-param name="depa_id" query-param="depa_id"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="/getFromulario">
+      <call-query href="getFromulario"/>
+   </resource>
+   <resource method="GET" path="/formulario/template/{form_id}">
+      <call-query href="getFormTemplate">
+         <with-param name="form_id" query-param="form_id"/>
       </call-query>
    </resource>
 </data>
