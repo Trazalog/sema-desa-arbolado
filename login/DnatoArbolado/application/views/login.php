@@ -18,7 +18,7 @@
         <?php echo form_input(array(
             'name'=>'email', 
             'id'=> 'email', 
-            'placeholder'=>'Email', 
+            'placeholder'=>'Nickname', 
             'class'=>'form-control', 
             'value'=> set_value('email'))); ?>
         <?php echo form_error('email') ?>
@@ -41,7 +41,7 @@
       echo form_submit(array('value'=>'Entrar', 'class'=>'btn btn-lg btn-success btn-block')); ?>
       <?php echo form_close(); ?>
       <br>
-      <p>No registrado? <a href="<?php echo site_url();?>main/register">Registrarse</a></p>
-      <p>Olvido su contraseña? <a href="<?php echo site_url();?>main/forgot">Olvide mi contraseña</a></p>
+      <!-- <p>No registrado? <a href="<?php //echo site_url();?>main/register">Registrarse</a></p>
+      <p>Olvido su contraseña? <a href="<?php //echo site_url();?>main/forgot">Olvide mi contraseña</a></p> -->
   </div>
 </div>

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="9ae14754-b189-41f5-9e3a-0ca172776a31" activeEnvironment="Default" name="REST Project 2" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" resourceRoot="${projectDir}" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:restMockService id="f385bd32-02b6-4cd9-bf6f-4ede860519bd" port="8080" path="/" host="LAPTOP-F6UEQERJ" name="http://localhost"><con:settings/><con:properties/><con:restMockAction name="/listaarboles" method="GET" resourcePath="/listaarboles" id="e561a975-fc48-46c0-8405-0baf6c54747c"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
+<con:soapui-project id="9ae14754-b189-41f5-9e3a-0ca172776a31" activeEnvironment="Default" name="Arbolado - DSS" soapui-version="5.5.0" abortOnError="false" runType="SEQUENTIAL" resourceRoot="${projectDir}" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" id="12937d22-c9a1-44be-abf1-d2ddefcc3b03" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://pc-pc:8280" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>localhost:8080</con:endpoint></con:endpoints><con:resource name="Listaareas" path="/services/arboladoDS/listaareas" id="5742097f-979d-40b4-87d8-67f9491a2c7a"><con:settings/><con:parameters><con:parameter><con:name>arge_id</con:name><con:value/><con:style>QUERY</con:style><con:default/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="Listaareas 1" id="b2c22e8c-ae6a-4269-bf1b-7b0b7efdf20c" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://pc-pc/services/arboladoDS/listaareas">lis:Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="FAULT"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>500</con:status><con:params/><con:element xmlns:dat="http://ws.wso2.org/dataservice">dat:DataServiceFault</con:element></con:representation><con:request name="Request 1" id="c967d122-944d-4716-8d78-62b5d15728aa" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/listaareas</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="arge_id" value="3" xmlns="http://eviware.com/soapui/config"/></con:parameters><con:parameterOrder><con:entry>arge_id</con:entry></con:parameterOrder></con:request></con:method></con:resource><con:resource name="listacalles" path="/services/arboladoDS/listacalles" id="c22e02bf-efd7-4bc2-b991-a36badf62578"><con:settings/><con:parameters/><con:method name="Method 1" id="d9b1ec3f-80ca-44a1-8f5a-37955ba6a326" method="GET"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>500</con:status><con:params/><con:element>faultstring</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://pc-pc/services/arboladoDS/listacalles">lis:Response</con:element></con:representation><con:request name="Request 1" id="789f1c5a-a4d7-4fc4-a646-29551711fc1a" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/listacalles</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="listadepartamentos" path="/services/arboladoDS/listadepartamentos" id="5d37f6e5-5921-49ee-9b37-df628b8115ba"><con:settings/><con:parameters/><con:method name="Method 1" id="519d02f7-b820-4dd0-bc95-9cc2771a0545" method="GET"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>500</con:status><con:params/><con:element>faultstring</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://pc-pc/services/arboladoDS/listadepartamentos">lis:Response</con:element></con:representation><con:request name="Request 1" id="e0b97e88-3d64-413d-9c40-dea1da5ded0f" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/listadepartamentos</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="listamanzanas_por_id_arge" path="/services/arboladoDS/listamanzanas" id="4a35642d-736d-4e95-b8ff-646605f8d1e5"><con:settings/><con:parameters><con:parameter><con:name>arge_id</con:name><con:value/><con:style>QUERY</con:style><con:default/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="Method 1" id="286da5bc-9d7d-4325-8952-94330d9bc9f2" method="GET"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>500</con:status><con:params/><con:element>faultstring</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://pc-pc/services/arboladoDS/listamanzanas">lis:Response</con:element></con:representation><con:request name="Request 1" id="3b21b6ad-e04f-4712-a4e8-72b8d54d65e5" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/listamanzanas</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="arge_id" value="3" xmlns="http://eviware.com/soapui/config"/></con:parameters><con:parameterOrder><con:entry>arge_id</con:entry></con:parameterOrder></con:request></con:method></con:resource><con:resource name="listacensista" path="/services/arboladoDS/listacensista" id="34b831d9-94a7-4a39-b51f-a7942ad85bbf"><con:settings/><con:parameters/><con:method name="Method 1" id="3add83e7-59fa-4356-a422-03d652b09bc6" method="GET"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>500</con:status><con:params/><con:element>faultstring</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://pc-pc/services/arboladoDS/listacensista">lis:Response</con:element></con:representation><con:request name="Request 1" id="47f07fa0-1cdd-44e0-8e20-ec0229ddcf29" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/listacensista</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="listacensos" path="services/arboladoDS/listacensos" id="eee317a2-00c8-415c-8c7f-c1e7ef2cc4e6"><con:settings/><con:parameters/><con:method name="Method 1" id="22b1e98f-7998-4dab-a644-0e81cd5ec845" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://pc-pc/services/arboladoDS/listacensos">lis:Response</con:element></con:representation><con:request name="Request 1" id="bf7e872b-5690-4be3-b565-9eea99ed1add" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/listacensos</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="puntosmapa" path="/services/arboladoDS/puntosmapa" id="ff38eafa-babd-40da-abcf-48266ea82795"><con:settings/><con:parameters/><con:method name="Method 1" id="e7b28aec-3352-459e-aad6-5d8353ffa0c8" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:pun="http://pc-pc/services/arboladoDS/puntosmapa">pun:Response</con:element></con:representation><con:request name="Request 1" id="f7fbd987-8338-4b3f-86bf-10d48376f02b" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/puntosmapa</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="listaarboles" path="/services/arboladoDS/listaarboles" id="b1e58848-eb63-4f7f-b768-49dafde270ce"><con:settings/><con:parameters/><con:method name="Method 1" id="8875940a-c96d-4512-b952-d75d1ec2cc8b" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://ws.wso2.org/dataservice/listaarboles">lis:arboles</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://pc-pc/services/arboladoDS/listaarboles">lis:Response</con:element></con:representation><con:request name="Request 1" id="a1b6be9c-e137-48ff-89f2-fb07e7ecbea8" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/listaarboles</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="forms" path="/services/arboladoDS/forms/2" id="22fce1c3-93ee-4739-b329-7b6d03e632d9"><con:settings/><con:parameters/><con:method name="Method 1" id="8b58c85e-b318-4a9f-b6f3-5239939f011a" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:for="http://pc-pc/services/arboladoDS/forms">for:Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>500</con:status><con:params/><con:element>faultstring</con:element></con:representation><con:representation type="FAULT"><con:mediaType xsi:nil="true"/><con:status>404</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="Request 1" id="56711ecb-f1b6-4d0b-a662-dc405fbf2f2f" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/forms</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="valoresValidos" path="/services/arboladoDS/valoresValidos" id="9df448f9-971b-4f3c-b6e3-beb40f5cdc9f"><con:settings/><con:parameters><con:parameter><con:name>valo_id</con:name><con:value/><con:style>QUERY</con:style><con:default/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="Method 1" id="1ac76c99-4c71-4f2b-b023-f53191394d04" method="GET"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>500</con:status><con:params/><con:element xmlns:dat="http://ws.wso2.org/dataservice">dat:DataServiceFault</con:element></con:representation><con:request name="Request 1" id="2d8bfe1a-6cff-44ae-aaa4-e3939aaba9ce" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/valoresValidos</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="valo_id" value="sexos" xmlns="http://eviware.com/soapui/config"/></con:parameters><con:parameterOrder><con:entry>valo_id</con:entry></con:parameterOrder></con:request></con:method></con:resource><con:resource name="{cens_id}" path="/services/arboladoDS/tree_list/1" id="f7a79705-8a24-4f50-9215-57df3b5c4a4b"><con:settings/><con:parameters><con:parameter><con:name>cens_id</con:name><con:value>cens_id</con:value><con:style>TEMPLATE</con:style><con:default>cens_id</con:default></con:parameter></con:parameters><con:method name="Method 1" id="0814130e-36d4-45f0-8b21-8e5d6d9c6b46" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://ws.wso2.org/dataservice/listaArbolesCensId">lis:listaArbolesCensId</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:ns="http://pc-pc/services/arboladoDS/tree_list/1">ns:Response</con:element></con:representation><con:request name="Request 1" id="6350974c-7f20-413a-8cfc-3ecc2345af25" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/tree_list/1</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="listadepartamentos" path="services/arboladoDS/listadepartamentos" id="b58ac958-f9dc-47ab-8a53-fe0234b3a863"><con:settings/><con:parameters/><con:method name="Method 1" id="25ac08e7-4ab9-4263-8ae4-c9460ed4f425" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/xml; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://ws.wso2.org/dataservice/listadepartamentos">lis:departamentos</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:lis="http://pc-pc/services/arboladoDS/listadepartamentos">lis:Response</con:element></con:representation><con:request name="Request 1" id="69eeacc2-dfd9-4ed3-ad3d-1aaf6b4fbbf0" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://pc-pc:8280</con:endpoint><con:request/><con:originalUri>http://pc-pc/services/arboladoDS/listadepartamentos</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="setDepartamentos" path="/services/arboladoDS/setDepartamentos" id="c41abc60-c16c-4316-875b-4945494f0171"><con:settings/><con:parameters/><con:method name="Method 1" id="8ead457e-f0cc-4673-8699-c3b66090e826" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>202</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="FAULT"><con:mediaType>application/json; charset=UTF-8</con:mediaType><con:status>500</con:status><con:params/><con:element xmlns:set="http://pc-pc/services/arboladoDS/setDepartamentos">set:Fault</con:element></con:representation><con:request name="Request 1" id="a88f1df7-d27b-46a6-9fcb-b41f00a78f10" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Content-Type" value="application/json" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:endpoint>http://dev-trazalog.com.ar:8280</con:endpoint><con:request>{
+   "_post_setdepartamentos":{
+      "nombre": "Caucete"
+   }
+}</con:request><con:originalUri>http://pc-pc/services/arboladoDS/setDepartamentos</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:mockService id="c2242728-abca-41d4-88d6-ae15301a34cc" port="8080" path="/" host="Hugo-Notebook" name="TestArbolado"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/></con:mockService><con:restMockService id="f385bd32-02b6-4cd9-bf6f-4ede860519bd" port="8080" path="/" host="LAPTOP-F6UEQERJ" name="http://localhost"><con:settings/><con:properties/><con:restMockAction name="/listaarboles" method="GET" resourcePath="/listaarboles" id="e561a975-fc48-46c0-8405-0baf6c54747c"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
 // Script dispatcher is used to select a response based on the incoming request.
 // Here are few examples showing how to match based on path, query param, header and body
 
@@ -128,7 +132,7 @@ if( requestBody.contains("some data") )
     return "Response N"
 }
 */
-</con:dispatchPath><con:response name="Response 1" id="e6c7d04a-0c21-45ca-92a1-3ee37644f4fd" httpResponseStatus="200"><con:settings/><con:responseContent>{
+</con:dispatchPath><con:response name="Response 1" id="e6c7d04a-0c21-45ca-92a1-3ee37644f4fd" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
 "areas":
 {"area":
 [{
@@ -325,7 +329,7 @@ if( requestBody.contains("some data") )
     return "Response N"
 }
 */
-</con:dispatchPath><con:response name="Response 1" id="ffe1173c-fed9-414e-a9d7-e25c85501dbb" httpResponseStatus="200"><con:settings/><con:responseContent>{
+</con:dispatchPath><con:response name="Response 1" id="ffe1173c-fed9-414e-a9d7-e25c85501dbb" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
 "calles":
 {"calle":
 [{
@@ -427,7 +431,7 @@ if( requestBody.contains("some data") )
 }
 ]
 }
-}</con:responseContent></con:response></con:restMockAction><con:restMockAction name="/listamanzanas" method="GET" resourcePath="/listamanzanas" id="fdbe5ffc-f23d-476d-9ec5-9a95cac3d1af"><con:settings/><con:defaultResponse xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
+}//</con:responseContent></con:response></con:restMockAction><con:restMockAction name="/listamanzanas" method="GET" resourcePath="/listamanzanas" id="fdbe5ffc-f23d-476d-9ec5-9a95cac3d1af"><con:settings/><con:defaultResponse xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
 // Script dispatcher is used to select a response based on the incoming request.
 // Here are few examples showing how to match based on path, query param, header and body
 
@@ -821,7 +825,7 @@ if( requestBody.contains("some data") )
     return "Response N"
 }
 */
-</con:dispatchPath><con:response name="Response 1" id="0c7a2cf0-1ae7-45e4-8c11-55fa5237ffec" httpResponseStatus="200"><con:settings/><con:responseContent>{
+</con:dispatchPath><con:response name="Response 1" id="0c7a2cf0-1ae7-45e4-8c11-55fa5237ffec" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
 "censos":
 {"censo":
 [{
@@ -903,11 +907,11 @@ if( requestBody.contains("some data") )
     return "Response N"
 }
 */
-</con:dispatchPath><con:response name="Response 1" id="14e6bf97-1b5b-41d8-a142-747b5e6389bc" httpResponseStatus="200"><con:settings/><con:responseContent>{"censos":
+</con:dispatchPath><con:response name="Response 1" id="14e6bf97-1b5b-41d8-a142-747b5e6389bc" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{"censos":
 {"censo":
 [
 {
-"id":1,
+"idcenso":1,
 "iddepartamento":5,
 "nombredepartamento":"Rawson",
 "idareageo":2,
@@ -923,7 +927,7 @@ if( requestBody.contains("some data") )
 ]
 },
 {
-"id":2,
+"idcenso":2,
 "iddepartamento":2,
 "nombredepartamento":"Chimbas",
 "idareageo":4,
@@ -1077,88 +1081,35 @@ if( requestBody.contains("some data") )
     return "Response N"
 }
 */
-</con:dispatchPath><con:response name="Response 1" id="d77c3554-6e94-4579-9dd2-0293030dd202" httpResponseStatus="200"><con:settings/><con:responseContent>{"censos":
-{"censo":
-[
-{
-"id":1,
-"idcenso":1,
-"iddepartamento":5,
-"nombredepartamento":"Rawson",
-"idareageo":2,
-"nombreareageo":"Area Geografica 1",
-"idmanzana":3,
-"nombremanzana":"Manzana 3",
-"calles":
-[
-{
-"id":1,
-"nombre":"Patagonia"
-}
-]
-},
-{
-"id":2,
-"idcenso":2,
-"iddepartamento":2,
-"nombredepartamento":"Chimbas",
-"idareageo":4,
-"nombreareageo":"Area Geografica 4",
-"idmanzana":5,
-"nombremanzana":"Manzana 5",
-"calles":
-[
-]
-},
-{
-"id":3,
-"idcenso":2,
-"iddepartamento":8,
-"nombredepartamento":"San Martin",
-"idareageo":1,
-"nombreareageo":"Area Geografica 1",
-"idmanzana":15,
-"nombremanzana":"Manzana 15",
-"calles":
-[
-{
-"id":1,
-"nombre":"Patagonia"
-},
-{
-"id":2,
-"nombre":"Maradona"
-}
-]
-},
-{
-"id":4,
-"idcenso":3,
-"iddepartamento":19,
-"nombredepartamento":"Caucete",
-"idareageo":8,
-"nombreareageo":"Area Geografica 8",
-"idmanzana":25,
-"nombremanzana":"Manzana 25",
-"calles":
-[
-]
-},
-{
-"id":5,
-"idcenso":5,
-"iddepartamento":11,
-"nombredepartamento":"9 de Julio",
-"idareageo":8,
-"nombreareageo":"Area Geografica 8",
-"idmanzana":4,
-"nombremanzana":"Manzana 4",
-"calles":
-[
-]
-}
-]
-}
+</con:dispatchPath><con:response name="Response 1" id="d77c3554-6e94-4579-9dd2-0293030dd202" httpResponseStatus="200" mediaType="application/json"><con:settings/><con:responseContent>{
+   "censos":{
+      "censo":[
+         {
+            "id":1,
+            "idcenso":1,
+            "iddepartamento":5,
+            "nombredepartamento":"Rawson",
+            "idareageo":2,
+            "nombreareageo":"Area Geografica 1"
+         },
+         {
+            "id":2,
+            "idcenso":2,
+            "iddepartamento":2,
+            "nombredepartamento":"Chimbas",
+            "idareageo":4,
+            "nombreareageo":"Area Geografica 4"
+         },
+         {
+            "id":3,
+            "idcenso":2,
+            "iddepartamento":8,
+            "nombredepartamento":"San Martin",
+            "idareageo":1,
+            "nombreareageo":"Area Geografica 1"
+         }
+      ]
+   }
 }</con:responseContent></con:response></con:restMockAction><con:restMockAction name="/puntosmapa" method="GET" resourcePath="/puntosmapa" id="79cec417-f98a-40b3-8b19-63f132173d94"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:dispatchPath>/*
 // Script dispatcher is used to select a response based on the incoming request.
 // Here are few examples showing how to match based on path, query param, header and body

@@ -3,13 +3,13 @@
    <li><a href="<?php echo base_url('Login/usuarios')?>"><i class="fa fa-user"></i>Administracion usuarios</a></li>
      <li class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-check"></i> <span>Arbolado ABM</span>
+            <i class="fa  fa-circle-o"></i> <span>Arbolado ABM</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#" class="link" data-link="Censista"><i class="fa fa-fw fa-cubes"></i>Censistas</a></li>
+            <!-- <li><a href="#" class="link" data-link="Censista"><i class="fa fa-fw fa-cubes"></i>Censistas</a></li> -->
             <li><a href="#" class="link" data-link="Area"><i class="fa fa-fw fa-map"></i>Areas Gerograficas</a></li>
             <li><a href="#" class="link" data-link="Departamento"><i class="fa fa-fw fa-cubes"></i>Departamentos</a></li>
             <li><a href="#" class="link" data-link="Manzana"><i class="fa fa-fw fa-cubes"></i>Manzanas</a></li>
@@ -20,7 +20,7 @@
     </li>
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-check"></i> <span>Censos</span>
+            <i class="fa  fa-circle-o"></i> <span>Censos</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -33,14 +33,13 @@
     </li>
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-check"></i> <span>Reportes</span>
+            <i class="fa  fa-circle-o"></i> <span>Reportes</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
-        <ul class="treeview-menu">
-            <li><a href="#" class="link" data-link="Censo/Nuevo"><i class="fa fa-fw fa-cubes"></i>Nuevo Censo</a></li>
-            <li><a href="#" class="link" data-link="Censo"><i class="fa fa-fw fa-cubes"></i>Lista Censos</a></li>
+        <ul class="treeview-menu">            
+            <li><a href="#" class="link" data-link="Censo"><i class="fa fa-bar-chart"></i>Lista Censos</a></li>
             </li>
         </ul>
     </li>

@@ -6,6 +6,7 @@ class Censista extends CI_Controller {
       parent::__construct();
       $this->load->helper('file');
       $this->load->model('Censistas');
+      
      
       if(!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/web/Dash')
       {
@@ -28,12 +29,16 @@ class Censista extends CI_Controller {
     $this->load->view('general/abm',$data);
     
  }
+
+//   Funcion Guardar Nuevo
+
  function Guardar_Nuevo()
  {
      $data['nombre'] = $this->input->post('datonombre');
      $data['apellido'] = $this->input->post('apellido');
      $data['telefono'] = $this->input->post('telefono');
      $data['direccion'] = $this->input->post('direccion');
+     $resp = $this->Censistas->Guardar_Nuevo($data);
      echo json_encode($data);
  }
 }

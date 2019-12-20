@@ -20,6 +20,9 @@ class Arbol extends CI_Controller {
       $this->load->view('general/listar',$data);
       
    }
+   
+   
+   
    function Nuevo(){
       $data['titulo'] = 'Nuevo Arbol';
       $data['nombre'] = 'Arbol';
@@ -27,10 +30,20 @@ class Arbol extends CI_Controller {
       $this->load->view('general/abm',$data);
       
    }
+   
+   
+   //   Funcion Guardar Nuevo
+   
    function Guardar_Nuevo()
  {
-     $data['nombre'] = $this->input->post('datonombre');
-     echo json_encode($data);
+   $data['nombre'] = $this->input->post('datonombre');
+   echo json_encode($data);
+
+   $data[''] = $this->input->post('');
+   $data[''] = $this->input->post('');
+   $data[''] = $this->input->post('');
+   $data[''] = $this->input->post('');
+   echo json_encode($data);
  }
 }
 ?>

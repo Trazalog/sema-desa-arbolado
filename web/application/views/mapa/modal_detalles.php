@@ -1,14 +1,14 @@
 <div class="modal" id="modal_detalles" tabindex="1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-green">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
             aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Detalles</h4>
       </div>
 
       <div class="modal-body" id="modalBodyArticle">
-        <div class="form-group" style="width:90%" >
+        <!-- <div class="form-group" style="width:90%" >
             <label  class="form-label" id="direccion"></label>
         </div>
         <div id="tazadiv" hidden>
@@ -60,7 +60,7 @@
         </div>
         <div class="form-group" style="width:90%" >
                 <label  class="form-label" id="observacion"></label>
-         </div>
+         </div> -->
       </div>
 
       <div class="modal-footer">
