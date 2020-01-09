@@ -17,7 +17,7 @@ class Mapa extends CI_Controller {
    function index()
    {
       
-      $this->load->view('mapa/mapa',$data);      
+      $this->load->view('mapa/mapa');      
    }
 
    // retorna listado de arboles por id de censo

@@ -56,6 +56,8 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
     <script src="<?php echo base_url('js/tabla.js');?>"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpKOoFiMIRpJ5r8g0zPiNjCswiJ4BdbFc"></script>
+    <!-- Leaflet Maps -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
 
 
