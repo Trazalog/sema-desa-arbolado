@@ -4,6 +4,7 @@
     }
 </style>
 <?php $this->load->view('mapa/modal_detalles') ?>
+<?php $this->load->view('mapa/modal_imagen') ?>
 <div class="box">
     <div class="box-header bg-green">
 
@@ -116,7 +117,7 @@
         // Selecciono censo para poblar mapa
         $('#censo_id').change(function() {
             //WaitingOpen();
-            $(".leaflet-marker-pane, .leaflet-shadow-pane").html('');
+            $(".leaflet-marker-pane, .leaflet-shadow-pane, .leaflet-popup").html('');
             var cens_id = this.value;
             renderCenso(cens_id);
         });
@@ -200,11 +201,12 @@
                                         '<div id="siteNotice">' +
                                         '</div>' +
                                         '<h4 class="firstHeading center">' + direccion +
-                                        '</h4><br>' + '<div class="center"><img src="assets/img/ejemplo_arbol.jpg"></div>' +
+                                        '</h4>' +
                                         '<p> Tipo: ' + tipo + '</p>' +
-                                        '<div class="center"><button onclick="Detalles(' + info_id +
+                                        '<div class="center"><button class="btn btn-info" onclick="Imagen(' + info_id + ')">Imagen</button> &nbsp;&nbsp;<button onclick="Detalles(' + info_id +
                                         ')"class="btn btn-success">Detalles</button></div>' +
                                         '</div>').addTo(map);
+                                    // '<div class="center"><img src="assets/img/ejemplo_arbol.jpg"></div>'
                                     // marcador.push(marker);
                                     // markers.push(marker);
                                     // marker.bindPopup(
@@ -310,6 +312,26 @@
                         'disabled');
                     $('#read_only').attr('disabled');
                     $('.frm-save').hide();
+                },
+                dataType: 'json'
+            })
+        }
+
+        function Imagen(id) {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                url: 'Mapa/getImagen',
+                success: function(result) {
+                    // alert(result.html);
+                    $('#modal_imagen').find('#imagen_modal').prop("src", result.html);
+                    $('#modal_imagen').modal('show');
+                    // $('.modal-body > form').find('input, textarea, button, select').attr('disabled',
+                    //     'disabled');
+                    // $('#read_only').attr('disabled');
+                    // $('.frm-save').hide();
                 },
                 dataType: 'json'
             })

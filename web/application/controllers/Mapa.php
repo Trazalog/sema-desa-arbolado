@@ -36,6 +36,18 @@ class Mapa extends CI_Controller {
       $data['html'] =  form($data['html']);            
       echo json_encode($data);
    }
+   function getImagen()
+   {
+      $id = $this->input->post('id');          
+      // $data['html'] = json_decode($this->Mapas->Imagen($id))->formulario;
+      $data['html'] = 'assets/img/ejemplo_arbol.jpg';
+      // $data['html'] = 'assets/img/favicon.png';
+      // $data['html'] = 'C:/Users/Usuario/Pictures/ejemplo_arbol.jpg';
+      // transforma el json traido del DS en un html que se inserta en el modal formulario
+      // $data['html'] =  form($data['html']);            
+      echo json_encode($data);
+      // echo $data;
+   }
 
 }
 ?>

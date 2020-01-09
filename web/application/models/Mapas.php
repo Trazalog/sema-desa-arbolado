@@ -67,4 +67,8 @@ class Mapas extends CI_Model
 
 
     }
+    function Imagen($id){
+      
+
+    }
 }
