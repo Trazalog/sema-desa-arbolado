@@ -60,5 +60,10 @@ class Area extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	function eliminar(){
+		$response = $this->Areas->eliminar($this->input->post('id'));
+		echo json_encode($response);
+	}
+
 }
 ?>

@@ -39,8 +39,8 @@
             </span>
         </a>
         <ul class="treeview-menu">            
-            <li><a href="#" class="link" data-link="Censo"><i class="fa fa-bar-chart"></i>Lista Censos</a></li>
-            </li>
+            <!-- <li><a href="#" class="link" data-link="Censo"><i class="fa fa-bar-chart"></i>Lista Censos</a></li>
+            </li> -->
         </ul>
     </li>
     <li><a href="#" class="link" data-link="Mapa"><i class="fa fa-fw fa-map"></i>Mapa</a></li>

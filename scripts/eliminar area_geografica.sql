@@ -1,0 +1,1 @@
+ALTER TABLE public.arb_areas_geograficas ADD eliminado int2 NOT NULL DEFAULT 0;

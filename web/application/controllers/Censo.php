@@ -51,9 +51,11 @@ class Censo extends CI_Controller {
   }
 
   // buscar area por departamento
-  function getAreaPorDepto(){
-    $depaId = $this->input->post('id');
-    $areas = $this->Areas->ObtenerXDepartamentos($depaId)->areas->area;
+  function getAreaPorDeptoSinAsignar(){   
+
+    $cens_id = $this->input->post('id_censo');
+    $depa_id = $this->input->post('id_depto');     
+    $areas = $this->Areas->ObtenerXDepaSinAsignar($cens_id, $depa_id)->areas->area;
 
     echo json_encode($areas);
 

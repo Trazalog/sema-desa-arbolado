@@ -95,11 +95,13 @@
 
 $('#selectDepto').on('change', function() {
 
-  id_censo = $('#selectDepto').val();
+  id_depto = $('#selectDepto').val();
+  id_censo = document.getElementById('Nombre').value; 
   $.ajax({
         type: 'POST',
-        data: {id: id_censo},
-        url: 'Censo/getAreaPorDepto',
+        data: {id_depto: id_depto,
+                id_censo: id_censo},
+        url: 'Censo/getAreaPorDeptoSinAsignar',
         dataType: 'json',
         success: function(result) {
           $('#selectArea').find('option').remove();
