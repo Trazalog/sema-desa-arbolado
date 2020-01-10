@@ -2,6 +2,19 @@
     .center {
         text-align: center;
     }
+
+    .box img {
+        width: 100%;
+        height: auto;
+    }
+
+    @supports(object-fit: cover) {
+        .box img {
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+    }
 </style>
 <?php $this->load->view('mapa/modal_detalles') ?>
 <?php $this->load->view('mapa/modal_imagen') ?>
@@ -133,8 +146,7 @@
 
             //  TODO: VER TECNICAS DE CLUSTERING EN GOOGLE MAPS
             // if (markers)
-            //     setMapOnAll(null);            
-            // $(".leaflet-shadow-pane").html('');            
+            //     setMapOnAll(null);          
 
             $.ajax({
                 type: 'POST',
@@ -160,10 +172,9 @@
                                     var length_j = 0;
                                 }
 
-                                for (var k = 0; k < length_j; k++) { //k                                    
+                                for (var k = 0; k < length_j; k++) { //k
 
                                     // var marker = new google.maps.Marker({
-
                                     //     position: {
                                     //         lat: parseFloat(data.puntos[i]['squares']['square'][j][
                                     //             'trees'
@@ -185,6 +196,7 @@
                                     //         .tree[k].number
                                     // });                                   
                                     var info_id = data.puntos[i].squares.square[j].trees.tree[k].info_id;
+                                    var arbol_id = data.puntos[i].squares.square[j].trees.tree[k].id;
                                     var tipo = data.puntos[i].squares.square[j].trees.tree[k].name;
                                     var direccion = data.puntos[i].squares.square[j].trees.tree[k].street_name + ' ' + data.puntos[i].squares.square[j].trees.tree[k].number;
                                     var lat = parseFloat(data.puntos[i]['squares']['square'][j][
@@ -203,81 +215,12 @@
                                         '<h4 class="firstHeading center">' + direccion +
                                         '</h4>' +
                                         '<p> Tipo: ' + tipo + '</p>' +
-                                        '<div class="center"><button class="btn btn-info" onclick="Imagen(' + info_id + ')">Imagen</button> &nbsp;&nbsp;<button onclick="Detalles(' + info_id +
+                                        '<div class="center"><button class="btn btn-info" onclick="Imagen(' + arbol_id + ')">Imagen</button> &nbsp;&nbsp;<button onclick="Detalles(' + info_id +
                                         ')"class="btn btn-success">Detalles</button></div>' +
                                         '</div>').addTo(map);
-                                    // '<div class="center"><img src="assets/img/ejemplo_arbol.jpg"></div>'
-                                    // marcador.push(marker);
-                                    // markers.push(marker);
-                                    // marker.bindPopup(
-                                    //     "<b>Info_id: </b>" + data.puntos[i].squares.square[j].trees.tree[k].info_id +
-                                    //     "<br><b>Tipo: </b>" + data.puntos[i].squares.square[j].trees.tree[k].name +
-                                    //     "<br><b>Dirección: </b>" + data.puntos[i].squares.square[j].trees.tree[k].street_name + ' ' +
-                                    //     data.puntos[i].squares.square[j].trees.tree[k].number
-                                    // );
-                                    // markers.push(marker);
-                                    // marcadores.push(marker);
-                                    // marcador.push(marker);
-
-
-                                    // google.maps.event.addListener(marker, 'click', function() {
-                                    //     var marker = this;
-                                    //     var contentString = '<div id="content">' +
-                                    //         '<div id="siteNotice">' +
-                                    //         '</div>' +
-                                    //         '<h4 class="firstHeading">' + marker.direccion +
-                                    //         '</h4><br>' +
-                                    //         '<p> Tipo: ' + marker.tipo + '</p>' +
-                                    //         '<button onclick="Detalles(' + marker.info_id +
-                                    //         ')"class="btn btn-success">Detalles</button>' +
-                                    //         '</div>';
-                                    //     var infowindow = new google.maps.InfoWindow({
-                                    //         content: contentString
-                                    //     });
-                                    //     infowindow.open(map, marker);
-                                    // });
-
-                                    /* Evento: PopUp coordenadas */
-                                    // var popup = L.popup();
-
-                                    // function onMarkerClick(e) {
-                                    //     var marker = this;
-                                    //     var contentString = '<div id="content">' +
-                                    //         '<div id="siteNotice">' +
-                                    //         '</div>' +
-                                    //         '<h4 class="firstHeading">' + direccion +
-                                    //         '</h4><br>' +
-                                    //         '<p> Tipo: ' + tipo + '</p>' +
-                                    //         '<div style="text-align: center;"><button onclick="Detalles(' + info_id +
-                                    //         ')"class="btn btn-success">Detalles</button></div>' +
-                                    //         '</div>';
-                                    //     marker.bindPopup(contentString);
-                                    //     // marker.bindPopup(
-                                    //     //     "<b>Info_id: </b>" + data.puntos[i].squares.square[j].trees.tree[k].info_id +
-                                    //     //     "<br><b>Tipo: </b>" + data.puntos[i].squares.square[j].trees.tree[k].name +
-                                    //     //     "<br><b>Dirección: </b>" + data.puntos[i].squares.square[j].trees.tree[k].street_name + ' ' +
-                                    //     //     data.puntos[i].squares.square[j].trees.tree[k].number
-                                    //     // );
-                                    // }
-                                    // marker.on('click', onMarkerClick);
-                                    // marker.bindPopup('<div id="content">' +
-                                    //     '<div id="siteNotice">' +
-                                    //     '</div>' +
-                                    //     '<h4 class="firstHeading">' + direccion +
-                                    //     '</h4><br>' +
-                                    //     '<p> Tipo: ' + tipo + '</p>' +
-                                    //     '<div style="text-align: center;"><button onclick="Detalles(' + info_id +
-                                    //     ')"class="btn btn-success">Detalles</button></div>' +
-                                    //     '</div>');
-                                    // markers.push(marker);
-                                    // marcadores.push(marker);
-                                    // marcador.push(marker);
-
                                 }
                             }
                         }
-                        // marcadores = L.layerGroup(marcador);
-                        // L.control.layers(baseMaps, overlayMaps).addTo(map);
                     }
                 },
 
@@ -294,7 +237,6 @@
 
         // L.control.layers(baseMaps, overlayMaps).addTo(map);
         L.control.layers(baseMaps).addTo(map);
-
 
         function Detalles(id) {
 
@@ -325,13 +267,9 @@
                 },
                 url: 'Mapa/getImagen',
                 success: function(result) {
-                    // alert(result.html);
-                    $('#modal_imagen').find('#imagen_modal').prop("src", result.html);
+                    var imagen = result.html.replace('dataimage/jpegbase64', 'data:image/jpeg;base64,');
+                    $('#modal_imagen').find('#imagen_modal').prop("src", imagen);
                     $('#modal_imagen').modal('show');
-                    // $('.modal-body > form').find('input, textarea, button, select').attr('disabled',
-                    //     'disabled');
-                    // $('#read_only').attr('disabled');
-                    // $('.frm-save').hide();
                 },
                 dataType: 'json'
             })
