@@ -75,17 +75,29 @@ class Censos extends CI_Model
 
     function guardarCenso($data){ 
 
-        log_message('DEBUG', '#MODEL #CENSOS > Guardar_Nuevo  | #DATA: '.json_encode($data));        
-        $parametros["http"]["method"] = "POST";
-				$parametros["http"]["header"] = "Accept: application/json";	
-				$parametros["http"]["header"] = "Content-Type: application/json";	
-				$parametros["http"]["content"] = json_encode($data);	
-				$param = stream_context_create($parametros);
+        // log_message('DEBUG', '#MODEL #CENSOS > Guardar_Nuevo  | #DATA: '.json_encode($data));        
+        // $parametros["http"]["method"] = "POST";
+				// $parametros["http"]["header"] = "Accept: application/json";	
+				// $parametros["http"]["header"] = "Content-Type: application/json";	
+				// $parametros["http"]["content"] = json_encode($data);	
+				// $param = stream_context_create($parametros);
+				// $resource = '/censo';
+				// $url = REST.$resource;
+				// $array = file_get_contents($url, false, $param);
+				// log_message('DEBUG', '#MODEL #CENSOS > Resultado post  | #DATA: '.json_encode($array));
+				// return json_decode($array);
+
+
+
+
+				log_message('DEBUG', '#MODEL #CENSOS > Guardar_Nuevo  | #DATA: '.json_encode($data));
+
 				$resource = '/censo';
 				$url = REST.$resource;
-				$array = file_get_contents($url, false, $param);
-				log_message('DEBUG', '#MODEL #CENSOS > Resultado post  | #DATA: '.json_encode($array));
-				return json_decode($array);
+				$array = $this->rest->callAPI("POST", $url, $data); 		
+				log_message('DEBUG', 'Censos/insertAreaCenso->(Resultado Post)->'.json_encode($array));
+				return json_decode($array['code']);
+
     }
 
     // ------------------ POST > Guardar Areas censo ------------------
@@ -105,30 +117,14 @@ class Censos extends CI_Model
 			return json_decode($array);
 		}
 		// asigna areas a censos
-		function insertAreaCenso($data){
-			//	/censo/area/add
-			log_message('DEBUG', 'Censos/insertAreaCenso->($data): '.json_encode($data));			
-			// $parametros["http"]["method"] = "POST";
-			// //$parametros["http"]["header"] = "Accept: application/json";	
-			// $parametros["http"]["header"] = "Content-Type: application/json";	
-			// $parametros["http"]["content"] = json_encode($data);	
-			// $param = stream_context_create($parametros);
-			// $resource = '/censo/area/add';
-			// $url = REST.$resource;
-			// $array = file_get_contents($url, false, $param);
-			// log_message('DEBUG', 'Censos/insertAreaCenso->(Resultado Post)->'.json_encode($array));
-			// return json_decode($array);
+		function insertAreaCenso($data){	
 
-		
+			log_message('DEBUG', 'Censos/insertAreaCenso->($data): '.json_encode($data));			
 			$resource = '/censo/area/add';
 			$url = REST.$resource;
 			$array = $this->rest->callAPI("POST", $url, $data); 		
 			log_message('DEBUG', 'Censos/insertAreaCenso->(Resultado Post)->'.json_encode($array));
 			return json_decode($array['code']);
-
-
-
-
 		}
 
 

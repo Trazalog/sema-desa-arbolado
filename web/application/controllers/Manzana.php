@@ -28,20 +28,23 @@ class Manzana extends CI_Controller {
 			$data['nombre'] = 'Manzana';
 			$data['accion'] = 'Nuevo';
 			$data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
-			$data['areas'] = $this->Areas->listar()->areas->area;  
+			$data['areas'] = $this->Areas->listarAreasTodas()->areas->area;  
 			$this->load->view('general/abm',$data);    
    }
-
    //   Funcion Guardar Nuevo
    function Guardar_Nuevo()
-   {
-     
+   {     
       $data['nombre'] = $this->input->post('datonombre');    
       $data['argeo'] = $this->input->post('argeo');  
 			// respuesta ->manz_id
       $response = $this->Manzanas->Guardar_Nuevo($data)->respuesta->manz_id;
       echo json_encode($response);
-   }
+	 }
+	 
+	 function borrar(){		 
+		$response = $this->Manzanas->borrar($this->input->post('id'));
+		return json_encode($response);
+	 }
 }
 ?>
 

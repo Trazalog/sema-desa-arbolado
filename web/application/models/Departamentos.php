@@ -35,7 +35,18 @@ class Departamentos extends CI_Model
 				$url = REST.$resource;
 				$array = file_get_contents($url, false, $param);
 				return json_decode($array);	
-
 		}
 
+		function eliminar($id){
+
+			log_message('DEBUG', 'Departamentos/eliminar  | #ID: '.json_encode($id));     
+			$departamento = array(
+				"depa_id"=> $id						
+			);
+			$data['departamento'] = $departamento;	    
+			$resource = '/departamentos/delete';
+			$url = REST.$resource;
+			$array = $this->rest->callAPI("PUT", $url, $data);
+			return json_decode($array['code']);
+		}
 }

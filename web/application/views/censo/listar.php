@@ -82,102 +82,69 @@ $this->load->view('area/modal_censista')
 </body>
 
 <script>
-$('#censos').DataTable();
-$(document).off('click', '.asignar_censista').on('click', '.asignar_censista', function() {
-    TrActual = $(this).parents('tr');
-    $('#modal_censista').modal('show');
-});
+	$('#censos').DataTable();
+	$(document).off('click', '.asignar_censista').on('click', '.asignar_censista', function() {
+			TrActual = $(this).parents('tr');
+			$('#modal_censista').modal('show');
+	});
 
 
-function AgregarArea(){
-	id = document.getElementById('Nombre').value;
-	if(id<=0 || id==null){
-		alert("Debe seleccionar un censo para poder agregar Area..")
-	}else{
-		$('#modal_areas_asignar').modal('show');		
+	function AgregarArea(){
+		id = document.getElementById('Nombre').value;
+		if(id<=0 || id==null){
+			alert("Debe seleccionar un censo para poder agregar Area..")
+		}else{
+			$('#modal_areas_asignar').modal('show');		
+		}
 	}
-}
 
+	var tablaCensos = $('#censos').DataTable();
+	function buscaCensos() {
+			id = document.getElementById('Nombre').value; 
+			tablaCensos.clear().draw();
 
+			$.ajax({
+					type: 'POST',
+					data: {
+							data: id           
+					},
+					url: 'Censo/buscarCenso',
+					success: function(result) {
+							censos = JSON.parse(result);
+						
+							if (censos != null) {
+									console.log(censos);
+									for (i = 0; i < censos.length; i++) {
 
-var tablaCensos = $('#censos').DataTable();
-function buscaCensos() {
-    id = document.getElementById('Nombre').value; 
-    tablaCensos.clear().draw();
-    // censos = '<?php echo json_encode($censosarmados)?>';
-    // censos = JSON.parse(censos);
+											if (id == censos[i].idcenso) {
+													tr = "";
+													tr += "<tr id='" + censos[i].idcenso + "' data-json='" + JSON.stringify(censos[i]) +
+															"'>";
+													tr += '<td><i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';                        
+													tr +=
+															'<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
+													tr +=
+															'<i class="fa fa-fw fa fa-user text-light-blue asignar_censista" style="cursor: pointer; margin-left: 15px;" title="Asignar/Cambiar Censista" data-toggle="modal" data-target="#modal_censista"></i></td>';
+													tr += "<td>" + censos[i].nombredepartamento + "</td>";
+													tr += "<td>" + censos[i].nombreareageo + "</td>";
+													if(censos[i].nombreusuario != null){
+														tr += "<td>" + censos[i].nombreusuario + "</td>";
+													}else{
+														tr += "<td>Sin asignar</td>";
+													}										
+													tr += "</tr>";
 
-    // hacer un ajax llamando al buscaCenso mandqando el id
+													tablaCensos.row.add($(tr)).draw();
+											}
+									}
+							}
+							else console.log("y ella?");
+					},
+					error: function() {
+							alert('Error');
+					}
 
-    $.ajax({
-        type: 'POST',
-        data: {
-            data: id           
-        },
-        url: 'Censo/buscarCenso',
-        success: function(result) {
-            censos = JSON.parse(result);
-          
-            if (censos != null) {
-                console.log(censos);
-                for (i = 0; i < censos.length; i++) {
+			});   
 
-                    if (id == censos[i].idcenso) {
-                        tr = "";
-                        tr += "<tr id='" + censos[i].idcenso + "' data-json='" + JSON.stringify(censos[i]) +
-                            "'>";
-                        tr +=
-                            '<td><i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';                        
-                        tr +=
-                            '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
-												tr +=
-														'<i class="fa fa-fw fa fa-user text-light-blue asignar_censista" style="cursor: pointer; margin-left: 15px;" title="Asignar/Cambiar Censista" data-toggle="modal" data-target="#modal_censista"></i></td>';
-                        tr += "<td>" + censos[i].nombredepartamento + "</td>";
-                        tr += "<td>" + censos[i].nombreareageo + "</td>";
-                        if(censos[i].nombreusuario != null){
-													tr += "<td>" + censos[i].nombreusuario + "</td>";
-												}else{
-													tr += "<td>Sin asignar</td>";
-												}										
-                        tr += "</tr>";
-
-                        tablaCensos.row.add($(tr)).draw();
-                    }
-                }
-            }
-            else console.log("y ella?");
-        },
-        error: function() {
-            alert('Error');
-        }
-
-    });
-
-    // esto t devuelve el listado de censo po ¿r id de depto
-
-    // for (i = 0; i < censos.length; i++) {
-
-    //     if (id == censos[i].idcenso) {
-    //         tr = "";
-    //         tr += "<tr id='" + censos[i].idcenso + "' data-json='" + JSON.stringify(censos[i]) + "'>";
-    //         tr +=
-    //             '<td><i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';
-    //         tr +=
-    //             '<i class="fa fa-fw fa-plus text-light-blue asignar_censista" style="cursor: pointer; margin-left: 15px;" title="Asignar Censista" data-toggle="modal" data-target="#modal_censista"></i>';
-    //         tr +=
-    //             '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i></td>';
-		// 				tr +=
-		// 				'<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i></td>';
-    //         tr += "<td>" + censos[i].nombredepartamento + "</td>";
-    //         tr += "<td>" + censos[i].nombreareageo + "</td>";
-    //         tr += "<td>" + censos[i].nombremanzana + "</td>";
-
-    //         tr += "</tr>";
-
-    //         tablaCensos.row.add($(tr)).draw();
-    //     }
-    // }
-
-
-}
+	}
 </script>

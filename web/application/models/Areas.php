@@ -7,17 +7,24 @@ class Areas extends CI_Model
 	{
     parent::__construct();
   }  
+  // listado de area y departamentos asociados
   function listar(){
-      
-    $parametros["http"]["method"] = "GET";
-    $parametros["http"]["header"] = "Accept: application/json";	 
-    $param = stream_context_create($parametros);
-    //  $resource = '/listaareas';	 	
-    $resource = '/listadoAreaSimple';	 	
+  
+    $resource = '/listadoAreaSimple';
     $url = REST.$resource;
-    $array = file_get_contents($url, false, $param);  
-    return json_decode($array);
+    $array = $this->rest->callAPI("Get", $url);
+    return json_decode($array['data']);
   }  
+
+  // listado de areas solo id y nombre para seleccionar 
+  function listarAreasTodas(){      
+    
+    $resource = '/listaareas/todas';
+    $url = REST.$resource;
+    $array = $this->rest->callAPI("Get", $url);
+    return json_decode($array['data']);
+  }  
+
   function Guardar_Nuevo($data){ 
         
     log_message('DEBUG', 'Areas/Guardar_Nuevo  | #DATA: '.json_encode($data));
@@ -65,13 +72,11 @@ class Areas extends CI_Model
 
   function eliminar($id){
 
-    log_message('DEBUG', 'Areas/eliminar  | #ID: '.json_encode($id)); 
-    
+    log_message('DEBUG', 'Areas/eliminar  | #ID: '.json_encode($id));     
     $put_area = array(
 			"arge_id"=> $id						
 		);
-		$data['area'] = $put_area;	
-    
+		$data['area'] = $put_area;	    
     $resource = '/area/delete';
     $url = REST.$resource;
     $array = $this->rest->callAPI("PUT", $url, $data);

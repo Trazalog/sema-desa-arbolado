@@ -107,7 +107,7 @@ $('#selectDepto').on('change', function() {
           $('#selectArea').find('option').remove();
           //$('#selectArea').append("<option value="">-Seleccione Area Geográfica-</option>");
           for (let index = 0; index < result.length; index++) {       
-            $('#selectArea').append("<option value='" + result[index].id + "'>" +result[index].nombre +"</option");    
+            $('#selectArea').append("<option value='" + result[index].arge_id + "'>" +result[index].nombre +"</option");    
           }  
         },
         error: function() {
@@ -137,7 +137,7 @@ function insertAreaCenso(){
             url: 'Censo/insertAreaCenso',
             dataType: 'json',
             success: function(result) { 
-                      
+                      alert('resultado: ' + result);
                   if (result == 500) {
                     alert("El area ya se encuentra asignada a este Censo");
                   }else{
