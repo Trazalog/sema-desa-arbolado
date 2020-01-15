@@ -88,7 +88,6 @@ $this->load->view('area/modal_censista')
 			$('#modal_censista').modal('show');
 	});
 
-
 	function AgregarArea(){
 		id = document.getElementById('Nombre').value;
 		if(id<=0 || id==null){
@@ -118,11 +117,11 @@ $this->load->view('area/modal_censista')
 
 											if (id == censos[i].idcenso) {
 													tr = "";
-													tr += "<tr id='" + censos[i].idcenso + "' data-json='" + JSON.stringify(censos[i]) +
+													tr += "<tr class='"+ censos[i].idrelacion +"' id='" + censos[i].idcenso + "' data-json='" + JSON.stringify(censos[i]) +
 															"'>";
 													tr += '<td><i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';                        
 													tr +=
-															'<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
+															'<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="eliminar('+censos[i].idrelacion+')"></i>';
 													tr +=
 															'<i class="fa fa-fw fa fa-user text-light-blue asignar_censista" style="cursor: pointer; margin-left: 15px;" title="Asignar/Cambiar Censista" data-toggle="modal" data-target="#modal_censista"></i></td>';
 													tr += "<td>" + censos[i].nombredepartamento + "</td>";
@@ -143,8 +142,26 @@ $this->load->view('area/modal_censista')
 					error: function() {
 							alert('Error');
 					}
+			}); 
+	}
 
-			});   
+	function eliminar(idrelacion){
+		alert(idrelacion);
+		$.ajax({
+					type: 'POST',
+					data: {
+						idrelacion: idrelacion           
+					},
+					url: 'Censo/eliminar',
+					success: function(result) {
+							if(result<300){
+								$('#censos tbody').find('tr.'+idrelacion).remove();								
+							}							
+					},
+					error: function() {
+							alert('No se pudo eliminar el censo...');
+					}
+		});  
 
 	}
 </script>
