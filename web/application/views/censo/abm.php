@@ -276,6 +276,8 @@ function guardarCensoNuevo(){
         url: 'Censo/guardarCenso',
         success: function(result) {
             
+						alert('El censo fue guardado correctamente');
+
 						//var cens_id = JSON.parse(result).respuesta.cens_id;
             //agregarAreaCenso(cens_id, array);
         },
@@ -418,17 +420,12 @@ function agregarAreaCenso(cens_id, array) {
 
 $('#inputdepartamentos').on('change', function() {
 
-
     var nombreDepa = this.value;
     var json = $('#departamentos').find('[value="' + nombreDepa + '"]').attr('data-json');
     json = JSON.parse(json);
     var depaId = json.id;
 
-
-
-
     //AJAX 
-
     $.ajax({
         type: 'POST',
         dataType: 'JSON',
@@ -446,9 +443,7 @@ $('#inputdepartamentos').on('change', function() {
 
                 $('#areas').append("<option data-json='" + JSON.stringify(e) + "' value='" +
                     e.nombre + "'></option");
-
             });
-
         },
         error: function(rsp) {
             alert('Error');

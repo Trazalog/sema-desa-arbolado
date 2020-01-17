@@ -33,13 +33,12 @@ class Manzanas extends CI_Model
 	}
 	// Guarda manzana nueva con area geografica
   function Guardar_Nuevo($data){	
-
+		log_message('DEBUG', 'Manzanas/Guardar_Nuevo() data-> '.json_encode($data));
 		$manzana = array(
 			"nombre"=> $data["nombre"],	
 			"arge_id"=>$data["argeo"]				
 		);		
-		$post_manz['manzana_post'] = $manzana;			
-
+		$post_manz['manzana_post'] = $manzana;	
 		$resource = '/manzana';
 		$url = REST.$resource;
 		$array = $this->rest->callAPI("POST", $url, $post_manz); 	
@@ -47,5 +46,17 @@ class Manzanas extends CI_Model
 		return json_decode($array['data']);
 	}
 
+	function borrar($id){
+
+		log_message('DEBUG', 'Manzanas/Borrar  | id: '.json_encode($id));
+		$manzana = array(
+			"manz_id"=> $id				
+		);
+		$datos['manzana'] = $manzana;
+		$resource = '/manzanas/delete';
+    $url = REST.$resource;
+    $array = $this->rest->callAPI("PUT", $url, $datos);
+    return json_decode($array['data']);
+	}
 
 }

@@ -221,7 +221,8 @@ class User_model extends CI_Model {
     public function addUserWSO2($cleanPost){
         $string = array(
             'UM_USER_NAME'=>$cleanPost['email'],
-            'UM_USER_PASSWORD'=>$cleanPost['password_orig']
+						'UM_USER_PASSWORD'=>$cleanPost['password_orig'],
+						'UM_TENANT_ID'=> '-1234'
         );
         $q = $this->db->insert_string('wso2am.UM_USER',$string);             
         $this->db->query($q);
@@ -249,6 +250,41 @@ class User_model extends CI_Model {
 			$url = REST.$resource;
 			$array = file_get_contents($url, false, $param);
 			return json_decode($array);
+		}
+
+		//delete user
+    public function deleteUser($email)
+    {   
+			// $this->db->where('id', $id);
+			$this->db->where('email', $email);
+			$this->db->delete('users');
+			
+			if ($this->db->affected_rows() == '1') {
+				return TRUE;
+			}
+			else {
+				return FALSE;
+					
+			}
+    }
+		//delete user en DB arbolado
+		function deleteUserLocal($mail){
+
+			$usuario = array(
+				"email"=> $mail				
+			);
+			$datos['usuario'] = $usuario;
+			$resource = '/perfil/local/delete';
+			$url = REST.$resource;
+			$array =  $this->rest->callApi('PUT', $url, $datos);
+			return json_decode($array['status']);	
+		}
+		// Borra usr y pass a user store de wso2
+    public function deleteUserWSO2($email){
+			
+			$this->db->where('UM_USER_NAME', $email);
+			$response = $this->db->delete('wso2am.UM_USER');
+			return $response;
 		}
     
     //update profile user
@@ -297,21 +333,7 @@ class User_model extends CI_Model {
         $query = $this->db->get('users');
         return $query->result();
     }
-    
-    //delete user
-    public function deleteUser($id)
-    {   
-        $this->db->where('id', $id);
-        $this->db->delete('users');
         
-        if ($this->db->affected_rows() == '1') {
-            return FALSE;
-        }
-        else {
-            return TRUE;
-        }
-    }
-    
     //get settings
     public function getAllSettings()
     {

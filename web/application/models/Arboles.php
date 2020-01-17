@@ -6,43 +6,43 @@ class Arboles extends CI_Model
 	function __construct()
 	{
 		parent::__construct();
-    }
-    function listar()
-    {
-        
-        $parametros["http"]["method"] = "GET";
-        $parametros["http"]["header"] = "Accept: application/json";	 
-        $param = stream_context_create($parametros);
-        $resource = '/listaarboles';	 	
-        $url = REST.$resource;
-        $array = file_get_contents($url, false, $param);
-        return json_decode($array);
-    }
+	}
 
-    function Guardar_Nuevo($data){
+	function listar()
+	{		
+		log_message('DEBUG', 'Arboles/listar'); 
+    $resource = '/arbol/listado/especies'; 
+    $url = REST.$resource;
+    $array = $this->rest->callAPI("GET", $url);
+    return json_decode($array['data']);
+	}
 
-        
-        //TODO:SACAR HARCODE DE DEPARTAMENTO ID
-        
-                
-        
-                $_post_setarbol = array(
-                    "nombre"=> $data["nombre"],
-                   			
-                );
-                $datos['_post_setarbol'] = $_post_setarbol;	
-                $data = json_encode($datos);
-        
-                $parametros["http"]["method"] = "POST";
-                $parametros["http"]["header"] = "Accept: application/json";	
-                $parametros["http"]["header"] = "Content-Type: application/json";	
-                $parametros["http"]["content"] = $data;	
-                $param = stream_context_create($parametros);
-                $resource = '/set';	 				
-                $url = REST.$resource;
-                $array = file_get_contents($url, false, $param);
-                return json_decode($array);	
-            }
+  function Guardar_Nuevo($data){				
+	
+		$_nueva_especie = array(
+			"valor"=> $data["nombre"],
+			"tabla"=> "tipo_arbol"						
+		);
+		$datos['arbol'] = $_nueva_especie;
+		log_message('DEBUG', 'Arboles/Guardar_Nuevo  | Datos a Guardar: '.json_encode($_nueva_especie)); 
+    $resource = '/arbol/especie';
+    $url = REST.$resource;
+    $array = $this->rest->callAPI("POST", $url, $datos);
+    return json_decode($array['code']);
+	}
+
+	function borrar($id){
+
+		$_especie = array(
+			"tabl_id"=> $id				
+		);
+		$datos['arbol'] = $_especie;
+		log_message('DEBUG', 'Arboles/borrar  | Id de Especie: '.$id); 
+    $resource = '/arbol/especie/delete';
+    $url = REST.$resource;
+    $array = $this->rest->callAPI("PUT", $url, $datos);
+    return json_decode($array['code']);
+	}
         
 }
 

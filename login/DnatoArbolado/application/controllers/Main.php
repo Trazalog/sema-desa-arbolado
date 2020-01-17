@@ -37,272 +37,272 @@ class Main extends CI_Controller {
         redirect('Main/index');
     }
     //index dasboard
-	public function index()
-	{
-	    //user data from session
-        $data = $this->session->userdata;
-        
-	    if(empty($data)){
-	        redirect(site_url().'main/login/');
-	    }
-
-	    //check user level
-	    if(empty($data['role'])){
-	        redirect(site_url().'main/login/');
-	    }
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);
-	    //check user level
-        
-	    $data['title'] = "Arbolado";
-	    
-        if(empty($this->session->userdata['email'])){
-            redirect(site_url().'main/login/');
-        }else{
-          /*  $this->load->view('header', $data);
-            $this->load->view('navbar', $data);
-            $this->load->view('container');
-            $this->load->view('index', $data);
-            $this->load->view('footer');*/
-         
-        
-           redirect('http://localhost/'.$this->session->userdata['direccion']);
-         
-           
-        }
-
-	}
-	
-	public function checkLoginUser(){
-	    //user data from session
-	    $data = $this->session->userdata;
-	    if(empty($data)){
-	        redirect(site_url().'main/login/');
-	    }
-	    
-			$this->load->library('user_agent');
-			$browser = $this->agent->browser();
-			$os = $this->agent->platform();
-			$getip = $this->input->ip_address();
-			
-			$result = $this->user_model->getAllSettings();
-			$stLe = $result->site_title;
-			$tz = $result->timezone;
-	    
-			$now = new DateTime();
-			$now->setTimezone(new DateTimezone($tz));
-			$dTod =  $now->format('Y-m-d');
-			$dTim =  $now->format('H:i:s');
-			
-			$this->load->helper('cookie');
-			$keyid = rand(1,9000);
-			$scSh = sha1($keyid);
-			$neMSC = md5($data['email']);
-			$setLogin = array(
-					'name'   => $neMSC,
-					'value'  => $scSh,
-					'expire' => strtotime("+2 year"),
-			);
-			$getAccess = get_cookie($neMSC);
-	    
-			if(!$getAccess && $setLogin["name"] == $neMSC){
-					$config = array(
-							'protocol'  => 'smtp',
-							'smtp_host' => 'ssl://smtp.gmail.com',
-							'smtp_port' => 	465,
-							'smtp_user' => 'soportetrazalog24@gmail.com',
-							'smtp_pass' => '123trazalog24',
-							'smtp_timeout' => 90,
-							'newline'      => "\r\n",
-							'crlf'         => "\r\n",
-							'mailtype'     => 'html',
-							'charset'      => 'utf-8'
-					);
-					$this->load->library('email',$config);
-					$this->load->library('sendmail');
-					$bUrl = base_url();
-					$message = $this->sendmail->secureMail($data['first_name'],$data['last_name'],$data['email'],$dTod,$dTim,$stLe,$browser,$os,$getip,$bUrl);
-					$to_email = $data['email'];
-					$this->email->from($this->config->item('register'), 'New sign-in! from '.$browser.'');
-					$this->email->to($to_email);
-					$this->email->subject('New sign-in! from '.$browser.'');
-					$this->email->message($message);
-					$this->email->set_mailtype("html");
-					$this->email->send();
+		public function index()
+		{
+				//user data from session
+					$data = $this->session->userdata;
 					
-					$this->input->set_cookie($setLogin, TRUE);
-					redirect(site_url().'main/');
-			}else{
-					$this->input->set_cookie($setLogin, TRUE);
-					redirect(site_url().'main/');
-			}
-	}
+				if(empty($data)){
+						redirect(site_url().'main/login/');
+				}
+
+				//check user level
+				if(empty($data['role'])){
+						redirect(site_url().'main/login/');
+				}
+				$dataLevel = $this->userlevel->checkLevel($data['role']);
+				//check user level
+					
+				$data['title'] = "Arbolado";
+				
+					if(empty($this->session->userdata['email'])){
+							redirect(site_url().'main/login/');
+					}else{
+						/*  $this->load->view('header', $data);
+							$this->load->view('navbar', $data);
+							$this->load->view('container');
+							$this->load->view('index', $data);
+							$this->load->view('footer');*/
+					
+					
+						redirect('http://localhost/'.$this->session->userdata['direccion']);
+					
+						
+					}
+
+		}
 	
-	public function settings(){
-	    $data = $this->session->userdata;
-        if(empty($data['role'])){
-	        redirect(site_url().'main/login/');
-	    }
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);
-	    //check user level
+		public function checkLoginUser(){
+				//user data from session
+				$data = $this->session->userdata;
+				if(empty($data)){
+						redirect(site_url().'main/login/');
+				}
+				
+				$this->load->library('user_agent');
+				$browser = $this->agent->browser();
+				$os = $this->agent->platform();
+				$getip = $this->input->ip_address();
+				
+				$result = $this->user_model->getAllSettings();
+				$stLe = $result->site_title;
+				$tz = $result->timezone;
+				
+				$now = new DateTime();
+				$now->setTimezone(new DateTimezone($tz));
+				$dTod =  $now->format('Y-m-d');
+				$dTim =  $now->format('H:i:s');
+				
+				$this->load->helper('cookie');
+				$keyid = rand(1,9000);
+				$scSh = sha1($keyid);
+				$neMSC = md5($data['email']);
+				$setLogin = array(
+						'name'   => $neMSC,
+						'value'  => $scSh,
+						'expire' => strtotime("+2 year"),
+				);
+				$getAccess = get_cookie($neMSC);
+				
+				if(!$getAccess && $setLogin["name"] == $neMSC){
+						$config = array(
+								'protocol'  => 'smtp',
+								'smtp_host' => 'ssl://smtp.gmail.com',
+								'smtp_port' => 	465,
+								'smtp_user' => 'soportetrazalog24@gmail.com',
+								'smtp_pass' => '123trazalog24',
+								'smtp_timeout' => 90,
+								'newline'      => "\r\n",
+								'crlf'         => "\r\n",
+								'mailtype'     => 'html',
+								'charset'      => 'utf-8'
+						);
+						$this->load->library('email',$config);
+						$this->load->library('sendmail');
+						$bUrl = base_url();
+						$message = $this->sendmail->secureMail($data['first_name'],$data['last_name'],$data['email'],$dTod,$dTim,$stLe,$browser,$os,$getip,$bUrl);
+						$to_email = $data['email'];
+						$this->email->from($this->config->item('register'), 'New sign-in! from '.$browser.'');
+						$this->email->to($to_email);
+						$this->email->subject('New sign-in! from '.$browser.'');
+						$this->email->message($message);
+						$this->email->set_mailtype("html");
+						$this->email->send();
+						
+						$this->input->set_cookie($setLogin, TRUE);
+						redirect(site_url().'main/');
+				}else{
+						$this->input->set_cookie($setLogin, TRUE);
+						redirect(site_url().'main/');
+				}
+		}
+	
+		public function settings(){
+				$data = $this->session->userdata;
+					if(empty($data['role'])){
+						redirect(site_url().'main/login/');
+				}
+				$dataLevel = $this->userlevel->checkLevel($data['role']);
+				//check user level
 
-        $data['title'] = "Configuracion";
-        $this->form_validation->set_rules('site_title', 'Site Title', 'required');
-        $this->form_validation->set_rules('timezone', 'Timezone', 'required');
-        $this->form_validation->set_rules('recaptcha', 'Recaptcha', 'required');
-        $this->form_validation->set_rules('theme', 'Theme', 'required');
+					$data['title'] = "Configuracion";
+					$this->form_validation->set_rules('site_title', 'Site Title', 'required');
+					$this->form_validation->set_rules('timezone', 'Timezone', 'required');
+					$this->form_validation->set_rules('recaptcha', 'Recaptcha', 'required');
+					$this->form_validation->set_rules('theme', 'Theme', 'required');
 
-        $result = $this->user_model->getAllSettings();
-        $data['id'] = $result->id;
-	    $data['site_title'] = $result->site_title;
-	    $data['timezone'] = $result->timezone;
-	    $data['theme'] = $result->theme;
-	    if (!empty($data['timezone']))
-	    {
-	        $data['timezonevalue'] = $result->timezone;
-	        $data['timezone'] = $result->timezone;
-	    }
-	    else
-	    {
-	        $data['timezonevalue'] = "";
-            $data['timezone'] = "Select a time zone";
-	    }
-	    
-	    if($dataLevel == "is_admin"){
-            if ($this->form_validation->run() == FALSE) {
-                $this->load->view('header', $data);
-                $this->load->view('navbar', $data);
-                $this->load->view('container');
-                $this->load->view('settings', $data);
-                $this->load->view('footer');
-            }else{
-                $post = $this->input->post(NULL, TRUE);
-                $cleanPost = $this->security->xss_clean($post);
-                $cleanPost['id'] = $this->input->post('id');
-                $cleanPost['site_title'] = $this->input->post('site_title');
-                $cleanPost['timezone'] = $this->input->post('timezone');
-                $cleanPost['recaptcha'] = $this->input->post('recaptcha');
-                $cleanPost['theme'] = $this->input->post('theme');
-    
-                if(!$this->user_model->settings($cleanPost)){
-                    $this->session->set_flashdata('flash_message', 'Hubo un problema actualizando los datos');
-                }else{
-                    $this->session->set_flashdata('success_message', 'Los datos se actualizaron correctamente');
-                }
-                redirect(site_url().'main/settings/');
-            }
-	    }
+					$result = $this->user_model->getAllSettings();
+					$data['id'] = $result->id;
+				$data['site_title'] = $result->site_title;
+				$data['timezone'] = $result->timezone;
+				$data['theme'] = $result->theme;
+				if (!empty($data['timezone']))
+				{
+						$data['timezonevalue'] = $result->timezone;
+						$data['timezone'] = $result->timezone;
+				}
+				else
+				{
+						$data['timezonevalue'] = "";
+							$data['timezone'] = "Select a time zone";
+				}
+				
+				if($dataLevel == "is_admin"){
+							if ($this->form_validation->run() == FALSE) {
+									$this->load->view('header', $data);
+									$this->load->view('navbar', $data);
+									$this->load->view('container');
+									$this->load->view('settings', $data);
+									$this->load->view('footer');
+							}else{
+									$post = $this->input->post(NULL, TRUE);
+									$cleanPost = $this->security->xss_clean($post);
+									$cleanPost['id'] = $this->input->post('id');
+									$cleanPost['site_title'] = $this->input->post('site_title');
+									$cleanPost['timezone'] = $this->input->post('timezone');
+									$cleanPost['recaptcha'] = $this->input->post('recaptcha');
+									$cleanPost['theme'] = $this->input->post('theme');
+			
+									if(!$this->user_model->settings($cleanPost)){
+											$this->session->set_flashdata('flash_message', 'Hubo un problema actualizando los datos');
+									}else{
+											$this->session->set_flashdata('success_message', 'Los datos se actualizaron correctamente');
+									}
+									redirect(site_url().'main/settings/');
+							}
+				}
 
-	}
+		}
     
     	//user list
-	public function users()
-	{
-	    $data = $this->session->userdata;
-	    $data['title'] = "Lista de usuarios";
-	    $data['groups'] = $this->user_model->getUserData();
+		public function users()
+		{
+				$data = $this->session->userdata;
+				$data['title'] = "Lista de usuarios";
+				$data['groups'] = $this->user_model->getUserData();
 
-	    //check user level
-	    if(empty($data['role'])){
-	        redirect(site_url().'main/login/');
-	    }
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);
-	    //check user level
+				//check user level
+				if(empty($data['role'])){
+						redirect(site_url().'main/login/');
+				}
+				$dataLevel = $this->userlevel->checkLevel($data['role']);
+				//check user level
 
-	    //check is admin or not
-	    if($dataLevel == "is_admin"){
-            $this->load->view('header', $data);
-            $this->load->view('navbar', $data);
-            $this->load->view('container');
-            $this->load->view('user', $data);
-            $this->load->view('footer');
-	    }else{
-	        redirect(site_url().'main/');
-	    }
-	}
+				//check is admin or not
+				if($dataLevel == "is_admin"){
+							$this->load->view('header', $data);
+							$this->load->view('navbar', $data);
+							$this->load->view('container');
+							$this->load->view('user', $data);
+							$this->load->view('footer');
+				}else{
+						redirect(site_url().'main/');
+				}
+		}
 
     	//change level user
-	public function changelevel()
-	{
-        $data = $this->session->userdata;
-        //check user level
-	    if(empty($data['role'])){
-	        redirect(site_url().'main/login/');
-	    }
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);
-	    //check user level
+		public function changelevel()
+		{
+					$data = $this->session->userdata;
+					//check user level
+				if(empty($data['role'])){
+						redirect(site_url().'main/login/');
+				}
+				$dataLevel = $this->userlevel->checkLevel($data['role']);
+				//check user level
 
-	    $data['title'] = "Cambiar Roles";
-	    $data['groups'] = $this->user_model->getUserData();
+				$data['title'] = "Cambiar Roles";
+				$data['groups'] = $this->user_model->getUserData();
 
-	    //check is admin or not
-	    if($dataLevel == "is_admin"){
+				//check is admin or not
+				if($dataLevel == "is_admin"){
 
-            $this->form_validation->set_rules('email', 'Your Email', 'required');
-            $this->form_validation->set_rules('level', 'User Level', 'required');
+							$this->form_validation->set_rules('email', 'Your Email', 'required');
+							$this->form_validation->set_rules('level', 'User Level', 'required');
 
-            if ($this->form_validation->run() == FALSE) {
-                $this->load->view('header', $data);
-                $this->load->view('navbar', $data);
-                $this->load->view('container');
-                $this->load->view('changelevel', $data);
-                $this->load->view('footer');
-            }else{
-                $cleanPost['email'] = $this->input->post('email');
-                $cleanPost['level'] = $this->input->post('level');
-                if(!$this->user_model->updateUserLevel($cleanPost)){
-                    $this->session->set_flashdata('flash_message', 'Hubo un problema Actualizando los datos');
-                }else{
-                    $this->session->set_flashdata('success_message', 'Los datos se actualizaron correctamente');
-                }
-                redirect(site_url().'main/changelevel');
-            }
-	    }else{
-	        redirect(site_url().'main/');
-	    }
-	}
+							if ($this->form_validation->run() == FALSE) {
+									$this->load->view('header', $data);
+									$this->load->view('navbar', $data);
+									$this->load->view('container');
+									$this->load->view('changelevel', $data);
+									$this->load->view('footer');
+							}else{
+									$cleanPost['email'] = $this->input->post('email');
+									$cleanPost['level'] = $this->input->post('level');
+									if(!$this->user_model->updateUserLevel($cleanPost)){
+											$this->session->set_flashdata('flash_message', 'Hubo un problema Actualizando los datos');
+									}else{
+											$this->session->set_flashdata('success_message', 'Los datos se actualizaron correctamente');
+									}
+									redirect(site_url().'main/changelevel');
+							}
+				}else{
+						redirect(site_url().'main/');
+				}
+		}
     
     	//ban or unban user
-	public function banuser() 
-	{
-        $data = $this->session->userdata;
-        //check user level
-	    if(empty($data['role'])){
-	        redirect(site_url().'main/login/');
-	    }
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);
-	    //check user level
+		public function banuser() 
+		{
+					$data = $this->session->userdata;
+					//check user level
+				if(empty($data['role'])){
+						redirect(site_url().'main/login/');
+				}
+				$dataLevel = $this->userlevel->checkLevel($data['role']);
+				//check user level
 
-	    $data['title'] = "Prohibir Usuario";
-	    $data['groups'] = $this->user_model->getUserData();
+				$data['title'] = "Prohibir Usuario";
+				$data['groups'] = $this->user_model->getUserData();
 
-	    //check is admin or not
-	    if($dataLevel == "is_admin"){
+				//check is admin or not
+				if($dataLevel == "is_admin"){
 
-            $this->form_validation->set_rules('email', 'Your Email', 'required');
-            $this->form_validation->set_rules('banuser', 'Ban or Unban', 'required');
+							$this->form_validation->set_rules('email', 'Your Email', 'required');
+							$this->form_validation->set_rules('banuser', 'Ban or Unban', 'required');
 
-            if ($this->form_validation->run() == FALSE) {
-                $this->load->view('header', $data);
-                $this->load->view('navbar', $data);
-                $this->load->view('container');
-                $this->load->view('banuser', $data);
-                $this->load->view('footer');
-            }else{
-                $post = $this->input->post(NULL, TRUE);
-                $cleanPost = $this->security->xss_clean($post);
-                $cleanPost['email'] = $this->input->post('email');
-                $cleanPost['banuser'] = $this->input->post('banuser');
-                if(!$this->user_model->updateUserban($cleanPost)){
-                    $this->session->set_flashdata('flash_message', 'Hubo un problema actualizando los datos');
-                }else{
-                    $this->session->set_flashdata('success_message', 'El estado del usuario se ha actualizado corectamente');
-                }
-                redirect(site_url().'main/banuser');
-            }
-	    }else{
-	        redirect(site_url().'main/');
-	    }
-	}
+							if ($this->form_validation->run() == FALSE) {
+									$this->load->view('header', $data);
+									$this->load->view('navbar', $data);
+									$this->load->view('container');
+									$this->load->view('banuser', $data);
+									$this->load->view('footer');
+							}else{
+									$post = $this->input->post(NULL, TRUE);
+									$cleanPost = $this->security->xss_clean($post);
+									$cleanPost['email'] = $this->input->post('email');
+									$cleanPost['banuser'] = $this->input->post('banuser');
+									if(!$this->user_model->updateUserban($cleanPost)){
+											$this->session->set_flashdata('flash_message', 'Hubo un problema actualizando los datos');
+									}else{
+											$this->session->set_flashdata('success_message', 'El estado del usuario se ha actualizado corectamente');
+									}
+									redirect(site_url().'main/banuser');
+							}
+				}else{
+						redirect(site_url().'main/');
+				}
+		}
 
     //edit user
 		public function changeuser() 
@@ -370,26 +370,45 @@ class Main extends CI_Controller {
 
     }
 
-    //delete user
-    public function deleteuser($id) {
-            $data = $this->session->userdata;
-            if(empty($data['role'])){
-	        redirect(site_url().'main/login/');
-	    }
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);
-	    //check user level
+    //delete user  
+		public function deleteuser($mail) {	
+			
+			$data = $this->session->userdata;
+			if(empty($data['role'])){
+				redirect(site_url().'main/login/');
+			}
+
+			log_message('DEBUG', 'Dnato/Main/deleteuser($mail)-> ' . $mail);
+
+			//check user level
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);    
 
 	    //check is admin or not
-	    if($dataLevel == "is_admin"){
-    		$this->user_model->deleteUser($id);
-    		if($this->user_model->deleteUser($id) == FALSE )
-    		{
-    		    $this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
-    		}
-    		else
-    		{
-    		    $this->session->set_flashdata('success_message', 'Usuario Eliminado correctamente');
-    		}
+	    if($dataLevel == "is_admin"){			
+				
+				if($responseDnato = $this->user_model->deleteUser($mail) == FALSE ){
+						
+						$this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
+						log_message('DEBUG', 'NO elimino Usr en Dnato-> ' . $mail);
+				}else{
+
+						if($responseLocal = $this->user_model->deleteUserLocal($mail) > 300){
+							
+								$this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
+								log_message('DEBUG', 'NO elimino Usr en BD arbolado-> ' . $mail);
+						}else{
+
+								if ($responseWSO2 = $this->user_model->deleteUserWSO2($mail)) {
+
+										$this->session->set_flashdata('success_message', 'Usuario Eliminado correctamente');
+										log_message('DEBUG', 'NO elimino Usr en BD WSO2-> ' . $mail);
+								} else {									
+
+										$this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
+								}								
+						}
+				}
+
     		redirect(site_url().'main/users/');
 	    }else{
 		    redirect(site_url().'main/');
@@ -399,9 +418,9 @@ class Main extends CI_Controller {
     //add new user from backend
     public function adduser()
     {
-        $data = $this->session->userdata;
-        if(empty($data['role'])){
-	        redirect(site_url().'main/login/');
+			$data = $this->session->userdata;
+			if(empty($data['role'])){
+				redirect(site_url().'main/login/');
 	    }
 
         //check user level
