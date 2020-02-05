@@ -34,24 +34,20 @@
               <tbody>
               
                 <?php
+                
                 if($lista)
                 {
                       foreach($lista as $fila)
-                      {
-                    
-                          $id=$fila->id;
-                          echo '<tr  id="'.$id.'" data-json:'.json_encode($fila).'>';
-
+                      {    
+                          echo '<tr  id="'.$fila->idArea.'" data-json:'.json_encode($fila).'>';
                           echo '<td>';
-                          echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$id.'")></i>';
-                          echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
+                          //echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$fila->idArea.'")></i>';
+                          // echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
+                          echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrar('.$fila->idArea.')"></i>';
                           echo '</td>';
                           echo '<td>'.$fila->nombreArea.'</td>';
-                          echo '<td>'.$fila->departamento.'</td>';
-                         
-                   
-                          echo '</tr>';
-                          
+                          echo '<td>'.$fila->departamento.'</td>';   
+                          echo '</tr>';                          
                         
                       }
                     }
@@ -66,19 +62,34 @@
   </div><!-- /.row -->
   </body>
   <script>
-  $('#tabla_lista').DataTable();
-  $(document).off('click','.asignar_censista').on('click', '.asignar_censista', function()
-  {
-    TrActual= $(this).parents('tr');
-    $('#modal_censista').modal('show');
-} );
+    $('#tabla_lista').DataTable();
+    $(document).off('click','.asignar_censista').on('click', '.asignar_censista', function(){
+        TrActual= $(this).parents('tr');
+        $('#modal_censista').modal('show');
+    } );
+
+    function borrar(id){
+      
+      $.ajax({
+          type: 'POST',
+          data: {id: id},
+          url: 'Area/eliminar',
+          success: function(result) {
+              alert(result);
+              if(result < 300){              
+                $('#'+id).remove();
+              }else{
+                alert("El Area no pudo ser eliminada...");
+              }
+          },
+          error: function() {
+              alert('Error');
+          }
+      });
+
+    }
+
   </script>
-
-
-
-
-
-
 
 
 <!-- --------------------------/// DROPDOWN ///-------------------------- --> 

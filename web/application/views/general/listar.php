@@ -41,8 +41,23 @@
                           echo '<tr  id="'.$id.'" data-json:'.json_encode($fila).'>';
 
                             echo '<td>';
-                            echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$id.'")></i>';
-                            echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
+                            //echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$id.'")></i>';
+                            // echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
+                            
+                            // var_dump($nombre);
+                            if($nombre == "Departamento"){
+                              echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarDepart('.$id.')"></i>';
+                            }
+                            if($nombre == "Arbol"){
+                              echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarArbol('.$id.')"></i>';
+                            }
+                            if($nombre == "Manzana"){
+                              echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarManzana('.$id.')"></i>';
+                            }
+                            if($nombre == "Calle"){
+                              echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarCalles('.$id.')"></i>';
+                            }
+                            
                             echo '</td>';
                             echo '<td>'.$fila->nombre.'</td>';
                             if(isset($fila->apellido))
@@ -70,7 +85,7 @@
   
   $('#tabla_lista').dataTable();
  
- 
+                    
   function Nuevo(nombre)
   {
     switch(nombre)
@@ -95,4 +110,54 @@
       break;
     }
   }
+
+  function borrarDepart(id){
+ 
+    $.ajax({
+      type: 'POST',
+      data: { id:id },
+      url: 'Departamento/eliminar', 
+      success: function(result){
+        if(result < 300){
+          linkTo('Departamento');
+        }else{
+          alert('No se pudo eliminar el Departamento...');
+        }            	
+      }
+    });
+  }
+
+  function borrarArbol(id){    
+   
+    $.ajax({
+      type: 'POST',
+      data: { id:id },
+      url: 'Arbol/borrar', 
+      success: function(result){
+        if(result < 300){
+          linkTo('Arbol');
+        }else{
+          alert('No se pudo eliminar la especie...');
+        }            	
+      }
+    });  
+  }
+
+  function borrarManzana(id){
+    $.ajax({
+      type: 'POST',
+      data: { id:id },
+      url: 'Manzana/borrar', 
+      success: function(result){
+        if(result < 300){
+          linkTo('Manzana');
+        }else{
+          alert('No se pudo eliminar la manzana...');
+        }            	
+      }
+    });
+  }
+  
+
+
   </script>

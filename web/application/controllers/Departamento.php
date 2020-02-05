@@ -11,8 +11,7 @@ class Departamento extends CI_Controller {
 		{
 			$this->session->set_userdata('direccionsalida','sema-desa-arbolado/web/Login');
 			logout();
-		}
-		
+		}		
 	}
    
 	function index(){
@@ -20,25 +19,28 @@ class Departamento extends CI_Controller {
 		$data['lista'] = $this->Departamentos->listar()->departamentos->departamento;
 		$data['titulo'] = 'ABM Departamentos';
 		$data['nombre'] = 'Departamento';
-		$this->load->view('general/listar',$data);
-		
+		$this->load->view('general/listar',$data);		
 	}
 
 	function Nuevo(){
+
 		$data['titulo'] = 'Nuevo Departamento';
 		$data['nombre'] = 'Departamento';
 		$data['accion'] = 'Nuevo';      
 		$this->load->view('general/abm',$data);
-		
-		
 	}
 
-	//   Funcion Guardar Nuevo
-	
+	//   Funcion Guardar Nuevo	
 	function Guardar_Nuevo()
 	{
 		$data['nombre'] = $this->input->post('datonombre');
 		$resp = $this->Departamentos->Guardar_Nuevo($data);
+		echo json_encode($resp);
+	}
+
+	// borra departamento
+	function eliminar(){
+		$resp = $this->Departamentos->eliminar($this->input->post('id'));
 		echo json_encode($resp);
 	}
 }

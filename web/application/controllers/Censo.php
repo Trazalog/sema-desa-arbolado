@@ -24,15 +24,13 @@ class Censo extends CI_Controller {
   function index(){
     $data['censos'] = $this->Censos->listar()->censos->censo;
     $data['censistas'] = $this->Censos->listarCensistas()->censistas->censista;
-    //   $data['censosarmados'] = $this->Censos->buscaCensos()->censos->censo;
     $data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
     $data['titulo'] = 'Lista Censos';
     $data['nombre'] = 'Censista';
     $this->load->view('censo/listar',$data);
     $this->load->view('censo/modal_departamentos',$data);
     $this->load->view('censo/modal_censista',$data);
-    $this->load->view('censo/modal_areas_asignar',$data);
-    
+    $this->load->view('censo/modal_areas_asignar',$data);    
   }
 
 //////////////////////////////// ABM NUEVO CENSO 
@@ -51,9 +49,11 @@ class Censo extends CI_Controller {
   }
 
   // buscar area por departamento
-  function getAreaPorDepto(){
-    $depaId = $this->input->post('id');
-    $areas = $this->Areas->ObtenerXDepartamentos($depaId)->areas->area;
+  function getAreaPorDeptoSinAsignar(){   
+
+    $cens_id = $this->input->post('id_censo');
+    $depa_id = $this->input->post('id_depto');     
+    $areas = $this->Areas->ObtenerXDepaSinAsignar($cens_id, $depa_id)->areas->area;
 
     echo json_encode($areas);
 
@@ -91,8 +91,6 @@ class Censo extends CI_Controller {
 
 
 ///////////////////////////////// ABM LISTA CENSOS > BUSCAR CENSO
-
-
  function buscarCenso()
  {
      $data = $this->input->post('data');
@@ -104,8 +102,6 @@ class Censo extends CI_Controller {
 
 
 ///////////////////////////////// ABM LISTA CENSOS > ASIGNAR CENSISTA
-
-
  function AsignarCensista(){  
 
      $data['usua_id'] = $this->input->post('usua_id');
@@ -114,6 +110,11 @@ class Censo extends CI_Controller {
      log_message('DEBUG', '#AsignarCensista'.json_encode($data));
      $rsp =  $this->Censos->AsignarCensista($data);
      echo json_encode($rsp);
+ }
+ //elimina censo (relacion en censos_usuarios_areas)
+ function eliminar(){
+    $response = $this->Censos->eliminar($this->input->post('idrelacion'));
+    echo json_encode($response);
  }
 }
 ?>

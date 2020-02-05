@@ -43,14 +43,12 @@
                               <input list="areas" id="argeo" class="form-control" autocomplete="off"
                                   placeholder="-Seleccione Area-">
                               <datalist id="areas">
-                                  <?php 
-                                  var_dump($areas);
-                                 
+                                <?php    
                                   foreach($areas as $fila)
-                                    {
-                                      echo  "<option data-json='".json_encode($fila)."'value='".$fila->nombreArea."'>";
-                                    }
-                                  ?>
+                                  {
+                                    echo  "<option data-json='".json_encode($fila)."'value='".$fila->nombre."'>";
+                                  }
+                                ?>
                               </datalist>
                               <!-- <span class="input-group-btn">
                                   <button class='btn btn-primary' data-toggle="modal" data-target="#modal_areas">
@@ -96,7 +94,7 @@
                         message: 'Ingrese algun Valor'
                     },
                     regexp: {
-                        regexp: /^[a-zA-Z0-9_]+$/,
+                        regexp: /[A-Za-z]/,
                         message: 'El nombre solo puede usar caracteres alfabeticos o numericos'
                     }
                 }
@@ -134,20 +132,20 @@
       var nombreDepa = this.value;
       var json = $('#departamentos').find('[value="' + nombreDepa + '"]').attr('data-json');
       json = JSON.parse(json);
-      depaId = json.id;
-      alert(depaId);
+      depaId = json.id;     
+    }); 
+  
+    var areaId = 0;
+    $('#argeo').on('change', function() {
+      var nombre = this.value;
+      var json = $('#areas').find('[value="' + nombre + '"]').attr('data-json');
+      json = JSON.parse(json);
+      areaId = json.arge_id;
+      //alert('Area geografica: ' + areaId);
     }); 
   
 
-  // toma id de area al cambiar
-    var areaId = 0;
-    $('#argeo').on('change', function() {
-      var nombreArea = this.value;
-      var jsonArea = $('#areas').find('[value="' + nombreArea + '"]').attr('data-json');
-      jsonArea = JSON.parse(jsonArea);
-      areaId = jsonArea.idArea;
-      alert(areaId);
-    }); 
+   
 
   // guarda nuevo segun nombre
 	function Guardar(nombre){
