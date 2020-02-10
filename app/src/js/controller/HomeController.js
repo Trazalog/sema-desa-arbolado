@@ -28,22 +28,19 @@ new vue({
     methods: {
         syncLocalToServer: function () {
             if (Connectivity.checkInternetSpeed() !== "offline") {
-                if (store.has("form_data") && store.has("arbol_data")) {
+                if (store.has("offline_form_data")) {
                     alert("Sincronizando los datos, cierre este mensaje y aguarde hasta el aviso de finalización.");
-                    Form.sendDynamicFormDataOffline(store.get("form_data"), "POST")
+                    var offline_form_data = store.get("offline_form_data");
+                    console.log(offline_form_data);
+                    Form.sendDynamicFormDataOffline(offline_form_data, "POST")
                         .then(function (response) {
                         if (response.status >= 200 && response.status < 300) {
-                            Form.sendOnlyTreePicture(store.get("arbol_data"))
-                                .then(function (response) {
-                                if (response.status >= 200 && response.status < 300) {
-                                    store.remove("form_data");
-                                    store.remove("arbol_data");
-                                    alert("Datos sincronizados con el servidor. Ya puede continuar.");
-                                }
-                            });
+                            alert("¡Excelente todos sus datos offline fueron correctamente enviados al servidor!");
+                            store.remove("offline_form_data");
                         }
                     }).catch(function (error) {
                         alert("La sincronización ha fallado intente mas tarde.");
+                        console.log(error);
                     });
                 }
                 else {

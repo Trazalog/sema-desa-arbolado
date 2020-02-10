@@ -108,9 +108,9 @@ var vue1 = new vue({
             }
             else {
                 //appending photo component
-                this.drawFile();
+                //this.drawFile();
                 //appending buttons to form
-                this.drawButtons();
+                //this.drawButtons();
                 //Setting values for params
                 this.selected_area = this.searchAndGetParamFromURL("selected_area");
                 this.area_id = this.searchAndGetParamFromURL("area_id");
@@ -139,7 +139,7 @@ var vue1 = new vue({
         instanceForm: function () {
             var _this = this;
             /*Esto no debe hacerse si se esta editando un arbol treeID not null*/
-            if (this.searchAndGetParamFromURL("form_id") === "") { /*Si estoy creando un nuevo áborl*/
+            if (this.searchAndGetParamFromURL("form_id") == "" || this.searchAndGetParamFromURL("form_id") == null) { /*Si estoy creando un nuevo áborl*/
                 if (this.searchAndGetParamFromURL('taza') == 'Taza con árbol') { /*Si es Taza con árbol creo la instancia de form, sino, no*/
                     /*Se crea la instancia de formulario contra el viejo request_box*/
                     Form.createInstance().then(function (response) {
@@ -778,19 +778,13 @@ $(document).on('click', '#send_form', function () {
                 /* No hay conexión! */
                 $(".se-pre-con").fadeOut("slow");
                 // 1 Guardo el data en localstorage como array por si es mas de un árbol censado sin conex.
-                var data = {
+                /*const dynamic_form_data = {
                     "_put_formulario_batch_req": {
-                        "form_id": "2",
+                        "form_id":"2",
                         "_put_formulario": json_array_put
                     }
                 };
-                // 2 Creo un arreglo y almaceno el form data actual en local storage
-                var current_from_data = JSON.parse(store.get("form_data"));
-                var array_form_data = [];
-                if (current_from_data != null)
-                    array_form_data.push(current_from_data);
-                array_form_data.push(data);
-                store.set("form_data", JSON.stringify(array_form_data));
+                 */
                 // 3 ALmaceno los datos del árbol y la foto
                 var calle = "";
                 if (vue1.$data.selected_street === "Otra")
@@ -802,12 +796,55 @@ $(document).on('click', '#send_form', function () {
                     foto_arbol = $("#treePic").prop("src");
                 else
                     foto_arbol = "";
-                var arbol_data = {
-                    "_post_arbol": {
+                var offline_form_data = {
+                    "_post_arbol_set": {
                         "calle": calle,
                         "altura": vue1.$data.number,
                         "manz_id": vue1.$data.square_id,
                         "nombre": $('#' + vue1.$data.idElements[0]).val(),
+                        //"info_id": vue1.$data.formID.toString(),
+                        "cens_id": vue1.$data.cens_id,
+                        "lat": vue1.$data.current_lat,
+                        "long": vue1.$data.current_lng,
+                        "tipo": "",
+                        "imagen": Picture.getBase64AndResizeImage(foto_arbol, 400, 400),
+                        "taza": vue1.$data.taza,
+                        "barrio": vue1.$data.neighborhood,
+                        "_put_formulario_batch_req": {
+                            "form_id": "2",
+                            "_put_formulario": json_array_put
+                        }
+                    }
+                };
+                if (store.get("offline_form_data") == null)
+                    store.set("offline_form_data", offline_form_data);
+                else {
+                    store.set("offline_form_data", offline_form_data);
+                }
+                alert("Sus datos fueron guardados localmente al no tener servicio de internet.");
+                window.location.replace("home.html");
+            }
+        }
+        else {
+            if (Connectivity.checkInternetSpeed() !== "offline") {
+                console.log('No es taza con árbol');
+                //Llamar solo servicio para enviar el domicilio y la foto del arbol.
+                var calle = "";
+                if (vue1.$data.selected_street === "Otra")
+                    calle = vue1.$data.calleOtra;
+                else
+                    calle = vue1.$data.selected_street;
+                var foto_arbol = "";
+                if (!$("#treePic").prop("src").includes("/resource/image/main-icon.png"))
+                    foto_arbol = $("#treePic").prop("src");
+                else
+                    foto_arbol = "";
+                var data = {
+                    "_post_arbol": {
+                        "calle": calle,
+                        "altura": vue1.$data.number,
+                        "manz_id": vue1.$data.square_id,
+                        "nombre": "",
                         "info_id": vue1.$data.formID.toString(),
                         "cens_id": vue1.$data.cens_id,
                         "lat": vue1.$data.current_lat,
@@ -818,64 +855,41 @@ $(document).on('click', '#send_form', function () {
                         "taza": vue1.$data.taza
                     }
                 };
-                var current_arbol_data = JSON.parse(store.get("arbol_data"));
-                var array_arbol_data = [];
-                if (current_arbol_data != null)
-                    array_arbol_data.push(current_arbol_data);
-                array_arbol_data.push(arbol_data);
-                store.set("arbol_data", JSON.stringify(array_arbol_data));
-                alert("Sus datos fueron guardados localmente al no tener servicio de internet.");
-                window.location.replace("home.html");
-            }
-        }
-        else {
-            console.log('No es taza con árbol');
-            //Llamar solo servicio para enviar el domicilio y la foto del arbol.
-            var calle = "";
-            if (vue1.$data.selected_street === "Otra")
-                calle = vue1.$data.calleOtra;
-            else
-                calle = vue1.$data.selected_street;
-            var foto_arbol = "";
-            if (!$("#treePic").prop("src").includes("/resource/image/main-icon.png"))
-                foto_arbol = $("#treePic").prop("src");
-            else
-                foto_arbol = "";
-            var data = {
-                "_post_arbol": {
-                    "calle": calle,
-                    "altura": vue1.$data.number,
-                    "manz_id": vue1.$data.square_id,
-                    "nombre": "",
-                    "info_id": vue1.$data.formID.toString(),
-                    "cens_id": vue1.$data.cens_id,
-                    "lat": vue1.$data.current_lat,
-                    "long": vue1.$data.current_lng,
-                    "barrio": vue1.$data.neighborhood,
-                    "tipo": "",
-                    "imagen": Picture.getBase64AndResizeImage(foto_arbol, 400, 400),
-                    "taza": vue1.$data.taza
-                }
-            };
-            console.log(data);
-            Form.sendOnlyTreePicture(data)
-                .then(function (response) {
-                if (response.status === 200) {
-                    $(".se-pre-con").fadeOut("slow");
-                    /*** Message modal ***/
-                    var message = $("#message");
-                    /*** Prepare and show message ***/
-                    vue1.$data.alert_title = "¡Excelente!";
-                    vue1.$data.alert_message = "Los datos fueron guardados correctamente.";
-                    message.find(".modal-content").removeClass("modal-warning");
-                    message.find(".modal-content").addClass("modal-success");
-                    message.modal("show");
-                    /* Redirect to home */
-                    message.on('hidden.bs.modal', function () {
-                        window.location.replace("home.html");
-                    });
-                }
-                else {
+                console.log(data);
+                Form.sendOnlyTreePicture(data)
+                    .then(function (response) {
+                    if (response.status === 200) {
+                        $(".se-pre-con").fadeOut("slow");
+                        /*** Message modal ***/
+                        var message = $("#message");
+                        /*** Prepare and show message ***/
+                        vue1.$data.alert_title = "¡Excelente!";
+                        vue1.$data.alert_message = "Los datos fueron guardados correctamente.";
+                        message.find(".modal-content").removeClass("modal-warning");
+                        message.find(".modal-content").addClass("modal-success");
+                        message.modal("show");
+                        /* Redirect to home */
+                        message.on('hidden.bs.modal', function () {
+                            window.location.replace("home.html");
+                        });
+                    }
+                    else {
+                        $(".se-pre-con").fadeOut("slow");
+                        /*** Message modal ***/
+                        var message = $("#message");
+                        /*** Prepare and show message ***/
+                        vue1.$data.alert_title = "Error en el servidor";
+                        vue1.$data.alert_message = "Se produjo un problema en el servidor y no se puedo guardar la foto del árbol.";
+                        message.find(".modal-content").removeClass("modal-success");
+                        message.find(".modal-content").addClass("modal-warning");
+                        message.modal("show");
+                    }
+                })
+                    .catch(function (error) {
+                    if (error.response.status === 401) {
+                        ////Session.invalidate();
+                        //window.location.replace("/");
+                    }
                     $(".se-pre-con").fadeOut("slow");
                     /*** Message modal ***/
                     var message = $("#message");
@@ -885,24 +899,56 @@ $(document).on('click', '#send_form', function () {
                     message.find(".modal-content").removeClass("modal-success");
                     message.find(".modal-content").addClass("modal-warning");
                     message.modal("show");
-                }
-            })
-                .catch(function (error) {
-                if (error.response.status === 401) {
-                    ////Session.invalidate();
-                    //window.location.replace("/");
-                }
+                    console.log(error);
+                });
+            }
+            else {
+                /* Arbol SOLO foto sin form y SIN internet */
+                /* No hay conexión! */
                 $(".se-pre-con").fadeOut("slow");
-                /*** Message modal ***/
-                var message = $("#message");
-                /*** Prepare and show message ***/
-                vue1.$data.alert_title = "Error en el servidor";
-                vue1.$data.alert_message = "Se produjo un problema en el servidor y no se puedo guardar la foto del árbol.";
-                message.find(".modal-content").removeClass("modal-success");
-                message.find(".modal-content").addClass("modal-warning");
-                message.modal("show");
-                console.log(error);
-            });
+                // 1 Guardo el data en localstorage como array por si es mas de un árbol censado sin conex.
+                /*const dynamic_form_data = {
+                    "_put_formulario_batch_req": {
+                        "form_id":"2",
+                        "_put_formulario": json_array_put
+                    }
+                };
+                 */
+                // 3 ALmaceno los datos del árbol y la foto
+                var calle = "";
+                if (vue1.$data.selected_street === "Otra")
+                    calle = vue1.$data.calleOtra;
+                else
+                    calle = vue1.$data.selected_street;
+                var foto_arbol = "";
+                if (!$("#treePic").prop("src").includes("/resource/image/main-icon.png"))
+                    foto_arbol = $("#treePic").prop("src");
+                else
+                    foto_arbol = "";
+                var offline_form_data = {
+                    "_post_arbol_set": {
+                        "calle": calle,
+                        "altura": vue1.$data.number,
+                        "manz_id": vue1.$data.square_id,
+                        "nombre": $('#' + vue1.$data.idElements[0]).val(),
+                        //"info_id": vue1.$data.formID.toString(),
+                        "cens_id": vue1.$data.cens_id,
+                        "lat": vue1.$data.current_lat,
+                        "long": vue1.$data.current_lng,
+                        "tipo": "",
+                        "imagen": Picture.getBase64AndResizeImage(foto_arbol, 400, 400),
+                        "taza": vue1.$data.taza,
+                        "barrio": vue1.$data.neighborhood
+                    }
+                };
+                if (store.get("offline_form_data") == null)
+                    store.set("offline_form_data", offline_form_data);
+                else {
+                    store.set("offline_form_data", offline_form_data);
+                }
+                alert("Sus datos fueron guardados localmente al no tener servicio de internet.");
+                window.location.replace("home.html");
+            }
         }
     }
     else {

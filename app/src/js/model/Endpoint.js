@@ -155,8 +155,8 @@ var Endpoint = /** @class */ (function () {
     //private static _PROTOCOL: string = "http";
     //private static _HOSTNAME_BACKEND: string = "demo3989873.mockable.io";
     //private static _HOSTNAME_BACKEND: string = "35.196.55.250";
-    Endpoint._HOSTNAME_BACKEND = "dev-trazalog.com.ar";
-    Endpoint._PORT_BACKEND = "8246";
+    Endpoint._HOSTNAME_BACKEND = "soa.sanjuan.gob.ar/censarbapi";
+    Endpoint._PORT_BACKEND = "443";
     //private static _PORT_BACKEND: string = "8283";
     Endpoint._TIMEOUT = 90000; // in ms 1000ms = 1seg.
     /* ENDPOINTS
@@ -168,7 +168,7 @@ var Endpoint = /** @class */ (function () {
     Endpoint._URL_GET_USER_TREE = "/arbolado/api/v1.0.0/area";
     Endpoint._URL_INSTANCE_FORM = "/arbolado/api/ds/v1.0.0/request_box";
     Endpoint._URL_PUT_FORM = "/arbolado/api/ds/v1.0.0/_put_formulario_batch_req";
-    Endpoint._URL_POST_FORM_OFFLINE = "/arbolado/api/v1.0.0/formulario";
+    Endpoint._URL_POST_FORM_OFFLINE = "/arbolado/api/v1.0.0/arbol";
     Endpoint._URL_POST_NEW_TREE = "/arbolado/api/ds/v1.0.0/arbol";
     Endpoint._URL_GET_TREE_DATA = "/arbolado/api/ds/v1.0.0/arbol";
     Endpoint._URL_GET_FORM = "/arbolado/api/ds/v1.0.0/formulario/";
