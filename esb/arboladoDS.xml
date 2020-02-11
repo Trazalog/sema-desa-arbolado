@@ -1,9 +1,6 @@
 <data enableBatchRequests="true" enableBoxcarring="true" name="arboladoDS" transports="http https local">
    <config enableOData="false" id="arbolado">
-      <property name="driverClassName">org.postgresql.Driver</property>
-      <property name="url">jdbc:postgresql://pc-pc:5432/arbolado3</property>
-      <property name="username">postgres</property>
-      <property name="password">admin24</property>
+      <property name="carbon_datasource_name">ArboladoDataSource</property>
    </config>
    <query id="listaareas-ver" useConfig="arbolado">
       <sql>SELECT&#xd;arb_censos_usuarios_areas.arge_id,&#xd;arb_areas_geograficas.arge_id as id,&#xd;arb_areas_geograficas.nombre,&#xd;arb_departamentos.depa_id as iddepartamento,&#xd;arb_departamentos.nombre as departamento,&#xd;arb_censos_usuarios_areas.usua_id as idcensista,&#xd;concat(arb_usuarios.nom_usuario, ' ', arb_usuarios.ape_usuario) as nombrecensista&#xd;FROM&#xd;arb_censos_usuarios_areas&#xd;INNER JOIN arb_areas_geograficas ON arb_censos_usuarios_areas.arge_id = arb_areas_geograficas.arge_id&#xd;INNER JOIN arb_usuarios ON arb_censos_usuarios_areas.usua_id = arb_usuarios.usua_id&#xd;INNER JOIN arb_departamentos ON arb_areas_geograficas.depa_id = arb_departamentos.depa_id&#xd;WHERE arb_areas_geograficas.arge_id = :arge_id</sql>
@@ -60,11 +57,11 @@
    </query>
    <query id="square" useConfig="arbolado">
       <sql>SELECT&#xd;   manz_id,&#xd;   nombre as name&#xd;FROM&#xd;   arb_manzanas&#xd;WHERE&#xd;   arb_manzanas.arge_id = :arge_id</sql>
-      <result outputType="json">{&#xd;   "squares":{&#xd;      "square":[&#xd;         {&#xd;            "manz_id": "$manz_id",&#xd;            "name":"$name",&#xd;            "@square_street":"$manz_id-&gt;manz_id",&#xd;            "@trees": "$manz_id-&gt;manz_id"&#xd;         }&#xd;      ]&#xd;   }&#xd;}   </result>
+      <result outputType="json">{&#xd;   "squares":{&#xd;      "square":[&#xd;         {&#xd;            "manz_id": "$manz_id",&#xd;            "name":"$name",&#xd;            "@square_street":"$manz_id-&gt;manz_id",&#xd;            "@trees": "$manz_id-&gt;manz_id"&#xd;         }&#xd;      ]&#xd;   }&#xd;}  </result>
       <param name="arge_id" optional="false" sqlType="INTEGER"/>
    </query>
    <query id="trees" useConfig="arbolado">
-      <sql>SELECT&#xd;   arb.arbo_id as id,&#xd;   arb.nombre as name,&#xd;   arb.lat as lat,&#xd;   arb.long as long,&#xd;   cal.nombre as street_name,&#xd;   dir.altura as numero,&#xd;   arb.info_id as info_id&#xd;FROM arb_arboles arb&#xd;   ,arb_direcciones dir &#xd;   ,arb_calles cal&#xd;where dir.dire_id = arb.dire_id&#xd;and cal.call_id = dir.call_id&#xd;and dir.manz_id = :manz_id</sql>
+      <sql>SELECT&#xd;   arb.arbo_id as id,&#xd;   arb.nombre as name,&#xd;   arb.lat as lat,&#xd;   arb.long as long,&#xd;   cal.nombre as street_name,&#xd;   dir.altura as numero,&#xd;   arb.info_id as info_id&#xd;FROM public.arb_arboles arb&#xd;   ,public.arb_direcciones dir &#xd;   ,public.arb_calles cal&#xd;where dir.dire_id = arb.dire_id&#xd;and cal.call_id = dir.call_id&#xd;and dir.manz_id = :manz_id</sql>
       <result outputType="json">{"trees":&#xd;  {"tree": [&#xd;                  {&#xd;                    "id": "$id", &#xd;                    "name": "$name",&#xd;                    "street_name":"$street_name",&#xd;                    "number":"$numero",&#xd;                    "lat":"$lat",&#xd;                    "long":"$long",&#xd;                    "info_id":"$info_id"&#xd;                  }&#xd;          ]&#xd;  }&#xd;}</result>
       <param name="manz_id" optional="false" sqlType="INTEGER"/>
    </query>
@@ -100,7 +97,7 @@
       <param name="usua_id" optional="false" sqlType="INTEGER"/>
    </query>
    <query id="setArbol" useConfig="arbolado">
-      <sql>select public.arbol_direccion_set(&#xd;:calle&#xd;,:altura&#xd;,CAST(:manz_id AS INTEGER)&#xd;,:nombre&#xd;,CAST(:info_id AS INTEGER)&#xd;,CAST(:cens_id AS INTEGER)&#xd;,:lat&#xd;,:long&#xd;,:tipo&#xd;,:imagen, :taza) resultado;</sql>
+      <sql>select public.arbol_direccion_set(&#xd;:calle&#xd;,:altura&#xd;,CAST(:manz_id AS INTEGER)&#xd;,:nombre&#xd;,CAST(:info_id AS INTEGER)&#xd;,CAST(:cens_id AS INTEGER)&#xd;,:lat&#xd;,:long&#xd;,:tipo&#xd;,:imagen&#xd;,:taza&#xd;,:barrio) resultado;</sql>
       <result outputType="json">{&#xd;   "resultado":{&#xd;           "codigo": "$resultado"&#xd;             }&#xd;}</result>
       <param name="nombre" sqlType="STRING"/>
       <param name="info_id" optional="false" sqlType="STRING"/>
@@ -113,6 +110,7 @@
       <param name="altura" sqlType="STRING"/>
       <param name="manz_id" sqlType="STRING"/>
       <param name="taza" sqlType="STRING"/>
+      <param name="barrio" sqlType="STRING"/>
    </query>
    <query id="getArbol" useConfig="arbolado">
       <sql>SELECT &#xd;    arbo_id, nombre, info_id, cens_id, lat, long, tipo, imagen, dire_id, taza&#xd;FROM &#xd;    arb_arboles &#xd;WHERE &#xd;    arbo_id = CAST(:arbo_id AS INTEGER)</sql>
@@ -193,6 +191,11 @@
       <sql>insert into arb_departamentos(nombre)values(:nombre);</sql>
       <param name="nombre" sqlType="STRING"/>
    </query>
+   <query id="setCalle" useConfig="arbolado">
+      <sql>insert into arb_calles(nombre, depa_id) values(:nombre, CAST(:depa_id AS INTEGER))</sql>
+      <param name="nombre" sqlType="STRING"/>
+      <param name="depa_id" sqlType="STRING"/>
+   </query>
    <query id="getFormularios" useConfig="arbolado">
       <sql>select nombre,form_id&#xd;from public.frm_formularios;</sql>
       <result outputType="json">{ "formularios":{&#xd;   "formulario":[&#xd;      {&#xd;        "form_id": "$form_id",&#xd;         "nombre": "$nombre"         &#xd;      }&#xd;    ]&#xd;  }&#xd;}</result>
@@ -207,6 +210,54 @@
       <sql>insert into &#xd;public.arb_censos_usuarios_areas(&#xd;cens_id&#xd;,arge_id)&#xd;values(&#xd;cast(:cens_id as integer),&#xd;cast(:arge_id as integer)&#xd;)</sql>
       <param name="cens_id" sqlType="STRING"/>
       <param name="arge_id" sqlType="STRING"/>
+   </query>
+   <query id="listadoAreaCompleto" useConfig="arbolado">
+      <sql>select AR.arge_id as id, AR.nombre, &#xd;DEPA.depa_id as iddepartamento, DEPA.nombre as departamento,&#xd;US.usua_id as idcensista, Concat(US.ape_usuario, ', ', US.nom_usuario) as nombrecensista&#xd;from arb_censos_usuarios_areas CESUAR&#xd;join arb_censos CE on CE.cens_id = CESUAR.cens_id&#xd;left join arb_usuarios US on US.usua_id = CESUAR.usua_id&#xd;join arb_areas_geograficas AR on AR.arge_id = CESUAR.arge_id&#xd;join arb_departamentos DEPA on AR.depa_id = AR.depa_id</sql>
+      <result outputType="json">{&#xd; "areas": {&#xd;    "area": [&#xd;     {&#xd;       "id": "$id",&#xd;       "nombreArea": "$nombre",&#xd;       "iddepartamento": "$iddepartamento",&#xd;       "idcensista": "$idcensista",&#xd;       "nombrecensista": "$nombrecensista",&#xd;       "departamento": "$departamento"&#xd;     }&#xd;    ]&#xd; }&#xd;}</result>
+   </query>
+   <query id="getFormTemplate" useConfig="arbolado">
+      <sql>SELECT &#xd;    A.item_id as id_serial,&#xd;    name, label, requerido, &#xd;    tida_id, valo_id, orden, &#xd;    A.form_id, aux, B.valor as tipo, &#xd;    '' as valor, C.nombre, &#xd;    A.mostrar, A.cond_mostrar, A.deshabilitado,&#xd;    A.cond_habilitado&#xd;FROM &#xd;    frm_items as A&#xd;JOIN &#xd;    utl_tablas as B ON B.tabl_id = A.tida_id&#xd;JOIN&#xd;    frm_formularios as C on C.form_id = A.form_id&#xd;WHERE &#xd;    A.form_id = CAST(:form_id AS INTEGER)&#xd;AND &#xd;    A.eliminado = 0&#xd;ORDER BY &#xd;    A.orden</sql>
+      <result outputType="json">{&#xd;   "formulario":{&#xd;      "items":[&#xd;         {&#xd;            "id_serial": "$id_serial",&#xd;            "tipo": "$tipo",&#xd;            "label": "$label",&#xd;            "requerido": "$requerido",&#xd;            "name":"$name",            &#xd;            "@valoresValidos": "$valo_id-&gt;valo_id",&#xd;            "orden": "$orden",&#xd;            "id": "$form_id",&#xd;            "nombre": "$nombre",&#xd;            "mostrar": "$mostrar",&#xd;            "cond_mostrar": "$cond_mostrar",&#xd;            "deshabilitado": "$deshabilitado",&#xd;            "cond_habilitado": "$cond_habilitado"&#xd;         }&#xd;      ]&#xd;   }&#xd;}			</result>
+      <param name="form_id" sqlType="STRING"/>
+   </query>
+   <query id="insertArea" useConfig="arbolado">
+      <sql>insert into public.arb_areas_geograficas ( &#xd;  nombre &#xd;  ,depa_id)&#xd;values&#xd;  (:nombre&#xd;   ,cast(:depa_id as integer))</sql>
+      <param name="nombre" sqlType="STRING"/>
+      <param name="depa_id" sqlType="STRING"/>
+   </query>
+   <query id="updCenUsrArea" returnUpdatedRowCount="true" useConfig="arbolado">
+      <sql>update &#xd;    public.arb_censos_usuarios_areas &#xd;set &#xd;    usua_id=cast(:usua_id as integer) &#xd;where &#xd;    arge_id=cast(:arge_id as integer) &#xd;and &#xd;    cens_id=cast(:cens_id as integer)</sql>
+      <result element="UpdatedRowCount" rowName="" useColumnNumbers="true">
+         <element column="1" name="Value" xsdType="integer"/>
+      </result>
+      <param name="usua_id" sqlType="STRING"/>
+      <param name="arge_id" sqlType="STRING"/>
+      <param name="cens_id" sqlType="STRING"/>
+   </query>
+   <query id="getCensistas" useConfig="arbolado">
+      <sql>select &#xd;usua_id as id&#xd;,nom_usuario as nombre&#xd;,ape_usuario as apellido&#xd;,direccion&#xd;,telefono&#xd;from public.arb_usuarios</sql>
+      <result outputType="json">{&#xd;"censistas":&#xd;    {"censista":[&#xd;           {&#xd;           "id":"$id",&#xd;           "nombre":"$nombre",&#xd;           "apellido":"$apellido",&#xd;           "direccion":"$direccion",&#xd;           "telefono":"$telefono"&#xd;           }&#xd;          ]&#xd;    }&#xd;}</result>
+   </query>
+   <query id="insertManzana" useConfig="arbolado">
+      <sql>insert into &#xd;   public.arb_manzanas &#xd;  (nombre,arge_id)&#xd;values &#xd;  (:nombre, cast(:arge_id as integer) )&#xd;returning manz_id</sql>
+      <result outputType="json">{ "respuesta":{"manz_id":"$manz_id"}}</result>
+      <param name="nombre" sqlType="STRING"/>
+      <param name="arge_id" sqlType="STRING"/>
+   </query>
+   <query id="insertCalleManzana" useConfig="arbolado">
+      <sql>insert into public.arb_manzanas_calles &#xd;(manz_id&#xd;,call_id) &#xd;values&#xd;(cast(:manz_id as integer),&#xd;cast(:call_id as integer))&#xd;returning manca_id</sql>
+      <result outputType="json">{"resultado":{"manca_id":"$manca_id"}}</result>
+      <param name="manz_id" sqlType="STRING"/>
+      <param name="call_id" sqlType="STRING"/>
+   </query>
+   <query id="getCensosPorId" useConfig="arbolado">
+      <sql>select ce.cens_id&#xd;		,de.depa_id&#xd;		,de.nombre as depa_nom&#xd;		,ag.arge_id as arge_id&#xd;		,ag.nombre as arge_nom		&#xd;		,us.usua_id&#xd;		,us.nom_usuario ||' '||us.ape_usuario usua_nom&#xd;from&#xd;		arb_censos_usuarios_areas ceusar	&#xd;join arb_censos ce on ce.cens_id = ceusar.cens_id&#xd;left join arb_usuarios us on ceusar.usua_id = us.usua_id &#xd;join arb_areas_geograficas ag on ag.arge_id = ceusar.arge_id&#xd;join arb_departamentos de on de.depa_id = ag.depa_id&#xd;where ce.cens_id = cast(:cens_id as integer)</sql>
+      <result outputType="json">{&#xd; "censos": {&#xd; "censo": [&#xd; {&#xd;"idcenso":"$cens_id",&#xd;"iddepartamento":"$depa_id",&#xd;"nombredepartamento":"$depa_nom",&#xd;"idareageo":"$arge_id",&#xd;"nombreareageo":"$arge_nom",&#xd;"idusuario":"$usua_id",&#xd;"nombreusuario":"$usua_nom" }&#xd; ]&#xd; }&#xd;}</result>
+      <param name="cens_id" sqlType="STRING"/>
+   </query>
+   <query id="listadoAreaSimple" useConfig="arbolado">
+      <sql>select &#xd;  AG.arge_id, AG.nombre, AG.depa_id, D.nombre as nom_dep &#xd;from &#xd;  arb_areas_geograficas AG, arb_departamentos D&#xd;where &#xd;  AG.depa_id = D.depa_id</sql>
+      <result outputType="json">{&#xd; "areas": {&#xd;   "area": [&#xd;      {&#xd;      "idArea": "$arge_id",&#xd;      "nombreArea": "$nombre",&#xd;      "departamento": "$nom_dep "&#xd;      }&#xd;   ]&#xd;   }&#xd;}</result>
    </query>
    <operation name="updform">
       <call-query href="actualizarForm">
@@ -288,7 +339,7 @@
          <with-param name="arge_id" query-param="arge_id"/>
       </call-query>
    </resource>
-   <resource method="GET" path="/trees">
+   <resource method="GET" path="/trees/{manz_id}">
       <call-query href="trees">
          <with-param name="manz_id" query-param="manz_id"/>
       </call-query>
@@ -336,9 +387,10 @@
          <with-param name="altura" query-param="altura"/>
          <with-param name="manz_id" query-param="manz_id"/>
          <with-param name="taza" query-param="taza"/>
+         <with-param name="barrio" query-param="barrio"/>
       </call-query>
    </resource>
-   <resource method="GET" path="/arbol/{id}">
+   <resource method="GET" path="/arbol/{arbo_id}">
       <call-query href="getArbol">
          <with-param name="arbo_id" query-param="arbo_id"/>
       </call-query>
@@ -429,6 +481,12 @@
          <with-param name="nombre" query-param="nombre"/>
       </call-query>
    </resource>
+   <resource method="POST" path="/setCalle">
+      <call-query href="setCalle">
+         <with-param name="nombre" query-param="nombre"/>
+         <with-param name="depa_id" query-param="depa_id"/>
+      </call-query>
+   </resource>
    <resource method="GET" path="/formulario/list">
       <call-query href="getFormularios"/>
    </resource>
@@ -443,6 +501,50 @@
          <with-param name="cens_id" query-param="cens_id"/>
          <with-param name="arge_id" query-param="arge_id"/>
       </call-query>
+   </resource>
+   <resource method="GET" path="/listadoareacompleto">
+      <call-query href="listadoAreaCompleto"/>
+   </resource>
+   <resource method="GET" path="/formulario/template/{form_id}">
+      <call-query href="getFormTemplate">
+         <with-param name="form_id" query-param="form_id"/>
+      </call-query>
+   </resource>
+   <resource method="POST" path="/area">
+      <call-query href="insertArea">
+         <with-param name="nombre" query-param="nombre"/>
+         <with-param name="depa_id" query-param="depa_id"/>
+      </call-query>
+   </resource>
+   <resource method="PUT" path="/censo/area/censista/set">
+      <call-query href="updCenUsrArea">
+         <with-param name="usua_id" query-param="usua_id"/>
+         <with-param name="arge_id" query-param="arge_id"/>
+         <with-param name="cens_id" query-param="cens_id"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="/censista/list">
+      <call-query href="getCensistas"/>
+   </resource>
+   <resource method="POST" path="/manzana">
+      <call-query href="insertManzana">
+         <with-param name="nombre" query-param="nombre"/>
+         <with-param name="arge_id" query-param="arge_id"/>
+      </call-query>
+   </resource>
+   <resource method="POST" path="/manzana/calle">
+      <call-query href="insertCalleManzana">
+         <with-param name="manz_id" query-param="manz_id"/>
+         <with-param name="call_id" query-param="call_id"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="/censo/list/porid/{cens_id}">
+      <call-query href="getCensosPorId">
+         <with-param name="cens_id" query-param="cens_id"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="/listadoAreaSimple">
+      <call-query href="listadoAreaSimple"/>
    </resource>
 </data>
 
