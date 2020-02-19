@@ -216,7 +216,7 @@ var vue1 = new vue({
                 arrFormTemplate = store.get('formTemplate');
             }
             else {
-                axios.get('https://soa.sanjuan.gob.ar/censarb:443/arbolado/api/ds/v1.0.0/formulario/' + this.formID, {
+                axios.get('https://soa.sanjuan.gob.ar/censarb/arbolado/api/ds/v1.0.0/formulario/' + this.formID, {
                     'headers': { 'Authorization': 'Bearer ' + store.get("access_token")
                     }
                 })

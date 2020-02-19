@@ -1,11 +1,11 @@
 export class Endpoint {
 
 
-    //private static _PROTOCOL: string = "https";
-    private static _PROTOCOL: string = "http";
+    private static _PROTOCOL: string = "https";
+    //private static _PROTOCOL: string = "http";
 
     //private static _HOSTNAME_BACKEND: string = "dev-trazalog.com.ar";
-    private static _HOSTNAME_BACKEND: string = "soa.sanjuan.gob.ar/censarb";
+    private static _HOSTNAME_BACKEND: string = "soa.sanjuan.gob.ar";
 
     private static _PORT_BACKEND: string = "443";
     //private static _PORT_BACKEND: string = "8246";
@@ -17,27 +17,27 @@ export class Endpoint {
     * ==========
     */
 
-    private static _URL_LOGIN: string = "/api/token";
+    private static _URL_LOGIN: string = "/censarb/api/token";
 
-    private static _URL_GET_USER_PROFILE: string = "/arbolado/api/ds/v1.0.0/perfil";
+    private static _URL_GET_USER_PROFILE: string = "/censarb/arbolado/api/ds/v1.0.0/perfil";
 
-    private static _URL_UPDATE_USER_PROFILE: string = "/arbolado/api/ds/v1.0.0/perfil";
+    private static _URL_UPDATE_USER_PROFILE: string = "/censarb/arbolado/api/ds/v1.0.0/perfil";
 
-    private static _URL_GET_USER_TREE: string = "/arbolado/api/v1.0.0/area";
+    private static _URL_GET_USER_TREE: string = "/censarb/arbolado/api/v1.0.0/area";
 
-    private static _URL_INSTANCE_FORM: string = "/arbolado/api/ds/v1.0.0/request_box";
+    private static _URL_INSTANCE_FORM: string = "/censarb/arbolado/api/ds/v1.0.0/request_box";
 
-    private static _URL_PUT_FORM: string = "/arbolado/api/ds/v1.0.0/_put_formulario_batch_req";
+    private static _URL_PUT_FORM: string = "/censarb/arbolado/api/ds/v1.0.0/_put_formulario_batch_req";
 
-    private static _URL_POST_FORM_OFFLINE: string = "/arbolado/api/v1.0.0/arbol";
+    private static _URL_POST_FORM_OFFLINE: string = "/censarb/arbolado/api/v1.0.0/arbol";
 
-    private static _URL_POST_NEW_TREE: string = "/arbolado/api/ds/v1.0.0/arbol";
+    private static _URL_POST_NEW_TREE: string = "/censarb/arbolado/api/ds/v1.0.0/arbol";
 
-    private static _URL_GET_TREE_DATA: string = "/arbolado/api/ds/v1.0.0/arbol";
+    private static _URL_GET_TREE_DATA: string = "/censarb/arbolado/api/ds/v1.0.0/arbol";
 
-    private static _URL_GET_FORM: string = "/arbolado/api/ds/v1.0.0/formulario/";
+    private static _URL_GET_FORM: string = "/censarb/arbolado/api/ds/v1.0.0/formulario/";
 
-    private static _URL_GET_FORM_TEMPLATE: string = "/arbolado/api/ds/v1.0.0/formulario/template/2";
+    private static _URL_GET_FORM_TEMPLATE: string = "/censarb/arbolado/api/ds/v1.0.0/formulario/template/2";
 
 
 

@@ -151,27 +151,27 @@ var Endpoint = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    //private static _PROTOCOL: string = "https";
-    Endpoint._PROTOCOL = "http";
+    Endpoint._PROTOCOL = "https";
+    //private static _PROTOCOL: string = "http";
     //private static _HOSTNAME_BACKEND: string = "dev-trazalog.com.ar";
-    Endpoint._HOSTNAME_BACKEND = "soa.sanjuan.gob.ar/censarb";
+    Endpoint._HOSTNAME_BACKEND = "soa.sanjuan.gob.ar";
     Endpoint._PORT_BACKEND = "443";
     //private static _PORT_BACKEND: string = "8246";
     Endpoint._TIMEOUT = 90000; // in ms 1000ms = 1seg.
     /* ENDPOINTS
     * ==========
     */
-    Endpoint._URL_LOGIN = "/api/token";
-    Endpoint._URL_GET_USER_PROFILE = "/arbolado/api/ds/v1.0.0/perfil";
-    Endpoint._URL_UPDATE_USER_PROFILE = "/arbolado/api/ds/v1.0.0/perfil";
-    Endpoint._URL_GET_USER_TREE = "/arbolado/api/v1.0.0/area";
-    Endpoint._URL_INSTANCE_FORM = "/arbolado/api/ds/v1.0.0/request_box";
-    Endpoint._URL_PUT_FORM = "/arbolado/api/ds/v1.0.0/_put_formulario_batch_req";
-    Endpoint._URL_POST_FORM_OFFLINE = "/arbolado/api/v1.0.0/arbol";
-    Endpoint._URL_POST_NEW_TREE = "/arbolado/api/ds/v1.0.0/arbol";
-    Endpoint._URL_GET_TREE_DATA = "/arbolado/api/ds/v1.0.0/arbol";
-    Endpoint._URL_GET_FORM = "/arbolado/api/ds/v1.0.0/formulario/";
-    Endpoint._URL_GET_FORM_TEMPLATE = "/arbolado/api/ds/v1.0.0/formulario/template/2";
+    Endpoint._URL_LOGIN = "/censarb/api/token";
+    Endpoint._URL_GET_USER_PROFILE = "/censarb/arbolado/api/ds/v1.0.0/perfil";
+    Endpoint._URL_UPDATE_USER_PROFILE = "/censarb/arbolado/api/ds/v1.0.0/perfil";
+    Endpoint._URL_GET_USER_TREE = "/censarb/arbolado/api/v1.0.0/area";
+    Endpoint._URL_INSTANCE_FORM = "/censarb/arbolado/api/ds/v1.0.0/request_box";
+    Endpoint._URL_PUT_FORM = "/censarb/arbolado/api/ds/v1.0.0/_put_formulario_batch_req";
+    Endpoint._URL_POST_FORM_OFFLINE = "/censarb/arbolado/api/v1.0.0/arbol";
+    Endpoint._URL_POST_NEW_TREE = "/censarb/arbolado/api/ds/v1.0.0/arbol";
+    Endpoint._URL_GET_TREE_DATA = "/censarb/arbolado/api/ds/v1.0.0/arbol";
+    Endpoint._URL_GET_FORM = "/censarb/arbolado/api/ds/v1.0.0/formulario/";
+    Endpoint._URL_GET_FORM_TEMPLATE = "/censarb/arbolado/api/ds/v1.0.0/formulario/template/2";
     return Endpoint;
 }());
 export { Endpoint };
