@@ -151,18 +151,17 @@ var Endpoint = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Endpoint._PROTOCOL = "https";
-    //private static _PROTOCOL: string = "http";
-    //private static _HOSTNAME_BACKEND: string = "demo3989873.mockable.io";
-    //private static _HOSTNAME_BACKEND: string = "35.196.55.250";
-    Endpoint._HOSTNAME_BACKEND = "soa.sanjuan.gob.ar/censarbapi";
+    //private static _PROTOCOL: string = "https";
+    Endpoint._PROTOCOL = "http";
+    //private static _HOSTNAME_BACKEND: string = "dev-trazalog.com.ar";
+    Endpoint._HOSTNAME_BACKEND = "soa.sanjuan.gob.ar/censarb";
     Endpoint._PORT_BACKEND = "443";
-    //private static _PORT_BACKEND: string = "8283";
+    //private static _PORT_BACKEND: string = "8246";
     Endpoint._TIMEOUT = 90000; // in ms 1000ms = 1seg.
     /* ENDPOINTS
     * ==========
     */
-    Endpoint._URL_LOGIN = "/token";
+    Endpoint._URL_LOGIN = "/api/token";
     Endpoint._URL_GET_USER_PROFILE = "/arbolado/api/ds/v1.0.0/perfil";
     Endpoint._URL_UPDATE_USER_PROFILE = "/arbolado/api/ds/v1.0.0/perfil";
     Endpoint._URL_GET_USER_TREE = "/arbolado/api/v1.0.0/area";

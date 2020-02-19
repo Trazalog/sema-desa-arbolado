@@ -1,15 +1,14 @@
 export class Endpoint {
 
 
-    private static _PROTOCOL: string = "https";
-    //private static _PROTOCOL: string = "http";
+    //private static _PROTOCOL: string = "https";
+    private static _PROTOCOL: string = "http";
 
-    //private static _HOSTNAME_BACKEND: string = "demo3989873.mockable.io";
-    //private static _HOSTNAME_BACKEND: string = "35.196.55.250";
-    private static _HOSTNAME_BACKEND: string = "soa.sanjuan.gob.ar/censarbapi";
+    //private static _HOSTNAME_BACKEND: string = "dev-trazalog.com.ar";
+    private static _HOSTNAME_BACKEND: string = "soa.sanjuan.gob.ar/censarb";
 
     private static _PORT_BACKEND: string = "443";
-    //private static _PORT_BACKEND: string = "8283";
+    //private static _PORT_BACKEND: string = "8246";
 
     private static _TIMEOUT: number = 90000; // in ms 1000ms = 1seg.
 
@@ -18,7 +17,7 @@ export class Endpoint {
     * ==========
     */
 
-    private static _URL_LOGIN: string = "/token";
+    private static _URL_LOGIN: string = "/api/token";
 
     private static _URL_GET_USER_PROFILE: string = "/arbolado/api/ds/v1.0.0/perfil";
 

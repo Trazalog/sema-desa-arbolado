@@ -65,7 +65,8 @@ class Main extends CI_Controller {
 							$this->load->view('footer');*/
 					
 					
-						redirect('http://localhost/'.$this->session->userdata['direccion']);
+						redirect($config['base_url']./.$this->session->userdata['direccion']);
+						//redirect('http://localhost/'.$this->session->userdata['direccion']);
 					
 						
 					}
@@ -799,7 +800,8 @@ class Main extends CI_Controller {
         $dir = $this->session->userdata['direccionsalida'];
         $this->session->sess_destroy();
        // redirect(site_url().'main/login');
-        redirect('http://localhost/'.$dir);
+        redirect($config['base_url'].'/'.$dir);
+        // rruiz redirect('http://localhost/'.$dir);
     }   
 
     //forgot password

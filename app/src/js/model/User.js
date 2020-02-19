@@ -71,7 +71,8 @@ var User = /** @class */ (function () {
                                 data: data,
                                 headers: {
                                     "Content-Type": "application/x-www-form-urlencoded",
-                                    "Authorization": "Basic VW9GckRZbWxRQU5jNzhEZGJVWTNvcGZ4aWZ3YTppbU1ycUJlZDNIRW01MDU2aXZsd2ZFOTl6TjRh"
+                                    //"Authorization": "Basic VW9GckRZbWxRQU5jNzhEZGJVWTNvcGZ4aWZ3YTppbU1ycUJlZDNIRW01MDU2aXZsd2ZFOTl6TjRh"
+                                    "Authorization": "Basic M0t4SUtfV2tQQUtSUGlzQWczaXdIRnlqZm13YTpsNWs5YlYzYTZpZnBqMnNMQ2tmc0JXWVpzVThh"
                                 }
                             })];
                     case 1: return [2 /*return*/, _a.sent()];
