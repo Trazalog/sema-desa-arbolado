@@ -161,7 +161,7 @@ var Endpoint = /** @class */ (function () {
     /* ENDPOINTS
     * ==========
     */
-    Endpoint._URL_LOGIN = "/censarb/api/api/token";
+    Endpoint._URL_LOGIN = "/censarb/api/token";
     Endpoint._URL_GET_USER_PROFILE = "/censarb/api/arbolado/api/ds/v1.0.0/perfil";
     Endpoint._URL_UPDATE_USER_PROFILE = "/censarb/api/arbolado/api/ds/v1.0.0/perfil";
     Endpoint._URL_GET_USER_TREE = "/censarb/api/arbolado/api/v1.0.0/area";

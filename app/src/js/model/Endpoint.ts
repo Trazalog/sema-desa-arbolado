@@ -17,7 +17,7 @@ export class Endpoint {
     * ==========
     */
 
-    private static _URL_LOGIN: string = "/censarb/api/api/token";
+    private static _URL_LOGIN: string = "/censarb/api/token";
 
     private static _URL_GET_USER_PROFILE: string = "/censarb/api/arbolado/api/ds/v1.0.0/perfil";
 

@@ -205,7 +205,7 @@ let vue1 = new vue ({
                 /*Si estoy censando un nuevo árbol, uso los campos del localstorage, sino, tengo que obtener la respuesta del servicio para pintar campos y valores del árbol*/
                 arrFormTemplate = store.get('formTemplate');
             }else{
-                axios.get('https://soa.sanjuan.gob.ar/censarb/arbolado/api/ds/v1.0.0/formulario/'+this.formID,  {
+                axios.get('https://soa.sanjuan.gob.ar/censarb/api/arbolado/api/ds/v1.0.0/formulario/'+this.formID,  {
                     'headers': { 'Authorization': 'Bearer ' + store.get("access_token")
                     } })
                     .then(response => {
