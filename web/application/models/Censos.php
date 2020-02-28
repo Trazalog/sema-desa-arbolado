@@ -106,7 +106,7 @@ class Censos extends CI_Model
 
 			log_message('DEBUG', '#MODEL #CENSOS > Resultado post  | #DATA: '.json_encode($data));
 
-			$censusuario['usuario'] = $data;
+			$censusuario['_put_censo_area_censista_set'] = $data;
 			$resource = '/censo/area/censista/set';
 			$url = REST.$resource;
 			$array = $this->rest->callAPI("PUT",$url,$censusuario); 	

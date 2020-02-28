@@ -23,7 +23,14 @@
                 <tr>
                   <th>Acciones</th>
                   <th><?php echo $nombre;?></th>
-                  <?php //if(isset($lista[0]->apellido)){
+                  <?php 
+                    if(isset($lista[0]->depa_nombre)){
+                      echo '<th>Departamento</th>';
+                    }
+                    if(isset($lista[0]->arge_nombre)){
+                      echo '<th>Area Geográfica</th>';
+                    }
+                  //if(isset($lista[0]->apellido)){
                     //echo '<th>Apellido</th>';
                     //echo '<th>Direccion</th>';
                     //echo '<th>Telefono</th>';
@@ -32,11 +39,12 @@
               </thead>
               <tbody>
                 <?php
+                //var_dump($lista);
                 if($lista)
                 {
                       foreach($lista as $fila)
                       {
-                    
+                                            
                           $id=$fila->id;
                           echo '<tr  id="'.$id.'" data-json:'.json_encode($fila).'>';
 
@@ -60,6 +68,12 @@
                             
                             echo '</td>';
                             echo '<td>'.$fila->nombre.'</td>';
+                            if($nombre == "Calle"){
+                              echo '<td>'.$fila->depa_nombre.'</td>';
+                            }  
+                            if($nombre == "Manzana"){
+                              echo '<td>'.$fila->arge_nombre.'</td>';
+                            }
                             if(isset($fila->apellido))
                             {
                               echo '<td>'.$fila->apellido.'</td>';
@@ -158,6 +172,21 @@
     });
   }
   
+  function borrarCalles(id){    
+   
+   $.ajax({
+     type: 'POST',
+     data: { id:id },
+     url: 'Calle/borrar', 
+     success: function(result){
+       if(result < 300){
+         linkTo('Calle');
+       }else{
+         alert('No se pudo eliminar la especie...');
+       }            	
+     }
+   });  
+ }
 
 
   </script>
