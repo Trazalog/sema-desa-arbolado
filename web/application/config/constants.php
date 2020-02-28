@@ -94,9 +94,9 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 |
 */
 //define('REST', 'http://localhost:8080/');
-//define('REST', 'http://pc-pc:8280/services/arboladoDS');
+define('REST', 'http://pc-pc:8280/services/arboladoDS');
 //define('RESTLOCAL', 'http://pc-pc:8280/services/arboladoDS');
-define('REST', 'http://dev-trazalog.com.ar:8280/services/arboladoDS');
+//define('REST', 'http://dev-trazalog.com.ar:8280/services/arboladoDS');
 define('HOST', 'http://localhost/');
 
 /*

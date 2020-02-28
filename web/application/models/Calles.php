@@ -37,5 +37,18 @@ class Calles extends CI_Model
 
 	}
 
+	function borrar($id){
+
+		// log_message('DEBUG', 'Calles/Borrar  | id: '.json_encode($id));
+		// $manzana = array(
+		// 	"manz_id"=> $id				
+		// );
+		// $datos['manzana'] = $manzana;
+		// $resource = '/manzanas/delete';
+    // $url = REST.$resource;
+    // $array = $this->rest->callAPI("PUT", $url, $datos);
+    // return json_decode($array['data']);
+	}
+
 
 }

@@ -65,8 +65,8 @@ class Main extends CI_Controller {
 							$this->load->view('footer');*/
 					
 					
-						redirect($config['base_url']./.$this->session->userdata['direccion']);
-						//redirect('http://localhost/'.$this->session->userdata['direccion']);
+						//redirect($config['base_url']./.$this->session->userdata['direccion']);
+						redirect('http://localhost/'.$this->session->userdata['direccion']);
 					
 						
 					}

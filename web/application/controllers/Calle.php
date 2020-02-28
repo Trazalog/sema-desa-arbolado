@@ -40,6 +40,11 @@ class Calle extends CI_Controller {
      $data['depa_id']= $this->input->post('depaId');
      $response = $this->Calles->Guardar_Nuevo($data);
      echo json_encode($response);
-   }
+	 }
+	 
+	 function borrar(){		 
+		$response = $this->Calles->borrar($this->input->post('id'));
+		return json_encode($response);
+	 }
 }
 ?>
