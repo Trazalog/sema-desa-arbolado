@@ -32,7 +32,7 @@ class Calles extends CI_Model
 		$url = REST.$resource;
 		var_dump($url);
 		$array = $this->rest->callAPI("POST",$url, $datos); 	
-		log_message('DEBUG', 'Departamentos/listadodepartaentos-> ' .json_encode($array));	
+		log_message('DEBUG', 'Calles/Guardar_Nuevo respuesta servicio-> ' .json_encode($array));	
 		return json_decode($array['data']);
 
 	}

@@ -72,7 +72,8 @@
                               echo '<td>'.$fila->depa_nombre.'</td>';
                             }  
                             if($nombre == "Manzana"){
-                              echo '<td>'.$fila->arge_nombre.'</td>';
+                              echo '<td>'.$fila->depa_nombre.'</td>';
+                              echo '<td>'.$fila->arge_nombre.'</td>';                              
                             }
                             if(isset($fila->apellido))
                             {
