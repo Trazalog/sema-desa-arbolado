@@ -51,7 +51,7 @@
       <param name="nick" sqlType="STRING"/>
    </query>
    <query id="square_street" useConfig="arbolado">
-      <sql>select ac.nombre&#xd;from arb_calles ac&#xd;     ,arb_areas_geograficas aag&#xd;     ,arb_manzanas am&#xd;where ac.depa_id = aag.depa_id&#xd;and am.arge_id = aag.arge_id&#xd;and am.manz_id = :manz_id</sql>
+      <sql>select distinct(ac.nombre)&#xd;from arb_calles ac</sql>
       <result outputType="json">{&#xd;  "streets":{&#xd;    "street": [&#xd;      {"name":"$nombre"&#xd;       }&#xd;    ]&#xd;  }&#xd;} </result>
       <param name="manz_id" sqlType="INTEGER"/>
    </query>
@@ -301,6 +301,10 @@
    <query id="deleteCeUsAr" useConfig="arbolado">
       <sql>delete from arb_censos_usuarios_areas where ceua_id = cast(:ceua_id as INTEGER)</sql>
       <param name="ceua_id" sqlType="STRING"/>
+   </query>
+   <query id="callesTodas" useConfig="arbolado">
+      <sql>select distinct (nombre)&#xd;from arb_calles&#xd;order by nombre</sql>
+      <result outputType="json">{&#xd; "calles": {&#xd;    "calle": [&#xd;          {&#xd;            "nombre": "$nombre"&#xd;          }&#xd;    ]&#xd; }&#xd;}</result>
    </query>
    <operation name="updform">
       <call-query href="actualizarForm">
@@ -636,5 +640,8 @@
       <call-query href="deleteCeUsAr">
          <with-param name="ceua_id" query-param="ceua_id"/>
       </call-query>
+   </resource>
+   <resource method="GET" path="/calles/todas">
+      <call-query href="callesTodas"/>
    </resource>
 </data>
