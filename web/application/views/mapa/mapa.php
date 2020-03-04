@@ -46,7 +46,7 @@
             <div class="form-group col-md-3">
                 <label for="censo_id">Censo</label>
                 <select name="select" id="censo_id" class="form-control">
-										<option value="" disabled selected>-Seleccione Formulario-</option>
+										<option value="" disabled selected>-Seleccione Censo-</option>
 										<?php foreach($censos as $fila)
 											{
 												echo  "<option value='".$fila->id."'>".$fila->nombre.'</option>';    
