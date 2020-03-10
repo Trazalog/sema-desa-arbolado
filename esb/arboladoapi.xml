@@ -37,5 +37,118 @@
          <send/>
       </faultSequence>
    </resource>
+   <resource methods="POST" uri-template="/arbol">
+      <inSequence>
+         <property name="messageType" value="application/json" scope="axis2"/>
+         <log level="custom" description="Previo db">
+            <property name="formid" expression="json-eval($._post_arbol_set._put_formulario_batch_req.form_id)"/>
+         </log>
+         <script language="js">var payload = mc.getPayloadJSON();  mc.setProperty("ORIGINAL_PAYLOAD",JSON.stringify(payload));</script>
+         <filter xpath="//_put_formulario_batch_req">
+            <then>
+               <log level="custom">
+                  <property name="hayform" value="true"/>
+               </log>
+               <property name="hayform" value="true"/>
+            </then>
+            <else>
+               <log level="custom">
+                  <property name="hayform" value="false"/>
+               </log>
+               <property name="hayform" value="false"/>
+            </else>
+         </filter>
+         <switch source="get-property('hayform')" description="si no hay form no hago nda">
+            <case regex="false">
+               <property name="vInfoId" value="0" scope="default" type="STRING" description="Pongo el form id en 0 para la tabla arboles"/>
+            </case>
+            <default>
+               <payloadFactory media-type="json" description="Instanciar form">
+                  <format>     {     "_post_instanciarform":{     "form_id": $1     }     }    </format>
+                  <args>
+                     <arg evaluator="json" expression="$._post_arbol_set._put_formulario_batch_req.form_id"/>
+                  </args>
+               </payloadFactory>
+               <log level="full" description="antes db"/>
+               <header name="Accept" scope="transport" value="application/json"/>
+               <property name="FORCE_ERROR_ON_SOAP_FAULT" value="true" scope="default" type="STRING"/>
+               <call>
+                  <endpoint key="Instanciarform"/>
+               </call>
+               <log level="custom" description="post db">
+                  <property name="info_id" expression="json-eval($.GeneratedKeys.Entry[0].ID)"/>
+               </log>
+               <log level="full" description="TODO POST db"/>
+               <property name="vInfoId" expression="json-eval($.GeneratedKeys.Entry[0].ID)" type="STRING" description="Instancia Form Id"/>
+               <script language="js" description="add info id">try{    var log = mc.getServiceLog();         var infoId = parseInt(mc.getProperty("vInfoId"));                     var payloadtmp = mc.getProperty("ORIGINAL_PAYLOAD");              try{  var payload = JSON.parse(payloadtmp);              }catch(error1){  log.error("ERROR PARSEANDO JSON:" + error1); } var results =  payload._post_arbol_set._put_formulario_batch_req;           var response = new Array();           for (i = 0; i &lt; results._put_formulario.length; ++i)     {               location_object = results._put_formulario[i];                 var l = new Object();                 l.name = location_object.name;                 l.valor = location_object.valor;                 l.info_id = Math.floor(infoId);                 response[i] = l;          }          var responsePadre = new Object();          var responseArray = new Object;          responseArray._put_formulario = response;          responsePadre._put_formulario_batch_req = responseArray ;             mc.setPayloadJSON(responsePadre);}catch(error){   mc.setProperty("ERROR_JS",error);   log.error("ERROR GENERAL AGREGANDO INFO_ID:"+error);}</script>
+               <log level="custom" description="RESULTADO JS">
+                  <property name="ERROR_JS" expression="get-property('ERROR_JS')"/>
+               </log>
+               <log level="full" description="post instanciar"/>
+               <header name="Accept" scope="transport" value="application/json"/>
+               <property name="FORCE_ERROR_ON_SOAP_FAULT" value="true" scope="default" type="STRING"/>
+               <call>
+                  <endpoint key="FormularioPutBatchReqDSS"/>
+               </call>
+               <log level="full" description="TODO POST guardar formulario"/>
+            </default>
+         </switch>
+         <script language="js" description="set payload in body">mc.setPayloadJSON(JSON.parse(mc.getProperty("ORIGINAL_PAYLOAD")));</script>
+         <payloadFactory media-type="json" description="Crear arbol">
+            <format>     {             "_post_arbol":{      "calle": "$1",      "altura": "$2",      "manz_id": "$3",      "nombre": "$4",      "info_id": "$5",      "cens_id": "$6",      "lat": "$7",      "long": "$8",      "tipo": "$9",      "imagen":"$10",      "taza":"$11",      "barrio":"$12"      }          }            </format>
+            <args>
+               <arg evaluator="json" expression="$._post_arbol_set.calle"/>
+               <arg evaluator="json" expression="$._post_arbol_set.altura"/>
+               <arg evaluator="json" expression="$._post_arbol_set.manz_id"/>
+               <arg evaluator="json" expression="$._post_arbol_set.nombre"/>
+               <arg evaluator="xml" expression="get-property('vInfoId')"/>
+               <arg evaluator="json" expression="$._post_arbol_set.cens_id"/>
+               <arg evaluator="json" expression="$._post_arbol_set.lat"/>
+               <arg evaluator="json" expression="$._post_arbol_set.long"/>
+               <arg evaluator="json" expression="$._post_arbol_set.tipo"/>
+               <arg evaluator="json" expression="$._post_arbol_set.imagen"/>
+               <arg evaluator="json" expression="$._post_arbol_set.taza"/>
+               <arg evaluator="json" expression="$._post_arbol_set.barrio"/>
+            </args>
+         </payloadFactory>
+         <log level="full" description="Antes send"/>
+         <header name="Accept" scope="transport" value="application/json"/>
+         <header name="Content-type" scope="transport" value="application/json"/>
+         <property name="messageType" value="application/json" scope="axis2"/>
+         <property name="FORCE_ERROR_ON_SOAP_FAULT" value="true" scope="default" type="STRING"/>
+         <send>
+            <endpoint key="ArbolPostDSS"/>
+         </send>
+      </inSequence>
+      <outSequence>
+         <log level="full">
+            <property name="MESSAGE" value="FIRST"/>
+         </log>
+         <payloadFactory media-type="json" description="Mensaje error">
+            <format>{"response" : {&#xd;                       "resultado" : "$1" &#xd;                                    }&#xd;}</format>
+            <args>
+               <arg evaluator="json" expression="$.resultado.codigo"/>
+            </args>
+         </payloadFactory>
+         <log level="custom" description="post mensaje out">
+            <property name="info_id_resultado" expression="get-property('vInfoId')"/>
+         </log>
+         <send/>
+      </outSequence>
+      <faultSequence>
+         <log level="custom" description="Informe de error">
+            <property name="text" value="************Error Inesperado******************"/>
+            <property name="code" value="1000"/>
+            <property name="message" expression="get-property('ERROR_MESSAGE')"/>
+         </log>
+         <payloadFactory media-type="json" description="Mensaje error">
+            <format>{"response" : {&#xd;                       "errorCode" : "1000"                 }&#xd;}</format>
+            <args/>
+         </payloadFactory>
+         <property name="messageType" value="application/json" scope="axis2" type="STRING"/>
+         <property name="HTTP_SC" value="404" scope="axis2" type="STRING" description="Respuesta 404"/>
+         <send/>
+      </faultSequence>
+   </resource>
 </api>
                         
