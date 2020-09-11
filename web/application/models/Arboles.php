@@ -23,7 +23,7 @@ class Arboles extends CI_Model
 			"valor"=> $data["nombre"],
 			"tabla"=> "tipo_arbol"						
 		);
-		$datos['arbol'] = $_nueva_especie;
+		$datos['_post_arbol_especie'] = $_nueva_especie;
 		log_message('DEBUG', 'Arboles/Guardar_Nuevo  | Datos a Guardar: '.json_encode($_nueva_especie)); 
     $resource = '/arbol/especie';
     $url = REST.$resource;
@@ -36,7 +36,7 @@ class Arboles extends CI_Model
 		$_especie = array(
 			"tabl_id"=> $id				
 		);
-		$datos['arbol'] = $_especie;
+		$datos['_put_arbol_especie_delete'] = $_especie;
 		log_message('DEBUG', 'Arboles/borrar  | Id de Especie: '.$id); 
     $resource = '/arbol/especie/delete';
     $url = REST.$resource;

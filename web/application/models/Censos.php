@@ -106,25 +106,25 @@ class Censos extends CI_Model
 
 			log_message('DEBUG', '#MODEL #CENSOS > Resultado post  | #DATA: '.json_encode($data));
 
-			$censusuario['usuario'] = $data;
+			$censusuario['_put_censo_area_censista_set'] = $data;
 			$resource = '/censo/area/censista/set';
 			$url = REST.$resource;
 			$array = $this->rest->callAPI("PUT",$url,$censusuario); 	
 			// log_message('DEBUG', '#MODEL #CENSOS > Resultado post  | #DATA: '.json_encode($array));	
 			return json_decode($array['status']);
     }
-		// elimina relacion en censos_usuarios_areas
-		function eliminar($idrelacion){		
+    // elimina relacion en censos_usuarios_areas
+    function eliminar($idrelacion){		
 
-			log_message('DEBUG', '#MODEL #CENSOS | #id Relacion: '.json_encode($idrelacion));
-			$censUsAr = array("ceua_id"=> $idrelacion);
-			$data['ceusar'] = $censUsAr;
-			$resource = '/censos/usuarios/areas';
-			$url = REST.$resource;
-			$array = $this->rest->callAPI("POST",$url,$data); 	
-		 	log_message('DEBUG', '#MODEL #CENSOS > Eliminar  | #DATA: '.json_encode($array));	
-			return json_decode($array['status']);
-		}  
+        log_message('DEBUG', '#MODEL #CENSOS | #id Relacion: '.json_encode($idrelacion));
+        $censUsAr = array("ceua_id"=> $idrelacion);
+        $data['ceusar'] = $censUsAr;
+        $resource = '/censos/usuarios/areas';
+        $url = REST.$resource;
+        $array = $this->rest->callAPI("POST",$url,$data); 	
+        log_message('DEBUG', '#MODEL #CENSOS > Eliminar  | #DATA: '.json_encode($array));	
+        return json_decode($array['status']);
+    }  
 }
 
 

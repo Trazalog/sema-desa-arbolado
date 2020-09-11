@@ -86,7 +86,7 @@ if (!function_exists('form')) {
 
         $val = '<option value=""> -Seleccionar- </option>';
         foreach ($e->valores->valor as $o) {
-            $val .= "<option value='$o->value' ".((isset($e->valor) && $e->valor== $o->value)?'selected':null).">$o->value</option>";
+            $val .= "<option value='$o->value' ".((isset($e->valor) && $e->valor == $o->value)?'selected':null).">$o->value</option>";
         }
 
         return

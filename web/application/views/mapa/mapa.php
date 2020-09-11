@@ -46,11 +46,14 @@
             <div class="form-group col-md-3">
                 <label for="censo_id">Censo</label>
                 <select name="select" id="censo_id" class="form-control">
-                    <option value="-1" selected>Seleccione censo</option>
-                    <option value="1">Censo 1</option>
-                    <option value="2">Censo 2</option>
-                    <option value="3">Censo 3</option>
+										<option value="" disabled selected>-Seleccione Censo-</option>
+										<?php foreach($censos as $fila)
+											{
+												echo  "<option value='".$fila->id."'>".$fila->nombre.'</option>';    
+											} 
+										?> 
                 </select>
+
             </div>
         </div>
 

@@ -1,0 +1,12 @@
+<endpoint xmlns="http://ws.apache.org/ns/synapse" name="ArboladoTreeDSS">
+   <http uri-template="http://dev-trazalog.com.ar:8280/services/arboladoDS/tree_list/{uri.var.usuario}" method="get">
+      <suspendOnFailure>
+         <progressionFactor>1.0</progressionFactor>
+      </suspendOnFailure>
+      <markForSuspension>
+         <retriesBeforeSuspension>0</retriesBeforeSuspension>
+         <retryDelay>0</retryDelay>
+      </markForSuspension>
+   </http>
+</endpoint>
+                

@@ -38,7 +38,7 @@ class Manzanas extends CI_Model
 			"nombre"=> $data["nombre"],	
 			"arge_id"=>$data["argeo"]				
 		);		
-		$post_manz['manzana_post'] = $manzana;	
+		$post_manz['_post_manzana'] = $manzana;	
 		$resource = '/manzana';
 		$url = REST.$resource;
 		$array = $this->rest->callAPI("POST", $url, $post_manz); 	

@@ -84,7 +84,7 @@ class Censo extends CI_Controller {
   
     $data['cens_id'] =  $this->input->post('id_censo');
     $data['arge_id'] =  $this->input->post('id_area');
-    $arrayAreaCenso['censo'] = $data; 
+    $arrayAreaCenso['_post_censo_area_add'] = $data; 
     $response = $this->Censos->insertAreaCenso($arrayAreaCenso);
     echo json_encode($response); 
  }

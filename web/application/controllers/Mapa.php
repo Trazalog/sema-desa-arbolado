@@ -8,6 +8,7 @@ class Mapa extends CI_Controller
       parent::__construct();
       $this->load->helper('file');
       $this->load->model('Mapas');
+      $this->load->model('Censos');
 
       if (!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/web/Dash') {
          $this->session->set_userdata('direccionsalida', 'sema-desa-arbolado/web/Login');
@@ -16,8 +17,10 @@ class Mapa extends CI_Controller
    }
    function index()
    {
-
-      $this->load->view('mapa/mapa');
+			$data['censos'] = $this->Censos->listar()->censos->censo;
+			//echo "censos";
+			//var_dump($data['censos']);
+      $this->load->view('mapa/mapa', $data);
    }
 
    // retorna listado de arboles por id de censo

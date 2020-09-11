@@ -66,10 +66,10 @@ $this->load->view('area/modal_censista')
             <!-- _________________SEPARADOR_________________ -->
             <div class="row">
 
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
                     <button type="button" class="btn btn-primary pull-right"
-												onclick="Guardar('<?php echo $nombre;?>')">Aceptar</button>									
-								</div>
+												onclick="Guardar('<?php //echo $nombre;?>')">Aceptar</button>									
+								</div> -->
 						</div>
 						
         </form>

@@ -32,9 +32,22 @@ class Calles extends CI_Model
 		$url = REST.$resource;
 		var_dump($url);
 		$array = $this->rest->callAPI("POST",$url, $datos); 	
-		log_message('DEBUG', 'Departamentos/listadodepartaentos-> ' .json_encode($array));	
+		log_message('DEBUG', 'Calles/Guardar_Nuevo respuesta servicio-> ' .json_encode($array));	
 		return json_decode($array['data']);
 
+	}
+
+	function borrar($id){
+
+		// log_message('DEBUG', 'Calles/Borrar  | id: '.json_encode($id));
+		// $manzana = array(
+		// 	"manz_id"=> $id				
+		// );
+		// $datos['manzana'] = $manzana;
+		// $resource = '/manzanas/delete';
+    // $url = REST.$resource;
+    // $array = $this->rest->callAPI("PUT", $url, $datos);
+    // return json_decode($array['data']);
 	}
 
 
