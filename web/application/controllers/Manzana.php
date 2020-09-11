@@ -6,6 +6,8 @@ class Manzana extends CI_Controller {
       parent::__construct();
       $this->load->helper('file');
       $this->load->model('Manzanas');
+      $this->load->model('Areas');
+      $this->load->model('Departamentos');
      
       if(!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/web/Dash')
       {
@@ -22,16 +24,27 @@ class Manzana extends CI_Controller {
       
    }
    function Nuevo(){
-    $data['titulo'] = 'Nuevo Manzana';
-    $data['nombre'] = 'Manzana';
-    $data['accion'] = 'Nuevo';
-    $this->load->view('general/abm',$data);
-    
- }
- function Guardar_Nuevo()
- {
-     $data['nombre'] = $this->input->post('datonombre');
-     echo json_encode($data);
- }
+			$data['titulo'] = 'Nuevo Manzana';
+			$data['nombre'] = 'Manzana';
+			$data['accion'] = 'Nuevo';
+			$data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
+			$data['areas'] = $this->Areas->listarAreasTodas()->areas->area;  
+			$this->load->view('general/abm',$data);    
+   }
+   //   Funcion Guardar Nuevo
+   function Guardar_Nuevo()
+   {     
+      $data['nombre'] = $this->input->post('datonombre');    
+      $data['argeo'] = $this->input->post('argeo');  
+			// respuesta ->manz_id
+      $response = $this->Manzanas->Guardar_Nuevo($data)->respuesta->manz_id;
+      echo json_encode($response);
+	}
+	 
+   function borrar(){		 
+      $response = $this->Manzanas->borrar($this->input->post('id'));
+      return json_encode($response);
+   }
 }
 ?>
+

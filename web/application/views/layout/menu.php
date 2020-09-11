@@ -1,50 +1,47 @@
 <ul class="sidebar-menu menu" data-widget="tree">
     <li class="header">Navegacion</li>
-   <li><a href="<?php echo base_url('Login/usuarios')?>"><i class="fa fa-user"></i>Administracion usuarios</a></li>
-     <li class="treeview">
+    <li><a href="<?php echo base_url('Login/usuarios') ?>"><i class="fa fa-user"></i>Administracion usuarios</a></li>
+    <li class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-check"></i> <span>Arbolado ABM</span>
+            <i class="fa  fa-circle-o"></i> <span>Arbolado ABM</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#" class="link" data-link="Censista"><i class="fa fa-fw fa-cubes"></i>Censistas</a></li>
-            <li><a href="#" class="link" data-link="Area"><i class="fa fa-fw fa-map"></i>Areas Gerograficas</a></li>
-            <li><a href="#" class="link" data-link="Departamento"><i class="fa fa-fw fa-cubes"></i>Departamentos</a></li>
-            <li><a href="#" class="link" data-link="Manzana"><i class="fa fa-fw fa-cubes"></i>Manzanas</a></li>
-            <li><a href="#" class="link" data-link="Calle"><i class="glyphicon glyphicon-road "></i>Calles</a> </li>
-            <li><a href="#" class="link" data-link="Arbol"><i class="glyphicon glyphicon-tree-conifer"></i>Tipo de Arboles</a></li>
-            </li>
+            <!-- <li><a href="#" class="link" data-link="Censista"><i class="fa fa-fw fa-cubes"></i>Censistas</a></li> -->
+            <li><a href="#" class="link" data-link="Area"><i class="fa fa-fw fa-map"></i> Areas Gerograficas</a></li>
+            <li><a href="#" class="link" data-link="Departamento"><i class="fa fa-fw fa-cubes"></i> Departamentos</a></li>
+            <li><a href="#" class="link" data-link="Manzana"><i class="fa fa-fw fa-cubes"></i> Manzanas</a></li>
+            <li><a href="#" class="link" data-link="Calle"><i class="glyphicon glyphicon-road "></i> Calles</a> </li>
+            <li><a href="#" class="link" data-link="Arbol"><i class="glyphicon glyphicon-tree-conifer"></i> Tipo de Arboles</a></li>
         </ul>
     </li>
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-check"></i> <span>Censos</span>
+            <i class="fa  fa-circle-o"></i> <span>Censos</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-            <li><a href="#" class="link" data-link="Censo/Nuevo"><i class="fa fa-fw fa-cubes"></i>Nuevo Censo</a></li>
-            <li><a href="#" class="link" data-link="Censo"><i class="fa fa-fw fa-cubes"></i>Lista Censos</a></li>
-            </li>
+            <li><a href="#" class="link" data-link="Censo/Nuevo"><i class="fa fa-fw fa-cubes"></i> Nuevo Censo</a></li>
+            <li><a href="#" class="link" data-link="Censo"><i class="fa fa-fw fa-cubes"></i> Lista Censos</a></li>
         </ul>
     </li>
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-fw fa-check"></i> <span>Reportes</span>
+            <i class="fa  fa-circle-o"></i> <span>Reportes</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
-        <ul class="treeview-menu">
-            <li><a href="#" class="link" data-link="Censo/Nuevo"><i class="fa fa-fw fa-cubes"></i>Nuevo Censo</a></li>
-            <li><a href="#" class="link" data-link="Censo"><i class="fa fa-fw fa-cubes"></i>Lista Censos</a></li>
-            </li>
+        <ul class="treeview-menu">            
+            <!-- <li><a href="#" class="link" data-link="Censo"><i class="fa fa-bar-chart"></i>Lista Censos</a></li>
+            </li> -->
         </ul>
     </li>
-    <li><a href="#" class="link" data-link="Mapa"><i class="fa fa-fw fa-map"></i>Mapa</a></li>
-  <!--  <li><a href="#" data-link="general/Componente"><i class="fa fa-circle-o"></i>Header(Cabera)</a></li>
+    <li><a href="#" class="link" data-link="Mapa"><i class="fa fa-fw fa-map"></i> Mapa</a></li>
+    <!--  <li><a href="#" data-link="general/Componente"><i class="fa fa-circle-o"></i>Header(Cabera)</a></li>
     <li><a href="#" data-link="general/Tabla"><i class="fa fa-circle-o"></i>ABM Tablas</a></li> -->
 </ul>

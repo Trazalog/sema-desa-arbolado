@@ -14,14 +14,14 @@
       <?php echo form_error('lastname');?>
     </div>
     <div class="form-group">
-      <?php echo form_input(array('name'=>'email', 'id'=> 'email', 'placeholder'=>'Email', 'class'=>'form-control', 'value'=> set_value('email'))); ?>
+      <?php echo form_input(array('name'=>'email', 'id'=> 'email', 'placeholder'=>'Nickname', 'class'=>'form-control', 'value'=> set_value('email'))); ?>
       <?php echo form_error('email');?>
     </div>
     <div class="form-group">
     <?php
         $dd_list = array(
                   '1'   => 'Admin',
-                  '2'   => 'Sensista',
+                  '2'   => 'Censista',
                 );
         $dd_name = "role";
         echo form_dropdown($dd_name, $dd_list, set_value($dd_name),'class = "form-control" id="role"');

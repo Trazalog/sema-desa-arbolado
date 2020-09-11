@@ -1,0 +1,47 @@
+INSERT INTO public.frm_items ("label","name",requerido,tida_id,valo_id,form_id,orden,fec_alta,eliminado,aux,mostrar,cond_mostrar,deshabilitado,cond_habilitado) VALUES 
+('Nombre Cientifíco/Común','nombre',NULL,4,'tipo_arbol',2,107,'2019-09-04 00:13:39.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Otro','otro_nombre',NULL,3,NULL,2,108,'2019-09-04 00:14:21.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Alineación del Árbol','alineacion',NULL,4,'alineacion_arbol',2,109,'2019-09-04 00:15:57.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Estado Fisico','',0,26,'',2,123,'2019-09-05 23:30:44.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Cavidad Expuesta','cavidad',0,6,'cavidad',2,125,'2019-09-06 00:00:33.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Basal','tamaño',0,4,'basal',2,126,'2019-09-06 00:08:26.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Media','tamaño',0,4,'media',2,127,'2019-09-06 00:08:26.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Alta','tamaño',0,4,'grande',2,128,'2019-09-06 00:08:26.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Daño en Raices','raices',0,7,'raices',2,129,'2019-09-06 11:52:05.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Descubiertas','descubiertas',0,4,'descubiertas',2,130,'2019-09-06 11:55:45.000',0,NULL,NULL,NULL,NULL,NULL)
+;
+INSERT INTO public.frm_items ("label","name",requerido,tida_id,valo_id,form_id,orden,fec_alta,eliminado,aux,mostrar,cond_mostrar,deshabilitado,cond_habilitado) VALUES 
+('Cuello Visible','cuello',0,4,'cuello',2,131,'2019-09-06 11:56:05.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Levantamiento de Veredas','veredas',0,4,'veredas',2,132,'2019-09-06 11:57:06.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Levantamiento de Pavimento','pavimento',0,4,'pavimento',2,133,'2019-09-06 11:57:26.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Medidas del Fuste','medidas_fuste',0,7,'',2,134,'2019-09-06 12:05:53.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Altura Total (m)','altura',0,10,'',2,135,'2019-09-06 12:07:12.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Altura del Fuste (m)','altura_fuste',0,10,'',2,136,'2019-09-06 12:10:12.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Circunferencia a 1,30m de Altura (m) CAP','circunferencia',0,10,'',2,137,'2019-09-06 12:17:59.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Altura Medición del CAP','medicion_cap',0,10,'',2,138,'2019-09-06 12:18:55.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Copa','copa',0,10,'',2,139,'2019-09-06 12:19:03.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Ramas','ramas',0,6,'ramas',2,140,'2019-09-06 12:22:49.000',0,NULL,NULL,NULL,NULL,NULL)
+;
+INSERT INTO public.frm_items ("label","name",requerido,tida_id,valo_id,form_id,orden,fec_alta,eliminado,aux,mostrar,cond_mostrar,deshabilitado,cond_habilitado) VALUES 
+('Unico','unico',0,6,NULL,2,124,'2019-09-30 12:03:07.906',0,NULL,NULL,NULL,NULL,NULL)
+,('Densidad del Follaje','follaje',0,4,'follaje',2,141,'2019-09-06 12:26:28.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Clorosis','clorosis',0,4,'clorosis',2,142,'2019-09-06 12:36:30.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Estado Sanitario General ','estado_sanitario',0,4,'estado',2,143,'2019-09-06 12:44:17.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Observaciones','observaciones',0,9,'estado',2,144,'2019-09-06 12:46:26.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Entorno','observaciones',0,26,'estado',2,146,'2019-09-06 12:47:16.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Acequia','acequia',0,4,'acequia',2,147,'2019-09-06 12:49:38.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Postes Cerca','postes',0,10,'taza',2,149,'2019-09-06 12:54:39.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Vereda','vereda',0,4,'vereda',2,150,'2019-09-06 12:57:05.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Interfiere Cables','cables',0,4,'cables',2,151,'2019-09-06 12:57:20.000',0,NULL,NULL,NULL,NULL,NULL)
+;
+INSERT INTO public.frm_items ("label","name",requerido,tida_id,valo_id,form_id,orden,fec_alta,eliminado,aux,mostrar,cond_mostrar,deshabilitado,cond_habilitado) VALUES 
+('Tapa de Taza Inscrustada','taza_inscrustada',0,4,'taza_inscrustada',2,152,'2019-09-06 13:00:30.000',0,NULL,NULL,NULL,NULL,NULL)
+,('Bifurcado','biifurcado',0,6,NULL,2,124,'2019-09-30 12:04:01.451',0,NULL,NULL,NULL,NULL,NULL)
+,('Inclinacion Mayor a 45º','inclinacio',0,6,NULL,2,124,'2019-09-30 12:05:01.550',0,NULL,NULL,NULL,NULL,NULL)
+,('Codominancia','codominancia',0,6,NULL,2,124,'2019-09-30 12:06:35.928',0,NULL,NULL,NULL,NULL,NULL)
+,('Descortezamiento','descortezamiento',0,6,NULL,2,124,'2019-09-30 12:05:48.144',0,NULL,NULL,NULL,NULL,NULL)
+,('Fructificacion','fructificacion',0,6,NULL,2,124,'2019-09-30 12:07:41.828',0,NULL,NULL,NULL,NULL,NULL)
+,('Deformacion','deformacion',0,6,NULL,2,124,'2019-09-30 12:07:05.673',0,NULL,NULL,NULL,NULL,NULL)
+,('Fuste','fuste',0,1,'',2,124,'2019-09-05 23:32:39.000',0,NULL,NULL,NULL,NULL,NULL)
+,('FOLLAJE','follaje',0,1,NULL,2,160,'2019-10-17 17:12:11.742',0,NULL,NULL,NULL,NULL,NULL)
+;

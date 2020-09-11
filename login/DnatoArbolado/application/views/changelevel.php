@@ -19,7 +19,7 @@
     <?php
         $dd_list = array(
                   '1'   => 'Admin',
-                  '2'   => 'Sensista',
+                  '2'   => 'Censista',
                 );
         $dd_name = "level";
         echo form_dropdown($dd_name, $dd_list, set_value($dd_name),'class = "form-control" id="level"');

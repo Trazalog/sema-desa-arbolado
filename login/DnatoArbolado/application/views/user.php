@@ -27,11 +27,11 @@
                     if($row->role == 1){
                         $rolename = "Admin";
                     }elseif($row->role == 2){
-                        $rolename = "Sensista";
+                        $rolename = "Censista";
                     }elseif($row->role == 3){
                         $rolename = "Editor";
                     }elseif($row->role == 4){
-                        $rolename = "Sensista";
+                        $rolename = "Censista";
                     }
                     
                     echo '<tr>';
@@ -41,7 +41,8 @@
                     echo '<td>'.$rolename.'</td>';
                     echo '<td>'.$row->status.'</td>';
                     echo '<td><a href="'.site_url().'main/changelevel"><button type="button" class="btn btn-primary">Rol</button></a></td>';
-                    echo '<td><a href="'.site_url().'main/deleteuser/'.$row->id.'"><button type="button" class="btn btn-danger">Eliminar</button></a></td>';
+										// echo '<td><a href="'.site_url().'main/deleteuser/'.$row->id.'"><button type="button" class="btn btn-danger">Eliminar</button></a></td>';
+										echo '<td><a href="'.site_url().'main/deleteuser/'.$row->email.'"><button type="button" class="btn btn-danger">Eliminar</button></a></td>';
                     echo '</tr>';
                     }
                 ?>

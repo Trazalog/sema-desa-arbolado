@@ -16,6 +16,10 @@ let OfflinePlugin = require('offline-plugin');
 
 let VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+let WebpackPwaManifest = require('webpack-pwa-manifest');
+
+const CopyPlugin = require('copy-webpack-plugin');
+
 
 
 let pathsToClean = [
@@ -39,6 +43,10 @@ module.exports = [
             DomicilioACensarController: './src/js/controller/DomicilioACensarController.js',
             AreasAsignadasController: './src/js/controller/AreasAsignadasController.js',
             ArbolesCensadosController: './src/js/controller/ArbolesCensadosController.js',
+            MisArbolesCensadosController: './src/js/controller/MisArbolesCensadosController.js',
+            NuevaUbicacionController: './src/js/controller/NuevaUbicacionController.js',
+            ManzanasCensadasController: './src/js/controller/ManzanasCensadasController.js',
+            FormularioController: './src/js/controller/FormularioController.js'
         },
 
         output: {
@@ -255,13 +263,66 @@ module.exports = [
                 chunks: ['core', 'ArbolesCensadosController']
             }),
 
+            new HtmlWebpackPlugin({
+                template: "./view/misArbolesCensados.html",
+                filename: "misArbolesCensados.html",
+                hash: true,
+                chunks: ['core', 'MisArbolesCensadosController']
+            }),
 
-            // IMPORTANTE: Se recomienda incluir el plugin al último del resto.
+            new HtmlWebpackPlugin({
+                template: "./view/nuevaUbicacion.html",
+                filename: "nuevaUbicacion.html",
+                hash: true,
+                chunks: ['core', 'NuevaUbicacionController']
+            }),
+
+            new HtmlWebpackPlugin({
+                template: "./view/manzanasCensadas.html",
+                filename: "manzanasCensadas.html",
+                hash: true,
+                chunks: ['core', 'ManzanasCensadasController']
+            }),
+
+            new HtmlWebpackPlugin({
+                template: "./view/formulario.html",
+                filename: "formulario.html",
+                hash: true,
+                chunks: ['core', 'FormularioController']
+            }),
+
+            new WebpackPwaManifest({
+                name: 'CENSARBO.SAN JUAN',
+                short_name: 'CENSARBO',
+                description: 'CENSARBO.SAN JUAN',
+                background_color: '#fff',
+                crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+                icons: [
+                    {
+                        src: path.resolve('resource/image/main-icon.png'),
+                        sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+                    }
+                ]
+            }),
+
+            // new SWPrecache({
+            //     cacheId: 'dc-covers',
+            //     filepath: 'service-worker.js',
+            //     staticFileGlobs: [
+            //         'index.html',
+            //         'manifest.json',
+            //         'dist/*.{js,css}'
+            //     ],
+            //     stripPrefix: '/'
+            // })
+
+            //IMPORTANTE: Se recomienda incluir el plugin al último del resto.
             new OfflinePlugin({
                 version: '[hash]',
                 responseStrategy: 'network-first',
                 safeToUseOptionalCaches: true,
                 updateStrategy: 'all',
+                /*disableInstall: true,*/
                 autoUpdate: 1000 * 60 * 10, // 10 minutes to refresh
                 excludes: ['**/*.map'], // Don't cache source maps
                 cacheMaps: [
@@ -278,9 +339,11 @@ module.exports = [
                 externals: [
 
                     /* Resources images */
+                    "./resource/image/loading.gif",
                     "./resource/image/main-icon.png",
-                    "./resource/image/default-profile-img_path.png",
+                    "./resource/image/default-profile-img.png",
                     "./resource/image/main-icon-white.png",
+                    "./resource/image/logo-gobierno.png",
 
 
                     /* Resources fonts */
@@ -336,21 +399,40 @@ module.exports = [
                     "./ArbolesCensadosController.js",
                     "./arbolesCensados.html",
 
+                    /* Arboles Mapa Section */
+                    "./MisArbolesCensadosController.js",
+                    "./misArbolesCensados.html",
+
+                    /* Mapa nueva ubicacion */
+                    "./NuevaUbicacionController.js",
+                    "./nuevaUbicacion.html",
+
+                    /* Manzanas Censadas ubicacion */
+                    "./ManzanasCensadasController.js",
+                    "./manzanasCensadas.html",
+
+                    /* Formularios dynamic */
+                    "./FormularioController.js",
+                    "./formulario.html",
+
                     // External or remote
                     "https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
                 ],
                 ServiceWorker: {
                     events: true,
                     output: './sw-arbolado-offline.js',
-                    navigateFallbackURL: '/'
+                    navigateFallbackURL: '/',
+                    scope: '/'
                 },
                 caches:{
                     "main":
                         [
                             /* Resources images */
+                            "./resource/image/loading.gif",
                             "./resource/image/main-icon.png",
                             "./resource/image/default-profile-img.png",
                             "./resource/image/main-icon-white.png",
+                            "./resource/image/logo-gobierno.png",
 
 
                             /* Resources fonts */
@@ -405,6 +487,18 @@ module.exports = [
                             /* Arboles Section */
                             "./ArbolesCensadosController.js",
                             "./arbolesCensados.html",
+
+                            /* Arboles Mapa Section */
+                            "./MisArbolesCensadosController.js",
+                            "./misArbolesCensados.html",
+
+                            /* Mapa nueva ubicacion */
+                            "./NuevaUbicacionController.js",
+                            "./nuevaUbicacion.html",
+
+                            /* Manzanas Censadas ubicacion */
+                            "./ManzanasCensadasController.js",
+                            "./manzanasCensadas.html",
 
                             // External or remote
                             "https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
