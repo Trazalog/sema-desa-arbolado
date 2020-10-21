@@ -60,7 +60,7 @@ end;
 
 /** Intento insertar la direcciòn ya que no existe **/
 insert into arb_direcciones
-(call_id, altura, manz_id, p_barrio)
+(call_id, altura, manz_id, barrio)
 values(v_call_id, p_altura, p_manz_id, p_barrio);
 
 RAISE INFO 'p_calle % - p_altura % - p_manz_id % - p_barrio % -> En bloque 2', p_calle,p_altura,p_manz_id, p_barrio;
@@ -91,7 +91,7 @@ exception
 end;
 
 /** finalmente actualizo la info del arbol **/
-update arb_arboles set nombre = v_nombre , cens_id = p_cens_id, lat = p_lat, long = p_long, tipo = p_tipo, imagen = p_imagen, taza = p_taza ,lat_gps = p_lat_gps, long_gps = p_long_gps where arbo_id = p_arbo_id;
+update arb_arboles set nombre = v_nombre , cens_id = p_cens_id, lat = p_lat, long = p_long, tipo = p_tipo, imagen = p_imagen, taza = p_taza ,lat_gps = p_lat_gps, long_gps = p_long_gps ,dire_id=v_dire_id where arbo_id = p_arbo_id;
 
 return 'OK';
 /** vuelve las transacciones efectuadas si alguna falla **/
@@ -104,3 +104,5 @@ return 'ERROR: '||sqlerrm||' '|| SQLSTATE;
 END; 
  $function$
 ;
+
+
