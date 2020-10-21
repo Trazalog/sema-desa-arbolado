@@ -63,26 +63,39 @@
                <property name="vInfoId" value="0" scope="default" type="STRING" description="Pongo el form id en 0 para la tabla arboles"/>
             </case>
             <default>
-               <payloadFactory media-type="json" description="Instanciar form">
-                  <format>     {     "_post_instanciarform":{     "form_id": $1     }     }    </format>
-                  <args>
-                     <arg evaluator="json" expression="$._post_arbol_set._put_formulario_batch_req.form_id"/>
-                  </args>
-               </payloadFactory>
-               <log level="full" description="antes db"/>
-               <header name="Accept" scope="transport" value="application/json"/>
-               <property name="FORCE_ERROR_ON_SOAP_FAULT" value="true" scope="default" type="STRING"/>
-               <call>
-                  <endpoint key="Instanciarform"/>
-               </call>
-               <log level="custom" description="post db">
-                  <property name="info_id" expression="json-eval($.GeneratedKeys.Entry[0].ID)"/>
-               </log>
-               <log level="full" description="TODO POST db"/>
-               <property name="vInfoId" expression="json-eval($.GeneratedKeys.Entry[0].ID)" type="STRING" description="Instancia Form Id"/>
+               <filter xpath="//info_id[1][text()!='0']">
+                  <then>
+                     <log level="custom" description="info_id_recibido">
+                        <property name="info_id_recibido" expression="json-eval($..info_id[0])"/>
+                     </log>
+                     <property name="vInfoId" expression="json-eval($..info_id[0])" type="STRING" description="Instancia Form Id"/>
+                  </then>
+                  <else>
+                     <payloadFactory media-type="json" description="Instanciar form">
+                        <format>     {     "_post_instanciarform":{     "form_id": $1     }     }    </format>
+                        <args>
+                           <arg evaluator="json" expression="$._post_arbol_set._put_formulario_batch_req.form_id"/>
+                        </args>
+                     </payloadFactory>
+                     <log level="full" description="antes db"/>
+                     <header name="Accept" scope="transport" value="application/json"/>
+                     <property name="FORCE_ERROR_ON_SOAP_FAULT" value="true" scope="default" type="STRING"/>
+                     <call>
+                        <endpoint key="Instanciarform"/>
+                     </call>
+                     <log level="custom" description="post db">
+                        <property name="info_id_generado" expression="json-eval($.GeneratedKeys.Entry[0].ID)"/>
+                     </log>
+                     <log level="full" description="TODO POST db"/>
+                     <property name="vInfoId" expression="json-eval($.GeneratedKeys.Entry[0].ID)" type="STRING" description="Instancia Form Id"/>
+                  </else>
+               </filter>
                <script language="js" description="add info id">try{    var log = mc.getServiceLog();         var infoId = parseInt(mc.getProperty("vInfoId"));                     var payloadtmp = mc.getProperty("ORIGINAL_PAYLOAD");              try{  var payload = JSON.parse(payloadtmp);              }catch(error1){  log.error("ERROR PARSEANDO JSON:" + error1); } var results =  payload._post_arbol_set._put_formulario_batch_req;           var response = new Array();           for (i = 0; i &lt; results._put_formulario.length; ++i)     {               location_object = results._put_formulario[i];                 var l = new Object();                 l.name = location_object.name;                 l.valor = location_object.valor;                 l.info_id = Math.floor(infoId);                 response[i] = l;          }          var responsePadre = new Object();          var responseArray = new Object;          responseArray._put_formulario = response;          responsePadre._put_formulario_batch_req = responseArray ;             mc.setPayloadJSON(responsePadre);}catch(error){   mc.setProperty("ERROR_JS",error);   log.error("ERROR GENERAL AGREGANDO INFO_ID:"+error);}</script>
                <log level="custom" description="RESULTADO JS">
                   <property name="ERROR_JS" expression="get-property('ERROR_JS')"/>
+               </log>
+               <log level="custom" description="JSON JS">
+                  <property name="PAYLOAD_JS" expression="get-property('PAYLOAD_JS')"/>
                </log>
                <log level="full" description="post instanciar"/>
                <header name="Accept" scope="transport" value="application/json"/>
@@ -95,7 +108,7 @@
          </switch>
          <script language="js" description="set payload in body">mc.setPayloadJSON(JSON.parse(mc.getProperty("ORIGINAL_PAYLOAD")));</script>
          <payloadFactory media-type="json" description="Crear arbol">
-            <format>     {             "_post_arbol":{      "calle": "$1",      "altura": "$2",      "manz_id": "$3",      "nombre": "$4",      "info_id": "$5",      "cens_id": "$6",      "lat": "$7",      "long": "$8",      "tipo": "$9",      "imagen":"$10",      "taza":"$11",      "barrio":"$12"      }          }            </format>
+            <format>     {             "_post_arbol":{      "calle": "$1",      "altura": "$2",      "manz_id": "$3",      "nombre": "$4",      "info_id": "$5",      "cens_id": "$6",      "lat": "$7",      "long": "$8",      "tipo": "$9",      "imagen":"$10",      "taza":"$11",      "barrio":"$12",      "lat_gps":"$13"    ,      "long_gps":"$14"          }          }            </format>
             <args>
                <arg evaluator="json" expression="$._post_arbol_set.calle"/>
                <arg evaluator="json" expression="$._post_arbol_set.altura"/>
@@ -109,6 +122,8 @@
                <arg evaluator="json" expression="$._post_arbol_set.imagen"/>
                <arg evaluator="json" expression="$._post_arbol_set.taza"/>
                <arg evaluator="json" expression="$._post_arbol_set.barrio"/>
+               <arg evaluator="json" expression="$._post_arbol_set.lat_gps"/>
+               <arg evaluator="json" expression="$._post_arbol_set.long_gps"/>
             </args>
          </payloadFactory>
          <log level="full" description="Antes send"/>
