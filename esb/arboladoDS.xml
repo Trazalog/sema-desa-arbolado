@@ -288,7 +288,7 @@
       <param name="valor" sqlType="STRING"/>
    </query>
    <query id="listadoArbolEspecies" useConfig="arbolado">
-      <sql>select &#xd;  tabl_id,tabla,valor as nombre &#xd;from &#xd;  utl_tablas &#xd;where &#xd;  tabla = 'tipo_arbol'&#xd;and&#xd;  eliminado = 0</sql>
+      <sql>select &#xd;  tabl_id,tabla,valor as nombre &#xd;from &#xd;  utl_tablas &#xd;where &#xd;  tabla = 'tipo_arbol'&#xd;and&#xd;  eliminado = 0&#xd;order by valor</sql>
       <result outputType="json">{&#xd;   "arboles":{&#xd;       "arbol":[&#xd;        {&#xd;          "id":"$tabl_id",&#xd;          "tabla":"$tabla",&#xd;          "nombre":"$nombre"&#xd;        }&#xd;       ]&#xd;   }&#xd;  }&#xd;}</result>
    </query>
    <query id="arbolEspecieEliminar" useConfig="arbolado">
