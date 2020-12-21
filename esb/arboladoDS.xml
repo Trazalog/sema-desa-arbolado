@@ -71,7 +71,7 @@
       <param name="info_id" sqlType="STRING"/>
    </query>
    <query id="valoresValidos" useConfig="arbolado">
-      <sql>SELECT &#xd;     tabla as label, valor as value&#xd;FROM &#xd;     utl_tablas where tabla = :valo_id</sql>
+      <sql>SELECT &#xd;     tabla as label, valor as value&#xd;FROM &#xd;     utl_tablas where tabla = :valo_id&#xd;order by valor</sql>
       <result outputType="json">{&#xd;   "valores":{&#xd;      "valor":[&#xd;         {&#xd;            "value":"$value",&#xd;            "label":"$label"&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
       <param name="valo_id" sqlType="STRING"/>
    </query>
