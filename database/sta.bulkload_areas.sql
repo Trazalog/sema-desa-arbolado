@@ -1,5 +1,5 @@
-CREATE OR REPLACE FUNCTION sta.bulkload_areas(p_archivo character varying, p_depa_id integer, p_cens_id integer)
-  RETURNS boolean
+CREATE OR REPLACE FUNCTION sta.bulkload_areas(p_archivo character varying, p_depa_id integer)
+ RETURNS boolean
  LANGUAGE plpgsql
 AS $function$
 	DECLARE 
@@ -19,7 +19,7 @@ AS $function$
 		 * 	con columnas "AREA GEOGRAFICA","MANZANAS"
 		 * la primer fila de csv debe tener estos nombres no importa el orden
 		 */
-	    RAISE INFO 'BULKAG: Cargando archivo % para cens % y depa %',p_archivo,p_cens_id,p_depa_id;
+	    RAISE INFO 'BULKAG: Cargando archivo % y depa %',p_archivo,p_depa_id;
 
 		BEGIN
 
@@ -36,16 +36,14 @@ AS $function$
 				fetch cur_areacsv into v_area_aux,v_manzanas_aux;
 				exit when NOT FOUND;
 	    		
-				RAISE INFO 'BULKAG: Procesando registro  %-%-%-%',v_area_aux,v_manzanas_aux,p_cens_id,p_depa_id;
+				RAISE INFO 'BULKAG: Procesando registro  %-%-%',v_area_aux,v_manzanas_aux,p_depa_id;
 				
 				with inserted_arge as (
 					insert into public.arb_areas_geograficas 
 						   (nombre,
-							depa_id,
-							cens_id)
+							depa_id)
 					values(v_area_aux,
-					p_depa_id,
-					p_cens_id)
+					p_depa_id)
 				    returning arge_id		
 				)
 
@@ -90,3 +88,4 @@ AS $function$
 END;
 $function$
 ;
+
