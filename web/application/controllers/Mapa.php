@@ -9,7 +9,7 @@ class Mapa extends CI_Controller
       $this->load->helper('file');
       $this->load->model('Mapas');
       $this->load->model('Censos');
-
+      
       if (!isset($this->session->userdata['first_name']) || $this->session->userdata['direccion'] != 'sema-desa-arbolado/web/Dash') {
          $this->session->set_userdata('direccionsalida', 'sema-desa-arbolado/web/Login');
          logout();

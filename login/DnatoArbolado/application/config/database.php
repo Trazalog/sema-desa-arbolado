@@ -70,27 +70,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'default';
-$query_builder = TRUE;
 
+$active_group = 'default';
+$query_builder = true;
 $db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '1234',
-	'database' => 'usuariosarbolado',
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
+    'hostname' => '10.142.0.13',
+    'username' => 'root',
+    'password' => '!Password00',
+    'database' => 'dnato',
+    'dbdriver' => 'mysqli', //mysqli
+    'dbprefix' => '',
+    'pconnect' => false,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    'cache_on' => false,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt' => false,
+    'compress' => false,
+    'stricton' => false,
+    'failover' => array(),
+    'save_queries' => true,
+    'port' => '3306',
+    'dsn' => 'pgsql:host=10.142.0.13;port=3306;dbname=arbolado_d',
 );
+ 

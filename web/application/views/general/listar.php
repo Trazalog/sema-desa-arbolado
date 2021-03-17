@@ -97,9 +97,15 @@
   </body>
   <script>
   
-  
-  $('#tabla_lista').dataTable();
- 
+  $(document).ready(function() {
+        $('#tabla_lista').DataTable({
+            responsive: true,
+            language: {
+                url: '<?php base_url() ?>lib/bower_components/datatables.net/js/es-ar.json' //Ubicacion del archivo con el json del idioma.
+            }
+        });
+    });
+
                     
   function Nuevo(nombre)
   {
