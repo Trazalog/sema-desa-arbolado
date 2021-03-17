@@ -10,7 +10,7 @@
         </a>
         <ul class="treeview-menu">
             <!-- <li><a href="#" class="link" data-link="Censista"><i class="fa fa-fw fa-cubes"></i>Censistas</a></li> -->
-            <li><a href="#" class="link" data-link="Area"><i class="fa fa-fw fa-map"></i> Areas Gerograficas</a></li>
+            <li><a href="#" class="link" data-link="Area"><i class="fa fa-fw fa-map"></i> Areas Geográficas</a></li>
             <li><a href="#" class="link" data-link="Departamento"><i class="fa fa-fw fa-cubes"></i> Departamentos</a></li>
             <li><a href="#" class="link" data-link="Manzana"><i class="fa fa-fw fa-cubes"></i> Manzanas</a></li>
             <li><a href="#" class="link" data-link="Calle"><i class="glyphicon glyphicon-road "></i> Calles</a> </li>
@@ -30,15 +30,15 @@
         </ul>
     </li>
     <li class="treeview">
-        <a href="#">
+         <a href="#">
             <i class="fa  fa-circle-o"></i> <span>Reportes</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">            
-            <!-- <li><a href="#" class="link" data-link="Censo"><i class="fa fa-bar-chart"></i>Lista Censos</a></li>
-            </li> -->
+             <li><a href="#" class="link" data-link="Reporte"><i class="fa fa-bar-chart"></i>Reporte Gral. 1</a></li>
+            </li> 
         </ul>
     </li>
     <li><a href="#" class="link" data-link="Mapa"><i class="fa fa-fw fa-map"></i> Mapa</a></li>

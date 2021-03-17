@@ -82,7 +82,16 @@ $this->load->view('area/modal_censista')
 </body>
 
 <script>
-	$('#censos').DataTable();
+//	$('#censos').DataTable();
+$(document).ready(function() {
+        $('#censos').DataTable({
+            responsive: true,
+            language: {
+                url: '<?php base_url() ?>lib/bower_components/datatables.net/js/es-ar.json' //Ubicacion del archivo con el json del idioma.
+            }
+        });
+    });
+
 	$(document).off('click', '.asignar_censista').on('click', '.asignar_censista', function() {
 			TrActual = $(this).parents('tr');
 			$('#modal_censista').modal('show');
@@ -98,6 +107,7 @@ $this->load->view('area/modal_censista')
 	}
 
 	var tablaCensos = $('#censos').DataTable();
+	tablaCensos.destroy();
 	function buscaCensos() {
 			id = document.getElementById('Nombre').value; 
 			tablaCensos.clear().draw();
