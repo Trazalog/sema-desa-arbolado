@@ -1,0 +1,78 @@
+<data enableBatchRequests="true" enableBoxcarring="true" name="arboladoReportsDS" transports="http https local">
+   <config enableOData="false" id="arbolado">
+      <property name="carbon_datasource_name">SEMAArboladoDataSource</property>
+   </config>
+   <query id="getArbolesYForms" useConfig="arbolado">
+      <sql>select&#xd;	arb.arbo_id ,&#xd;	arb.fec_alta fecha ,&#xd;	dep.nombre departamento ,&#xd;	ag.nombre area_geografica ,&#xd;	man.nombre manzana ,&#xd;	arb.lat || ',' || arb.long lat_long ,&#xd;	arb.lat_gps || ',' || arb.long_gps lat_long_gps ,&#xd;	cal.nombre calle ,&#xd;	dir.altura altura ,&#xd;	dir.barrio barrio ,&#xd;	arb.taza taza ,&#xd;	usu.nom_usuario || ' ' || usu.ape_usuario censista ,&#xd;	case&#xd;		when arb.nombre != 'OTRO'&#xd;		and arb.nombre != 'Seleccione la opción deseada' then arb.nombre&#xd;		else frm."NOMBRE_COMUN___CIENTIFICO" end especie ,&#xd;		frm.*&#xd;	from&#xd;		arb_arboles arb,&#xd;		arb_areas_geograficas ag ,&#xd;		arb_departamentos dep ,&#xd;		arb_direcciones dir ,&#xd;		arb_calles cal ,&#xd;		arb_manzanas man ,&#xd;		arb_censos_usuarios_areas cua ,&#xd;		arb_usuarios usu ,&#xd;		arb_formularios_vw frm&#xd;	where&#xd;		arb.dire_id = dir.dire_id&#xd;		and dir.manz_id = man.manz_id&#xd;		and man.manz_id in (:manz_id_list)&#xd;		and man.arge_id = ag.arge_id&#xd;		and dir.call_id = cal.call_id&#xd;		and cal.depa_id = dep.depa_id&#xd;		and dep.depa_id in (:depa_id_list)&#xd;		and cua.arge_id = ag.arge_id&#xd;		and ag.arge_id in (:arge_id_list)&#xd;		and cua.cens_id = arb.cens_id&#xd;		and cua.usua_id = usu.usua_id&#xd;		and arb.cens_id = cast(:cens_id as integer)&#xd;		and frm.info_id = arb.info_id&#xd;		and arb.fec_alta between to_date(:fec_desde, 'YYYY-MM-DD') and to_date(:fec_hasta, 'YYYY-MM-DD')&#xd;order by fec_alta</sql>
+      <result outputType="json">{   "arboles":{      "arbol":[         {            "arbo_id":"$arbo_id",                       "fecha":"$fecha",            "departamento":"$departamento",            "area_geografica":"$area_geografica",            "manzana":"$manzana",            "lat_long":"$lat_long",            "lat_long_gps":"$lat_long_gps",            "calle":"$calle",            "altura":"$altura",            "barrio":"$barrio",            "taza":"$taza",            "censista":"$censista",            "especie":"$especie",                       "NOMBRE_COMUN___CIENTIFICO":"$NOMBRE_COMUN___CIENTIFICO",            "OTRO":"$OTRO",            "ALINEACION_DEL_ARBOL":"$ALINEACION_DEL_ARBOL",            "ALTURA_TOTAL__M_":"$ALTURA_TOTAL__M_",            "ALTURA_DEL_FUSTE__M_":"$ALTURA_DEL_FUSTE__M_",            "CIRCUNFERENCIA_ALTURA_PECHO__CM__CAP":"$CIRCUNFERENCIA_ALTURA_PECHO__CM__CAP",            "ALTURA_MEDICION_DEL_CAP":"$ALTURA_MEDICION_DEL_CAP",            "COPA__M__-_MEDIDA_1":"$COPA__M__-_MEDIDA_1",            "COPA__M__-_MEDIDA_2":"$COPA__M__-_MEDIDA_2",            "DESCUBIERTAS":"$DESCUBIERTAS",            "CUELLO_VISIBLE":"$CUELLO_VISIBLE",            "LEVANTAMIENTO_DE_VEREDAS":"$LEVANTAMIENTO_DE_VEREDAS",            "LEVANTAMIENTO_DE_PAVIMENTO":"$LEVANTAMIENTO_DE_PAVIMENTO",            "UNICO":"$UNICO",            "BIFURCADO":"$BIFURCADO",            "INCLINACION_MAYOR_A_45_":"$INCLINACION_MAYOR_A_45_",            "DESCORTEZAMIENTO":"$DESCORTEZAMIENTO",            "FRUCTIFICACIONES_FUNGICAS":"$FRUCTIFICACIONES_FUNGICAS",            "DEFORMACION":"$DEFORMACION",            "CODOMINANCIA":"$CODOMINANCIA",            "BASAL":"$BASAL",            "ALTA":"$ALTA",            "MEDIA":"$MEDIA",            "BAJAS":"$BAJAS",            "SECAS":"$SECAS",            "QUEBRADAS":"$QUEBRADAS",            "CODOMINANTES":"$CODOMINANTES",            "AGALLA_CANCROS":"$AGALLA_CANCROS",            "DESCOPADO_Y_BROTACION":"$DESCOPADO_Y_BROTACION",            "CLOROSIS":"$CLOROSIS",            "DENSIDAD_DEL_FOLLAJE":"$DENSIDAD_DEL_FOLLAJE",            "ESTADO_SANITARIO_GENERAL":"$ESTADO_SANITARIO_GENERAL",            "ACEQUIA":"$ACEQUIA",            "POSTES_CERCA":"$POSTES_CERCA",            "VEREDA":"$VEREDA",            "INTERFIERE_CABLES":"$INTERFIERE_CABLES",            "TAPA_DE_TAZA_INSCRUSTADA":"$TAPA_DE_TAZA_INSCRUSTADA",            "OBSERVACIONES":"$OBSERVACIONES"         }      ]   }}      </result>
+      <param name="cens_id" sqlType="STRING"/>
+      <param name="fec_desde" sqlType="STRING"/>
+      <param name="fec_hasta" sqlType="STRING"/>
+      <param name="manz_id_list" optional="false" paramType="ARRAY" sqlType="INTEGER"/>
+      <param name="depa_id_list" optional="false" paramType="ARRAY" sqlType="INTEGER"/>
+      <param name="arge_id_list" optional="false" paramType="ARRAY" sqlType="INTEGER"/>
+   </query>
+   <query id="getArboles" useConfig="arbolado">
+      <sql>select&#xd;	arb.arbo_id ,&#xd;	arb.fec_alta fecha ,&#xd;	dep.nombre departamento ,&#xd;	ag.nombre area_geografica ,&#xd;	man.nombre manzana ,&#xd;	arb.lat || ',' || arb.long lat_long ,&#xd;	arb.lat_gps || ',' || arb.long_gps lat_long_gps ,&#xd;	cal.nombre calle ,&#xd;	dir.altura altura ,&#xd;	dir.barrio barrio ,&#xd;	arb.taza taza ,&#xd;	usu.nom_usuario || ' ' || usu.ape_usuario censista ,&#xd;	case&#xd;		when arb.nombre != 'OTRO'&#xd;		and arb.nombre != 'Seleccione la opción deseada' then arb.nombre&#xd;		else frm."NOMBRE_COMUN___CIENTIFICO" end especie &#xd;	from&#xd;		arb_arboles arb,&#xd;		arb_areas_geograficas ag ,&#xd;		arb_departamentos dep ,&#xd;		arb_direcciones dir ,&#xd;		arb_calles cal ,&#xd;		arb_manzanas man ,&#xd;		arb_censos_usuarios_areas cua ,&#xd;		arb_usuarios usu ,&#xd;		arb_formularios_vw frm&#xd;	where&#xd;		arb.dire_id = dir.dire_id&#xd;		and dir.manz_id = man.manz_id&#xd;		and man.manz_id in (:manz_id_list)&#xd;		and man.arge_id = ag.arge_id&#xd;		and dir.call_id = cal.call_id&#xd;		and cal.depa_id = dep.depa_id&#xd;		and dep.depa_id in (:depa_id_list)&#xd;		and cua.arge_id = ag.arge_id&#xd;		and ag.arge_id in (:arge_id_list)&#xd;		and cua.cens_id = arb.cens_id&#xd;		and cua.usua_id = usu.usua_id&#xd;		and arb.cens_id = cast(:cens_id as integer)&#xd;		and frm.info_id = arb.info_id&#xd;		and arb.fec_alta between to_date(:fec_desde, 'YYYY-MM-DD') and to_date(:fec_hasta, 'YYYY-MM-DD')&#xd;        order by info_id</sql>
+      <result outputType="json">{&#xd;   "arboles":{&#xd;      "arbol":[&#xd;         {&#xd;            "arbo_id":"$arbo_id",&#xd;            "fecha":"$fecha",&#xd;            "departamento":"$departamento",&#xd;            "area_geografica":"$area_geografica",&#xd;            "manzana":"$manzana",&#xd;            "lat_long":"$lat_long",&#xd;            "lat_long_gps":"$lat_long_gps",&#xd;            "calle":"$calle",&#xd;            "altura":"$altura",&#xd;            "barrio":"$barrio",&#xd;            "taza":"$taza",&#xd;            "censista":"$censista",&#xd;            "especie":"$especie"&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+      <param name="depa_id_list" optional="false" paramType="ARRAY" sqlType="INTEGER"/>
+      <param name="cens_id" sqlType="STRING"/>
+      <param name="manz_id_list" optional="false" paramType="ARRAY" sqlType="INTEGER"/>
+      <param name="arge_id_list" optional="false" sqlType="INTEGER"/>
+      <param name="fec_desde" sqlType="STRING"/>
+      <param name="fec_hasta" sqlType="STRING"/>
+   </query>
+   <query id="getArbolesFiltrosAvanzados" useConfig="arbolado">
+      <sql>select&#xd;	arb.arbo_id ,&#xd;	arb.fec_alta fecha ,&#xd;	dep.nombre departamento ,&#xd;	ag.nombre area_geografica ,&#xd;	man.nombre manzana ,&#xd;	arb.lat || ',' || arb.long lat_long ,&#xd;	arb.lat_gps || ',' || arb.long_gps lat_long_gps ,&#xd;	cal.nombre calle ,&#xd;	dir.altura altura ,&#xd;	dir.barrio barrio ,&#xd;	arb.taza taza ,&#xd;	usu.nom_usuario || ' ' || usu.ape_usuario censista ,&#xd;	case&#xd;		when arb.nombre != 'OTRO'&#xd;		and arb.nombre != 'Seleccione la opción deseada' then arb.nombre&#xd;		else frm."NOMBRE_COMUN___CIENTIFICO" end especie ,&#xd;		arb.taza,&#xd;		frm."ALINEACION_DEL_ARBOL",&#xd;                frm."ESTADO_SANITARIO_GENERAL",&#xd;                frm."TAPA_DE_TAZA_INSCRUSTADA",&#xd;                frm."ACEQUIA"&#xd;	from&#xd;		arb_arboles arb,&#xd;		arb_areas_geograficas ag ,&#xd;		arb_departamentos dep ,&#xd;		arb_direcciones dir ,&#xd;		arb_calles cal ,&#xd;		arb_manzanas man ,&#xd;		arb_censos_usuarios_areas cua ,&#xd;		arb_usuarios usu ,&#xd;		arb_formularios_vw frm&#xd;	where&#xd;		arb.dire_id = dir.dire_id&#xd;		and dir.manz_id = man.manz_id&#xd;		and man.manz_id in (:manz_id_list)&#xd;		and man.arge_id = ag.arge_id&#xd;		and dir.call_id = cal.call_id&#xd;		and cal.call_id in (:call_id_list)&#xd;		and cal.depa_id = dep.depa_id&#xd;		and dep.depa_id in (:depa_id_list)&#xd;		and cua.arge_id = ag.arge_id&#xd;		and ag.arge_id in (:arge_id_list)&#xd;		and cua.cens_id = arb.cens_id&#xd;		and cua.usua_id = usu.usua_id&#xd;		and arb.cens_id = cast(:cens_id as integer)&#xd;		and frm.info_id = arb.info_id&#xd;		and arb.taza in (:taza_list)		&#xd;		and frm."ALINEACION_DEL_ARBOL" in (:alineacion_list)&#xd;        and frm."ESTADO_SANITARIO_GENERAL" in (:estado_list)&#xd;        and frm."TAPA_DE_TAZA_INSCRUSTADA" in (:tapa_list)&#xd;        and frm."ACEQUIA" in (:acequia_list)&#xd;&#xd;		and arb.fec_alta between to_date(:fec_desde, 'YYYY-MM-DD') and to_date(:fec_hasta, 'YYYY-MM-DD')&#xd;        order by info_id</sql>
+      <result outputType="json">{&#xd;   "arboles":{&#xd;      "arbol":[&#xd;         {&#xd;            "arbo_id":"$arbo_id",&#xd;            "fecha":"$fecha",&#xd;            "departamento":"$departamento",&#xd;            "area_geografica":"$area_geografica",&#xd;            "manzana":"$manzana",&#xd;            "lat_long":"$lat_long",&#xd;            "lat_long_gps":"$lat_long_gps",&#xd;            "calle":"$calle",&#xd;            "altura":"$altura",&#xd;            "barrio":"$barrio",&#xd;            "taza":"$taza",&#xd;            "censista":"$censista",&#xd;            "especie":"$especie",&#xd;            "info_id":"$info_id",&#xd;            "ALINEACION_DEL_ARBOL":"$ALINEACION_DEL_ARBOL",&#xd;            "ESTADO_SANITARIO_GENERAL":"$ESTADO_SANITARIO_GENERAL",&#xd;            "ACEQUIA":"$ACEQUIA",&#xd;            "POSTES_CERCA":"$POSTES_CERCA",&#xd;            "TAPA_DE_TAZA_INSCRUSTADA":"$TAPA_DE_TAZA_INSCRUSTADA"&#xd;         }&#xd;      ]&#xd;   }&#xd;}</result>
+      <param name="cens_id" sqlType="STRING"/>
+      <param name="fec_desde" sqlType="STRING"/>
+      <param name="fec_hasta" sqlType="STRING"/>
+      <param name="manz_id_list" optional="false" paramType="ARRAY" sqlType="INTEGER"/>
+      <param name="depa_id_list" optional="false" paramType="ARRAY" sqlType="INTEGER"/>
+      <param name="arge_id_list" optional="false" paramType="ARRAY" sqlType="INTEGER"/>
+      <param name="call_id_list" optional="false" paramType="ARRAY" sqlType="INTEGER"/>
+      <param name="taza_list" optional="false" paramType="ARRAY" sqlType="STRING"/>
+      <param name="alineacion_list" optional="false" paramType="ARRAY" sqlType="STRING"/>
+      <param name="estado_list" optional="false" paramType="ARRAY" sqlType="STRING"/>
+      <param name="tapa_list" optional="false" paramType="ARRAY" sqlType="STRING"/>
+      <param name="acequia_list" optional="false" paramType="ARRAY" sqlType="STRING"/>
+   </query>
+   <resource method="GET" path="/arboles/cens_id/{cens_id}/fec_desde/{fec_desde}/fec_hasta/{fec_hasta}?depa_id_list={depa_id_list}&amp;arge_id_list={arge_id_list}&amp;manz_id_list={manz_id_list}">
+      <call-query href="getArbolesYForms">
+         <with-param name="cens_id" query-param="cens_id"/>
+         <with-param name="fec_desde" query-param="fec_desde"/>
+         <with-param name="fec_hasta" query-param="fec_hasta"/>
+         <with-param name="manz_id_list" query-param="manz_id_list"/>
+         <with-param name="depa_id_list" query-param="depa_id_list"/>
+         <with-param name="arge_id_list" query-param="arge_id_list"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="/arboles3/cens_id/{cens_id}/fec_desde/{fec_desde}/fec_hasta/{fec_hasta}?depa_id_list={depa_id_list}&amp;arge_id_list={arge_id_list}&amp;manz_id_list={manz_id_list}">
+      <call-query href="getArboles">
+         <with-param name="depa_id_list" query-param="depa_id_list"/>
+         <with-param name="cens_id" query-param="cens_id"/>
+         <with-param name="manz_id_list" query-param="manz_id_list"/>
+         <with-param name="arge_id_list" query-param="arge_id_list"/>
+         <with-param name="fec_desde" query-param="fec_desde"/>
+         <with-param name="fec_hasta" query-param="fec_hasta"/>
+      </call-query>
+   </resource>
+   <resource method="GET" path="/arboles2/cens_id/{cens_id}/fec_desde/{fec_desde}/fec_hasta/{fec_hasta}?depa_id_list={depa_id_list}&amp;arge_id_list={arge_id_list}&amp;manz_id_list={manz_id_list}&amp;call_id_list={call_id_list}&amp;taza_list={taza_list}&amp;alineacion_list={alineacion_list}&amp;estado_list={estado_list}&amp;tapa_list={tapa_list}&amp;acequia_list={acequia_list}">
+      <call-query href="getArbolesFiltrosAvanzados">
+         <with-param name="cens_id" query-param="cens_id"/>
+         <with-param name="fec_desde" query-param="fec_desde"/>
+         <with-param name="fec_hasta" query-param="fec_hasta"/>
+         <with-param name="manz_id_list" query-param="manz_id_list"/>
+         <with-param name="depa_id_list" query-param="depa_id_list"/>
+         <with-param name="arge_id_list" query-param="arge_id_list"/>
+         <with-param name="call_id_list" query-param="call_id_list"/>
+         <with-param name="taza_list" query-param="taza_list"/>
+         <with-param name="alineacion_list" query-param="alineacion_list"/>
+         <with-param name="estado_list" query-param="estado_list"/>
+         <with-param name="tapa_list" query-param="tapa_list"/>
+         <with-param name="acequia_list" query-param="acequia_list"/>
+      </call-query>
+   </resource>
+</data>
+
