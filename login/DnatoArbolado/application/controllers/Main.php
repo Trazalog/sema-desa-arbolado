@@ -66,7 +66,7 @@ class Main extends CI_Controller {
 					
 					
 						//redirect($config['base_url']./.$this->session->userdata['direccion']);
-						redirect('http://localhost/'.$this->session->userdata['direccion']);
+						redirect(HOST.$this->session->userdata['direccion']);
 					
 						
 					}
@@ -800,8 +800,8 @@ class Main extends CI_Controller {
         $dir = $this->session->userdata['direccionsalida'];
         $this->session->sess_destroy();
        // redirect(site_url().'main/login');
-        redirect($config['base_url'].'/'.$dir);
-        // rruiz redirect('http://localhost/'.$dir);
+        //redirect($config['base_url'].'/'.$dir);
+        redirect(HOST.$dir);
     }   
 
     //forgot password
