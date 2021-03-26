@@ -41,5 +41,10 @@ class Arbol extends CI_Controller {
     $response = $this->Arboles->borrar($id);
     echo json_encode($response);
   }
+
+  function editar(){
+		$resp = $this->Arboles->editar($this->input->post('data'));
+		echo json_encode($resp);
+	}
 }
 ?>

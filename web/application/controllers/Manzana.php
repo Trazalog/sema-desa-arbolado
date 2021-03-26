@@ -39,12 +39,17 @@ class Manzana extends CI_Controller {
 			// respuesta ->manz_id
       $response = $this->Manzanas->Guardar_Nuevo($data)->respuesta->manz_id;
       echo json_encode($response);
-	}
+	 }
 	 
    function borrar(){		 
       $response = $this->Manzanas->borrar($this->input->post('id'));
       return json_encode($response);
    }
+
+	function editar(){
+		$resp = $this->Manzanas->editar($this->input->post('data'));
+		echo json_encode($resp);
+	}
 }
 ?>
 

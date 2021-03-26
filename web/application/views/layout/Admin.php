@@ -57,7 +57,7 @@
 
 </head>
 
-
+<?php $this->load->view('layout/wait') ?>
 
 <body class="hold-transition skin-green sidebar-mini"></body>
 <div class="wrapper">
