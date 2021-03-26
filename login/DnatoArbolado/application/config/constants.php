@@ -86,5 +86,5 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 
 /** variables hosting y dataservices locales */
-define('REST', 'http://pc-pc:8280/services/arboladoDS');
+define('REST', 'http://10.142.0.13/services/arboladoDS');
 define('HOST', 'http://localhost/');

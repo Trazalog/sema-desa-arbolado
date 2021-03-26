@@ -1,15 +1,14 @@
 <?php 
-$this->load->view('area/modal_censista')
+$this->load->view('censo/modal_censista');
+$this->load->view('censo/modal_editar');
 ?>
-
-
 
 <div class="box">
 
     <div class="box-header bg-green">
         <h3 class="box-title"><?php echo $titulo;?></h3>
-
     </div><!-- /.box-header -->
+
     <div class="box-body">
         <form role="form" id="formulario">
 
@@ -64,13 +63,7 @@ $this->load->view('area/modal_censista')
             </div>
 
             <!-- _________________SEPARADOR_________________ -->
-            <div class="row">
-
-                <!-- <div class="col-md-12">
-                    <button type="button" class="btn btn-primary pull-right"
-												onclick="Guardar('<?php //echo $nombre;?>')">Aceptar</button>									
-								</div> -->
-						</div>
+            <div class="row">	</div>
 						
         </form>
 
@@ -82,15 +75,15 @@ $this->load->view('area/modal_censista')
 </body>
 
 <script>
-//	$('#censos').DataTable();
-$(document).ready(function() {
-        $('#censos').DataTable({
-            responsive: true,
-            language: {
-                url: '<?php base_url() ?>lib/bower_components/datatables.net/js/es-ar.json' //Ubicacion del archivo con el json del idioma.
-            }
-        });
-    });
+
+	$(document).ready(function() {
+					$('#censos').DataTable({
+							responsive: true,
+							language: {
+									url: '<?php base_url() ?>lib/bower_components/datatables.net/js/es-ar.json' //Ubicacion del archivo con el json del idioma.
+							}
+					});
+	});
 
 	$(document).off('click', '.asignar_censista').on('click', '.asignar_censista', function() {
 			TrActual = $(this).parents('tr');
@@ -102,7 +95,7 @@ $(document).ready(function() {
 		if(id<=0 || id==null){
 			alert("Debe seleccionar un censo para poder agregar Area..")
 		}else{
-			$('#modal_areas_asignar').modal('show');		
+			$('#modal_areas_asignar').modal('show');
 		}
 	}
 
@@ -129,7 +122,7 @@ $(document).ready(function() {
 													tr = "";
 													tr += "<tr class='"+ censos[i].idrelacion +"' id='" + censos[i].idcenso + "' data-json='" + JSON.stringify(censos[i]) +
 															"'>";
-													tr += '<td><i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';                        
+													tr += '<td><i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';
 													tr +=
 															'<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="eliminar('+censos[i].idrelacion+')"></i>';
 													tr +=
@@ -156,22 +149,36 @@ $(document).ready(function() {
 	}
 
 	function eliminar(idrelacion){
-		alert(idrelacion);
+
 		$.ajax({
 					type: 'POST',
 					data: {
-						idrelacion: idrelacion           
+						idrelacion: idrelacion
 					},
 					url: 'Censo/eliminar',
 					success: function(result) {
 							if(result<300){
-								$('#censos tbody').find('tr.'+idrelacion).remove();								
+								$('#censos tbody').find('tr.'+idrelacion).remove();
 							}							
 					},
 					error: function() {
 							alert('No se pudo eliminar el censo...');
 					}
-		});  
-
+		});
 	}
+
+	// levanta modal editar y lo llena
+	$(document).off('click', '.fa-pencil').on('click', '.fa-pencil', function() {
+
+			row = $(this).parents('tr').attr('data-json');
+			info = JSON.parse(row);
+			$("#selectDepto_editar").prop('disabled', 'disabled');
+			$("#selectDepto_editar option[value='"+ info.iddepartamento +"']").prop("selected",true);
+			fillSelectArea(info.idareageo);
+			alert(info.idrelacion);
+			idrel = info.idrelacion;
+			$("input#id_relacion").val(idrel);
+			$('#modal_editar').modal('show');
+	});
+
 </script>

@@ -20,10 +20,10 @@ class Area extends CI_Controller {
 	///////////// INDEX ///////////////
 	function index(){
 
-		$data['lista'] = $this->Areas->listar()->areas->area;	
+		$data['lista'] = $this->Areas->listar()->areas->area;
 		$data['titulo'] = 'ABM Areas geograficas';
 		$data['nombre'] = 'Area geografica';
-		$this->load->view('area/listar',$data);		
+		$this->load->view('area/listar',$data);
 	}
 	///////////// NUEVO ABM REGISTRO ///////////////	
 	function Nuevo(){
@@ -65,5 +65,9 @@ class Area extends CI_Controller {
 		echo json_encode($response);
 	}
 
+	function editar(){
+		$response = $this->Areas->editar($this->input->post());
+		echo json_encode($response);
+	}
 }
 ?>

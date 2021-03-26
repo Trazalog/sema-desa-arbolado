@@ -41,10 +41,15 @@ class Calle extends CI_Controller {
      $response = $this->Calles->Guardar_Nuevo($data);
      echo json_encode($response);
 	 }
-	 
+
 	 function borrar(){		 
 		$response = $this->Calles->borrar($this->input->post('id'));
 		return json_encode($response);
+	 }
+
+	 function editar(){
+		$resp = $this->Calles->editar($this->input->post('data'));
+		echo json_encode($resp);
 	 }
 }
 ?>

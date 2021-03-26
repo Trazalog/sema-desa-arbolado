@@ -21,6 +21,7 @@ if(!function_exists('editar')){
 
     function editar()
     {
+
         redirect(HOST.'sema-desa-arbolado/login/DnatoArbolado/main/changeuser?control=sistema');
     }
     

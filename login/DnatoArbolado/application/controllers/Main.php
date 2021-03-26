@@ -52,7 +52,7 @@ class Main extends CI_Controller {
 				}
 				$dataLevel = $this->userlevel->checkLevel($data['role']);
 				//check user level
-					
+
 				$data['title'] = "Arbolado";
 				
 					if(empty($this->session->userdata['email'])){
@@ -66,8 +66,9 @@ class Main extends CI_Controller {
 					
 					
 						//redirect($config['base_url']./.$this->session->userdata['direccion']);
-						redirect(HOST.$this->session->userdata['direccion']);
-					
+						//redirect(HOST.$this->session->userdata['direccion']);
+						redirect(HOST.'sema-desa-arbolado/web');
+
 						
 					}
 
@@ -306,7 +307,7 @@ class Main extends CI_Controller {
 		}
 
     //edit user
-		public function changeuser() 
+		public function changeuser()
     {
         $data = $this->session->userdata;
         if(empty($data['role'])){
@@ -778,7 +779,7 @@ class Main extends CI_Controller {
                         foreach($userInfo as $key=>$val){
                             if($key !== '__ci_last_regenerate')
                             {
-                        $this->session->set_userdata($key, $val);
+                        			$this->session->set_userdata($key, $val);
                             }
                         }
                         redirect(site_url().'main/checkLoginUser/');
@@ -802,7 +803,7 @@ class Main extends CI_Controller {
        // redirect(site_url().'main/login');
         //redirect($config['base_url'].'/'.$dir);
         redirect(HOST.$dir);
-    }   
+    }
 
     //forgot password
     public function forgot()

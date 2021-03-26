@@ -30,7 +30,7 @@ class Departamento extends CI_Controller {
 		$this->load->view('general/abm',$data);
 	}
 
-	//   Funcion Guardar Nuevo	
+	//   Funcion Guardar Nuevo
 	function Guardar_Nuevo()
 	{
 		$data['nombre'] = $this->input->post('datonombre');
@@ -43,5 +43,11 @@ class Departamento extends CI_Controller {
 		$resp = $this->Departamentos->eliminar($this->input->post('id'));
 		echo json_encode($resp);
 	}
+
+	function editar(){
+		$resp = $this->Departamentos->editar($this->input->post('data'));
+		echo json_encode($resp);
+	}
+
 }
 ?>

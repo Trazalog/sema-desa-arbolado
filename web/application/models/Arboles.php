@@ -43,6 +43,14 @@ class Arboles extends CI_Model
     $array = $this->rest->callAPI("PUT", $url, $datos);
     return json_decode($array['code']);
 	}
-        
+
+	function editar($data){
+		$post['_put_arbol_especie_actualizar'] = $data;
+		log_message('DEBUG','#TRAZA|ARBOLES|editar($data) >> '.json_encode($data));
+		$aux = $this->rest->callAPI("PUT",REST."/arbol/especie/actualizar", $post);
+		$aux =json_decode($aux["code"]);
+		return $aux;
+	}
+
 }
 

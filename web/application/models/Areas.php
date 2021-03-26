@@ -9,7 +9,7 @@ class Areas extends CI_Model
   }  
   // listado de area y departamentos asociados
   function listar(){
-  
+
     $resource = '/listadoAreaSimple';
     $url = REST.$resource;
     $array = $this->rest->callAPI("Get", $url);
@@ -25,7 +25,7 @@ class Areas extends CI_Model
     return json_decode($array['data']);
   }  
 
-  function Guardar_Nuevo($data){ 
+  function Guardar_Nuevo($data){
         
     log_message('DEBUG', 'Areas/Guardar_Nuevo  | #DATA: '.json_encode($data));
     
@@ -62,7 +62,7 @@ class Areas extends CI_Model
     $parametros["http"]["method"] = 'GET';
     $parametros["http"]["header"] = 'Accept: application/json';
     $param = stream_context_create($parametros);
-    $resource = '/listaareas/censo/'.$cens_id.'/dep/'.$depa_id;	
+    $resource = '/listaareas/censo/'.$cens_id.'/dep/'.$depa_id;
     $url = REST.$resource;
     #Envio MSJ GET
     $array = file_get_contents($url, false, $param);
@@ -76,12 +76,19 @@ class Areas extends CI_Model
     $put_area = array(
 			"arge_id"=> $id						
 		);
-		$data['area'] = $put_area;	    
+		$data['area'] = $put_area;
     $resource = '/area/delete';
     $url = REST.$resource;
     $array = $this->rest->callAPI("PUT", $url, $data);
     return json_decode($array['code']);
   }
-     
+
+  function editar($data){
+    $post['_put_area_actualizar'] = $data;
+    $aux = $this->rest->callAPI("PUT",REST."/area/actualizar", $data);
+    $aux =json_decode($aux["code"]);
+    return $aux;
+  }
+
 }
 

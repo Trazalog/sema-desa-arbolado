@@ -136,7 +136,7 @@ function insertAreaCenso(){
                   id_area: id_area },
             url: 'Censo/insertAreaCenso',
             dataType: 'json',
-            success: function(result) { 
+            success: function(result) {
                       alert('resultado: ' + result);
                   if (result == 500) {
                     alert("El area ya se encuentra asignada a este Censo");
