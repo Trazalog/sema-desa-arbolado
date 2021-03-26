@@ -106,10 +106,10 @@ $(document).ready(function() {
 		}
 	}
 
-	var tablaCensos = $('#censos').DataTable();
-	tablaCensos.destroy();
+
 	function buscaCensos() {
 			id = document.getElementById('Nombre').value; 
+			var tablaCensos = $('#censos').DataTable();
 			tablaCensos.clear().draw();
 
 			$.ajax({

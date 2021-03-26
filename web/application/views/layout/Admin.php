@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="<?php base_url(); ?>lib/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css">
 
   <link rel="stylesheet" href="<?php base_url() ?>lib/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css">
+  
 
   <link rel="stylesheet" href="<?php base_url() ?>lib/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
