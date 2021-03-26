@@ -85,6 +85,29 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 
-/** variables hosting y dataservices locales */
-define('REST', 'http://pc-pc:8280/services/arboladoDS');
+/*
+|--------------------------------------------------------------------------
+| Variables HOST y REST
+|--------------------------------------------------------------------------
+|
+| Variables Locales
+|
+*/
+//define('REST', 'http://localhost:8080/');
+//define('REST', 'http://pc-pc:8280/services/arboladoDS');
+//define('RESTLOCAL', 'http://pc-pc:8280/services/arboladoDS');
+define('REST', 'http://10.142.0.13:8280/services/arboladoDS');
+define('REST_REPO', 'http://10.142.0.13:8280/services/arboladoReportsDS');
 define('HOST', 'http://localhost/');
+
+/*
+|--------------------------------------------------------------------------
+| Variables Formularios dinamicos 
+|--------------------------------------------------------------------------
+|
+| Variables Locales
+|
+*/
+#COMPONENTE FORMULARIOS
+define('FRM', 'traz-comp-form/');
+define('FILES', 'files/');

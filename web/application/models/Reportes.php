@@ -8,9 +8,9 @@ class Reportes extends CI_Model
     parent::__construct();
   }  
 
-// listado del reporte
+// listado del reporte total y reporte gral 1
 function listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento , $area, $manzana){
- 
+  
   //select multiple departamento
   $array_dptos = explode(",", $departamento);
 
@@ -50,49 +50,74 @@ function listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $depart
            $this->session->set_userdata('datos_manzana',$str_dato_array);
           } 
   
-    $datos_manzana = $this->session->userdata('datos_manzana');
-
+   $datos_manzana = $this->session->userdata('datos_manzana');
+  
 
 $resource = "/arboles/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana";
   $url = REST_REPO.$resource;
   $array = $this->rest->callAPI("Get", $url);
-  log_message("DEBUG", "#reporte gral 1".json_encode($array));
-  return json_decode($array['data']);
-
-  if($array == true){
-
-    log_message('DEBUG', '#TRAZA | #REPORTE >> listar_reporte  >> trae datos');
+ 
+  if($array['status'] == true){
+    log_message("DEBUG", "#reporte gral Trae datos".json_encode($array));
+    return json_decode($array['data']);
   }
   else{
     log_message('ERROR', '#TRAZA | #REPORTE >> listar_reporte  >> No trae datos');
+    return;
   }
 }  
 
 
 # Obtener Informacion de areas por Departamento
-function ObtenerXDepartamentos($departamento)
+function AreaXdepartamento($departamento)
 {
-  $resource = '/listaareas/pordepartamento/'.$departamento;	 	
-  $url = REST.$resource;
+  $count_dptos = count($departamento);
+ 
+  
+  for ($i=0;$i<count($departamento);$i++) 
+      {
+       $datos = "depa_id_list=".$departamento[$i];
+         $array_contenedor_dptos[] = $datos;
+         $str_dato_array = implode("&",$array_contenedor_dptos); 
+        } 
+
+ $datos_dptos = $str_dato_array;
+
+  $resource = '/areasGeograficas/eliminado/0?'.$datos_dptos;	 	
+  $url = REST_REPO.$resource;
   $array = $this->rest->callAPI("Get", $url);
 
-  log_message("DEBUG", "#Areas/ObtenerXDepartamentos".json_encode($array));
-  return json_decode($array);
+  log_message("DEBUG", "#Reporte/AreaXdepartamento".json_encode($array));
+  return json_decode($array['data']);
 }
 
-  // listado de area y departamentos asociados
-  function listar_tabla(){
 
-    $censo_seleccionada = "54";
-    $fecha_hoy = date("Y-m-d");
-    
-      $resource = "/arboles/cens_id/$censo_seleccionada/fec_desde/1990-01-01/fec_hasta/$fecha_hoy";
-      $url = REST_REPO.$resource;
-      $array = $this->rest->callAPI("Get", $url);
-      return json_decode($array['data']);
-    }  
+   # Obtener Informacion de manzanas por areas
+function ManzanaXarea($area)
+{
+  $count_areass = count($area);
+ 
+  
+  for ($i=0;$i<count($area);$i++) 
+      {
+       $datos = "arge_id_list=".$area[$i];
+         $array_contenedor_areas[] = $datos;
+         $str_dato_array = implode("&",$array_contenedor_areas); 
+     
+        } 
 
-    function Detalles($id)
+ $datos_areas = $str_dato_array;
+
+  $resource = '/manzanas/eliminado/0?'.$datos_areas;	 	
+  $url = REST_REPO.$resource;
+  $array = $this->rest->callAPI("Get", $url);
+
+  log_message("DEBUG", "#Reporte/ManzanaXarea".json_encode($array));
+  return json_decode($array['data']);
+}
+
+
+function Detalles($id)
   {
 
     $parametros["http"]["method"] = "GET";
