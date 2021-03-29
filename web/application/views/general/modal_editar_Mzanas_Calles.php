@@ -24,7 +24,7 @@
                 <div class="form-group"  >
                     <label  class="form-label">Calle:</label>
                     <input  name="calle_nom_editar"  id="calle_nom_editar" class="form-control" />
-                    <input  name="calle_id_editar"  id="calle_id_editar" class="form-control" />
+                    <input  name="calle_id_editar"  id="calle_id_editar" class="form-control hidden" />
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
                 <div class="form-group"  >
                     <label  class="form-label">Manzana:</label>
                     <input  name="manz_nom_editar"  id="manz_nom_editar" class="form-control" />
-                    <input  name="manz_id_editar"  id="manz_id_editar" class="form-control" />
+                    <input  name="manz_id_editar"  id="manz_id_editar" class="form-control hidden" />
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
 function fillSelectArea(){
   $('#ar_editar').find('option').remove();
   id_depto = $('#Depto_id_ed').val();
-  //wo();
+  wo();
   $.ajax({
         type: 'POST',
         data: {id_depto: id_depto},
@@ -81,10 +81,10 @@ function fillSelectArea(){
             $('#ar_editar').append("<option value='" + result[index].id + "'>" +result[index].nombre +"</option");
           }
           $("#ar_editar option[value='"+ arge_id +"']").prop("selected",true);
-          // wc();
+          wc();
         },
         error: function() {
-          //wc();
+          wc();
             alert('No hay Areas Geograficas para este Departamento...');
         }
   });
@@ -92,7 +92,7 @@ function fillSelectArea(){
 
 // actualiza Manzanas o Calles
 function actualizar_Manz_Calle(){
-
+  wo();
   var controller = '<?php echo $nombre;?>';
 
   var data = {};
@@ -114,7 +114,7 @@ function actualizar_Manz_Calle(){
         url: url,
         dataType: 'json',
         success: function(result) {
-
+              wc();
               $("#modal_editar_Mzanas_Calles").modal("hide");
               if (result == 500) {
 
@@ -130,6 +130,7 @@ function actualizar_Manz_Calle(){
               }
         },
         error: function() {
+          wc();
               alert('Error Actualizacion...');
         }
   });

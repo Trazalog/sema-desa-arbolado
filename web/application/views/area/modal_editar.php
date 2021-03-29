@@ -48,7 +48,7 @@
 
   // actualiza areas
   function actualizarArea(){
-
+      wo();
       data = {};
       data.arge_id = $('#select_idArea_editar').val();
       data.nombre = $("#selectArea_editar").val();
@@ -58,6 +58,7 @@
             url: 'Area/editar',
             dataType: 'json',
             success: function(result) {
+              wc();
               $("#modal_editar").modal("hide");
                   if (result == 500) {
                     alert("Error al actualizar Area");
@@ -67,6 +68,7 @@
                   }
             },
             error: function() {
+              wc();
                   alert('Error en Aactualizacion de Area...');
             }
       });

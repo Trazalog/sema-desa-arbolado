@@ -129,12 +129,13 @@ $this->load->view('general/modal_editar');
   }
 
   function borrarDepart(id){
- 
+    wo();
     $.ajax({
       type: 'POST',
       data: { id:id },
-      url: 'Departamento/eliminar', 
+      url: 'Departamento/eliminar',
       success: function(result){
+        wc();
         if(result < 300){
           linkTo('Departamento');
         }else{
@@ -144,13 +145,14 @@ $this->load->view('general/modal_editar');
     });
   }
 
-  function borrarArbol(id){    
-   
+  function borrarArbol(id){
+    wo();
     $.ajax({
       type: 'POST',
       data: { id:id },
       url: 'Arbol/borrar', 
       success: function(result){
+        wc();
         if(result < 300){
           linkTo('Arbol');
         }else{
@@ -161,11 +163,13 @@ $this->load->view('general/modal_editar');
   }
 
   function borrarManzana(id){
+    wo();
     $.ajax({
       type: 'POST',
       data: { id:id },
       url: 'Manzana/borrar', 
       success: function(result){
+        wc();
         if(result < 300){
           linkTo('Manzana');
         }else{
@@ -175,13 +179,14 @@ $this->load->view('general/modal_editar');
     });
   }
   
-  function borrarCalles(id){    
-   
+  function borrarCalles(id){
+   wo();
    $.ajax({
      type: 'POST',
      data: { id:id },
      url: 'Calle/borrar', 
      success: function(result){
+        wc();
        if(result < 300){
          linkTo('Calle');
        }else{
@@ -224,8 +229,6 @@ $this->load->view('general/modal_editar');
         $("#calle_id_editar").val(info.id);
         $("#modal_editar_Mzanas_Calles").modal("show");
       }
-
-
   });
 
 
