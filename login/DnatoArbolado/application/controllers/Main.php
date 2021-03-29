@@ -69,7 +69,7 @@ class Main extends CI_Controller {
 						//redirect(HOST.$this->session->userdata['direccion']);
 						redirect(HOST.'sema-desa-arbolado/web');
 
-						
+
 					}
 
 		}
@@ -374,7 +374,7 @@ class Main extends CI_Controller {
 
     //delete user  
 		public function deleteuser($mail) {	
-			
+
 			$data = $this->session->userdata;
 			if(empty($data['role'])){
 				redirect(site_url().'main/login/');
@@ -383,29 +383,31 @@ class Main extends CI_Controller {
 			log_message('DEBUG', 'Dnato/Main/deleteuser($mail)-> ' . $mail);
 
 			//check user level
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);    
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
 
 	    //check is admin or not
-	    if($dataLevel == "is_admin"){			
-				
-				if($responseDnato = $this->user_model->deleteUser($mail) == FALSE ){
+	    if($dataLevel == "is_admin"){
+
+				$responseDnato = $this->user_model->deleteUser($mail);
+				if( !$responseDnato ){
 						
 						$this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
 						log_message('DEBUG', 'NO elimino Usr en Dnato-> ' . $mail);
 				}else{
-
-						if($responseLocal = $this->user_model->deleteUserLocal($mail) > 300){
+						$responseLocal = $this->user_model->deleteUserLocal($mail);
+						if( $responseLocal ){
 							
 								$this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
 								log_message('DEBUG', 'NO elimino Usr en BD arbolado-> ' . $mail);
 						}else{
 
-								if ($responseWSO2 = $this->user_model->deleteUserWSO2($mail)) {
+								$responseWSO2 = $this->user_model->deleteUserWSO2($mail);
+								if ( $responseWSO2 ) {
 
 										$this->session->set_flashdata('success_message', 'Usuario Eliminado correctamente');
-										log_message('DEBUG', 'NO elimino Usr en BD WSO2-> ' . $mail);
-								} else {									
 
+								} else {									
+									  log_message('DEBUG', 'NO elimino Usr en BD WSO2-> ' . $mail);
 										$this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
 								}								
 						}

@@ -24,7 +24,6 @@
         </div> <!-- ./ modal-body -->
 
         <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Guardar</button> -->
           <button type="button" class="btn btn-primary pull-right" onclick="actualizarDeptoArb()">Guardar</button>
         </div>
 
@@ -37,7 +36,7 @@
 
   // actualiza areas
   function actualizarDeptoArb(){
-
+      wo();
       var controller = '<?php echo $nombre;?>';
 
       var data = {};
@@ -57,7 +56,7 @@
             url: url,
             dataType: 'json',
             success: function(result) {
-
+                  wc();
                   $("#modal_editar").modal("hide");
                   if (result == 500) {
 
@@ -73,6 +72,7 @@
                   }
             },
             error: function() {
+                  wc();
                   alert('Error Actualizacion...');
             }
       });

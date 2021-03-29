@@ -81,22 +81,17 @@ $this->load->view('area/modal_editar');
     } );
 
     function borrar(id){
-      
+      wo();
       $.ajax({
           type: 'POST',
           data: {id: id},
           url: 'Area/eliminar',
           success: function(result) {
-              //alert(result);
-
-              linkTo('Area');
-              // if(result < 300){
-              //   $('#'+id).remove();
-              // }else{
-              //   alert("El Area no pudo ser eliminada...");
-              // }
+              wc();
+              linkTo('Area');              
           },
           error: function() {
+            wc();
               alert('Error');
           }
       });

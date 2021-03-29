@@ -60,7 +60,7 @@
   function fillSelectArea(idareageo){
     $('#selectArea_editar').find('option').remove();
     id_depto = $('#selectDepto_editar').val();
-
+    wo();
     $.ajax({
           type: 'POST',
           data: {id_depto: id_depto},
@@ -72,8 +72,10 @@
               $('#selectArea_editar').append("<option value='" + result[index].id + "'>" +result[index].nombre +"</option");
             }
             $("#selectArea_editar option[value='"+ idareageo +"']").prop("selected",true);
+            wc();
           },
           error: function() {
+              wc();
               alert('No hay Areas Geograficas para este Departamento...');
           }
     });

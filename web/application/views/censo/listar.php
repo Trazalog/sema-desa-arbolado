@@ -101,6 +101,7 @@ $this->load->view('censo/modal_editar');
 
 
 	function buscaCensos() {
+			wo();
 			id = document.getElementById('Nombre').value; 
 			var tablaCensos = $('#censos').DataTable();
 			tablaCensos.clear().draw();
@@ -141,15 +142,17 @@ $this->load->view('censo/modal_editar');
 									}
 							}
 							else console.log("y ella?");
+							wc();
 					},
 					error: function() {
+						wc();
 							alert('Error');
 					}
 			}); 
 	}
 
 	function eliminar(idrelacion){
-
+		wo();
 		$.ajax({
 					type: 'POST',
 					data: {
@@ -157,11 +160,14 @@ $this->load->view('censo/modal_editar');
 					},
 					url: 'Censo/eliminar',
 					success: function(result) {
+
 							if(result<300){
 								$('#censos tbody').find('tr.'+idrelacion).remove();
-							}							
+							}
+							wc();
 					},
 					error: function() {
+							wc();
 							alert('No se pudo eliminar el censo...');
 					}
 		});
@@ -175,7 +181,7 @@ $this->load->view('censo/modal_editar');
 			$("#selectDepto_editar").prop('disabled', 'disabled');
 			$("#selectDepto_editar option[value='"+ info.iddepartamento +"']").prop("selected",true);
 			fillSelectArea(info.idareageo);
-			alert(info.idrelacion);
+			//alert(info.idrelacion);
 			idrel = info.idrelacion;
 			$("input#id_relacion").val(idrel);
 			$('#modal_editar').modal('show');

@@ -141,11 +141,7 @@
       var json = $('#areas').find('[value="' + nombre + '"]').attr('data-json');
       json = JSON.parse(json);
       areaId = json.arge_id;
-      //alert('Area geografica: ' + areaId);
     }); 
-  
-
-   
 
     // guarda nuevo segun nombre
     function Guardar(nombre){
