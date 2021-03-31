@@ -12,7 +12,7 @@
     filter: alpha(opacity=65);
     -moz-opacity: 65;
     opacity: 0.65;
-    background: #ffffff;
+    background: #000000;
 }
 </style>
 
@@ -22,16 +22,16 @@
 
     </div><!-- /.box-header -->
 
-   
+
     <div class="box-body">
         <!-- /// ----------------------------------- FORMULARIO ----------------------------------- /// -->
-        <form id="form"> 
-        <div class="row">
-         
+        <form id="form">
+            <div class="row">
+
                 <div class="form-group col-md-12" style="width:30%">
                     <label for="censo_select">Censo:</label>
                     <select id="censo_select" name="censo_select" class="form-control" required>
-                        <option value="" disabled selected>-Seleccione Censo-</option>
+                        <option value="">-Seleccione Censo-</option>
                         <?php foreach($censos as $fila)
 											{
 												echo  "<option value='".$fila->id."'>".$fila->nombre.'</option>';    
@@ -40,414 +40,364 @@
                     </select>
 
                 </div>
-        </div><!-- /.row -->
-        <div class="row">
-            <div class="form-group col-md-2" style="width:15%">
 
-                <label for="fec_desde" class="col-6 col-form-label">Fecha Desde:</label>
-                <input class="form-control" type="date" id="fec_desde" name="fec_desde" required>
+                <div class="form-group col-md-2" >
 
-            </div>
+                    <label for="fec_desde" class="col-6 col-form-label">Fecha Desde:</label>
+                    <input class="form-control" type="date" id="fec_desde" name="fec_desde" required>
 
-            <div class="form-group col-md-2" style="width:15%">
+                </div>
 
-                <label for="fec_hasta" class="col-6 col-form-label">Fecha Hata:</label>
-                <input class="form-control" type="date" id="fec_hasta" name="fec_hasta" required>
+                <div class="form-group col-md-2" >
 
-            </div>
+                    <label for="fec_hasta" class="col-6 col-form-label">Fecha Hata:</label>
+                    <input class="form-control" type="date" id="fec_hasta" name="fec_hasta" required>
 
-            <div class="form-group col-md-2">
-                <label for="departamento" class="col-6 col-form-label">Departamento:</label>
-                <div class="input-group date" id="carg" class="col-md-2">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <select class="form-control" id="departamento" name="departamento" multiple="multiple" data-live-search="true"
-                        title="Seleccione Departamento" data-actions-box="true" style="width: 50%;"
-                        data-style="btn-success" data-count="<?php echo count($departamentos);?>" required>
-                        <option value="" disabled>-Seleccione Departamento-</option>
-                        <?php
+                </div>
+
+            </div><!-- /.row -->
+            <div class="row">
+
+                <div class="form-group col-md-2">
+                    <label for="departamento" class="col-6 col-form-label">Departamento:</label>
+                    <div class="input-group date" id="carg" class="col-md-2">
+                        <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                        <select class="form-control" id="departamento" name="departamento" multiple="multiple"
+                            data-live-search="true" title="Seleccione Departamento" data-actions-box="true"
+                            style="width: 50%;" data-style="btn-success"
+                            data-count="<?php echo count($departamentos);?>" required>
+                            <option value="" disabled>-Seleccione Departamento-</option>
+                            <?php
                                           foreach($departamentos as $fila)
                                           {
                                             echo '<option value="'.$fila->id.'">'.$fila->nombre.'</option>' ;
                                           }
                                     ?>
-                    </select>
+                        </select>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group col-md-3" style="width:20%">
-                <label for="area" style="margin-left:10px">Area:</label>
-                <div class="input-group date" id="c" class="col-md-2">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <select class="form-control" id="area" name="area" multiple="multiple" data-live-search="true"
-                        title="Seleccione Area" data-actions-box="true" style="width: 500%;" data-style="btn-success"
-                        data-count="" required>
-                        <option value="" disabled>Seleccione Area</option>
-                    </select>
+                </div><!-- /.row -->
+                <div class="row">    
+                <div class="form-group col-md-3" style="width:20%">
+                    <label for="area" style="margin-left:10px">Area:</label>
+                    <div class="input-group date" id="c" class="col-md-2">
+                        <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                        <select class="form-control" id="area" name="area" multiple="multiple" title="Seleccione Area" data-actions-box="true"
+                            style="width: 500%;" data-style="btn-success" data-count="" required>
+                        </select>
+                    </div>
                 </div>
-            </div>
-
-            <div class="form-group col-md-3">
-                <label for="manzana" style="margin-left:10px">Manzana:</label>
-                <div class="col-md-6 col-xs-12 input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <select class="form-control selectpicker" id="manzana" name="manzana" multiple="multiple" data-live-search="true"
-                        title="Seleccione Manzana" data-actions-box="true" style="width: 500%;"
-                        data-style="btn-success" data-count="" required>
-                    </select>
+                </div><!-- /.row -->
+                <div class="row">
+                <div class="form-group col-md-3">
+                    <label for="manzana" style="margin-left:10px">Manzana:</label>
+                    <div class="col-md-6 col-xs-12 input-group">
+                        <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                        <select class="form-control selectpicker" id="manzana" name="manzana" multiple="multiple" data-actions-box="true"
+                            title="Seleccione Manzana" style="width: 500%;" data-style="btn-success" data-count=""
+                            required>
+                        </select>
+                    </div>
                 </div>
-            </div>
+                </div><!-- /.row -->
+                <div class="row">
 
-            <div class="col-md-12">
+                    <div class="col-md-10">
+                    </div>
 
-                <br>
+                    <div class="col-md-2">
+                        <br>
+                        <button id="btn_buscar_filtros" type="button"
+                            class="btn btn-success waves-effect waves-light mt-2" style="margin-top: 1rem;">Listar
+                            Coincidencias</button>
+                    </div>
 
-                <div class="col-md-12">
-                </div>
+                    <div class="col-xs-12">
+                        <hr>
+                    </div>
 
-                <div class="col-md-10">
-                </div>
-
-                <div class="col-md-2">
-                    <br>
-                    <button id="btn_buscar_filtros" type="button" class="btn btn-success waves-effect waves-light mt-2"
-                        style="margin-top: 1rem;">Listar Coincidencias</button>
-                </div>
-
-                <div class="col-xs-12">
-                    <hr>
-                      </div>
-           
-            <div class="col-md-12 table-responsive" id="cargar_tabla"></div>
-            <div class="row">
+                    <div class="col-md-12 table-responsive" id="cargar_tabla"></div>
+                    <div class="row">
 
 
-            </div><!-- /.box-body -->
-        </div><!-- /.row -->
-    </div><!-- /.col -->
-    </form>   
-</div><!-- /box-body -->
+                    </div><!-- /.box-body -->
+                </div><!-- /.row -->
+            </div><!-- /.col -->
+        </form>
+    </div><!-- /box-body -->
 
-</body>
+    </body>
 
-<script>
-$('select').selectpicker({
+    <script>
+   $('select').selectpicker({
     selectAllText: 'Todos',
     deselectAllText: 'Nada'
 });
+    function jsRemoveWindowLoad() {
+        // eliminamos el div que bloquea pantalla
+        $("#WindowLoad").remove();
 
-function jsRemoveWindowLoad() {
-    // eliminamos el div que bloquea pantalla
-    $("#WindowLoad").remove();
+    }
+    $(document).ready(function() {
+        $("#WindowLoad").remove();
+        $(this).click(jsShowWindowLoad('Se esta Generando la Información'));
+        setTimeout(() => {
+            jsRemoveWindowLoad();
+        }, 10000);
+    });
 
-}
-$(document).ready(function() {
-    $("#WindowLoad").remove();
-    $(this).click(jsShowWindowLoad('Se esta Generando la Información'));
-    setTimeout(() => {
+    function jsShowWindowLoad(mensaje) {
+        //eliminamos si existe un div ya bloqueando
         jsRemoveWindowLoad();
-    }, 10000);
-});
 
-function jsShowWindowLoad(mensaje) {
-    //eliminamos si existe un div ya bloqueando
-    jsRemoveWindowLoad();
+        //si no enviamos mensaje se pondra este por defecto
+        if (mensaje === undefined) mensaje = "Procesando la información<br/>Espere por favor";
 
-    //si no enviamos mensaje se pondra este por defecto
-    if (mensaje === undefined) mensaje = "Procesando la información<br/>Espere por favor";
+        //centrar imagen gif
+        height = 20; //El div del titulo, para que se vea mas arriba (H)
+        var ancho = 0;
+        var alto = 0;
 
-    //centrar imagen gif
-    height = 20; //El div del titulo, para que se vea mas arriba (H)
-    var ancho = 0;
-    var alto = 0;
+        //obtenemos el ancho y alto de la ventana de nuestro navegador, compatible con todos los navegadores
+        if (window.innerWidth == undefined) ancho = window.screen.width;
+        else ancho = window.innerWidth;
+        if (window.innerHeight == undefined) alto = window.screen.height;
+        else alto = window.innerHeight;
 
-    //obtenemos el ancho y alto de la ventana de nuestro navegador, compatible con todos los navegadores
-    if (window.innerWidth == undefined) ancho = window.screen.width;
-    else ancho = window.innerWidth;
-    if (window.innerHeight == undefined) alto = window.screen.height;
-    else alto = window.innerHeight;
+        //operación necesaria para centrar el div que muestra el mensaje
+        var heightdivsito = alto / 2 - parseInt(height) / 2; //Se utiliza en el margen superior, para centrar
 
-    //operación necesaria para centrar el div que muestra el mensaje
-    var heightdivsito = alto / 2 - parseInt(height) / 2; //Se utiliza en el margen superior, para centrar
+        //imagen que aparece mientras nuestro div es mostrado y da apariencia de cargando
+        imgCentro = "<div style='text-align:center;height:" + alto + "px;'><div  style='color:#1C2833;margin-top:" +
+            heightdivsito + "px; font-size:20px;font-weight:bold'>" + mensaje +
+            "</div><img  src='<?php echo base_url(); ?>assets/img/Isologo.png'></div>";
 
-    //imagen que aparece mientras nuestro div es mostrado y da apariencia de cargando
-    imgCentro = "<div style='text-align:center;height:" + alto + "px;'><div  style='color:#1C2833;margin-top:" +
-        heightdivsito + "px; font-size:20px;font-weight:bold'>" + mensaje +
-        "</div><img  src='<?php echo base_url(); ?>assets/img/Isologo.png'></div>";
+        //creamos el div que bloquea grande------------------------------------------
+        div = document.createElement("div");
+        div.id = "WindowLoad"
+        div.style.width = ancho + "px";
+        div.style.height = alto + "px";
+        $("body").append(div);
 
-    //creamos el div que bloquea grande------------------------------------------
-    div = document.createElement("div");
-    div.id = "WindowLoad"
-    div.style.width = ancho + "px";
-    div.style.height = alto + "px";
-    $("body").append(div);
+        //creamos un input text para que el foco se plasme en este y el usuario no pueda escribir en nada de atras
+        input = document.createElement("input");
+        input.id = "focusInput";
+        input.type = "text"
 
-    //creamos un input text para que el foco se plasme en este y el usuario no pueda escribir en nada de atras
-    input = document.createElement("input");
-    input.id = "focusInput";
-    input.type = "text"
+        //asignamos el div que bloquea
+        $("#WindowLoad").append(input);
 
-    //asignamos el div que bloquea
-    $("#WindowLoad").append(input);
+        //asignamos el foco y ocultamos el input text
+        $("#focusInput").focus();
+        $("#focusInput").hide();
 
-    //asignamos el foco y ocultamos el input text
-    $("#focusInput").focus();
-    $("#focusInput").hide();
+        //centramos el div del texto
+        $("#WindowLoad").html(imgCentro);
 
-    //centramos el div del texto
-    $("#WindowLoad").html(imgCentro);
-
-}
-
-
-
-$('#departamento').change(function() {
-    $('#area').empty();
-    $('#area').prop('disabled', false);
-    $('#area').selectpicker('refresh');
-
-    var departamento = $("#departamento").val();
-
-    console.log(departamento)
-
-    var url = "Reporte/AreaXdepartamento?departamento=" + departamento ;
-
-    console.log(url)
-
-    $.ajax({
-        type: 'POST',
-        data: { departamento },
-        url: 'index.php/Reporte/AreaXdepartamento',
-        success: function(data) {
-         var datos =JSON.parse(data);
-
-         var contador_area = datos.areas.length;
-         $('#area').attr('data-count', contador_area);
-
-     for ( i = 0; i < datos.areas.length; i++) {
-            $('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i].nombre + '</option>');  
-               
-              }      
-             
-        },
-        error: function(data) {
-            alert('Error');
-        },
-        complete: function(data) {
-           
-            $('#area').selectpicker('refresh');
-     
-            return
-        }
-    });
- 
-}); // end buscar area x dpto
-
-$('#area').change(function() {
-    $('#manzana').empty();
-    $('#manzana').prop('disabled', false);
-    $('#manzana').selectpicker('refresh');
-
-    var area = $("#area").val();
-
-    console.log(area)
-
-    var url = "Reporte/ManzanaXarea?area=" + area ;
-
-    console.log(url)
-
-    $.ajax({
-        type: 'POST',
-        data: { area },
-        url: 'index.php/Reporte/ManzanaXarea',
-        success: function(data) {
-         var datos =JSON.parse(data);
-         
-         var contador_manzana = datos.manzanas.length;
-         $('#manzana').attr('data-count', contador_manzana);
-
-     for ( i = 0; i < datos.manzanas.length; i++) {
-            $('#manzana').prepend('<option value=' + datos.manzanas[i].id + '>' + datos.manzanas[i].nombre + '</option>');  
-              }
-               
-        },
-        error: function(data) {
-            alert('Error');
-        },
-        complete: function(data) {
-           
-            $('#manzana').selectpicker('refresh');
-            return
-        }
-    });
-});// end buscar manzana x area
-
-
-
-$("#btn_buscar_filtros").click(function(e) {
-   debugger;
-    var censo_select = $("#censo_select").val();
-    var fec_desde = $("#fec_desde").val();
-    var fec_hasta = $("#fec_hasta").val();
-    var departamento = $("#departamento").val();
-    var area = $("#area").val();
-    var manzana = $("#manzana").val();
-    
-
-    if ( censo_select =="" || departamento =="" || fec_desde =="" || fec_hasta =="" || area =="" || manzana =="") {//muestras el botón
-       
-        Swal.fire({
-        icon: 'error',
-        title: 'Campos Vacios...',
-        text: 'Completa todos los Campos para generar el Reporte!!',
-        })
-          return;
-  
     }
-else {//no muestras el botón
 
-   //conteo de arrays
-    var leng_departamentos = departamento.length;
 
-    var leng_areas = area.length;
 
-    var leng_manzanas = manzana.length;
+    $('#departamento').change(function() {
+        $('#area').empty();
+        $('#area').prop('disabled', false);
+        $('#area').selectpicker('refresh');
 
-    contador_departamento=  $('#departamento').attr('data-count');
-
-    if (leng_departamentos == contador_departamento) {
-        var departamento = "0";
-    } else {
         var departamento = $("#departamento").val();
-    }
 
-    contador_area =  $('#area').attr('data-count');
+        console.log(departamento)
 
-    if (leng_areas == contador_area) {
-        var area = "0";
-    } else {
+        var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
+
+        console.log(url)
+
+        $.ajax({
+            type: 'POST',
+            data: {
+                departamento
+            },
+            url: 'index.php/Reporte/AreaXdepartamento',
+            success: function(data) {
+                var datos = JSON.parse(data);
+
+                var contador_area = datos.areas.length;
+                $('#area').attr('data-count', contador_area);
+
+                for (i = 0; i < datos.areas.length; i++) {
+                    $('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i]
+                        .nombre + '</option>');
+
+                }
+
+            },
+            error: function(data) {
+                alert('Error');
+            },
+            complete: function(data) {
+
+                $('#area').selectpicker('refresh');
+
+                return
+            }
+        });
+
+    }); // end buscar area x dpto
+
+    $('#area').change(function() {
+        $('#manzana').empty();
+        $('#manzana').prop('disabled', false);
+        $('#manzana').selectpicker('refresh');
+
         var area = $("#area").val();
-    }
 
-    contador_manzana = $('#manzana').attr('data-count');
+        console.log(area)
 
-    if (leng_manzanas == contador_manzana) {
-        var manzana = "0";
-    } else {
-        var manzana = $("#manzana").val();
-    }
+        var url = "Reporte/ManzanaXarea?area=" + area;
 
-    console.log(censo_select)
-    console.log(fec_desde)
-    console.log(fec_hasta)
-    console.log(departamento)
-    console.log(area)
-    console.log(manzana)
-    console.log("count array dptos:", leng_departamentos)
-    console.log("count array areas:", leng_areas)
-    console.log("count array manzanas:", leng_manzanas)
+        console.log(url)
 
-    var url = "Reporte/buscar_por_filtro_listar?cens_id=" + censo_select + "&fec_desde=" + fec_desde +
-        "&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" + manzana;
+        $.ajax({
+            type: 'POST',
+            data: {
+                area
+            },
+            url: 'index.php/Reporte/ManzanaXarea',
+            success: function(data) {
+                var datos = JSON.parse(data);
 
-    console.log(url)
+                var contador_manzana = datos.manzanas.length;
+                $('#manzana').attr('data-count', contador_manzana);
 
-    $("#WindowLoad").remove();
+                for (i = 0; i < datos.manzanas.length; i++) {
+                    $('#manzana').prepend('<option value=' + datos.manzanas[i].id + '>' + datos
+                        .manzanas[i].nombre + '</option>');
+                }
 
-    $(this).click(jsShowWindowLoad('Se esta Generando la Información'));
+            },
+            error: function(data) {
+                alert('Error');
+            },
+            complete: function(data) {
 
-    $.ajax({
-        type: 'POST',
-        data: {
-            censo_select,
-            fec_desde,
-            fec_hasta,
-            departamento,
-            area,
-            manzana
-        },
-        url: 'index.php/Reporte',
-        success: function(data) {
-            debugger;
-            $("#cargar_tabla").load("<?php echo base_url(); ?>"+url+"");
+                $('#manzana').selectpicker('refresh');
+                return
+            }
+        });
+    }); // end buscar manzana x area
+
+
+
+    $("#btn_buscar_filtros").click(function(e) {
         
-        },
-        error: function(data) {
-            alert('Error');
-        },
-        complete: function(data) {
-            setTimeout(() => {
-                jsRemoveWindowLoad();
-            }, 9000);
 
-        }
-    });
-}
-
-    
+        var censo_select = $("#censo_select").val();
+        var fec_desde = $("#fec_desde").val();
+        var fec_hasta = $("#fec_hasta").val();
+        var departamento = $("#departamento").val();
+        var area = $("#area").val();
+        var manzana = $("#manzana").val();
 
 
+        if (censo_select == "" || departamento == "" || fec_desde == "" || fec_hasta == "" || area == "" ||
+            manzana == "") { //muestras el botón
 
-}); // END BUSCAR
+            Swal.fire({
+                icon: 'error',
+                title: 'Campos Vacios...',
+                text: 'Completa todos los Campos para generar el Reporte!!',
+            })
+            return;
 
-function validarFormulario(){
-    $("#form").validate({
-        ignore: ":hidden:not(.selectpicker)",
+        } else { //no muestras el botón
 
-        rules: {
-            censo_select: {
-                required: true
+            //conteo de arrays
+            var leng_departamentos = departamento.length;
 
-            },
-            fec_desde: {
-                required: true
-            },
-            fec_hasta: {
-                required: true
-            },
-            departamento: {
-                required: true
-            },
-            area: {
-                required: true
-            },
-            manzana: {
-                required: true
+            var leng_areas = area.length;
+
+            var leng_manzanas = manzana.length;
+
+            contador_departamento = $('#departamento').attr('data-count');
+
+            if (leng_departamentos == contador_departamento) {
+                var departamento = "0";
+            } else {
+                var departamento = $("#departamento").val();
             }
 
+            contador_area = $('#area').attr('data-count');
 
-        },
-        messages: {
-            censo_select: {
-                required: "Debe seleccionar Censo"
-            },
-            fec_desde: {
-                required: "Debe seleccionar Fecha"
-
-            },
-            fec_hasta: {
-                required: "Debe seleccionar Fecha"
-            },
-            departamento: {
-                required: "Debe seleccionar Departamento"
-            },
-            area: {
-                required: "Debe seleccionar Area"
-            },
-            manzana: {
-                required: "Debe seleccionar Manzana"
+            if (leng_areas == contador_area) {
+                var area = "0";
+            } else {
+                var area = $("#area").val();
             }
-        },
 
-        submitHandler: function(form) {
+            contador_manzana = $('#manzana').attr('data-count');
 
-        form.submit();
+            if (leng_manzanas == contador_manzana) {
+                var manzana = "0";
+            } else {
+                var manzana = $("#manzana").val();
+            }
 
+            console.log(censo_select)
+            console.log(fec_desde)
+            console.log(fec_hasta)
+            console.log(departamento)
+            console.log(area)
+            console.log(manzana)
+            console.log("count array dptos:", leng_departamentos)
+            console.log("count array areas:", leng_areas)
+            console.log("count array manzanas:", leng_manzanas)
+
+            var url = "Reporte/buscar_por_filtro_listar?cens_id=" + censo_select + "&fec_desde=" + fec_desde +
+                "&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" +
+                manzana;
+
+            console.log(url)
+
+            $("#WindowLoad").remove();
+
+            $(this).click(jsShowWindowLoad('Se esta Generando la Información'));
+
+            $.ajax({
+                type: 'POST',
+                data: {
+                    censo_select,
+                    fec_desde,
+                    fec_hasta,
+                    departamento,
+                    area,
+                    manzana
+                },
+                url: 'index.php/Reporte',
+                success: function(data) {
+                    debugger;
+                    $("#cargar_tabla").load("<?php echo base_url(); ?>" + url + "");
+                  
+                },
+                error: function(data) {
+                    alert('Error');
+                },
+                complete: function(data) {
+                    setTimeout(() => {
+                        jsRemoveWindowLoad();
+                    }, 9000);
+              
+        $('select').selectpicker('deselectAll');
+
+        $("#form")[0].reset();
+                }
+            });
         }
-    });
-       };
+
        
-     
-</script>
+
+
+    }); // END BUSCAR
+
+    </script>
 
 
 

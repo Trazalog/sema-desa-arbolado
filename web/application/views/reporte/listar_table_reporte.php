@@ -82,7 +82,7 @@
                           echo '<td>'.$fila->manzana.'</td>';
                           echo '<td>'.$fila->lat_long_gps.'</td>';
                           echo '<td>'.$fila->calle.'</td>';
-                          echo '<td></td>';
+                          echo '<td>'.$fila->altura.'</td>';
                           echo '<td>'.$fila->barrio.'</td>';
                           echo '<td>'.$fila->taza.'</td>';
                           echo '<td>'.$fila->especie.'</td>';
