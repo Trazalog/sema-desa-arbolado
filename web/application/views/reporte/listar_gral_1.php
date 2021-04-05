@@ -199,11 +199,27 @@
 
 
     $('#departamento').change(function() {
+        debugger;
         $('#area').empty();
         $('#area').prop('disabled', false);
         $('#area').selectpicker('refresh');
 
         var departamento = $("#departamento").val();
+
+        var leng_departamentos = departamento.length;
+
+        contador_departamento = $('#departamento').attr('data-count');
+
+        if (leng_departamentos == 1) {
+            var departamento = $("#departamento").val();
+            
+        } else if (leng_departamentos == contador_departamento) {
+          
+            var departamento = "0";
+
+            }  else {
+            var departamento = $("#departamento").val();
+        }
 
         console.log(departamento)
 
@@ -222,14 +238,13 @@
 
                 var contador_area = datos.areas.length;
                 $('#area').attr('data-count', contador_area);
-   
+
                 for (i = 0; i < datos.areas.length; i++) {
-                   
                     $('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i]
                         .nombre + '</option>');
 
                 }
-   
+
             },
             error: function(data) {
                 alert('Error');
@@ -248,8 +263,24 @@
         $('#manzana').empty();
         $('#manzana').prop('disabled', false);
         $('#manzana').selectpicker('refresh');
-
+debugger;
         var area = $("#area").val();
+
+        var leng_areas = area.length;
+
+        contador_area = $('#area').attr('data-count');
+      
+            if (leng_areas == 1) {
+
+                var area = $("#area").val();
+
+            }   else if (leng_areas == contador_area) {
+
+                var area = "0";
+
+            } else {
+                var area = $("#area").val();
+            }
 
         console.log(area)
 
@@ -268,12 +299,12 @@
 
                 var contador_manzana = datos.manzanas.length;
                 $('#manzana').attr('data-count', contador_manzana);
+
                 for (i = 0; i < datos.manzanas.length; i++) {
-                 
                     $('#manzana').prepend('<option value=' + datos.manzanas[i].id + '>' + datos
                         .manzanas[i].nombre + '</option>');
                 }
-             
+
             },
             error: function(data) {
                 alert('Error');
@@ -289,7 +320,8 @@
 
 
     $("#btn_buscar_filtros").click(function(e) {
-        debugger;
+        
+
         var censo_select = $("#censo_select").val();
         var fec_desde = $("#fec_desde").val();
         var fec_hasta = $("#fec_hasta").val();
@@ -319,24 +351,44 @@
 
             contador_departamento = $('#departamento').attr('data-count');
 
-            if (leng_departamentos == contador_departamento) {
-                var departamento = "0";
-            } else {
-                var departamento = $("#departamento").val();
-            }
+           if (leng_departamentos == 1) {
+            var departamento = $("#departamento").val();
+            
+        } else if (leng_departamentos == contador_departamento) {
+          
+            var departamento = "0";
+
+            }  else {
+            var departamento = $("#departamento").val();
+        }
+//////////
 
             contador_area = $('#area').attr('data-count');
 
-            if (leng_areas == contador_area) {
-                var area = "0";
+            if (leng_areas == 1) {
+
+            var area = $("#area").val();
+
+            }   else if (leng_areas == contador_area) {
+
+            var area = "0";
+
             } else {
-                var area = $("#area").val();
+            var area = $("#area").val();
             }
+//////////
 
             contador_manzana = $('#manzana').attr('data-count');
 
-            if (leng_manzanas == contador_manzana) {
+            if (leng_manzanas == 1){
+
+                var manzana = $("#manzana").val();
+
+            }
+           else if (leng_manzanas == contador_manzana) {
+
                 var manzana = "0";
+                
             } else {
                 var manzana = $("#manzana").val();
             }
@@ -351,8 +403,7 @@
             console.log("count array areas:", leng_areas)
             console.log("count array manzanas:", leng_manzanas)
 
-            var url = "Reporte/buscar_por_filtro_listar_gral_1?cens_id=" + censo_select + "&fec_desde=" +
-                fec_desde +
+            var url = "Reporte/buscar_por_filtro_listar?cens_id=" + censo_select + "&fec_desde=" + fec_desde +
                 "&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" +
                 manzana;
 
@@ -376,7 +427,7 @@
                 success: function(data) {
                     debugger;
                     $("#cargar_tabla").load("<?php echo base_url(); ?>" + url + "");
-
+                  
                 },
                 error: function(data) {
                     alert('Error');
@@ -385,76 +436,19 @@
                     setTimeout(() => {
                         jsRemoveWindowLoad();
                     }, 9000);
-                
-                    $('select').selectpicker('deselectAll');
+              
+        $('select').selectpicker('deselectAll');
 
-                $("#form")[0].reset();
+        $("#form")[0].reset();
                 }
             });
         }
 
-
-
+       
 
 
     }); // END BUSCAR
-
-    function validarFormulario() {
-        $("#form").validate({
-            ignore: ":hidden:not(.selectpicker)",
-
-            rules: {
-                censo_select: {
-                    required: true
-
-                },
-                fec_desde: {
-                    required: true
-                },
-                fec_hasta: {
-                    required: true
-                },
-                departamento: {
-                    required: true
-                },
-                area: {
-                    required: true
-                },
-                manzana: {
-                    required: true
-                }
-
-
-            },
-            messages: {
-                censo_select: {
-                    required: "Debe seleccionar Censo"
-                },
-                fec_desde: {
-                    required: "Debe seleccionar Fecha"
-
-                },
-                fec_hasta: {
-                    required: "Debe seleccionar Fecha"
-                },
-                departamento: {
-                    required: "Debe seleccionar Departamento"
-                },
-                area: {
-                    required: "Debe seleccionar Area"
-                },
-                manzana: {
-                    required: "Debe seleccionar Manzana"
-                }
-            },
-
-            submitHandler: function(form) {
-
-                form.submit();
-
-            }
-        });
-    };
+  
     </script>
 
 

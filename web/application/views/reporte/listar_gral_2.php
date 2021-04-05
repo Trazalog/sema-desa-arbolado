@@ -113,7 +113,7 @@
                     <select class="form-control" id="area" name="area" multiple="multiple" data-live-search="true"
                         title="Seleccione Area" data-actions-box="true" style="width: 500%;" data-style="btn-success"
                         data-count="" required>
-                        <option value="" disabled style="background: #5cb85c; color: #fff;">Seleccione Area</option>
+                     <!--   <option value="" disabled style="background: #5cb85c; color: #fff;">Seleccione Area</option> -->
                     </select>
                 </div>
             </li>
@@ -329,97 +329,125 @@ function jsShowWindowLoad(mensaje) {
 }
 
 
-
-// select multiple de departamento al cambiar trae las areas
 $('#departamento').change(function() {
-    $('#area').empty();
-    $('#area').prop('disabled', false);
-    $('#area').selectpicker('refresh');
+        debugger;
+        $('#area').empty();
+        $('#area').prop('disabled', false);
+        $('#area').selectpicker('refresh');
 
-    var departamento = $("#departamento").val();
+        var departamento = $("#departamento").val();
 
-    console.log(departamento)
+        var leng_departamentos = departamento.length;
 
-    var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
+        contador_departamento = $('#departamento').attr('data-count');
 
-    console.log(url)
+        if (leng_departamentos == 1) {
+            var departamento = $("#departamento").val();
+            
+        } else if (leng_departamentos == contador_departamento) {
+          
+            var departamento = "0";
 
-    $.ajax({
-        type: 'POST',
-        data: {
-            departamento
-        },
-        url: 'index.php/Reporte/AreaXdepartamento',
-        success: function(data) {
-            var datos = JSON.parse(data);
+            }  else {
+            var departamento = $("#departamento").val();
+        }
 
-            var contador_area = datos.areas.length;
-            $('#area').attr('data-count', contador_area);
+        console.log(departamento)
 
-            for (i = 0; i < datos.areas.length; i++) {
-                $('#area').prepend('<option value=' + datos.areas[i].id + 'style="background: #5cb85c; color: #fff;">' + datos.areas[i]
-                    .nombre + '</option>');
+        var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
 
+        console.log(url)
+
+        $.ajax({
+            type: 'POST',
+            data: {
+                departamento
+            },
+            url: 'index.php/Reporte/AreaXdepartamento',
+            success: function(data) {
+                var datos = JSON.parse(data);
+
+                var contador_area = datos.areas.length;
+                $('#area').attr('data-count', contador_area);
+
+
+                for (i = 0; i < datos.areas.length; i++) {
+                    $('#area').prepend('<option style="background: #5cb85c; color: #fff"; value=' + datos.areas[i].id + '>' + datos.areas[i]
+                        .nombre + '</option>');
+
+                }
+
+            },
+            error: function(data) {
+                alert('Error');
+            },
+            complete: function(data) {
+
+                $('#area').selectpicker('refresh');
+
+                return
+            }
+        });
+
+    }); // end buscar area x dpto
+
+    $('#area').change(function() {
+        $('#manzana').empty();
+        $('#manzana').prop('disabled', false);
+        $('#manzana').selectpicker('refresh');
+debugger;
+        var area = $("#area").val();
+
+        var leng_areas = area.length;
+
+        contador_area = $('#area').attr('data-count');
+      
+            if (leng_areas == 1) {
+
+                var area = $("#area").val();
+
+            }   else if (leng_areas == contador_area) {
+
+                var area = "0";
+
+            } else {
+                var area = $("#area").val();
             }
 
-        },
-        error: function(data) {
-            alert('Error');
-        },
-        complete: function(data) {
+        console.log(area)
 
-            $('#area').selectpicker('refresh');
+        var url = "Reporte/ManzanaXarea?area=" + area;
 
-            return
-        }
-    });
+        console.log(url)
 
+        $.ajax({
+            type: 'POST',
+            data: {
+                area
+            },
+            url: 'index.php/Reporte/ManzanaXarea',
+            success: function(data) {
+                var datos = JSON.parse(data);
 
+                var contador_manzana = datos.manzanas.length;
+                $('#manzana').attr('data-count', contador_manzana);
 
-}); // end buscar area x dpto
+                for (i = 0; i < datos.manzanas.length; i++) {
+                    $('#manzana').prepend('<option style="background: #5cb85c; color: #fff"; value=' + datos.manzanas[i].id + '>' + datos
+                        .manzanas[i].nombre + '</option>');
+                }
+                
+            },
+            error: function(data) {
+                alert('Error');
+            },
+            complete: function(data) {
 
-// select multiple de area al cambiar trae las manzanas
-$('#area').change(function() {
-    $('#manzana').empty();
-    $('#manzana').prop('disabled', false);
-    $('#manzana').selectpicker('refresh');
-
-    var area = $("#area").val();
-
-    console.log(area)
-
-    var url = "Reporte/ManzanaXarea?area=" + area;
-
-    console.log(url)
-
-    $.ajax({
-        type: 'POST',
-        data: {
-            area
-        },
-        url: 'index.php/Reporte/ManzanaXarea',
-        success: function(data) {
-            var datos = JSON.parse(data);
-
-            var contador_manzana = datos.manzanas.length;
-            $('#manzana').attr('data-count', contador_manzana);
-
-            for (i = 0; i < datos.manzanas.length; i++) {
-                $('#manzana').prepend('<option value=' + datos.manzanas[i].id + 'style="background: #5cb85c; color: #fff;">' + datos
-                    .manzanas[i].nombre + '</option>');
+                $('#manzana').selectpicker('refresh');
+                return
             }
-
-        },
-        error: function(data) {
-            alert('Error');
-        },
-        complete: function(data) {
-
-            $('#manzana').selectpicker('refresh');
-            return
-        }
-    });
-}); // end buscar manzana x area
+        });
+    }); // end buscar manzana x area
 
 // select multiple de departamento al cambiar trae las calles
 $('#manzana').change(function() {
@@ -427,7 +455,22 @@ $('#manzana').change(function() {
     $('#calle').prop('disabled', false);
     $('#calle').selectpicker('refresh');
 
-    var departamento = $("#departamento").val();
+      var departamento = $("#departamento").val();
+
+        var leng_departamentos = departamento.length;
+
+        contador_departamento = $('#departamento').attr('data-count');
+
+        if (leng_departamentos == 1) {
+            var departamento = $("#departamento").val();
+            
+        } else if (leng_departamentos == contador_departamento) {
+          
+            var departamento = "0";
+
+            }  else {
+            var departamento = $("#departamento").val();
+        }
 
     console.log(departamento)
 
@@ -449,7 +492,7 @@ $('#manzana').change(function() {
             $('#calle').attr('data-count', contador_calle);
 
             for (i = 0; i < datos.calles.length; i++) {
-                $('#calle').prepend('<option value=' + datos.calles[i].nombre + '>' + datos.calles[
+                $('#calle').prepend('<option  style="background: #5cb85c; color: #fff"; value=' + datos.calles[i].nombre + '>' + datos.calles[
                     i].nombre + '</option>');
 
             }
