@@ -563,25 +563,44 @@ $("#btn_buscar_filtros").click(function(e) {
 
         var leng_acequia = acequia.length;
 
+////////////
         contador_departamento = $('#departamento').attr('data-count');
 
-        if (leng_departamentos == contador_departamento) {
-            var departamento = "0";
-        } else {
-            var departamento = $("#departamento").val();
-        }
+            if (leng_departamentos == 1) {
+                var departamento = $("#departamento").val();
+                
+            } else if (leng_departamentos == contador_departamento) {
+            
+                var departamento = "0";
 
+                }  else {
+                var departamento = $("#departamento").val();
+            }
+
+//////////
         contador_area = $('#area').attr('data-count');
+              
+      if (leng_areas == 1) {
 
-        if (leng_areas == contador_area) {
-            var area = "0";
-        } else {
-            var area = $("#area").val();
-        }
+          var area = $("#area").val();
 
+      }   else if (leng_areas == contador_area) {
+
+          var area = "0";
+
+      } else {
+          var area = $("#area").val();
+      }
+
+
+//////////
         contador_manzana = $('#manzana').attr('data-count');
 
-        if (leng_manzanas == contador_manzana) {
+        if (leng_manzanas == 1) {
+            
+            var manzana = $("#manzana").val();
+
+        }else if (leng_manzanas == contador_manzana) {
             var manzana = "0";
         } else {
             var manzana = $("#manzana").val();
