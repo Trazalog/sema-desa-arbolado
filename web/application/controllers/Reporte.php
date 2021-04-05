@@ -208,6 +208,7 @@ function CallesXdepartamento(){
 		$departamento = $_GET["departamento"];
 
 		$data['calles'] = $this->Reportes->CallesXdepartamento($departamento)->calles->calle;
+		echo json_encode($data);
 		}
 	else	{
 

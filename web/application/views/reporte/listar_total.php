@@ -199,11 +199,27 @@
 
 
     $('#departamento').change(function() {
+        debugger;
         $('#area').empty();
         $('#area').prop('disabled', false);
         $('#area').selectpicker('refresh');
 
         var departamento = $("#departamento").val();
+
+        var leng_departamentos = departamento.length;
+
+        contador_departamento = $('#departamento').attr('data-count');
+
+        if (leng_departamentos == 1) {
+            var departamento = $("#departamento").val();
+            
+        } else if (leng_departamentos == contador_departamento) {
+          
+            var departamento = "0";
+
+            }  else {
+            var departamento = $("#departamento").val();
+        }
 
         console.log(departamento)
 
@@ -247,8 +263,24 @@
         $('#manzana').empty();
         $('#manzana').prop('disabled', false);
         $('#manzana').selectpicker('refresh');
-
+debugger;
         var area = $("#area").val();
+
+        var leng_areas = area.length;
+
+        contador_area = $('#area').attr('data-count');
+      
+            if (leng_areas == 1) {
+
+                var area = $("#area").val();
+
+            }   else if (leng_areas == contador_area) {
+
+                var area = "0";
+
+            } else {
+                var area = $("#area").val();
+            }
 
         console.log(area)
 
@@ -319,24 +351,44 @@
 
             contador_departamento = $('#departamento').attr('data-count');
 
-            if (leng_departamentos == contador_departamento) {
-                var departamento = "0";
-            } else {
-                var departamento = $("#departamento").val();
-            }
+           if (leng_departamentos == 1) {
+            var departamento = $("#departamento").val();
+            
+        } else if (leng_departamentos == contador_departamento) {
+          
+            var departamento = "0";
+
+            }  else {
+            var departamento = $("#departamento").val();
+        }
+//////////
 
             contador_area = $('#area').attr('data-count');
 
-            if (leng_areas == contador_area) {
-                var area = "0";
+            if (leng_areas == 1) {
+
+            var area = $("#area").val();
+
+            }   else if (leng_areas == contador_area) {
+
+            var area = "0";
+
             } else {
-                var area = $("#area").val();
+            var area = $("#area").val();
             }
+//////////
 
             contador_manzana = $('#manzana').attr('data-count');
 
-            if (leng_manzanas == contador_manzana) {
+            if (leng_manzanas == 1){
+
+                var manzana = $("#manzana").val();
+
+            }
+           else if (leng_manzanas == contador_manzana) {
+
                 var manzana = "0";
+                
             } else {
                 var manzana = $("#manzana").val();
             }
