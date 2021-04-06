@@ -59,4 +59,12 @@ class Manzanas extends CI_Model
     return json_decode($array['data']);
 	}
 
+	function editar($data){
+		$post['_put_manzana_actualizar'] = $data;
+		log_message('DEBUG','#TRAZA|MANZANAS|editar($data) >> '.json_encode($data));
+		$aux = $this->rest->callAPI("PUT",REST."/manzana/actualizar", $post);
+		$aux =json_decode($aux["code"]);
+		return $aux;
+	}
+
 }

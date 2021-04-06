@@ -127,7 +127,7 @@
                 <div class="col-md-12">
                     <table id="manzanas_asignadas" class="table">
                         <thead bgcolor="#eeeeee" color="#fff" align="center"> 
-                            <tr> 
+                            <tr>
                                 <th>Acciones</th>
                                 <th>Area Geografica</th>
                                 <th>Departamento</th>

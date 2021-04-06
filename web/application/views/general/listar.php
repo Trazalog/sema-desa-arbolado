@@ -1,4 +1,8 @@
-<div class="box"> 
+<?php
+$this->load->view('general/modal_editar');
+  $this->load->view('general/modal_editar_Mzanas_Calles');
+?>
+<div class="box">
       <div class="box-header bg-green">
           <h3 class="box-title"><?php echo $titulo?></h3>
             
@@ -23,69 +27,61 @@
                 <tr>
                   <th>Acciones</th>
                   <th><?php echo $nombre;?></th>
-                  <?php 
+                  <?php
                     if(isset($lista[0]->depa_nombre)){
                       echo '<th>Departamento</th>';
                     }
                     if(isset($lista[0]->arge_nombre)){
                       echo '<th>Area Geográfica</th>';
                     }
-                  //if(isset($lista[0]->apellido)){
-                    //echo '<th>Apellido</th>';
-                    //echo '<th>Direccion</th>';
-                    //echo '<th>Telefono</th>';
-                  //}?>
+
+                  ?>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                //var_dump($lista);
                 if($lista)
                 {
-                      foreach($lista as $fila)
-                      {
-                                            
-                          $id=$fila->id;
-                          echo '<tr  id="'.$id.'" data-json:'.json_encode($fila).'>';
+                  foreach($lista as $fila)
+                  {
+                    $id=$fila->id;
+                    echo "<tr  id='".$id."' data-json='".json_encode($fila)."'>";
 
-                            echo '<td>';
-                            //echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$id.'")></i>';
-                            // echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
-                            
-                            // var_dump($nombre);
-                            if($nombre == "Departamento"){
-                              echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarDepart('.$id.')"></i>';
-                            }
-                            if($nombre == "Arbol"){
-                              echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarArbol('.$id.')"></i>';
-                            }
-                            if($nombre == "Manzana"){
-                              echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarManzana('.$id.')"></i>';
-                            }
-                            if($nombre == "Calle"){
-                              echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarCalles('.$id.')"></i>';
-                            }
-                            
-                            echo '</td>';
-                            echo '<td>'.$fila->nombre.'</td>';
-                            if($nombre == "Calle"){
-                              echo '<td>'.$fila->depa_nombre.'</td>';
-                            }  
-                            if($nombre == "Manzana"){
-                              echo '<td>'.$fila->depa_nombre.'</td>';
-                              echo '<td>'.$fila->arge_nombre.'</td>';                              
-                            }
-                            if(isset($fila->apellido))
-                            {
-                              echo '<td>'.$fila->apellido.'</td>';
-                              echo '<td>'.$fila->direccion.'</td>';
-                              echo '<td>'.$fila->telefono.'</td>';
-                            }                            
-                          echo '</tr>';
-                        
+                      echo '<td>';
+
+                      echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';
+                      if($nombre == "Departamento"){
+                        echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarDepart('.$id.')"></i>';
                       }
-                    }
-                  ?>
+                      if($nombre == "Arbol"){                        ;
+                        echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarArbol('.$id.')"></i>';
+                      }
+                      if($nombre == "Manzana"){
+                        echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarManzana('.$id.')"></i>';
+                      }
+                      if($nombre == "Calle"){
+                        echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarCalles('.$id.')"></i>';
+                      }
+
+                      echo '</td>';
+                      echo '<td>'.$fila->nombre.'</td>';
+                      if($nombre == "Calle"){
+                        echo '<td>'.$fila->depa_nombre.'</td>';
+                      }
+                      if($nombre == "Manzana"){
+                        echo '<td>'.$fila->depa_nombre.'</td>';
+                        echo '<td>'.$fila->arge_nombre.'</td>';                              
+                      }
+                      if(isset($fila->apellido))
+                      {
+                        echo '<td>'.$fila->apellido.'</td>';
+                        echo '<td>'.$fila->direccion.'</td>';
+                        echo '<td>'.$fila->telefono.'</td>';
+                      }
+                    echo '</tr>';
+                  }
+                }
+                ?>
               </tbody> 
             </table>
               
@@ -133,12 +129,13 @@
   }
 
   function borrarDepart(id){
- 
+    wo();
     $.ajax({
       type: 'POST',
       data: { id:id },
-      url: 'Departamento/eliminar', 
+      url: 'Departamento/eliminar',
       success: function(result){
+        wc();
         if(result < 300){
           linkTo('Departamento');
         }else{
@@ -148,13 +145,14 @@
     });
   }
 
-  function borrarArbol(id){    
-   
+  function borrarArbol(id){
+    wo();
     $.ajax({
       type: 'POST',
       data: { id:id },
       url: 'Arbol/borrar', 
       success: function(result){
+        wc();
         if(result < 300){
           linkTo('Arbol');
         }else{
@@ -165,11 +163,13 @@
   }
 
   function borrarManzana(id){
+    wo();
     $.ajax({
       type: 'POST',
       data: { id:id },
       url: 'Manzana/borrar', 
       success: function(result){
+        wc();
         if(result < 300){
           linkTo('Manzana');
         }else{
@@ -179,13 +179,14 @@
     });
   }
   
-  function borrarCalles(id){    
-   
+  function borrarCalles(id){
+   wo();
    $.ajax({
      type: 'POST',
      data: { id:id },
      url: 'Calle/borrar', 
      success: function(result){
+        wc();
        if(result < 300){
          linkTo('Calle');
        }else{
@@ -193,7 +194,42 @@
        }            	
      }
    });  
- }
+  }
+
+ // levanta modal editar y lo llena
+  $(document).off('click', '.fa-pencil').on('click', '.fa-pencil', function() {
+
+      nombre= '<?php echo $nombre?>';
+      row = $(this).parents('tr').attr('data-json');
+      info = JSON.parse(row);
+
+      if (nombre == 'Departamento'){
+        $("#nomDeptoArb").val(info.nombre);
+        $("#idDeptoArbEditar").val(info.id);
+        $("#modal_editar").modal("show");
+      }
+      if(nombre == 'Arbol'){
+        $("#nomDeptoArb").val(info.nombre);
+        $("#idDeptoArbEditar").val(info.id);
+        $("#modal_editar").modal("show");
+      }
+      if(nombre == 'Manzana'){
+        $("#Depto_id_ed").val(info.depa_id);
+        $("#Depto_ed").val(info.depa_nombre);
+        $("#manz_nom_editar").val(info.nombre);
+        $("#manz_id_editar").val(info.id);
+        $("#ar_editar_nom").val(info.arge_nombre);
+        //fillSelectArea();
+        $("#modal_editar_Mzanas_Calles").modal("show");
+      }
+
+      if(nombre == 'Calle'){
+        $("#Depto_ed").val(info.depa_nombre);
+        $("#calle_nom_editar").val(info.nombre);
+        $("#calle_id_editar").val(info.id);
+        $("#modal_editar_Mzanas_Calles").modal("show");
+      }
+  });
 
 
   </script>

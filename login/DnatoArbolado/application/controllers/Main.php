@@ -52,7 +52,7 @@ class Main extends CI_Controller {
 				}
 				$dataLevel = $this->userlevel->checkLevel($data['role']);
 				//check user level
-					
+
 				$data['title'] = "Arbolado";
 				
 					if(empty($this->session->userdata['email'])){
@@ -66,9 +66,10 @@ class Main extends CI_Controller {
 					
 					
 						//redirect($config['base_url']./.$this->session->userdata['direccion']);
-						redirect('http://localhost/'.$this->session->userdata['direccion']);
-					
-						
+						//redirect(HOST.$this->session->userdata['direccion']);
+						redirect(HOST.'sema-desa-arbolado/web');
+
+
 					}
 
 		}
@@ -306,7 +307,7 @@ class Main extends CI_Controller {
 		}
 
     //edit user
-		public function changeuser() 
+		public function changeuser()
     {
         $data = $this->session->userdata;
         if(empty($data['role'])){
@@ -373,7 +374,7 @@ class Main extends CI_Controller {
 
     //delete user  
 		public function deleteuser($mail) {	
-			
+
 			$data = $this->session->userdata;
 			if(empty($data['role'])){
 				redirect(site_url().'main/login/');
@@ -382,29 +383,31 @@ class Main extends CI_Controller {
 			log_message('DEBUG', 'Dnato/Main/deleteuser($mail)-> ' . $mail);
 
 			//check user level
-	    $dataLevel = $this->userlevel->checkLevel($data['role']);    
+	    $dataLevel = $this->userlevel->checkLevel($data['role']);
 
 	    //check is admin or not
-	    if($dataLevel == "is_admin"){			
-				
-				if($responseDnato = $this->user_model->deleteUser($mail) == FALSE ){
+	    if($dataLevel == "is_admin"){
+
+				$responseDnato = $this->user_model->deleteUser($mail);
+				if( !$responseDnato ){
 						
 						$this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
 						log_message('DEBUG', 'NO elimino Usr en Dnato-> ' . $mail);
 				}else{
-
-						if($responseLocal = $this->user_model->deleteUserLocal($mail) > 300){
+						$responseLocal = $this->user_model->deleteUserLocal($mail);
+						if( $responseLocal ){
 							
 								$this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
 								log_message('DEBUG', 'NO elimino Usr en BD arbolado-> ' . $mail);
 						}else{
 
-								if ($responseWSO2 = $this->user_model->deleteUserWSO2($mail)) {
+								$responseWSO2 = $this->user_model->deleteUserWSO2($mail);
+								if ( $responseWSO2 ) {
 
 										$this->session->set_flashdata('success_message', 'Usuario Eliminado correctamente');
-										log_message('DEBUG', 'NO elimino Usr en BD WSO2-> ' . $mail);
-								} else {									
 
+								} else {									
+									  log_message('DEBUG', 'NO elimino Usr en BD WSO2-> ' . $mail);
 										$this->session->set_flashdata('flash_message', 'Error, No puede eliminar ese Usuario');
 								}								
 						}
@@ -778,7 +781,7 @@ class Main extends CI_Controller {
                         foreach($userInfo as $key=>$val){
                             if($key !== '__ci_last_regenerate')
                             {
-                        $this->session->set_userdata($key, $val);
+                        			$this->session->set_userdata($key, $val);
                             }
                         }
                         redirect(site_url().'main/checkLoginUser/');
@@ -800,9 +803,9 @@ class Main extends CI_Controller {
         $dir = $this->session->userdata['direccionsalida'];
         $this->session->sess_destroy();
        // redirect(site_url().'main/login');
-        redirect($config['base_url'].'/'.$dir);
-        // rruiz redirect('http://localhost/'.$dir);
-    }   
+        //redirect($config['base_url'].'/'.$dir);
+        redirect(HOST.$dir);
+    }
 
     //forgot password
     public function forgot()

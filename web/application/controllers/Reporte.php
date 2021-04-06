@@ -26,11 +26,30 @@ class Reporte extends CI_Controller {
 
 	$data['censos'] = $this->Censos->listar()->censos->censo;
 	$data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
-	$data['areas'] = $this->Areas->listar()->areas->area;
-	$data['manzanas'] = $this->Manzanas->listar()->manzanas->manzana;
-	$this->load->view('reporte/listar',$data);		
+	$this->load->view('reporte/listar_total',$data);	
 	}
-	///////////// NUEVO ABM REGISTRO ///////////////	
+
+	function listar_gral_1(){
+
+		$data['censos'] = $this->Censos->listar()->censos->censo;
+		$data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
+			$this->load->view('reporte/listar_gral_1',$data);	
+		}
+
+	function listar_gral_2(){
+
+		$data['censos'] = $this->Censos->listar()->censos->censo;
+		$data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
+		$data['tipo_taza'] = $this->Reportes->tipo_taza()->tablas->tabla;
+		$data['listar_arbol_especie'] = $this->Reportes->listar_arbol_especie()->tablas->tabla;
+		$data['alineacion_arbol'] = $this->Reportes->alineacion_arbol()->tablas->tabla;
+		$data['estado'] = $this->Reportes->estado()->tablas->tabla;
+		$data['taza_inscrustada'] = $this->Reportes->taza_inscrustada()->tablas->tabla;
+		$data['acequia'] = $this->Reportes->acequia()->tablas->tabla;
+
+		$this->load->view('reporte/listar_gral_2',$data);	
+		}
+	
 
 	public function buscar_por_filtros()
 {
@@ -39,11 +58,11 @@ class Reporte extends CI_Controller {
 	$fecha_hasta = $this->input->post('fec_hasta');
 	$newDate_inicio = date("Y-m-d", strtotime($fecha_desde));
 	$newDate_fin = date("Y-m-d", strtotime($fecha_hasta));
-   // $data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $newDate_inicio, $newDate_fin)->arboles->arbol;
 	echo "OK";
 	
 }
 
+//buscar por filtros para reporte totoal
 public function buscar_por_filtro_listar()
 {
 	if($_GET)
@@ -52,7 +71,7 @@ public function buscar_por_filtro_listar()
 			$fecha_desde = $_GET["fec_desde"];
 			$fecha_hasta = $_GET["fec_hasta"];
 			$departamento = $_GET["departamento"];
-			$area = $_GET["area"];
+					$area = $_GET["area"];
 			$manzana = $_GET["manzana"];
 		
 			$data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana)->arboles->arbol;
@@ -72,12 +91,133 @@ public function buscar_por_filtro_listar()
 		}
 }
 
-function ObtenerXdepartamento(){
-	//recibe un post del ajax con datos = departamento ID
-	$departamento = $this->input->post('departamento');		
-	//Llamo al modelo y le mando el id depaId		
-	$data= $this->Reportes->ObtenerXDepartamentos($departamento);
+
+//buscar por filtros para reporte gral 1
+public function buscar_por_filtro_listar_gral_1()
+{
+	if($_GET)
+		{
+			$censo_seleccionada = $_GET["cens_id"];
+			$fecha_desde = $_GET["fec_desde"];
+			$fecha_hasta = $_GET["fec_hasta"];
+			$departamento = $_GET["departamento"];
+					$area = $_GET["area"];
+			$manzana = $_GET["manzana"];
+		
+			$data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana)->arboles->arbol;
+			
+			$this->load->view('reporte/listar_table_reporte_gral_1',$data);
+		}
+	else	{
+		$censo_seleccionada = $this->input->post('censo_select');
+		$fecha_desde = $this->input->post('fec_desde');
+		$fecha_hasta = $this->input->post('fec_hasta');
+		$departamento = $this->input->post('departamento');
+		$area = $this->input->post('area');
+		$manzana = $this->input->post('manzana');
+
+			$data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana)->arboles->arbol;
+			$this->load->view('reporte/listar_table_reporte_gral_1',$data);
+		}
+}
+
+
+//buscar por filtros para reporte gral 2
+public function buscar_por_filtro_listar_gral_2()
+{
+	if($_GET)
+		{
+			$censo_seleccionada = $_GET["cens_id"];
+			$fecha_desde = $_GET["fec_desde"];
+			$fecha_hasta = $_GET["fec_hasta"];
+			$departamento = $_GET["departamento"];
+			$area = $_GET["area"];
+			$manzana = $_GET["manzana"];
+
+			$calle = $_GET["calle"];
+			$tipo_taza = $_GET["tipo_taza"];
+			$especie = $_GET["especie"];
+			$aliniacion_arbol = $_GET["aliniacion_arbol"];
+			$estado_sanitario = $_GET["estado_sanitario"];
+			$tapa_taza_incrustada = $_GET["tapa_taza_incrustada"];
+			$acequia = $_GET["acequia"];
+
+		
+			$data['reportes'] = $this->Reportes->listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana, $calle, $tipo_taza, $especie, $aliniacion_arbol, $estado_sanitario, $tapa_taza_incrustada, $acequia)->arboles->arbol;
+			
+			$this->load->view('reporte/listar_table_reporte_gral_2',$data);
+		}
+	else	{
+		$censo_seleccionada = $this->input->post('censo_select');
+		$fecha_desde = $this->input->post('fec_desde');
+		$fecha_hasta = $this->input->post('fec_hasta');
+		$departamento = $this->input->post('departamento');
+		$area = $this->input->post('area');
+		$manzana = $this->input->post('manzana');
+
+		$calle = $this->input->post('calle');
+		$tipo_taza = $this->input->post('tipo_taza');
+		$especie = $this->input->post('especie');
+		$aliniacion_arbol = $this->input->post('aliniacion_arbol');
+		$estado_sanitario = $this->input->post('estado_sanitario');
+		$tapa_taza_incrustada = $this->input->post('tapa_taza_incrustada');
+		$acequia = $this->input->post('acequia');
+
+		$data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana, $calle, $tipo_taza, $especie, $aliniacion_arbol, $estado_sanitario, $tapa_taza_incrustada, $acequia)->arboles->arbol;
+			
+			$this->load->view('reporte/listar_table_reporte_gral_2',$data);
+		}
+}
+
+function AreaXdepartamento(){
+	if($_GET){	
+		$departamento = $_GET["departamento"];
+
+		$data['areas'] = $this->Reportes->AreaXdepartamento($departamento)->areas->area;
+		}
+	else	{
+
+	$departamento = $this->input->post('departamento');
+
+
+	$data['areas'] = $this->Reportes->AreaXdepartamento($departamento)->areas->area;
 	echo json_encode($data);
+}
+}
+
+
+function ManzanaXarea(){
+	if($_GET){	
+		$area = $_GET["area"];
+
+		$data['manzanas'] = $this->Reportes->ManzanaXarea($area)->manzanas->manzana;
+
+		}
+	else	{
+
+	$area = $this->input->post('area');
+					
+
+	$data['manzanas'] = $this->Reportes->ManzanaXarea($area)->manzanas->manzana;
+	echo json_encode($data);
+}
+}
+
+function CallesXdepartamento(){
+	if($_GET){	
+		$departamento = $_GET["departamento"];
+
+		$data['calles'] = $this->Reportes->CallesXdepartamento($departamento)->calles->calle;
+		echo json_encode($data);
+		}
+	else	{
+
+	$departamento = $this->input->post('departamento');
+
+
+	$data['calles'] = $this->Reportes->CallesXdepartamento($departamento)->calles->calle;
+	echo json_encode($data);
+}
 }
 
 		// retorna formulario de arbol por info_id

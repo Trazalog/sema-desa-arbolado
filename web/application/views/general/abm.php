@@ -1,4 +1,4 @@
-<div class="box"> 
+<div class="box">
       <div class="box-header">
           <h3 class="box-title"><?php echo $titulo;?></h3>
             
@@ -9,7 +9,7 @@
                     <label  for="Nombre" class="form-label"><?php echo $nombre;?>:</label>
                     <input type="text" name="texto"  id="Nombre" <?php if($accion == 'Editar'){echo ('value="'.$etapa->lote.'"');}?> class="form-control" placeholder="Inserte nombre del <?php echo $nombre;?>" />
                     </div>
-										
+
 										<!-- departamentos -->
 										<?php  if($nombre == 'Calle'){?>
 											<label for="">Departamento:</label>
@@ -30,7 +30,7 @@
                     </span>  -->
             </div>
 
-                    <?php } ?>  
+                    <?php } ?>
 
                     <!-- area -->
 										<?php  if($nombre == 'Manzana'){?>     
@@ -75,57 +75,57 @@
   </div><!-- /.row -->
   </body>
   <script>
-  $(document).ready(function() {
-    nombre= '<?php echo $nombre?>';
-    if(nombre = 'Censista')
-    {
-    $('#formulario').bootstrapValidator({
-        message: 'Este Valor no es valido',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            texto: {
-                message: 'El Nombre ingresado no es valido',
-                validators: {
-                    notEmpty: {
-                        message: 'Ingrese algun Valor'
-                    },
-                    regexp: {
-                        regexp: /[A-Za-z]/,
-                        message: 'El nombre solo puede usar caracteres alfabeticos o numericos'
-                    }
-                }
-            }
-        }
+    $(document).ready(function() {
+      nombre= '<?php echo $nombre?>';
+      if(nombre = 'Censista')
+      {
+      $('#formulario').bootstrapValidator({
+          message: 'Este Valor no es valido',
+          feedbackIcons: {
+              valid: 'glyphicon glyphicon-ok',
+              invalid: 'glyphicon glyphicon-remove',
+              validating: 'glyphicon glyphicon-refresh'
+          },
+          fields: {
+              texto: {
+                  message: 'El Nombre ingresado no es valido',
+                  validators: {
+                      notEmpty: {
+                          message: 'Ingrese algun Valor'
+                      },
+                      regexp: {
+                          regexp: /[A-Za-z]/,
+                          message: 'El nombre solo puede usar caracteres alfabeticos o numericos'
+                      }
+                  }
+              }
+          }
+      });
+      }else{
+          $('#formulario').bootstrapValidator({
+              message: 'Este Valor no es valido',
+              feedbackIcons: {
+                  valid: 'glyphicon glyphicon-ok',
+                  invalid: 'glyphicon glyphicon-remove',
+                  validating: 'glyphicon glyphicon-refresh'
+              },
+              fields: {
+                  texto: {
+                      message: 'El Nombre ingresado no es valido',
+                      validators: {
+                          notEmpty: {
+                              message: 'Ingrese algun Valor'
+                          },
+                          regexp: {
+                              regexp: /^[a-zA-Z0-9_]+$/,
+                              message: 'El nombre solo puede usar caracteres alfabeticos o numeros'
+                          }
+                      }
+                  }
+              }
+          });
+      }
     });
-		}else{
-				$('#formulario').bootstrapValidator({
-						message: 'Este Valor no es valido',
-						feedbackIcons: {
-								valid: 'glyphicon glyphicon-ok',
-								invalid: 'glyphicon glyphicon-remove',
-								validating: 'glyphicon glyphicon-refresh'
-						},
-						fields: {
-								texto: {
-										message: 'El Nombre ingresado no es valido',
-										validators: {
-												notEmpty: {
-														message: 'Ingrese algun Valor'
-												},
-												regexp: {
-														regexp: /^[a-zA-Z0-9_]+$/,
-														message: 'El nombre solo puede usar caracteres alfabeticos o numeros'
-												}
-										}
-								}
-						}
-				});
-		}
-	});
   // toma id de departamento al cambiar
     var depaId = 0;
     $('#inputdepartamentos').on('change', function() {
@@ -141,94 +141,90 @@
       var json = $('#areas').find('[value="' + nombre + '"]').attr('data-json');
       json = JSON.parse(json);
       areaId = json.arge_id;
-      //alert('Area geografica: ' + areaId);
     }); 
-  
 
-   
+    // guarda nuevo segun nombre
+    function Guardar(nombre){
 
-  // guarda nuevo segun nombre
-	function Guardar(nombre){
+      $('#formulario').bootstrapValidator('validate');
+      estado= $('#formulario').data('bootstrapValidator').isValid();
+      if(estado)
+      {
+          datonombre = document.getElementById('Nombre').value;	
 
-    $('#formulario').bootstrapValidator('validate');
-    estado= $('#formulario').data('bootstrapValidator').isValid();
-    if(estado)
-    {
-				datonombre = document.getElementById('Nombre').value;	
+          switch(nombre)
+          {
+          case 'Arbol':
+          $.ajax({
+            type: 'POST',
+            data: { datonombre:datonombre },
+            url: 'Arbol/Guardar_Nuevo', 
+            success: function(result){
+                linkTo('Arbol');
+            }
+          });        
+          break;				
+          case 'Area geografica':
+                $.ajax({
+                  type: 'POST',
+                  data: { datonombre:datonombre },
+                  url: 'Area/Guardar_Nuevo', 
+                  success: function(result){
+                      console.log(result);
+                      linkTo('Area');
+                  }
+                });        
+                break;
+          
+            
+          case 'Departamento':
+                $.ajax({
+                  type: 'POST',
+                  data: { datonombre:datonombre },
+                  url: 'Departamento/Guardar_Nuevo', 
+                  success: function(result){
+                      console.log(result);
+                      linkTo('Departamento');
+                  }
+                });
+                break;
+          
+          //TODO:REVISAR MODELO
+          case 'Calle':
+          
+                alert(depaId);
 
-        switch(nombre)
-        {
-        case 'Arbol':
-        $.ajax({
-					type: 'POST',
-					data: { datonombre:datonombre },
-					url: 'Arbol/Guardar_Nuevo', 
-					success: function(result){
-							linkTo('Arbol');
-					}
-        });        
-				break;				
-        case 'Area geografica':
-							$.ajax({
-								type: 'POST',
-								data: { datonombre:datonombre },
-								url: 'Area/Guardar_Nuevo', 
-								success: function(result){
-										console.log(result);
-										linkTo('Area');
-								}
-							});        
-							break;
-				
-       		
-        case 'Departamento':
-							$.ajax({
-								type: 'POST',
-								data: { datonombre:datonombre },
-								url: 'Departamento/Guardar_Nuevo', 
-								success: function(result){
-										console.log(result);
-										linkTo('Departamento');
-								}
-							});
-							break;
-				
-        //TODO:REVISAR MODELO
-        case 'Calle':
-        
-              alert(depaId);
+                $.ajax({
+                  type: 'POST',
+                  data: { datonombre:datonombre,
+                          depaId: depaId },
+                  url: 'Calle/Guardar_Nuevo', 
+                  success: function(result){
+                      console.log(result);
+                      linkTo('Calle');
+                  }
+                });
+                break;
 
-							$.ajax({
-								type: 'POST',
-								data: { datonombre:datonombre,
-                        depaId: depaId },
-								url: 'Calle/Guardar_Nuevo', 
-								success: function(result){
-										console.log(result);
-										linkTo('Calle');
-								}
-							});
-							break;
-				
-        case 'Manzana':
-              $.ajax({
-                type: 'POST',
-                data: { datonombre:datonombre,
-                        argeo: areaId},
-                url: 'Manzana/Guardar_Nuevo', 
-                success: function(result){
-                 if(result){
-                  linkTo('Manzana');
-                 }else{
-                   alert("Error en guardado de Manzana...");
-                 }
-                  
-                }
-              });
-              break;
-        default:
-        break;
-        }
+          case 'Manzana':
+                $.ajax({
+                  type: 'POST',
+                  data: { datonombre:datonombre,
+                          argeo: areaId},
+                  url: 'Manzana/Guardar_Nuevo', 
+                  success: function(result){
+                  if(result){
+                    linkTo('Manzana');
+                  }else{
+                    alert("Error en guardado de Manzana...");
+                  }
+                    
+                  }
+                });
+                break;
+          default:
+          break;
+          }
+      }
     }
-	}
   </script>

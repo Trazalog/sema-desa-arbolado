@@ -1,5 +1,7 @@
-
-<div class="box"> 
+<?php
+$this->load->view('area/modal_editar');
+?>
+<div class="box">
       <div class="box-header bg-green">
           <h3 class="box-title"><?php echo $titulo?></h3>
             
@@ -38,10 +40,12 @@
                 if($lista)
                 {
                       foreach($lista as $fila)
-                      {    
-                          echo '<tr  id="'.$fila->idArea.'" data-json:'.json_encode($fila).'>';
+                      {
+                         // echo '<tr  id="'.$fila->idArea.'" data-json:'.json_encode($fila).'>';
+                          echo "<tr  id='".$fila->idArea."' data-json='".json_encode($fila)."'>";
                           echo '<td>';
-                          //echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$fila->idArea.'")></i>';
+                          // echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$fila->idArea.'")></i>';
+                          echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';
                           // echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
                           echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrar('.$fila->idArea.')"></i>';
                           echo '</td>';
@@ -77,25 +81,36 @@
     } );
 
     function borrar(id){
-      
+      wo();
       $.ajax({
           type: 'POST',
           data: {id: id},
           url: 'Area/eliminar',
           success: function(result) {
-              alert(result);
-              if(result < 300){              
-                $('#'+id).remove();
-              }else{
-                alert("El Area no pudo ser eliminada...");
-              }
+              wc();
+              linkTo('Area');              
           },
           error: function() {
+            wc();
               alert('Error');
           }
       });
 
     }
+
+    // levanta modal editar y lo llena
+    $(document).off('click', '.fa-pencil').on('click', '.fa-pencil', function() {
+
+      row = $(this).parents('tr').attr('data-json');
+      info = JSON.parse(row);
+      $("#modal_editar").modal("show");
+      $("#selectDepto_editar").val(info.departamento);
+      $("#selectArea_editar").val(info.nombreArea);
+      $("#select_idArea_editar").val(info.idArea);
+
+    });
+
+
 
   </script>
 

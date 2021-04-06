@@ -230,7 +230,7 @@ class User_model extends CI_Model {
 		}
 		// agrego usuario a BD arbolado
 		public function addUserLocal($cleanPost){
-		
+
 			$_post_perfil = array(
 				"firstname"=> $cleanPost["firstname"],
 				"lastname"=> $cleanPost["lastname"],
@@ -264,20 +264,20 @@ class User_model extends CI_Model {
 			}
 			else {
 				return FALSE;
-					
+
 			}
     }
 		//delete user en DB arbolado
 		function deleteUserLocal($mail){
 
 			$usuario = array(
-				"email"=> $mail				
+				"email"=> $mail
 			);
-			$datos['usuario'] = $usuario;
-			$resource = '/perfil/local/delete';
+			$datos["_put_perfil_dnato_borrar"] = $usuario;
+			$resource = '/perfil/dnato/borrar';
 			$url = REST.$resource;
-			$array =  $this->rest->callApi('PUT', $url, $datos);
-			return json_decode($array['status']);	
+			$array =  $this->rest->callApi("PUT", $url, $datos);
+			return json_decode($array['status']);
 		}
 		// Borra usr y pass a user store de wso2
     public function deleteUserWSO2($email){
@@ -342,7 +342,7 @@ class User_model extends CI_Model {
         return $this->db->get()->row();
 
     }
-    
+
     //do change settings
     public function settings($post)
     {   

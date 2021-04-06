@@ -37,8 +37,9 @@
             </span>
         </a>
         <ul class="treeview-menu">            
-             <li><a href="#" class="link" data-link="Reporte"><i class="fa fa-bar-chart"></i>Reporte Gral. 1</a></li>
-            </li> 
+             <li><a href="#" class="link" data-link="Reporte"><i class="fa fa-bar-chart"></i>Reporte Total</a></li>
+             <li><a href="#" class="link" data-link="Reporte/listar_gral_1"><i class="fa fa-bar-chart"></i>Reporte Gral. 1</a></li>
+             <li><a href="#" class="link" data-link="Reporte/listar_gral_2"><i class="fa fa-bar-chart"></i>Reporte Gral. 2</a></li>
         </ul>
     </li>
     <li><a href="#" class="link" data-link="Mapa"><i class="fa fa-fw fa-map"></i> Mapa</a></li>

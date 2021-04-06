@@ -28,12 +28,9 @@ class Censo extends CI_Controller {
     $data['titulo'] = 'Lista Censos';
     $data['nombre'] = 'Censista';
     $this->load->view('censo/listar',$data);
-    $this->load->view('censo/modal_departamentos',$data);
-    $this->load->view('censo/modal_censista',$data);
-    $this->load->view('censo/modal_areas_asignar',$data);    
   }
 
-//////////////////////////////// ABM NUEVO CENSO 
+//////////////////////////////// ABM NUEVO CENSO
   // crea nuevos censos
   function Nuevo(){
     
@@ -48,16 +45,25 @@ class Censo extends CI_Controller {
     
   }
 
-  // buscar area por departamento
-  function getAreaPorDeptoSinAsignar(){   
+  // buscar area por departamento SIN ASIGNAR
+  function getAreaPorDeptoSinAsignar(){
 
     $cens_id = $this->input->post('id_censo');
-    $depa_id = $this->input->post('id_depto');     
+    $depa_id = $this->input->post('id_depto');
     $areas = $this->Areas->ObtenerXDepaSinAsignar($cens_id, $depa_id)->areas->area;
 
     echo json_encode($areas);
 
   }
+
+  // buscar area por departamento
+  function getAreaPorDepto(){
+
+    $depa_id = $this->input->post('id_depto');
+    $areas = $this->Areas->ObtenerXDepartamentos($depa_id)->areas->area;
+    echo json_encode($areas);
+  }
+
 
 
 //////////////////////////////// ABM NUEVO CENSO > GUARDAR
@@ -88,7 +94,13 @@ class Censo extends CI_Controller {
     $response = $this->Censos->insertAreaCenso($arrayAreaCenso);
     echo json_encode($response); 
  }
-
+ // deicin de departamento/area
+ function actualizarArea()
+ {
+   $data = $this->input->post();
+   $resp = $this->Censos->actualizarArea($data);
+   echo json_encode($resp);
+ }
 
 ///////////////////////////////// ABM LISTA CENSOS > BUSCAR CENSO
  function buscarCenso()

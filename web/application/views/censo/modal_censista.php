@@ -37,36 +37,7 @@
 
 function AsignarCensista()
 {
-    
-    //  alert(idcensista);
-    //  alert('censo: '+ idcenso);
-
-    // censista = $("#censista>option:selected").html();
-    //censistaaa = TrActual.children().eq(3).html(censista);
-
-    
-   // console.table(JSON.parse(censistaaa));
-    // alert(censistaaa.idareageo);
-    // TrActual.children().eq(0).find('.asignar_censista').hide();
-
-    // $('#modal_censista').modal('hide');
-
-    // var asignar = {};
-
-    // var json =  $("#censista>option:selected").attr('data-json');
-    // jsoncensista = JSON.parse(json);
-    // asignar.usua_id = jsoncensista.id;
-
-
-    // var json =  $("#Nombre>option:selected").attr('data-json');
-    // jsoncenso = JSON.parse(json);
-    // asignar.cens_id = jsoncenso.id;
-
-
-
-    // var json =  $("#"+jsoncenso.id).attr('data-json');
-    // jsonarea = JSON.parse(json);
-    // asignar.arge_id = jsonarea.idareageo;
+    wo();
     atribjson = JSON.parse(TrActual.attr('data-json'));
     idarea = atribjson.idareageo;
     idcensista = document.getElementById('censista').value;
@@ -82,9 +53,11 @@ function AsignarCensista()
         url: 'Censo/AsignarCensista',        
         success: function(result) {
                   $('#modal_censista').modal('hide');
-                  buscaCensos();                    
+                  wc();
+                  buscaCensos();
         },
         error: function() {
+                  wc();
                   alert('Error');
         }        
     });

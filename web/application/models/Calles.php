@@ -50,5 +50,14 @@ class Calles extends CI_Model
     // return json_decode($array['data']);
 	}
 
+	function editar($data){
+
+		$post['_put_calle_actualizar'] = $data;
+		log_message('DEBUG','#TRAZA|CALLE|editar($data) >> '.json_encode($data));
+		$aux = $this->rest->callAPI("PUT",REST."/calle/actualizar", $post);
+		$aux =json_decode($aux["code"]);
+		return $aux;
+	}
+
 
 }

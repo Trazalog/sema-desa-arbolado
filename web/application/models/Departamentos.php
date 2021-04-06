@@ -9,11 +9,11 @@ class Departamentos extends CI_Model
 		}
 		// listado departamentos
 		function listar()
-		{        					
+		{
 				$resource = '/listadepartamentos';	 
 				$url = REST.$resource;
 				$array = $this->rest->callAPI("GET",$url); 	
-				log_message('DEBUG', 'Departamentos/listadodepartaentos-> ' .json_encode($array));	
+				log_message('DEBUG', 'Departamentos/listar-> ' .json_encode($array));
 				return json_decode($array['data']);
 		}
 		// Funcion Guardar Nuevo
@@ -48,5 +48,13 @@ class Departamentos extends CI_Model
 			$url = REST.$resource;
 			$array = $this->rest->callAPI("PUT", $url, $data);
 			return json_decode($array['code']);
+		}
+
+		function editar($data){
+			$post['_put_departamento_actualizar'] = $data;
+			log_message('DEBUG','#TRAZA|DEPARTAMENTOS|editar($data) >> '.json_encode($data));
+			$aux = $this->rest->callAPI("PUT",REST."/departamento/actualizar", $post);
+			$aux =json_decode($aux["code"]);
+			return $aux;
 		}
 }

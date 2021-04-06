@@ -124,7 +124,16 @@ class Censos extends CI_Model
         $array = $this->rest->callAPI("POST",$url,$data); 	
         log_message('DEBUG', '#MODEL #CENSOS > Eliminar  | #DATA: '.json_encode($array));	
         return json_decode($array['status']);
-    }  
+    }
+		//actualiza area por departamento en censo determinado
+		function actualizarArea($data)
+		{
+			$post['_put_censo_actualizar_area_departamento'] = $data;
+			log_message('DEBUG','#TRAZA|actualizarArea($data)|$post: >> '.json_encode($post));
+			$aux = $this->rest->callAPI("PUT",REST."/censo/actualizar/area/departamento",$data);
+			$aux =json_decode($aux["code"]);
+			return $aux;
+		}
 }
 
 

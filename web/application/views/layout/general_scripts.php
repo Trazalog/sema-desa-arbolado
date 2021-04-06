@@ -32,8 +32,9 @@
        <script src="<?php base_url() ?>lib/bower_components/fastclick/lib/fastclick.js"></script>
 
        <script src="<?php base_url() ?>lib/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+       <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
        <script src="<?php base_url() ?>lib/bower_components/datatables.net/js/es-ar.json"></script>
-     
+    
     
        <script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -45,7 +46,7 @@
        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.8.1/js/bootstrap-select.js"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
-
+       <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
        <!-- AdminLTE App -->
        <script src="<?php base_url() ?>lib/dist/js/adminlte.min.js"></script>
 
