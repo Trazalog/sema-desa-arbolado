@@ -140,9 +140,32 @@
       url: 'Departamento/eliminar', 
       success: function(result){
         if(result < 300){
-          linkTo('Departamento');
-        }else{
-          alert('No se pudo eliminar el Departamento...');
+          Swal.fire({
+								title: 'Estas Seguro de Eliminar este Departamento del Censo?',
+								text: "No podras revertir este proceso!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Si, Eliminar!'
+							}).then((result) => {
+								if (result.value) {
+									Swal.fire({
+										text: '"Eliminado!","El Departamento ha sido eliminado!"',
+										icon: 'success',
+										confirmButtonText: 'Ok',
+									})
+									setTimeout(function () {
+                    linkTo('Departamento');
+									}, 3000); 
+								
+								} else {
+									Swal.fire("Cancelado", "El Departamento está a salvo! :)", "error");
+								}
+
+							});
+        }else{          
+          Swal.fire("Cancelado", "No se pudo eliminar el Departamento...'", "error");
         }            	
       }
     });
@@ -156,9 +179,34 @@
       url: 'Arbol/borrar', 
       success: function(result){
         if(result < 300){
-          linkTo('Arbol');
+      
+          Swal.fire({
+								title: 'Estas Seguro de Eliminar este Arbol del Censo?',
+								text: "No podras revertir este proceso!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Si, Eliminar!'
+							}).then((result) => {
+								if (result.value) {
+									Swal.fire({
+										text: '"Eliminado!","El Arbol ha sido eliminado!"',
+										icon: 'success',
+										confirmButtonText: 'Ok',
+									})
+									setTimeout(function () {
+                    linkTo('Arbol');
+									}, 3000); 
+								
+								} else {
+									Swal.fire("Cancelado", "El Arbol está a salvo! :)", "error");
+								}
+
+							});
+
         }else{
-          alert('No se pudo eliminar la especie...');
+          Swal.fire("Cancelado", "No se pudo eliminar la especie...'", "error");
         }            	
       }
     });  
@@ -171,9 +219,36 @@
       url: 'Manzana/borrar', 
       success: function(result){
         if(result < 300){
-          linkTo('Manzana');
+          
+          Swal.fire({
+								title: 'Estas Seguro de Eliminar esta Manzana del Censo?',
+								text: "No podras revertir este proceso!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Si, Eliminar!'
+							}).then((result) => {
+								if (result.value) {
+									Swal.fire({
+										text: '"Eliminado!","La Manzana ha sido eliminada!"',
+										icon: 'success',
+										confirmButtonText: 'Ok',
+									})
+									setTimeout(function () {
+                    linkTo('Manzana');
+									}, 3000); 
+								
+								} else {
+									Swal.fire("Cancelado", "La Manzana está a salvo! :)", "error");
+								}
+
+							});
+
+
+
         }else{
-          alert('No se pudo eliminar la manzana...');
+          Swal.fire("Cancelado", "No se pudo eliminar la manzana...'", "error");
         }            	
       }
     });
@@ -186,10 +261,38 @@
      data: { id:id },
      url: 'Calle/borrar', 
      success: function(result){
-       if(result < 300){
-         linkTo('Calle');
+
+      if(result < 300){
+      Swal.fire({
+								title: 'Estas Seguro de Eliminar esta Calle del Censo?',
+								text: "No podras revertir este proceso!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Si, Eliminar!'
+							}).then((result) => {
+								if (result.value) {
+									Swal.fire({
+										text: '"Eliminado!","La Calle ha sido eliminada!"',
+										icon: 'success',
+										confirmButtonText: 'Ok',
+									})
+									setTimeout(function () {
+                    linkTo('Calle');
+									}, 3000); 
+								
+								} else {
+									Swal.fire("Cancelado", "La Calle está a salvo! :)", "error");
+								}
+
+							});
+
+
+
+        
        }else{
-         alert('No se pudo eliminar la especie...');
+						Swal.fire("Cancelado", "No se pudo eliminar la Calle...'", "error");
        }            	
      }
    });  

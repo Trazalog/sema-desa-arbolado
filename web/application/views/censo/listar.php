@@ -1,9 +1,3 @@
-<?php 
-$this->load->view('area/modal_censista')
-?>
-
-
-
 <div class="box">
 
     <div class="box-header bg-green">
@@ -81,6 +75,13 @@ $this->load->view('area/modal_censista')
 </div><!-- /.row -->
 </body>
 
+<?php 
+$this->load->view('censo/modal_censista');
+$this->load->view('censo/modal_areas_asignar');
+
+
+?>
+
 <script>
 //	$('#censos').DataTable();
 $(document).ready(function() {
@@ -93,6 +94,7 @@ $(document).ready(function() {
     });
 
 	$(document).off('click', '.asignar_censista').on('click', '.asignar_censista', function() {
+		debugger;
 			TrActual = $(this).parents('tr');
 			$('#modal_censista').modal('show');
 	});
@@ -156,7 +158,7 @@ $(document).ready(function() {
 	}
 
 	function eliminar(idrelacion){
-		alert(idrelacion);
+		//alert(idrelacion);
 		$.ajax({
 					type: 'POST',
 					data: {
@@ -164,13 +166,38 @@ $(document).ready(function() {
 					},
 					url: 'Censo/eliminar',
 					success: function(result) {
-							if(result<300){
-								$('#censos tbody').find('tr.'+idrelacion).remove();								
-							}							
+				
+							Swal.fire({
+								title: 'Estas Seguro de Eliminar este Registro del Censo?',
+								text: "No podras revertir este proceso!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Si, Eliminar!'
+							}).then((result) => {
+								if (result.value) {
+									Swal.fire({
+										text: '"Eliminado!","El Registro ha sido eliminado!"',
+										icon: 'success',
+										confirmButtonText: 'Ok',
+									})
+									setTimeout(function () {
+										$('#censos tbody').find('tr.'+idrelacion).remove();
+									}, 3000); 
+								
+								} else {
+									Swal.fire("Cancelado", "El Reclamo está a salvo! :)", "error");
+								}
+
+							});
+
+						
+
 					},
 					error: function() {
-							alert('No se pudo eliminar el censo...');
-					}
+						Swal.fire("Cancelado", "No se pudo eliminar el censo...'", "error");
+									}
 		});  
 
 	}

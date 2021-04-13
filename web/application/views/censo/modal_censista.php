@@ -82,6 +82,13 @@ function AsignarCensista()
         url: 'Censo/AsignarCensista',        
         success: function(result) {
                   $('#modal_censista').modal('hide');
+
+                  Swal.fire({
+                icon: 'success',
+                title: 'Area Asignada',
+                text: 'El area fue asignada al Censo!',
+                             });
+
                   buscaCensos();                    
         },
         error: function() {
