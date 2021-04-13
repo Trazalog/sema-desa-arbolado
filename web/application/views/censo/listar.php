@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 <?php 
 $this->load->view('censo/modal_censista');
 $this->load->view('censo/modal_editar');
 ?>
 
+=======
+>>>>>>> kmarchan
 <div class="box">
 
     <div class="box-header bg-green">
@@ -74,6 +77,13 @@ $this->load->view('censo/modal_editar');
 </div><!-- /.row -->
 </body>
 
+<?php 
+$this->load->view('censo/modal_censista');
+$this->load->view('censo/modal_areas_asignar');
+
+
+?>
+
 <script>
 
 	$(document).ready(function() {
@@ -86,6 +96,7 @@ $this->load->view('censo/modal_editar');
 	});
 
 	$(document).off('click', '.asignar_censista').on('click', '.asignar_censista', function() {
+		debugger;
 			TrActual = $(this).parents('tr');
 			$('#modal_censista').modal('show');
 	});
@@ -152,7 +163,11 @@ $this->load->view('censo/modal_editar');
 	}
 
 	function eliminar(idrelacion){
+<<<<<<< HEAD
 		wo();
+=======
+		//alert(idrelacion);
+>>>>>>> kmarchan
 		$.ajax({
 					type: 'POST',
 					data: {
@@ -160,6 +175,7 @@ $this->load->view('censo/modal_editar');
 					},
 					url: 'Censo/eliminar',
 					success: function(result) {
+<<<<<<< HEAD
 
 							if(result<300){
 								$('#censos tbody').find('tr.'+idrelacion).remove();
@@ -188,3 +204,41 @@ $this->load->view('censo/modal_editar');
 	});
 
 </script>
+=======
+				
+							Swal.fire({
+								title: 'Estas Seguro de Eliminar este Registro del Censo?',
+								text: "No podras revertir este proceso!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Si, Eliminar!'
+							}).then((result) => {
+								if (result.value) {
+									Swal.fire({
+										text: '"Eliminado!","El Registro ha sido eliminado!"',
+										icon: 'success',
+										confirmButtonText: 'Ok',
+									})
+									setTimeout(function () {
+										$('#censos tbody').find('tr.'+idrelacion).remove();
+									}, 3000); 
+								
+								} else {
+									Swal.fire("Cancelado", "El Reclamo está a salvo! :)", "error");
+								}
+
+							});
+
+						
+
+					},
+					error: function() {
+						Swal.fire("Cancelado", "No se pudo eliminar el censo...'", "error");
+									}
+		});  
+
+	}
+</script>
+>>>>>>> kmarchan
