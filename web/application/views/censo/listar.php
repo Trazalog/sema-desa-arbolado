@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-<?php 
-$this->load->view('censo/modal_censista');
-$this->load->view('censo/modal_editar');
-?>
-
-=======
->>>>>>> kmarchan
 <div class="box">
 
     <div class="box-header bg-green">
@@ -96,7 +88,6 @@ $this->load->view('censo/modal_areas_asignar');
 	});
 
 	$(document).off('click', '.asignar_censista').on('click', '.asignar_censista', function() {
-		debugger;
 			TrActual = $(this).parents('tr');
 			$('#modal_censista').modal('show');
 	});
@@ -163,11 +154,7 @@ $this->load->view('censo/modal_areas_asignar');
 	}
 
 	function eliminar(idrelacion){
-<<<<<<< HEAD
-		wo();
-=======
 		//alert(idrelacion);
->>>>>>> kmarchan
 		$.ajax({
 					type: 'POST',
 					data: {
@@ -175,36 +162,6 @@ $this->load->view('censo/modal_areas_asignar');
 					},
 					url: 'Censo/eliminar',
 					success: function(result) {
-<<<<<<< HEAD
-
-							if(result<300){
-								$('#censos tbody').find('tr.'+idrelacion).remove();
-							}
-							wc();
-					},
-					error: function() {
-							wc();
-							alert('No se pudo eliminar el censo...');
-					}
-		});
-	}
-
-	// levanta modal editar y lo llena
-	$(document).off('click', '.fa-pencil').on('click', '.fa-pencil', function() {
-
-			row = $(this).parents('tr').attr('data-json');
-			info = JSON.parse(row);
-			$("#selectDepto_editar").prop('disabled', 'disabled');
-			$("#selectDepto_editar option[value='"+ info.iddepartamento +"']").prop("selected",true);
-			fillSelectArea(info.idareageo);
-			//alert(info.idrelacion);
-			idrel = info.idrelacion;
-			$("input#id_relacion").val(idrel);
-			$('#modal_editar').modal('show');
-	});
-
-</script>
-=======
 				
 							Swal.fire({
 								title: 'Estas Seguro de Eliminar este Registro del Censo?',
@@ -241,4 +198,3 @@ $this->load->view('censo/modal_areas_asignar');
 
 	}
 </script>
->>>>>>> kmarchan

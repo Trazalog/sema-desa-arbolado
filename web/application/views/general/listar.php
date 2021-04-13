@@ -261,11 +261,6 @@ $this->load->view('general/modal_editar');
      data: { id:id },
      url: 'Calle/borrar', 
      success: function(result){
-<<<<<<< HEAD
-        wc();
-       if(result < 300){
-         linkTo('Calle');
-=======
 
       if(result < 300){
       Swal.fire({
@@ -296,7 +291,6 @@ $this->load->view('general/modal_editar');
 
 
         
->>>>>>> kmarchan
        }else{
 						Swal.fire("Cancelado", "No se pudo eliminar la Calle...'", "error");
        }            	

@@ -136,10 +136,6 @@ function insertAreaCenso(){
                   id_area: id_area },
             url: 'Censo/insertAreaCenso',
             dataType: 'json',
-<<<<<<< HEAD
-            success: function(result) {
-                      alert('resultado: ' + result);
-=======
             success: function(result) { 
                 
                       Swal.fire({
@@ -148,7 +144,6 @@ function insertAreaCenso(){
                 text: 'El area fue asignada al Censo!',
                              })
 
->>>>>>> kmarchan
                   if (result == 500) {
                   
                     Swal.fire({
