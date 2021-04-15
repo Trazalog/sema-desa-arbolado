@@ -81,18 +81,50 @@ $this->load->view('area/modal_editar');
     } );
 
     function borrar(id){
-      wo();
+     
       $.ajax({
           type: 'POST',
           data: {id: id},
           url: 'Area/eliminar',
           success: function(result) {
-              wc();
-              linkTo('Area');              
+
+            if(result < 300){
+      Swal.fire({
+								title: 'Estas Seguro de Eliminar esta Area del Censo?',
+								text: "No podras revertir este proceso!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Si, Eliminar!'
+							}).then((result) => {
+								if (result.value) {
+									Swal.fire({
+										text: '"Eliminado!","El Area ha sido eliminada!"',
+										icon: 'success',
+										confirmButtonText: 'Ok',
+									})
+									setTimeout(function () {
+                    linkTo('Area');    
+									}, 3000); 
+								
+								} else {
+									Swal.fire("Cancelado", "El Area está a salvo! :)", "error");
+								}
+
+							});
+
+
+
+        
+       }else{
+						Swal.fire("Cancelado", "No se pudo eliminar el Area...'", "error");
+       }  
+                      
           },
           error: function() {
-            wc();
-              alert('Error');
+           
+              Swal.fire("Cancelado", "No se pudo eliminar el Area...'", "error");
           }
       });
 

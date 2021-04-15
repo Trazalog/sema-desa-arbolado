@@ -37,7 +37,7 @@
 
 function AsignarCensista()
 {
-    wo();
+   // wo();
     atribjson = JSON.parse(TrActual.attr('data-json'));
     idarea = atribjson.idareageo;
     idcensista = document.getElementById('censista').value;
@@ -53,19 +53,14 @@ function AsignarCensista()
         url: 'Censo/AsignarCensista',        
         success: function(result) {
                   $('#modal_censista').modal('hide');
-<<<<<<< HEAD
-                  wc();
-                  buscaCensos();
-=======
 
                   Swal.fire({
                 icon: 'success',
                 title: 'Area Asignada',
-                text: 'El area fue asignada al Censo!',
+                text: 'El area fue asignada al Censista!',
                              });
 
                   buscaCensos();                    
->>>>>>> kmarchan
         },
         error: function() {
                   wc();
