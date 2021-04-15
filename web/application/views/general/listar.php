@@ -129,7 +129,7 @@ $this->load->view('general/modal_editar');
   }
 
   function borrarDepart(id){
-    wo();
+   // wo();
     $.ajax({
       type: 'POST',
       data: { id:id },
@@ -169,7 +169,7 @@ $this->load->view('general/modal_editar');
   }
 
   function borrarArbol(id){
-    wo();
+  //  wo();
     $.ajax({
       type: 'POST',
       data: { id:id },
@@ -211,7 +211,7 @@ $this->load->view('general/modal_editar');
   }
 
   function borrarManzana(id){
-    wo();
+   // wo();
     $.ajax({
       type: 'POST',
       data: { id:id },
@@ -255,7 +255,7 @@ $this->load->view('general/modal_editar');
   }
   
   function borrarCalles(id){
-   wo();
+   //wo();
    $.ajax({
      type: 'POST',
      data: { id:id },

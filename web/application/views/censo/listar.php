@@ -95,7 +95,9 @@ $this->load->view('censo/modal_areas_asignar');
 	function AgregarArea(){
 		id = document.getElementById('Nombre').value;
 		if(id<=0 || id==null){
-			alert("Debe seleccionar un censo para poder agregar Area..")
+		
+			Swal.fire("Error", "Debe seleccionar un censo para poder agregar Area..'", "error");
+									
 		}else{
 			$('#modal_areas_asignar').modal('show');
 		}
@@ -143,7 +145,7 @@ $this->load->view('censo/modal_areas_asignar');
 											}
 									}
 							}
-							else console.log("y ella?");
+						
 							wc();
 					},
 					error: function() {

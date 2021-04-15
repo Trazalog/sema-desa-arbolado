@@ -275,14 +275,17 @@ function guardarCensoNuevo(){
         },
         url: 'Censo/guardarCenso',
         success: function(result) {
-            
-						alert('El censo fue guardado correctamente');
-
+                           Swal.fire({
+								text: 'El Censo fue guardado Correctamente',
+								icon: 'success',
+								confirmButtonText: 'Ok',
+									});
+                linkTo();                           
 						//var cens_id = JSON.parse(result).respuesta.cens_id;
             //agregarAreaCenso(cens_id, array);
         },
         error: function() {
-            alert('Error');
+            Swal.fire("Cancelado", "No se pudo guardar intente nuevamente", "error");
         }
     });
 }
