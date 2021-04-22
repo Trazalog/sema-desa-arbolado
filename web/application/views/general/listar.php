@@ -128,44 +128,44 @@ $this->load->view('general/modal_editar');
     }
   }
 
+
   function borrarDepart(id){
    // wo();
-    $.ajax({
-      type: 'POST',
-      data: { id:id },
-      url: 'Departamento/eliminar',
-      success: function(result){
-        wc();
-        if(result < 300){
-          Swal.fire({
-								title: 'Estas Seguro de Eliminar este Departamento del Censo?',
-								text: "No podras revertir este proceso!",
-								icon: 'warning',
-								showCancelButton: true,
-								confirmButtonColor: '#3085d6',
-								cancelButtonColor: '#d33',
-								confirmButtonText: 'Si, Eliminar!'
-							}).then((result) => {
-								if (result.value) {
-									Swal.fire({
-										text: '"Eliminado!","El Departamento ha sido eliminado!"',
-										icon: 'success',
-										confirmButtonText: 'Ok',
-									})
-									setTimeout(function () {
-                    linkTo('Departamento');
-									}, 3000); 
-								
-								} else {
-									Swal.fire("Cancelado", "El Departamento está a salvo! :)", "error");
-								}
+    Swal.fire({
+      title: 'Estas Seguro de Eliminar este Departamento del Censo?',
+      text: "No podras revertir este proceso!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!'
+    }).then((result) => {
 
-							});
-        }else{          
-          Swal.fire("Cancelado", "No se pudo eliminar el Departamento...'", "error");
-        }            	
-      }
-    });
+        if (result.value) {
+          $.ajax({
+            type: 'POST',
+            data: { id:id },
+            url: 'Departamento/eliminar',
+            success: function(result){
+              wc();
+              if(result < 300){
+                Swal.fire({
+                  title: '"Eliminado!"',
+                  text: '"El Departamento ha sido eliminado!"',
+                  icon: 'success',
+                  confirmButtonText: 'Ok',
+                });
+                linkTo('Departamento');
+              }else{
+                Swal.fire("Cancelado", "No se elimino el Departamento...", "error");
+              }
+            }
+          });
+
+        } else {
+          Swal.fire("Cancelado", "No se pudo eliminar el Departamento...:)", "error");
+        }
+      });
   }
 
   function borrarArbol(id){
@@ -173,11 +173,11 @@ $this->load->view('general/modal_editar');
     $.ajax({
       type: 'POST',
       data: { id:id },
-      url: 'Arbol/borrar', 
+      url: 'Arbol/borrar',
       success: function(result){
         wc();
         if(result < 300){
-      
+
           Swal.fire({
 								title: 'Estas Seguro de Eliminar este Arbol del Censo?',
 								text: "No podras revertir este proceso!",
@@ -205,7 +205,7 @@ $this->load->view('general/modal_editar');
 
         }else{
           Swal.fire("Cancelado", "No se pudo eliminar la especie...'", "error");
-        }            	
+        }
       }
     });  
   }
@@ -253,16 +253,10 @@ $this->load->view('general/modal_editar');
       }
     });
   }
-  
+
   function borrarCalles(id){
    //wo();
-   $.ajax({
-     type: 'POST',
-     data: { id:id },
-     url: 'Calle/borrar', 
-     success: function(result){
 
-      if(result < 300){
       Swal.fire({
 								title: 'Estas Seguro de Eliminar esta Calle del Censo?',
 								text: "No podras revertir este proceso!",
@@ -272,30 +266,31 @@ $this->load->view('general/modal_editar');
 								cancelButtonColor: '#d33',
 								confirmButtonText: 'Si, Eliminar!'
 							}).then((result) => {
+
 								if (result.value) {
-									Swal.fire({
-										text: '"Eliminado!","La Calle ha sido eliminada!"',
-										icon: 'success',
-										confirmButtonText: 'Ok',
-									})
-									setTimeout(function () {
-                    linkTo('Calle');
-									}, 3000); 
-								
-								} else {
-									Swal.fire("Cancelado", "La Calle está a salvo! :)", "error");
-								}
+									$.ajax({
+                    type: 'POST',
+                    data: { id:id },
+                    url: 'Calle/borrar',
+                    success: function(result){
 
-							});
-
-
-
-        
-       }else{
-						Swal.fire("Cancelado", "No se pudo eliminar la Calle...'", "error");
-       }            	
-     }
-   });  
+                      if(result < 300){
+                        wc();
+                        Swal.fire({
+                          text: '"Eliminado!","La Calle ha sido eliminada!"',
+                          icon: 'success',
+                          confirmButtonText: 'Ok',
+                        });
+                        linkTo('Calle');
+                      } else {
+                        Swal.fire('"Cancelado"');
+                      }
+                    }
+                  });
+                }else{
+                    Swal.fire('"Cancelado..."');
+                }
+              });
   }
 
  // levanta modal editar y lo llena

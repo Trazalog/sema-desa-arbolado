@@ -48,10 +48,16 @@
 
   // actualiza areas
   function actualizarArea(){
-      wo();
+
       data = {};
       data.arge_id = $('#select_idArea_editar').val();
       data.nombre = $("#selectArea_editar").val();
+      if(data.nombre == ""){
+        Swal.fire('Por favor rellene el campo vacio...');
+        $("#modal_editar_Mzanas_Calles").modal("show");
+        return;
+      }
+      wo();
       $.ajax({
             type: 'POST',
             data: {data},

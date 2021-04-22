@@ -10,7 +10,7 @@ class Departamentos extends CI_Model
 		// listado departamentos
 		function listar()
 		{
-				$resource = '/listadepartamentos';	 
+				$resource = '/listadepartamentos';
 				$url = REST.$resource;
 				$array = $this->rest->callAPI("GET",$url); 	
 				log_message('DEBUG', 'Departamentos/listar-> ' .json_encode($array));
