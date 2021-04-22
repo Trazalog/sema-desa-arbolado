@@ -48,12 +48,9 @@
 
           <?php      }  ?>
 
-
-
         </div> <!-- ./ modal-body -->
 
         <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Guardar</button> -->
           <button type="button" class="btn btn-primary pull-right" onclick="actualizar_Manz_Calle()">Guardar</button>
         </div>
 
@@ -92,20 +89,32 @@ function fillSelectArea(){
 
 // actualiza Manzanas o Calles
 function actualizar_Manz_Calle(){
-  wo();
+  //wo();
   var controller = '<?php echo $nombre;?>';
-
   var data = {};
   if (controller == 'Manzana') {
 
     data.manz_id = $('#manz_id_editar').val();
     data.nombre = $("#manz_nom_editar").val();
     var url = 'Manzana/editar';
+
+    if(data.nombre == ""){
+      Swal.fire('Por favor rellene el campo vacio...');
+      $("#modal_editar_Mzanas_Calles").modal("show");
+      return;
+    }
+
   } else {
 
     data.call_id = $('#calle_id_editar').val();
     data.nombre = $("#calle_nom_editar").val();
     var url = 'Calle/editar';
+
+    if(data.nombre == ""){
+      Swal.fire('Por favor rellene el campo vacio...');
+      $("#modal_editar_Mzanas_Calles").modal("show");
+      return;
+    }
   }
 
   $.ajax({

@@ -14,8 +14,7 @@
 										<?php  if($nombre == 'Calle'){?>
 											<label for="">Departamento:</label>
 											<div class="col-md-6 col-xs-12 input-group" >
-											<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off">										
-											<!-- <input list="departamentos" id="id_inputdepartamentos" placeholder="id_departamentopo" class="form-control" autocomplete="off" onchange="AgregarDepartamentoInput()">-->
+											<input list="departamentos" id="inputdepartamentos" placeholder="Seleccione departamento" class="form-control" autocomplete="off">
 											<datalist id="departamentos"> 
                         <?php foreach($departamentos as $fila)
                           {
@@ -23,11 +22,6 @@
                           }											
                         ?>
 											</datalist>
-										<!-- <span class="input-group-btn">
-												<button class='btn btn-primary' 
-											data-toggle="modal" data-target="#modal_departamentos">
-												<i class="glyphicon glyphicon-search"></i></button>
-                    </span>  -->
             </div>
 
                     <?php } ?>
@@ -37,9 +31,6 @@
 
                           <label for="" style="margin-left:10px">Area:</label>
                           <div class="col-md-6 col-xs-12 input-group" >
-                          <!-- <div class="col-md-12  input-group" style="margin-left:15px"> -->
-                              <!-- <input list="areas" id="argeo" class="form-control" autocomplete="off"
-                                  placeholder="Seleccione Area" onchange="AgregarAreaInput()"> -->
                               <input list="areas" id="argeo" class="form-control" autocomplete="off"
                                   placeholder="-Seleccione Area-">
                               <datalist id="areas">
@@ -50,15 +41,10 @@
                                   }
                                 ?>
                               </datalist>
-                              <!-- <span class="input-group-btn">
-                                  <button class='btn btn-primary' data-toggle="modal" data-target="#modal_areas">
-                                      <i class="glyphicon glyphicon-search"></i></button>
-                              </span> -->
                           </div>
 
-                    <?php } ?> 
-                    
-                    
+                    <?php } ?>
+
             <div class="row">
                 <div class="col-xs-10">
                 </div>
@@ -67,8 +53,7 @@
                 </div>
             </div>
     </form>
-            
-         
+
         </div><!-- /.box-body -->
       </div><!-- /.box -->
     </div><!-- /.col -->
@@ -141,7 +126,7 @@
       var json = $('#areas').find('[value="' + nombre + '"]').attr('data-json');
       json = JSON.parse(json);
       areaId = json.arge_id;
-    }); 
+    });
 
     // guarda nuevo segun nombre
     function Guardar(nombre){
@@ -150,8 +135,8 @@
       estado= $('#formulario').data('bootstrapValidator').isValid();
       if(estado)
       {
-          datonombre = document.getElementById('Nombre').value;	
-
+          datonombre = document.getElementById('Nombre').value;
+          wo();
           switch(nombre)
           {
           case 'Arbol':
@@ -160,6 +145,7 @@
             data: { datonombre:datonombre },
             url: 'Arbol/Guardar_Nuevo', 
             success: function(result){
+              wc();
                 linkTo('Arbol');
             }
           });        
@@ -170,6 +156,7 @@
                   data: { datonombre:datonombre },
                   url: 'Area/Guardar_Nuevo', 
                   success: function(result){
+                    wc();
                       console.log(result);
                       linkTo('Area');
                   }
@@ -183,16 +170,17 @@
                   data: { datonombre:datonombre },
                   url: 'Departamento/Guardar_Nuevo', 
                   success: function(result){
+                    wc();
                       console.log(result);
                       linkTo('Departamento');
                   }
                 });
                 break;
-          
+
           //TODO:REVISAR MODELO
           case 'Calle':
           
-                alert(depaId);
+                //alert(depaId);
 
                 $.ajax({
                   type: 'POST',
@@ -200,6 +188,7 @@
                           depaId: depaId },
                   url: 'Calle/Guardar_Nuevo', 
                   success: function(result){
+                    wc();
                       console.log(result);
                       linkTo('Calle');
                   }
@@ -213,6 +202,7 @@
                           argeo: areaId},
                   url: 'Manzana/Guardar_Nuevo', 
                   success: function(result){
+                    wc();
                   if(result){
                     linkTo('Manzana');
                   }else{
@@ -223,6 +213,7 @@
                 });
                 break;
           default:
+          wc();
           break;
           }
       }

@@ -41,12 +41,9 @@ $this->load->view('area/modal_editar');
                 {
                       foreach($lista as $fila)
                       {
-                         // echo '<tr  id="'.$fila->idArea.'" data-json:'.json_encode($fila).'>';
                           echo "<tr  id='".$fila->idArea."' data-json='".json_encode($fila)."'>";
                           echo '<td>';
-                          // echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar" onclick=linkTo("general/Etapa/editar?id='.$fila->idArea.'")></i>';
                           echo '<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';
-                          // echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="seleccionar(this)"></i>';
                           echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrar('.$fila->idArea.')"></i>';
                           echo '</td>';
                           echo '<td>'.$fila->nombreArea.'</td>';
@@ -56,7 +53,7 @@ $this->load->view('area/modal_editar');
                       }
                     }
                   ?>
-              </tbody> 
+              </tbody>
             </table>
               
          
@@ -147,29 +144,7 @@ $this->load->view('area/modal_editar');
   </script>
 
 
-<!-- --------------------------/// DROPDOWN ///-------------------------- --> 
 
-<div class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-        <i class="fa fa-ellipsis-h text-light-blue opcion" style="cursor: pointer;"></i></a>
-        <ul class="dropdown-menu" style="[5:51, 28/3/2019] Mi Princesa: 
-              background: -moz-linear-gradient(45deg, rgba(60,148,201,1) 0%, rgba(70,170,232,1) 100%); /* ff3.6+ */
-              background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(60,148,201,1)), color-stop(100%, rgba(70,170,232,1))); /* safari4+,chrome */
-              background: -webkit-linear-gradient(45deg, rgba(60,148,201,1) 0%, rgba(70,170,232,1) 100%); /* safari5.1+,chrome10+ */
-              background: -o-linear-gradient(45deg, rgba(60,148,201,1) 0%, rgba(70,170,232,1) 100%); /* opera 11.10+ */
-              background: -ms-linear-gradient(45deg, rgba(60,148,201,1) 0%, rgba(70,170,232,1) 100%); /* ie10+ */
-              background: linear-gradient(45deg, rgba(60,148,201,1) 0%, rgba(70,170,232,1) 100%); /* w3c */
-              filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=" #46aae8
-                ",="" endcolorstr="#3c94c9
-                " ,gradienttype="1" );"="">
-
-              <li role="presentation"><a onclick="editar(this)" style="color:white;" role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#modaleditar"><i class="fa fa-pencil text-white" style="color:white; cursor: pointer;"></i>Editar</a></li>
-              <li role="presentation"><a onclick="borrar(this)" style="color:white;" role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#modallista"><i class="fa fa-fw fa-times-circle text-white" style="color:white; cursor: pointer;margin-left:-3px"></i>Borrar</a></li>
-            
-         </ul>
-<div>
-
-<!-- --------------------------/// DROPDOWN ///-------------------------- --> 
 
 </div>
 </div>
