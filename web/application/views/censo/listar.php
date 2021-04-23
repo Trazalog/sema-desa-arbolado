@@ -127,7 +127,8 @@ $this->load->view('censo/modal_areas_asignar');
 													tr = "";
 													tr += "<tr class='"+ censos[i].idrelacion +"' id='" + censos[i].idcenso + "' data-json='" + JSON.stringify(censos[i]) +
 															"'>";
-													tr += '<td><i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';
+													tr += '<td>';
+													//<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';
 													tr +=
 															'<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="eliminar('+censos[i].idrelacion+')"></i>';
 													tr +=
@@ -145,7 +146,7 @@ $this->load->view('censo/modal_areas_asignar');
 											}
 									}
 							}
-						
+
 							wc();
 					},
 					error: function() {
