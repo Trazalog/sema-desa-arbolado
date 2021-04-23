@@ -723,62 +723,62 @@ $("#btn_buscar_filtros").click(function(e) {
 
 }); // END BUSCAR
 
-function validarFormulario() {
-    $("#form").validate({
-        ignore: ":hidden:not(.selectpicker)",
+// function validarFormulario() {
+//     $("#form").validate({
+//         ignore: ":hidden:not(.selectpicker)",
 
-        rules: {
-            censo_select: {
-                required: true
+//         rules: {
+//             censo_select: {
+//                 required: true
 
-            },
-            fec_desde: {
-                required: true
-            },
-            fec_hasta: {
-                required: true
-            },
-            departamento: {
-                required: true
-            },
-            area: {
-                required: true
-            },
-            manzana: {
-                required: true
-            }
+//             },
+//             fec_desde: {
+//                 required: true
+//             },
+//             fec_hasta: {
+//                 required: true
+//             },
+//             departamento: {
+//                 required: true
+//             },
+//             area: {
+//                 required: true
+//             },
+//             manzana: {
+//                 required: true
+//             }
 
 
-        },
-        messages: {
-            censo_select: {
-                required: "Debe seleccionar Censo"
-            },
-            fec_desde: {
-                required: "Debe seleccionar Fecha"
+//         },
+//         messages: {
+//             censo_select: {
+//                 required: "Debe seleccionar Censo"
+//             },
+//             fec_desde: {
+//                 required: "Debe seleccionar Fecha"
 
-            },
-            fec_hasta: {
-                required: "Debe seleccionar Fecha"
-            },
-            departamento: {
-                required: "Debe seleccionar Departamento"
-            },
-            area: {
-                required: "Debe seleccionar Area"
-            },
-            manzana: {
-                required: "Debe seleccionar Manzana"
-            }
-        },
+//             },
+//             fec_hasta: {
+//                 required: "Debe seleccionar Fecha"
+//             },
+//             departamento: {
+//                 required: "Debe seleccionar Departamento"
+//             },
+//             area: {
+//                 required: "Debe seleccionar Area"
+//             },
+//             manzana: {
+//                 required: "Debe seleccionar Manzana"
+//             }
+//         },
 
-        submitHandler: function(form) {
+//         submitHandler: function(form) {
 
-            form.submit();
+//             form.submit();
 
-        }
-    });
-};
+//         }
+//     });
+// };
 </script>
 
 

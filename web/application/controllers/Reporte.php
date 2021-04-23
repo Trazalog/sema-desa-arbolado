@@ -24,16 +24,16 @@ class Reporte extends CI_Controller {
 	///////////// INDEX ///////////////
 	function index(){
 
-	$data['censos'] = $this->Censos->listar()->censos->censo;
-	$data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
-	$this->load->view('reporte/listar_total',$data);	
+		$data['censos'] = $this->Censos->listar()->censos->censo;
+		$data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
+		$this->load->view('reporte/listar_total',$data);
 	}
 
 	function listar_gral_1(){
 
 		$data['censos'] = $this->Censos->listar()->censos->censo;
 		$data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
-			$this->load->view('reporte/listar_gral_1',$data);	
+			$this->load->view('reporte/listar_gral_1',$data);
 		}
 
 	function listar_gral_2(){

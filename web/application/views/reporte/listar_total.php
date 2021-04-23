@@ -129,10 +129,10 @@
     </body>
 
     <script>
-   $('select').selectpicker({
-    selectAllText: 'Todos',
-    deselectAllText: 'Nada'
-});
+   	$('select').selectpicker({
+			selectAllText: 'Todos',
+			deselectAllText: 'Nada'
+		});
     function jsRemoveWindowLoad() {
         // eliminamos el div que bloquea pantalla
         $("#WindowLoad").remove();
@@ -263,7 +263,7 @@
         $('#manzana').empty();
         $('#manzana').prop('disabled', false);
         $('#manzana').selectpicker('refresh');
-debugger;
+
         var area = $("#area").val();
 
         var leng_areas = area.length;
@@ -320,7 +320,7 @@ debugger;
 
 
     $("#btn_buscar_filtros").click(function(e) {
-        
+
 
         var censo_select = $("#censo_select").val();
         var fec_desde = $("#fec_desde").val();

@@ -59,9 +59,9 @@ $this->load->view('general/modal_editar');
                       if($nombre == "Manzana"){
                         echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarManzana('.$id.')"></i>';
                       }
-                      if($nombre == "Calle"){
-                        echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarCalles('.$id.')"></i>';
-                      }
+                      // if($nombre == "Calle"){
+                      //   echo '<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="borrarCalles('.$id.')"></i>';
+                      // }
 
                       echo '</td>';
                       echo '<td>'.$fila->nombre.'</td>';
@@ -130,7 +130,7 @@ $this->load->view('general/modal_editar');
 
 
   function borrarDepart(id){
-   // wo();
+
     Swal.fire({
       title: 'Estas Seguro de Eliminar este Departamento del Censo?',
       text: "No podras revertir este proceso!",
@@ -142,6 +142,7 @@ $this->load->view('general/modal_editar');
     }).then((result) => {
 
         if (result.value) {
+          wo();
           $.ajax({
             type: 'POST',
             data: { id:id },
@@ -157,7 +158,7 @@ $this->load->view('general/modal_editar');
                 });
                 linkTo('Departamento');
               }else{
-                Swal.fire("Cancelado", "No se elimino el Departamento...", "error");
+                Swal.fire("No se elimino el Departamento...", "error");
               }
             }
           });
@@ -169,88 +170,77 @@ $this->load->view('general/modal_editar');
   }
 
   function borrarArbol(id){
-  //  wo();
-    $.ajax({
-      type: 'POST',
-      data: { id:id },
-      url: 'Arbol/borrar',
-      success: function(result){
-        wc();
-        if(result < 300){
 
-          Swal.fire({
-								title: 'Estas Seguro de Eliminar este Arbol del Censo?',
-								text: "No podras revertir este proceso!",
-								icon: 'warning',
-								showCancelButton: true,
-								confirmButtonColor: '#3085d6',
-								cancelButtonColor: '#d33',
-								confirmButtonText: 'Si, Eliminar!'
-							}).then((result) => {
-								if (result.value) {
-									Swal.fire({
-										text: '"Eliminado!","El Arbol ha sido eliminado!"',
-										icon: 'success',
-										confirmButtonText: 'Ok',
-									})
-									setTimeout(function () {
-                    linkTo('Arbol');
-									}, 3000); 
-								
-								} else {
-									Swal.fire("Cancelado", "El Arbol está a salvo! :)", "error");
-								}
-
-							});
-
-        }else{
-          Swal.fire("Cancelado", "No se pudo eliminar la especie...'", "error");
-        }
+    Swal.fire({
+        title: 'Estas Seguro de Eliminar este Arbol?',
+        text: "No podras revertir este proceso!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!'
+    }).then((result) => {
+      if (result.value) {
+        wo();
+        $.ajax({
+          type: 'POST',
+          data: { id:id },
+          url: 'Arbol/borrar',
+          success: function(result){
+            wc();
+            if(result < 300){
+              Swal.fire({
+                title: '"Eliminado!"',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+              });
+              linkTo('Arbol');
+            } else {
+              Swal.fire("El Arbol no fue eliminado! ", "error");
+            }
+          }
+        });
+      }else{
+          Swal.fire("Cancelado");
       }
-    });  
+    });
   }
 
   function borrarManzana(id){
-   // wo();
-    $.ajax({
-      type: 'POST',
-      data: { id:id },
-      url: 'Manzana/borrar', 
-      success: function(result){
-        wc();
-        if(result < 300){
-          
-          Swal.fire({
-								title: 'Estas Seguro de Eliminar esta Manzana del Censo?',
-								text: "No podras revertir este proceso!",
-								icon: 'warning',
-								showCancelButton: true,
-								confirmButtonColor: '#3085d6',
-								cancelButtonColor: '#d33',
-								confirmButtonText: 'Si, Eliminar!'
-							}).then((result) => {
-								if (result.value) {
-									Swal.fire({
-										text: '"Eliminado!","La Manzana ha sido eliminada!"',
-										icon: 'success',
-										confirmButtonText: 'Ok',
-									})
-									setTimeout(function () {
-                    linkTo('Manzana');
-									}, 3000); 
-								
-								} else {
-									Swal.fire("Cancelado", "La Manzana está a salvo! :)", "error");
-								}
-
-							});
 
 
-
+   Swal.fire({
+        title: 'Estas Seguro de Eliminar esta Manzana del Censo?',
+        text: "No podras revertir este proceso!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!'
+    }).then((result) => {
+        if (result.value) {
+          wo();
+            $.ajax({
+              type: 'POST',
+              data: { id:id },
+              url: 'Manzana/borrar',
+              success: function(result){
+                    wc();
+                    if(result < 300){
+                      Swal.fire({
+                        text: '"Eliminado!","La Manzana ha sido eliminada!"',
+                        icon: 'success',
+                        confirmButtonText: 'Ok',
+                      });
+                      linkTo('Manzana');
+                    } else {
+                      Swal.fire("Cancelado", "La Manzana está a salvo! :)", "error");
+                    }
+              }
+            });
         }else{
           Swal.fire("Cancelado", "No se pudo eliminar la manzana...'", "error");
-        }            	
-      }
+        }
     });
   }
 
