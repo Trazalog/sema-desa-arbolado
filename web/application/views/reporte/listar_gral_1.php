@@ -127,7 +127,7 @@
     </div><!-- /box-body -->
     </body>
 
-    <script>
+<script>
   $('select').selectpicker({
     selectAllText: 'Todos',
     deselectAllText: 'Nada'
@@ -263,7 +263,7 @@
         $('#manzana').empty();
         $('#manzana').prop('disabled', false);
         $('#manzana').selectpicker('refresh');
-debugger;
+
         var area = $("#area").val();
 
         var leng_areas = area.length;

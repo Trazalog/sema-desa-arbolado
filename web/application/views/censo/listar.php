@@ -1,8 +1,3 @@
-<?php 
-$this->load->view('censo/modal_censista');
-$this->load->view('censo/modal_editar');
-?>
-
 <div class="box">
 
     <div class="box-header bg-green">
@@ -74,6 +69,13 @@ $this->load->view('censo/modal_editar');
 </div><!-- /.row -->
 </body>
 
+<?php 
+$this->load->view('censo/modal_censista');
+$this->load->view('censo/modal_areas_asignar');
+
+
+?>
+
 <script>
 
 	$(document).ready(function() {
@@ -93,7 +95,9 @@ $this->load->view('censo/modal_editar');
 	function AgregarArea(){
 		id = document.getElementById('Nombre').value;
 		if(id<=0 || id==null){
-			alert("Debe seleccionar un censo para poder agregar Area..")
+		
+			Swal.fire("Error", "Debe seleccionar un censo para poder agregar Area..'", "error");
+									
 		}else{
 			$('#modal_areas_asignar').modal('show');
 		}
@@ -123,7 +127,8 @@ $this->load->view('censo/modal_editar');
 													tr = "";
 													tr += "<tr class='"+ censos[i].idrelacion +"' id='" + censos[i].idcenso + "' data-json='" + JSON.stringify(censos[i]) +
 															"'>";
-													tr += '<td><i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';
+													tr += '<td>';
+													//<i class="fa fa-fw fa-pencil text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Editar"></i>';
 													tr +=
 															'<i class="fa fa-fw fa-times-circle text-light-blue" style="cursor: pointer; margin-left: 15px;" title="Eliminar" onclick="eliminar('+censos[i].idrelacion+')"></i>';
 													tr +=
@@ -141,7 +146,7 @@ $this->load->view('censo/modal_editar');
 											}
 									}
 							}
-							else console.log("y ella?");
+
 							wc();
 					},
 					error: function() {
@@ -152,7 +157,7 @@ $this->load->view('censo/modal_editar');
 	}
 
 	function eliminar(idrelacion){
-		wo();
+		//alert(idrelacion);
 		$.ajax({
 					type: 'POST',
 					data: {
@@ -160,31 +165,39 @@ $this->load->view('censo/modal_editar');
 					},
 					url: 'Censo/eliminar',
 					success: function(result) {
+				
+							Swal.fire({
+								title: 'Estas Seguro de Eliminar este Registro del Censo?',
+								text: "No podras revertir este proceso!",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Si, Eliminar!'
+							}).then((result) => {
+								if (result.value) {
+									Swal.fire({
+										text: '"Eliminado!","El Registro ha sido eliminado!"',
+										icon: 'success',
+										confirmButtonText: 'Ok',
+									})
+									setTimeout(function () {
+										$('#censos tbody').find('tr.'+idrelacion).remove();
+									}, 3000); 
+								
+								} else {
+									Swal.fire("Cancelado", "El Reclamo está a salvo! :)", "error");
+								}
 
-							if(result<300){
-								$('#censos tbody').find('tr.'+idrelacion).remove();
-							}
-							wc();
+							});
+
+						
+
 					},
 					error: function() {
-							wc();
-							alert('No se pudo eliminar el censo...');
-					}
-		});
+						Swal.fire("Cancelado", "No se pudo eliminar el censo...'", "error");
+									}
+		});  
+
 	}
-
-	// levanta modal editar y lo llena
-	$(document).off('click', '.fa-pencil').on('click', '.fa-pencil', function() {
-
-			row = $(this).parents('tr').attr('data-json');
-			info = JSON.parse(row);
-			$("#selectDepto_editar").prop('disabled', 'disabled');
-			$("#selectDepto_editar option[value='"+ info.iddepartamento +"']").prop("selected",true);
-			fillSelectArea(info.idareageo);
-			//alert(info.idrelacion);
-			idrel = info.idrelacion;
-			$("input#id_relacion").val(idrel);
-			$('#modal_editar').modal('show');
-	});
-
 </script>

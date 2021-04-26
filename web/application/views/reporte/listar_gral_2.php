@@ -145,7 +145,7 @@
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
                     <select class="form-control selectpicker" id="tipo_taza" name="tipo_taza" multiple="multiple"
-                        data-live-search="true" title="Seleccione Manzana" data-actions-box="true" style="width: 500%;"
+                        data-live-search="true" title="Seleccione Taza" data-actions-box="true" style="width: 500%;"
                         data-style="btn-success" data-count="" required>
                         <?php 
                                         if(is_array($tipo_taza)){
@@ -163,7 +163,7 @@
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
                     <select class="form-control selectpicker" id="especie" name="especie" multiple="multiple"
-                        data-live-search="true" title="Seleccione Manzana" data-actions-box="true" style="width: 500%;"
+                        data-live-search="true" title="Seleccione Especie" data-actions-box="true" style="width: 500%;"
                         data-style="btn-success" data-count="" required>
                                               <?php 
                                         if(is_array($listar_arbol_especie)){
@@ -177,11 +177,11 @@
             </li>
             <br>
             <li class="">
-                <label for="aliniacion_arbol" style="margin-left:10px">Alineacion del Arbol:</label>
+                <label for="aliniacion_arbol" style="margin-left:10px">Alineación del Arbol:</label>
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
                     <select class="form-control selectpicker" id="aliniacion_arbol" name="aliniacion_arbol"
-                        multiple="multiple" data-live-search="true" title="Seleccione Manzana" data-actions-box="true"
+                        multiple="multiple" data-live-search="true" title="Seleccione Alineación" data-actions-box="true"
                         style="width: 500%;" data-style="btn-success" data-count="" required>
                         <?php 
                                         if(is_array($alineacion_arbol)){
@@ -199,7 +199,7 @@
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
                     <select class="form-control selectpicker" id="estado_sanitario" name="estado_sanitario"
-                        multiple="multiple" data-live-search="true" title="Seleccione Manzana" data-actions-box="true"
+                        multiple="multiple" data-live-search="true" title="Seleccione Estado" data-actions-box="true"
                         style="width: 500%;" data-style="btn-success" data-count="" required>
                         <?php 
                                         if(is_array($estado)){
@@ -217,7 +217,7 @@
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
                     <select class="form-control selectpicker" id="tapa_taza_incrustada" name="tapa_taza_incrustada"
-                        multiple="multiple" data-live-search="true" title="Seleccione Manzana" data-actions-box="true"
+                        multiple="multiple" data-live-search="true" title="Seleccione Tapa" data-actions-box="true"
                         style="width: 500%;" data-style="btn-success" data-count="" required>
                         <?php 
                                         if(is_array($taza_inscrustada)){
@@ -235,7 +235,7 @@
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
                     <select class="form-control selectpicker" id="acequia" name="acequia" multiple="multiple"
-                        data-live-search="true" title="Seleccione Manzana" data-actions-box="true" style="width: 500%;"
+                        data-live-search="true" title="Seleccione Acequia" data-actions-box="true" style="width: 500%;"
                         data-style="btn-success" data-count="" required>
                         <?php 
                                         if(is_array($acequia)){
@@ -723,62 +723,62 @@ $("#btn_buscar_filtros").click(function(e) {
 
 }); // END BUSCAR
 
-function validarFormulario() {
-    $("#form").validate({
-        ignore: ":hidden:not(.selectpicker)",
+// function validarFormulario() {
+//     $("#form").validate({
+//         ignore: ":hidden:not(.selectpicker)",
 
-        rules: {
-            censo_select: {
-                required: true
+//         rules: {
+//             censo_select: {
+//                 required: true
 
-            },
-            fec_desde: {
-                required: true
-            },
-            fec_hasta: {
-                required: true
-            },
-            departamento: {
-                required: true
-            },
-            area: {
-                required: true
-            },
-            manzana: {
-                required: true
-            }
+//             },
+//             fec_desde: {
+//                 required: true
+//             },
+//             fec_hasta: {
+//                 required: true
+//             },
+//             departamento: {
+//                 required: true
+//             },
+//             area: {
+//                 required: true
+//             },
+//             manzana: {
+//                 required: true
+//             }
 
 
-        },
-        messages: {
-            censo_select: {
-                required: "Debe seleccionar Censo"
-            },
-            fec_desde: {
-                required: "Debe seleccionar Fecha"
+//         },
+//         messages: {
+//             censo_select: {
+//                 required: "Debe seleccionar Censo"
+//             },
+//             fec_desde: {
+//                 required: "Debe seleccionar Fecha"
 
-            },
-            fec_hasta: {
-                required: "Debe seleccionar Fecha"
-            },
-            departamento: {
-                required: "Debe seleccionar Departamento"
-            },
-            area: {
-                required: "Debe seleccionar Area"
-            },
-            manzana: {
-                required: "Debe seleccionar Manzana"
-            }
-        },
+//             },
+//             fec_hasta: {
+//                 required: "Debe seleccionar Fecha"
+//             },
+//             departamento: {
+//                 required: "Debe seleccionar Departamento"
+//             },
+//             area: {
+//                 required: "Debe seleccionar Area"
+//             },
+//             manzana: {
+//                 required: "Debe seleccionar Manzana"
+//             }
+//         },
 
-        submitHandler: function(form) {
+//         submitHandler: function(form) {
 
-            form.submit();
+//             form.submit();
 
-        }
-    });
-};
+//         }
+//     });
+// };
 </script>
 
 

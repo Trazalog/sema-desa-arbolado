@@ -1,7 +1,15 @@
 <ul class="sidebar-menu menu" data-widget="tree">
     <li class="header">Navegacion</li>
-    <li><a href="<?php echo base_url('Login/usuarios') ?>"><i class="fa fa-user"></i>Administracion usuarios</a></li>
-    <li class="treeview">
+		<?php
+			// verifica q sea 'Admin' para dejar editar usuarios
+			$role = $this->session->userdata('role');
+			if($role == '1'){
+
+				echo "<li><a href='".base_url('Login/usuarios')."'><i class='fa fa-user'></i>Administracion usuarios</a></li>";
+			}
+		?>
+
+		<li class="treeview">
         <a href="#">
             <i class="fa  fa-circle-o"></i> <span>Arbolado ABM</span>
             <span class="pull-right-container">
@@ -9,7 +17,6 @@
             </span>
         </a>
         <ul class="treeview-menu">
-            <!-- <li><a href="#" class="link" data-link="Censista"><i class="fa fa-fw fa-cubes"></i>Censistas</a></li> -->
             <li><a href="#" class="link" data-link="Area"><i class="fa fa-fw fa-map"></i> Areas Geográficas</a></li>
             <li><a href="#" class="link" data-link="Departamento"><i class="fa fa-fw fa-cubes"></i> Departamentos</a></li>
             <li><a href="#" class="link" data-link="Manzana"><i class="fa fa-fw fa-cubes"></i> Manzanas</a></li>
@@ -43,6 +50,4 @@
         </ul>
     </li>
     <li><a href="#" class="link" data-link="Mapa"><i class="fa fa-fw fa-map"></i> Mapa</a></li>
-    <!--  <li><a href="#" data-link="general/Componente"><i class="fa fa-circle-o"></i>Header(Cabera)</a></li>
-    <li><a href="#" data-link="general/Tabla"><i class="fa fa-circle-o"></i>ABM Tablas</a></li> -->
 </ul>

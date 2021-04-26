@@ -136,10 +136,22 @@ function insertAreaCenso(){
                   id_area: id_area },
             url: 'Censo/insertAreaCenso',
             dataType: 'json',
-            success: function(result) {
-                      alert('resultado: ' + result);
+            success: function(result) { 
+                
+                      Swal.fire({
+                icon: 'success',
+                title: 'Area Asignada',
+                text: 'El area fue asignada al Censo!',
+                             })
+
                   if (result == 500) {
-                    alert("El area ya se encuentra asignada a este Censo");
+                  
+                    Swal.fire({
+                icon: 'error',
+                title: 'Area Asignada',
+                text: 'El area ya se encuentra asignada a este Censo!',
+                             })
+
                   }else{
                     $("#modal_areas_asignar").modal('hide');
                     buscaCensos();
