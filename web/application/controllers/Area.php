@@ -66,7 +66,7 @@ class Area extends CI_Controller {
 	}
 
 	function editar(){
-		$response = $this->Areas->editar($this->input->post());
+		$response = $this->Areas->editar($this->input->post('data'));
 		echo json_encode($response);
 	}
 }
