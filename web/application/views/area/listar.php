@@ -78,14 +78,7 @@ $this->load->view('area/modal_editar');
     } );
 
     function borrar(id){
-     
-      $.ajax({
-          type: 'POST',
-          data: {id: id},
-          url: 'Area/eliminar',
-          success: function(result) {
 
-            if(result < 300){
       Swal.fire({
 								title: 'Estas Seguro de Eliminar esta Area del Censo?',
 								text: "No podras revertir este proceso!",
@@ -95,52 +88,44 @@ $this->load->view('area/modal_editar');
 								cancelButtonColor: '#d33',
 								confirmButtonText: 'Si, Eliminar!'
 							}).then((result) => {
+
 								if (result.value) {
-									Swal.fire({
-										text: '"Eliminado!","El Area ha sido eliminada!"',
-										icon: 'success',
-										confirmButtonText: 'Ok',
-									})
-									setTimeout(function () {
-                    linkTo('Area');    
-									}, 3000); 
-								
+
+                  $.ajax({
+                      type: 'POST',
+                      data: {id: id},
+                      url: 'Area/eliminar',
+                      success: function(result) {
+                        if(result < 300){
+                          Swal.fire({
+                                title: '"Eliminado!"',
+                                text: '"El Area ha sido eliminada!"',
+                                icon: 'success',
+                                confirmButtonText: 'Ok',
+                              });
+                          linkTo('Area');
+                        }
+                      },
+                      error: function() {
+                        Swal.fire("Error", "No se pudo eliminar el Area...'");
+                      }
+                  });
 								} else {
-									Swal.fire("Cancelado", "El Area está a salvo! :)", "error");
+									Swal.fire("Cancelado");
 								}
-
 							});
-
-
-
-        
-       }else{
-						Swal.fire("Cancelado", "No se pudo eliminar el Area...'", "error");
-       }  
-                      
-          },
-          error: function() {
-           
-              Swal.fire("Cancelado", "No se pudo eliminar el Area...'", "error");
-          }
-      });
-
     }
 
     // levanta modal editar y lo llena
     $(document).off('click', '.fa-pencil').on('click', '.fa-pencil', function() {
-
       row = $(this).parents('tr').attr('data-json');
       info = JSON.parse(row);
       $("#modal_editar").modal("show");
       $("#selectDepto_editar").val(info.departamento);
       $("#selectArea_editar").val(info.nombreArea);
       $("#select_idArea_editar").val(info.idArea);
-
     });
-
-
-
+    
   </script>
 
 
