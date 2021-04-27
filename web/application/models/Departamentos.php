@@ -39,11 +39,11 @@ class Departamentos extends CI_Model
 
 		function eliminar($id){
 
-			log_message('DEBUG', 'Departamentos/eliminar  | #ID: '.json_encode($id));     
+			log_message('DEBUG', 'Departamentos/eliminar  | #ID: '.json_encode($id));
 			$departamento = array(
-				"depa_id"=> $id						
+				"depa_id"=> $id
 			);
-			$data['departamento'] = $departamento;	    
+			$data['_put_departamentos_delete'] = $departamento;
 			$resource = '/departamentos/delete';
 			$url = REST.$resource;
 			$array = $this->rest->callAPI("PUT", $url, $data);

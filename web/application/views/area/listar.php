@@ -125,7 +125,7 @@ $this->load->view('area/modal_editar');
       $("#selectArea_editar").val(info.nombreArea);
       $("#select_idArea_editar").val(info.idArea);
     });
-    
+
   </script>
 
 
