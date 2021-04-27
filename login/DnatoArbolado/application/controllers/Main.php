@@ -67,7 +67,7 @@ class Main extends CI_Controller {
 					
 						//redirect($config['base_url']./.$this->session->userdata['direccion']);
 						//redirect(HOST.$this->session->userdata['direccion']);
-						redirect(HOST.'sema-desa-arbolado/web');
+						redirect(HOST.'sema-desa-arbolado/web/Dash');
 
 
 					}
