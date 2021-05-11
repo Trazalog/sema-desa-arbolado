@@ -9,7 +9,7 @@
 
       <div class="modal-body" id="modalBodyArticle">
         <div class="row">
-
+        <form role="form" id="frm_editar">
          <!-- _______________ DEPARTAMENTOS Y ARBOLES  _____________ -->
 
             <div class="col-md-12">
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <input  name="idDeptoArbEditar"  id="idDeptoArbEditar" class="form-control hidden" />
-
+        </form>
         </div> <!-- ./ modal-body -->
 
         <div class="modal-footer">
@@ -34,48 +34,53 @@
 
 <script>
 
-  // actualiza areas
+  // actualiza Depto o Arboles
   function actualizarDeptoArb(){
-      wo();
-      var controller = '<?php echo $nombre;?>';
 
-      var data = {};
-      if (controller == 'Departamento') {
-        data.depa_id = $('#idDeptoArbEditar').val();
-        data.nombre = $("#nomDeptoArb").val();
-        var url = 'Departamento/editar';
-      } else {
-        data.tabl_id = $('#idDeptoArbEditar').val();
-        data.valor = $("#nomDeptoArb").val();
-        var url = 'Arbol/editar';
-      }
+    var controller = '<?php echo $nombre;?>';
 
-      $.ajax({
-            type: 'POST',
-            data: {data},
-            url: url,
-            dataType: 'json',
-            success: function(result) {
-                  wc();
-                  $("#modal_editar").modal("hide");
-                  if (result == 500) {
+    var id = $("#nomDeptoArb").val();
+    if(id == ""){
+      Swal.fire('Por favor rellene el campo vacio...');
+      return;
+    }
+    var data = {};
+    if (controller == 'Departamento') {
+      data.depa_id = $('#idDeptoArbEditar').val();
+      data.nombre = id;
+      var url = 'Departamento/editar';
+    } else {
+      data.tabl_id = $('#idDeptoArbEditar').val();
+      data.valor = id;
+      var url = 'Arbol/editar';
+    }
+    wo();
+    $.ajax({
+          type: 'POST',
+          data: {data},
+          url: url,
+          dataType: 'json',
+          success: function(result) {
+                wc();
+                $("#modal_editar").modal("hide");
+                if (result == 500) {
 
-                      alert("Error al actualizar Area");
-                  }else{
+                    alert("Error al actualizar Area");
+                }else{
 
-                      $("#modal_editar").modal('hide');
-                      if (controller == 'Departamento') {
-                          linkTo('Departamento');
-                      }else{
-                        linkTo('Arbol');
-                      }
-                  }
-            },
-            error: function() {
-                  wc();
-                  alert('Error Actualizacion...');
-            }
-      });
+                    $("#modal_editar").modal('hide');
+                    if (controller == 'Departamento') {
+                        linkTo('Departamento');
+                    }else{
+                      linkTo('Arbol');
+                    }
+                }
+          },
+          error: function() {
+                wc();
+                alert('Error Actualizacion...');
+          }
+    });
   }
 
 </script>

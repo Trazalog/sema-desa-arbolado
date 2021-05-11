@@ -52,7 +52,7 @@ class Manzanas extends CI_Model
 		$manzana = array(
 			"manz_id"=> $id				
 		);
-		$datos['manzana'] = $manzana;
+		$datos['_put_manzanas_delete'] = $manzana;
 		$resource = '/manzanas/delete';
     $url = REST.$resource;
     $array = $this->rest->callAPI("PUT", $url, $datos);

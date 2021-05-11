@@ -53,7 +53,7 @@
                           echo '<td>'.$fila->TAPA_DE_TAZA_INSCRUSTADA.'</td>';
                           echo '<td>'.$fila->ACEQUIA.'</td>';
                      //   echo '<td> &nbsp;&nbsp;<button onclick="Detalles('.$fila->info_id.')"class="btn btn-success">Detalles</button></td>';   
-                          echo '</tr>';                          
+                          echo '</tr>';
                         
                       }
                     }
@@ -102,21 +102,18 @@
                 </div>
             </div>
 
-            <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
-      </div> -->
         </div>
     </div>
 </div>
-            <script>
-    $(document).ready(function() {
-        $('#tabla_lista').DataTable({
-            responsive: true,
-            language: {
-                url: '<?php base_url() ?>lib/bower_components/datatables.net/js/es-ar.json' //Ubicacion del archivo con el json del idioma.
-            },
-            dom: 'lfrtipB',
-    buttons: [{
+<script>
+$(document).ready(function() {
+  $('#tabla_lista').DataTable({
+      responsive: true,
+      language: {
+          url: '<?php base_url() ?>lib/bower_components/datatables.net/js/es-ar.json' //Ubicacion del archivo con el json del idioma.
+      },
+      dom: 'lfrtipB',
+      buttons: [{
         //Botón para Excel
         extend: 'excel',
         footer: true,
@@ -126,62 +123,64 @@
         //Aquí es donde generas el botón personalizado
         text: '<button class="btn btn-success">Exportar a Excel <i class="fas fa-file-excel"></i></button>'
         }
-      // //Botón para PDF
-      // {
-      //   extend: 'pdf',
-      //   footer: true,
-      //   title: 'Reporte Arbolado',
-      //   filename: 'Reporte_Arbolado_pdf',
-      //   text: '<button class="btn btn-danger">Exportar a PDF <i class="far fa-file-pdf"></i></button>'
-      // }
-    ]
-        });
-    });
- 
+        // //Botón para PDF
+        // {
+        //   extend: 'pdf',
+        //   footer: true,
+        //   title: 'Reporte Arbolado',
+        //   filename: 'Reporte_Arbolado_pdf',
+        //   text: '<button class="btn btn-danger">Exportar a PDF <i class="far fa-file-pdf"></i></button>'
+        // }
+      ]
+  });
+});
 
-    function Detalles(id) {
+function Detalles(id) {
 
-$.ajax({
-    type: 'POST',
-    data: {
-        id: id
-    },
-    url: 'Reporte/getDetalle',
-    success: function(result) {
+    $.ajax({
+        type: 'POST',
+        data: {
+            id: id
+        },
+        url: 'Reporte/getDetalle',
+        success: function(result) {
 
-        $('#modal_detalles').find('.modal-body').html(result.html);
-        $('#modal_detalles').modal('show');
-        $('.modal-body > form').find('input, textarea, button, select').attr('disabled',
-            'disabled');
-        $('#read_only').attr('disabled');
-        $('.frm-save').hide();
-    },
-    dataType: 'json'
-})
+            $('#modal_detalles').find('.modal-body').html(result.html);
+            $('#modal_detalles').modal('show');
+            $('.modal-body > form').find('input, textarea, button, select').attr('disabled',
+                'disabled');
+            $('#read_only').attr('disabled');
+            $('.frm-save').hide();
+        },
+        dataType: 'json'
+    })
 }
 
 function Imagen(id) {
-$.ajax({
-    type: 'POST',
-    data: {
-        id: id
-    },
-    url: 'Reporte/getImagen',
-    success: function(result) {
+  $.ajax({
+      type: 'POST',
+      data: {
+          id: id
+      },
+      url: 'Reporte/getImagen',
+      success: function(result) {
+        if (result.html != null) {
 
-        if(imagen != null || imagen!= '' || imagen != "") {
-          
-            var imagen = result.html.replace('dataimage/jpegbase64', 'data:image/jpeg;base64,');
-        $('#modal_imagen').find('#imagen_modal').prop("src", imagen);
-        $('#modal_imagen').modal('show');
- }
- else {
-   alert('te salio para el culo!');
-}
-       
-    },
-    dataType: 'json'
-})
+          var imagen = result.html.replace('dataimage/jpegbase64', 'data:image/jpeg;base64,');
+          if(imagen != null || imagen!= '' || imagen != "") {
+              $('#modal_imagen').find('#imagen_modal').prop("src", imagen);
+              $('#modal_imagen').modal('show');
+          }
+          else {
+              alert('Error!');
+          }
+        }else{
+
+            Swal.fire('No hay Imagen guardada de este Arbol')
+        }
+      },
+      dataType: 'json'
+  })
 }
 
-  </script>
+</script>

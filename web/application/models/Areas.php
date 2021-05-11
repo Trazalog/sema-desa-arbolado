@@ -37,7 +37,7 @@ class Areas extends CI_Model
     $resource = '/area_batch_req';
     $url = REST.$resource;
     $array = file_get_contents($url, false, $param);
-    log_message('DEBUG', '#MODEL #CENSOS > Resultado post  | #DATA: '.json_encode($array));    
+    log_message('DEBUG', '#MODEL #CENSOS > Resultado post  | #DATA: '.json_encode($array));
     return json_decode($array);
   }
   # Obtener Informacion de areas por Departamento
@@ -76,7 +76,7 @@ class Areas extends CI_Model
     $put_area = array(
 			"arge_id"=> $id						
 		);
-		$data['area'] = $put_area;
+		$data['_put_area_delete'] = $put_area;
     $resource = '/area/delete';
     $url = REST.$resource;
     $array = $this->rest->callAPI("PUT", $url, $data);
@@ -85,7 +85,7 @@ class Areas extends CI_Model
 
   function editar($data){
     $post['_put_area_actualizar'] = $data;
-    $aux = $this->rest->callAPI("PUT",REST."/area/actualizar", $data);
+    $aux = $this->rest->callAPI("PUT",REST."/area/actualizar", $post);
     $aux =json_decode($aux["code"]);
     return $aux;
   }

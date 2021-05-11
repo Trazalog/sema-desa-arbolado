@@ -12,7 +12,7 @@
       <result outputType="json">{&#xd;  "calles":{&#xd;    "calle":[&#xd;      {&#xd;        "id": "$id",&#xd;        "nombre": "$nombre",&#xd;        "depa_nombre": "$depa_nombre"         &#xd;      }&#xd;    ]&#xd;  }&#xd;}</result>
    </query>
    <query id="listadepartamentos" useConfig="arbolado">
-      <sql>SELECT&#xd;    depa_id as id,&#xd;    nombre&#xd;FROM&#xd;    arb_departamentos</sql>
+      <sql>SELECT&#xd;    depa_id as id,&#xd;    nombre&#xd;FROM&#xd;    arb_departamentos&#xd;where eliminado = 0</sql>
       <result outputType="json">{&#xd;  "departamentos":{&#xd;    "departamento":[&#xd;      {&#xd;        "id": "$id",&#xd;        "nombre": "$nombre"&#xd;      }&#xd;    ]&#xd;  }&#xd;}</result>
    </query>
    <query id="listamanzanas-ver" useConfig="arbolado">
@@ -21,7 +21,7 @@
       <param name="arge_id" sqlType="INTEGER"/>
    </query>
    <query id="listacensistas" useConfig="arbolado">
-      <sql>SELECT&#xd;   usua_id as id,&#xd;   nom_usuario nombre,&#xd;   ape_usuario as apellido,&#xd;   direccion,&#xd;   telefono&#xd;FROM &#xd;   arb_usuarios</sql>
+      <sql>SELECT&#xd;   usua_id as id,&#xd;   nom_usuario nombre,&#xd;   ape_usuario as apellido,&#xd;   direccion,&#xd;   telefono&#xd;FROM &#xd;   arb_usuarios&#xd;where &#xd;   eliminado = 0</sql>
       <result outputType="json">{&#xd;  "censistas":{&#xd;    "censista":[&#xd;      {&#xd;        "id": "$id",&#xd;        "nombre": "$nombre",&#xd;        "apellido": "$apellido",&#xd;        "direccion": "$direccion",&#xd;        "telefono": "$telefono"&#xd;      }&#xd;    ]&#xd;  }&#xd;}</result>
    </query>
    <query id="listacensos" useConfig="arbolado">
@@ -42,8 +42,8 @@
       <param name="depa_id" sqlType="STRING"/>
    </query>
    <query id="listamanzanas" useConfig="arbolado">
-      <sql>SELECT&#xd;   M.manz_id as id,&#xd;   M.nombre,&#xd;   AG.nombre as arge_nombre,&#xd;   D.nombre as depa_nombre&#xd;FROM&#xd;   arb_manzanas M&#xd;JOIN&#xd;   arb_areas_geograficas AG&#xd;ON&#xd;   M.arge_id = AG.arge_id&#xd;join &#xd;   arb_departamentos D&#xd;   on AG.depa_id = D.depa_id &#xd;WHERE &#xd;   M.eliminado = 0</sql>
-      <result outputType="json">{&#xd;  "manzanas": {&#xd;    "manzana":[&#xd;      {&#xd;        "id": "$id",&#xd;        "nombre": "$nombre",&#xd;        "arge_nombre": "$arge_nombre",&#xd;        "depa_nombre": "$depa_nombre"&#xd;      }&#xd;    ]&#xd;  }  &#xd;}</result>
+      <sql>SELECT&#xd;   M.manz_id as id,&#xd;   M.nombre,&#xd;   AG.nombre as arge_nombre,&#xd;   D.nombre as depa_nombre,&#xd;   D.depa_id&#xd;FROM&#xd;   arb_manzanas M&#xd;JOIN&#xd;   arb_areas_geograficas AG&#xd;ON&#xd;   M.arge_id = AG.arge_id&#xd;join &#xd;   arb_departamentos D&#xd;   on AG.depa_id = D.depa_id &#xd;WHERE &#xd;   M.eliminado = 0</sql>
+      <result outputType="json">{&#xd;  "manzanas": {&#xd;    "manzana":[&#xd;      {&#xd;        "id": "$id",&#xd;        "nombre": "$nombre",&#xd;        "arge_nombre": "$arge_nombre",&#xd;        "depa_nombre": "$depa_nombre",&#xd;        "depa_id": "$depa_id"&#xd;      }&#xd;    ]&#xd;  }  &#xd;}</result>
    </query>
    <query id="tree_list" useConfig="arbolado">
       <sql>SELECT&#xd; CAST( ag.arge_id as VARCHAR) arge_id_tx,&#xd; ag.nombre as nombrearea,&#xd;   ag.arge_id as arge_id,&#xd;   arb_censos_usuarios_areas.cens_id&#xd;FROM&#xd;   arb_areas_geograficas ag&#xd;INNER JOIN arb_censos_usuarios_areas ON arb_censos_usuarios_areas.arge_id = ag.arge_id&#xd;INNER JOIN arb_usuarios ON arb_censos_usuarios_areas.usua_id = arb_usuarios.usua_id&#xd;WHERE&#xd;   arb_usuarios.email = :nick&#xd;order by ag.nombre</sql>
@@ -310,6 +310,40 @@
    <query id="callesTodas" useConfig="arbolado">
       <sql>select distinct (nombre)&#xd;from arb_calles&#xd;order by nombre</sql>
       <result outputType="json">{&#xd; "calles": {&#xd;    "calle": [&#xd;          {&#xd;            "nombre": "$nombre"&#xd;          }&#xd;    ]&#xd; }&#xd;}</result>
+   </query>
+   <query id="actualizarAreaDeppartamento" useConfig="arbolado">
+      <sql>update arb_censos_usuarios_areas set arge_id = cast(:arge_id as integer)&#xd;where ceua_id = cast(:ceua_id as integer)</sql>
+      <param name="arge_id" sqlType="STRING"/>
+      <param name="ceua_id" sqlType="STRING"/>
+   </query>
+   <query id="updateArea" useConfig="arbolado">
+      <sql>update arb_areas_geograficas set nombre = :nombre&#xd;where arge_id = cast(:arge_id as integer)</sql>
+      <param name="nombre" sqlType="STRING"/>
+      <param name="arge_id" sqlType="STRING"/>
+   </query>
+   <query id="updateDepartamento" useConfig="arbolado">
+      <sql>update arb_departamentos set nombre = :nombre &#xd;where depa_id = cast(:depa_id as integer)</sql>
+      <param name="nombre" sqlType="STRING"/>
+      <param name="depa_id" sqlType="STRING"/>
+   </query>
+   <query id="updateArbolEspecie" useConfig="arbolado">
+      <sql>update utl_tablas set valor = :valor &#xd;where tabl_id = cast(:tabl_id as integer)</sql>
+      <param name="valor" sqlType="STRING"/>
+      <param name="tabl_id" sqlType="STRING"/>
+   </query>
+   <query id="updateManzanas" useConfig="arbolado">
+      <sql>update arb_manzanas set nombre = :nombre &#xd;where manz_id = cast(:manz_id as integer)</sql>
+      <param name="nombre" sqlType="STRING"/>
+      <param name="manz_id" sqlType="STRING"/>
+   </query>
+   <query id="updateCalle" useConfig="arbolado">
+      <sql>update arb_calles set nombre = :nombre &#xd;where call_id = cast(:call_id as integer)</sql>
+      <param name="nombre" sqlType="STRING"/>
+      <param name="call_id" sqlType="STRING"/>
+   </query>
+   <query id="perfilBorrarDnato" useConfig="arbolado">
+      <sql>update arb_usuarios&#xd;set &#xd; eliminado = 1&#xd;where &#xd; email = :email</sql>
+      <param name="email" sqlType="STRING"/>
    </query>
    <operation name="updform">
       <call-query href="actualizarForm">
@@ -654,5 +688,45 @@
    <resource method="GET" path="/calles/todas">
       <call-query href="callesTodas"/>
    </resource>
+   <resource method="PUT" path="/censo/actualizar/area/departamento">
+      <call-query href="actualizarAreaDeppartamento">
+         <with-param name="arge_id" query-param="arge_id"/>
+         <with-param name="ceua_id" query-param="ceua_id"/>
+      </call-query>
+   </resource>
+   <resource method="PUT" path="/area/actualizar">
+      <call-query href="updateArea">
+         <with-param name="nombre" query-param="nombre"/>
+         <with-param name="arge_id" query-param="arge_id"/>
+      </call-query>
+   </resource>
+   <resource method="PUT" path="/departamento/actualizar">
+      <call-query href="updateDepartamento">
+         <with-param name="nombre" query-param="nombre"/>
+         <with-param name="depa_id" query-param="depa_id"/>
+      </call-query>
+   </resource>
+   <resource method="PUT" path="/arbol/especie/actualizar">
+      <call-query href="updateArbolEspecie">
+         <with-param name="valor" query-param="valor"/>
+         <with-param name="tabl_id" query-param="tabl_id"/>
+      </call-query>
+   </resource>
+   <resource method="PUT" path="/manzana/actualizar">
+      <call-query href="updateManzanas">
+         <with-param name="nombre" query-param="nombre"/>
+         <with-param name="manz_id" query-param="manz_id"/>
+      </call-query>
+   </resource>
+   <resource method="PUT" path="/calle/actualizar">
+      <call-query href="updateCalle">
+         <with-param name="nombre" query-param="nombre"/>
+         <with-param name="call_id" query-param="call_id"/>
+      </call-query>
+   </resource>
+   <resource method="PUT" path="/perfil/dnato/borrar">
+      <call-query href="perfilBorrarDnato">
+         <with-param name="email" query-param="email"/>
+      </call-query>
+   </resource>
 </data>
-
