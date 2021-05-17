@@ -149,8 +149,11 @@
                         data-style="btn-success" data-count="" required>
                         <?php 
                                         if(is_array($tipo_taza)){
-                                            foreach ($tipo_taza as $i) {
-                                                echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+
+                                           $array = json_decode(json_encode($tipo_taza), true);
+
+                                            foreach ($array as $i) {
+                                                echo "<option value =".strval($i['valor'])." style='background: #5cb85c; color: #fff;'>".$i['valor']."</option>";
                                               }
                                         }
                                         ?>
@@ -491,9 +494,8 @@ $('#manzana').change(function() {
             var contador_calle = datos.calles.length;
             $('#calle').attr('data-count', contador_calle);
 
-            for (i = 0; i < datos.calles.length; i++) {
-                $('#calle').prepend('<option  style="background: #5cb85c; color: #fff"; value=' + datos.calles[i].nombre + '>' + datos.calles[
-                    i].nombre + '</option>');
+            for (i = 0; i < contador_calle; i++) {
+             $('#calle').prepend('<option  style="background: #5cb85c; color: #fff"; value='+datos.calles[i].nombre+'>'+datos.calles[i].nombre+'</option>');
 
             }
 
@@ -627,7 +629,7 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_especie == contador_especie) {
             var especie = "TODOS";
         } else {
-            var especie = $("#tipo_taza").val();
+            var especie = $("#especie").val();
         }
 
 
@@ -636,7 +638,7 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_aliniacion_arbol == contador_aliniacion_arbol) {
             var aliniacion_arbol = "TODOS";
         } else {
-            var aliniacion_arbol = $("#tipo_taza").val();
+            var aliniacion_arbol = $("#aliniacion_arbol").val();
         }
 
         contador_estado_sanitario = $('#estado_sanitario').attr('data-count');
@@ -644,7 +646,7 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_estado_sanitario == contador_estado_sanitario) {
             var estado_sanitario = "TODOS";
         } else {
-            var estado_sanitario = $("#tipo_taza").val();
+            var estado_sanitario = $("#estado_sanitario").val();
         }
 
 
@@ -653,7 +655,7 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_tapa_taza_incrustada == contador_tapa_taza_incrustada) {
             var tapa_taza_incrustada = "TODOS";
         } else {
-            var tapa_taza_incrustada = $("#tipo_taza").val();
+            var tapa_taza_incrustada = $("#tapa_taza_incrustada").val();
         }
 
 
@@ -662,7 +664,7 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_acequia == contador_acequia) {
             var acequia = "TODOS";
         } else {
-            var acequia = $("#tipo_taza").val();
+            var acequia = $("#acequia").val();
         }
 
 

@@ -18,7 +18,7 @@
 
 <div class="box">
     <div class="box-header bg-green">
-        <h3 class="box-title">Reporte Todal - Arboles Censados</h3>
+        <h3 class="box-title">Reporte Total - Arboles Censados</h3>
 
     </div><!-- /.box-header -->
 
