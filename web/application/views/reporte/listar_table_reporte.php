@@ -93,8 +93,8 @@
                 echo '<td>'.$fila->ALTURA_DEL_FUSTE__M_.'</td>';
                 echo '<td>'.$fila->CIRCUNFERENCIA_ALTURA_PECHO__CM__CAP.'</td>';
                 echo '<td>'.$fila->ALTURA_MEDICION_DEL_CAP.'</td>';
-                echo '<td></td>';//COPA__M__-_MEDIDA_1
-                echo '<td></td>';//COPA__M__-_MEDIDA_2
+                echo '<td>'.$fila->.{'COPA__M__-_MEDIDA_1'}.'</td>';
+                echo '<td>'.$fila->.{'COPA__M__-_MEDIDA_2'}.'</td>';
                 echo '<td>'.$fila->DESCUBIERTAS.'</td>';
                 echo '<td>'.$fila->CUELLO_VISIBLE.'</td>';
                 echo '<td>'.$fila->LEVANTAMIENTO_DE_VEREDAS.'</td>';
