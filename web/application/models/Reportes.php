@@ -260,7 +260,7 @@ function AreaXdepartamento($departamento)
 
  $datos_dptos = $str_dato_array;
 
-  $resource = '/areasGeograficas/eliminado/0?'.$datos_dptos;	 	
+  $resource = '/areasGeograficas/eliminado/0?'.$datos_dptos;
   $url = REST_REPO.$resource;
   $array = $this->rest->callAPI("Get", $url);
 
@@ -274,7 +274,7 @@ function ManzanaXarea($area)
 {
   $count_areass = count($area);
  
-  
+
   for ($i=0;$i<count($area);$i++) 
       {
        $datos = "arge_id_list=".$area[$i];
