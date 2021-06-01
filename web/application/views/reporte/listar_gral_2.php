@@ -56,235 +56,237 @@
                     <input class="form-control" type="date" id="fec_hasta" name="fec_hasta" required>
 
                 </div>
+
 								<div class="col-xs-12">
 									<button class="btn btn-primary pull-left" data-toggle="control-sidebar">Abrir / Cerrar panel de Filtros</button>
 								</div>
-                <div class="col-xs-12">
+
+								<div class="col-xs-12">
                     <hr>
                 </div>
 
-                <div class="col-md-12 table-responsive" id="cargar_tabla"></div>
-                <div class="row">
+                <div class="col-md-12 table-responsive" id="cargar_tabla">
 
+								</div>
 
-                </div><!-- /.box-body -->
+								<div class="row">
+                </div><!-- /.row -->
+
             </div><!-- /.row -->
-    </div><!-- /.col -->
-    </form>
-</div><!-- /box-body -->
+				</form>
 
-</div><!-- /box-body -->
+		</div><!-- box-body -->
+
+
+		<!-- </div> -->
+
+</div><!-- /box -->
 
 <!-- Left side column. contains the logo and sidebar -->
-<aside class="control-sidebar control-sidebar-dark control-sidebar-open" style="width:20%">
-<div class="box-body">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+<aside class="control-sidebar control-sidebar-dark control-sidebar-close" style="width:20%;">
+	<div class="box-body">
+			<!-- sidebar: style can be found in sidebar.less -->
+			<section class="sidebar">
 
-        <!-- Sidebar Menu -->
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header" style="height: 5px;"></li>
-            <!-- Optionally, you can add icons to the links -->
+					<!-- Sidebar Menu -->
+					<ul class="sidebar-menu" data-widget="tree">
+							<li class="header" style="height: 5px;"></li>
+							<!-- Optionally, you can add icons to the links -->
 
-            <li class="departamento">
-                <label for="departamento" class="col-6 col-form-label">Departamento:</label>
-                <div class="input-group date" id="carg" class="col-md-2">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <select class="form-control" id="departamento" name="departamento" multiple="multiple"
-                        data-live-search="true" title="Seleccione Departamento" data-actions-box="true"
-                        style="width: 50%;" data-style="btn-success" data-count="<?php echo count($departamentos);?>"
-                        required>
-                        <option value="" disabled  style="background: #5cb85c; color: #fff;">-Seleccione Departamento-</option>
-                        <?php
-                                          foreach($departamentos as $fila)
-                                          {
-                                            echo '<option value="'.$fila->id.'" style="background: #5cb85c; color: #fff;">'.$fila->nombre.'</option>' ;
-                                          }
-                                    ?>
-                    </select>
-                </div>
-                <br>
-            </li>
-            <li class="area">
-                <label for="area" style="margin-left:10px">Area:</label>
-                <div class="input-group date" id="c" class="col-md-2">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <select class="form-control" id="area" name="area" multiple="multiple" data-live-search="true"
-                        title="Seleccione Area" data-actions-box="true" style="width: 500%;" data-style="btn-success"
-                        data-count="" required>
-                     <!--   <option value="" disabled style="background: #5cb85c; color: #fff;">Seleccione Area</option> -->
-                    </select>
-                </div>
-            </li>
-            <br>
-            <li class="manzana">
-                <label for="manzana" style="margin-left:10px">Manzana:</label>
-                <div class="col-md-6 col-xs-12 input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <select class="form-control selectpicker" id="manzana" name="manzana" multiple="multiple"
-                        data-live-search="true" title="Seleccione Manzana" data-actions-box="true" style="width: 500%;"
-                        data-style="btn-success" data-count="" required>
-                    </select>
-                </div>
-            </li>
-            <br>
-						<li class="calle">
-                <label for="calle" style="margin-left:10px">Calle:</label>
-                <div class="col-md-6 col-xs-12 input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <select class="form-control" id="calle" name="calle" multiple="multiple"
-                        data-live-search="true" title="Seleccione Calle" data-actions-box="true" style="width: 500%;"
-                        data-style="btn-success" data-count="" required>
-                    </select>
-                </div>
-            </li>
-						<br>
-            <li class="tipo_taza">
-                <label for="tipo_taza" style="margin-left:10px">Tipo de Taza:</label>
-                <div class="col-md-6 col-xs-12 input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <?php
-											if(is_array($tipo_taza)){
-                        $contador_tipo_taza = count($tipo_taza);
-                    ?>
-                    		<select class="form-control selectpicker" id="tipo_taza" name="tipo_taza" multiple="multiple"
-                        data-live-search="true" title="Seleccione Taza" data-actions-box="true" style="width: 500%;"
-                        data-style="btn-success" data-count="<?php echo $contador_tipo_taza;?>" required>
-                    <?php
-                        $array = json_decode(json_encode($tipo_taza), true);
+							<li class="departamento">
+									<label for="departamento" class="col-6 col-form-label">Departamento:</label>
+									<div class="input-group date" id="carg" class="col-md-2">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<select class="form-control" id="departamento" name="departamento" multiple="multiple"
+													data-live-search="true" title="Seleccione Departamento" data-actions-box="true"
+													style="width: 50%;" data-style="btn-success" data-count="<?php echo count($departamentos);?>"
+													required>
+													<option value="" disabled  style="background: #5cb85c; color: #fff;">-Seleccione Departamento-</option>
+													<?php
+																						foreach($departamentos as $fila)
+																						{
+																							echo '<option value="'.$fila->id.'" style="background: #5cb85c; color: #fff;">'.$fila->nombre.'</option>' ;
+																						}
+																			?>
+											</select>
+									</div>
+									<br>
+							</li>
+							<li class="area">
+									<label for="area" style="margin-left:10px">Area:</label>
+									<div class="input-group date" id="c" class="col-md-2">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<select class="form-control" id="area" name="area" multiple="multiple" data-live-search="true"
+													title="Seleccione Area" data-actions-box="true" style="width: 500%;" data-style="btn-success"
+													data-count="" required>
+											<!--   <option value="" disabled style="background: #5cb85c; color: #fff;">Seleccione Area</option> -->
+											</select>
+									</div>
+							</li>
+							<br>
+							<li class="manzana">
+									<label for="manzana" style="margin-left:10px">Manzana:</label>
+									<div class="col-md-6 col-xs-12 input-group">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<select class="form-control selectpicker" id="manzana" name="manzana" multiple="multiple"
+													data-live-search="true" title="Seleccione Manzana" data-actions-box="true" style="width: 500%;"
+													data-style="btn-success" data-count="" required>
+											</select>
+									</div>
+							</li>
+							<br>
+							<li class="calle">
+									<label for="calle" style="margin-left:10px">Calle:</label>
+									<div class="col-md-6 col-xs-12 input-group">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<select class="form-control" id="calle" name="calle" multiple="multiple"
+													data-live-search="true" title="Seleccione Calle" data-actions-box="true" style="width: 500%;"
+													data-style="btn-success" data-count="" required>
+											</select>
+									</div>
+							</li>
+							<br>
+							<li class="tipo_taza">
+									<label for="tipo_taza" style="margin-left:10px">Tipo de Taza:</label>
+									<div class="col-md-6 col-xs-12 input-group">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<?php
+												if(is_array($tipo_taza)){
+													$contador_tipo_taza = count($tipo_taza);
+											?>
+													<select class="form-control selectpicker" id="tipo_taza" name="tipo_taza" multiple="multiple"
+													data-live-search="true" title="Seleccione Taza" data-actions-box="true" style="width: 500%;"
+													data-style="btn-success" data-count="<?php echo $contador_tipo_taza;?>" required>
+											<?php
+													$array = json_decode(json_encode($tipo_taza), true);
 
-												foreach ($array as $i) {
-													echo "<option value =".strval($i['valor'])." style='background: #5cb85c; color: #fff;'>".$i['valor']."</option>";
+													foreach ($array as $i) {
+														echo "<option value =".strval($i['valor'])." style='background: #5cb85c; color: #fff;'>".$i['valor']."</option>";
+													}
 												}
+											?>
+													</select>
+									</div>
+							</li>
+							<br>
+							<li class="especie">
+									<label for="especie" style="margin-left:10px">Especie:</label>
+									<div class="col-md-6 col-xs-12 input-group">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<?php
+												if(is_array($listar_arbol_especie)){
+													$contador_listar_arbol_especie = count($listar_arbol_especie);
+											?>
+													<select class="form-control selectpicker" id="especie" name="especie" multiple="multiple"
+													data-live-search="true" title="Seleccione Especie" data-actions-box="true" style="width: 500%;"
+													data-style="btn-success" data-count="<?php $contador_listar_arbol_especie; ?>" required>
+											<?php
+																				
+													foreach ($listar_arbol_especie as $i) {
+														echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+													}
 											}
-										?>
-                    		</select>
-                </div>
-            </li>
-
-						<br>
-            <li class="especie">
-                <label for="especie" style="margin-left:10px">Especie:</label>
-                <div class="col-md-6 col-xs-12 input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <?php
-											if(is_array($listar_arbol_especie)){
-                        $contador_listar_arbol_especie = count($listar_arbol_especie);
-                    ?>
-                    		<select class="form-control selectpicker" id="especie" name="especie" multiple="multiple"
-                        data-live-search="true" title="Seleccione Especie" data-actions-box="true" style="width: 500%;"
-                        data-style="btn-success" data-count="<?php $contador_listar_arbol_especie; ?>" required>
-                    <?php
-                                      
-												foreach ($listar_arbol_especie as $i) {
-													echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+											?>
+													</select>
+									</div>
+							</li>
+							<br>
+							<li class="aliniacion_arbol">
+									<label for="aliniacion_arbol" style="margin-left:10px">Alineación del Arbol:</label>
+									<div class="col-md-6 col-xs-12 input-group">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<?php      if(is_array($alineacion_arbol)){ 
+													$contador_alineacion_arbol = count($alineacion_arbol);
+															?>
+											<select class="form-control selectpicker" id="aliniacion_arbol" name="aliniacion_arbol"
+													multiple="multiple" data-live-search="true" title="Seleccione Alineación" data-actions-box="true"
+													style="width: 500%;" data-style="btn-success" data-count="<?php $contador_alineacion_arbol;?>" required>
+													<?php 
+																				
+																							foreach ($alineacion_arbol as $i) {
+																									echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+																								}
+																					}
+																					?>
+											</select>
+									</div>
+							</li>
+							<br>
+							<li class="estado_sanitario">
+									<label for="estado_sanitario" style="margin-left:10px">Estado Sanitario:</label>
+									<div class="col-md-6 col-xs-12 input-group">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<?php      if(is_array($estado)){ 
+													$contador_estado = count($estado);
+															?>
+											<select class="form-control selectpicker" id="estado_sanitario" name="estado_sanitario"
+													multiple="multiple" data-live-search="true" title="Seleccione Estado" data-actions-box="true"
+													style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_estado;?>" required>
+													<?php 
+																				
+																							foreach ($estado as $i) {
+																									echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+																								}
+																					}
+																					?>
+											</select>
+									</div>
+							</li>
+							<br>
+							<li class="tapa_taza_incrustada">
+									<label for="tapa_taza_incrustada" style="margin-left:10px">Tapa Taza Incrustada:</label>
+									<div class="col-md-6 col-xs-12 input-group">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<?php
+												if(is_array($taza_inscrustada)){
+													$contador_taza_inscrustada = count($taza_inscrustada);
+											?>
+													<select class="form-control selectpicker" id="tapa_taza_incrustada" name="tapa_taza_incrustada"
+													multiple="multiple" data-live-search="true" title="Seleccione Tapa" data-actions-box="true"
+													style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_taza_inscrustada;?>" required>
+											<?php
+													foreach ($taza_inscrustada as $i) {
+														echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+													}
 												}
-										}
-										?>
-                    		</select>
-                </div>
-            </li>
-
-						<br>
-            <li class="aliniacion_arbol">
-                <label for="aliniacion_arbol" style="margin-left:10px">Alineación del Arbol:</label>
-                <div class="col-md-6 col-xs-12 input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <?php      if(is_array($alineacion_arbol)){ 
-                        $contador_alineacion_arbol = count($alineacion_arbol);
-                            ?>
-                    <select class="form-control selectpicker" id="aliniacion_arbol" name="aliniacion_arbol"
-                        multiple="multiple" data-live-search="true" title="Seleccione Alineación" data-actions-box="true"
-                        style="width: 500%;" data-style="btn-success" data-count="<?php $contador_alineacion_arbol;?>" required>
-                        <?php 
-                                       
-                                            foreach ($alineacion_arbol as $i) {
-                                                echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
-                                              }
-                                        }
-                                        ?>
-                    </select>
-                </div>
-            </li>
-            <br>
-            <li class="estado_sanitario">
-                <label for="estado_sanitario" style="margin-left:10px">Estado Sanitario:</label>
-                <div class="col-md-6 col-xs-12 input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <?php      if(is_array($estado)){ 
-                        $contador_estado = count($estado);
-                            ?>
-                    <select class="form-control selectpicker" id="estado_sanitario" name="estado_sanitario"
-                        multiple="multiple" data-live-search="true" title="Seleccione Estado" data-actions-box="true"
-                        style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_estado;?>" required>
-                        <?php 
-                                      
-                                            foreach ($estado as $i) {
-                                                echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
-                                              }
-                                        }
-                                        ?>
-                    </select>
-                </div>
-            </li>
-            <br>
-            <li class="tapa_taza_incrustada">
-                <label for="tapa_taza_incrustada" style="margin-left:10px">Tapa Taza Incrustada:</label>
-                <div class="col-md-6 col-xs-12 input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <?php
-											if(is_array($taza_inscrustada)){
-                      	$contador_taza_inscrustada = count($taza_inscrustada);
-                    ?>
-                    		<select class="form-control selectpicker" id="tapa_taza_incrustada" name="tapa_taza_incrustada"
-                        multiple="multiple" data-live-search="true" title="Seleccione Tapa" data-actions-box="true"
-                        style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_taza_inscrustada;?>" required>
-                    <?php
-												foreach ($taza_inscrustada as $i) {
-													echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+											?>
+											</select>
+									</div>
+							</li>
+							<br>
+							<li class="acequia">
+									<label for="acequia" style="margin-left:10px">Acequia:</label>
+									<div class="col-md-6 col-xs-12 input-group">
+											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+											<?php
+												if(is_array($acequia)){
+													$contador_acequia = count($acequia);
+											?>
+													<select class="form-control selectpicker" id="acequia" name="acequia" multiple="multiple"
+													data-live-search="true" title="Seleccione Acequia" data-actions-box="true" style="width: 500%;"
+													data-style="btn-success" data-count="<?php echo $contador_acequia;?>" required>
+												
+											<?php
+													foreach ($acequia as $i) {
+														echo '<option value ="'.$i->valor.'" style="background: #5cb85c; color: #fff;">'.$i->valor.'</option>';
+													}
 												}
-											}
-										?>
-                    </select>
-                </div>
-            </li>
-            <br>
-            <li class="acequia">
-                <label for="acequia" style="margin-left:10px">Acequia:</label>
-                <div class="col-md-6 col-xs-12 input-group">
-                    <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                    <?php
-											if(is_array($acequia)){
-                        $contador_acequia = count($acequia);
-                    ?>
-                    		<select class="form-control selectpicker" id="acequia" name="acequia" multiple="multiple"
-                        data-live-search="true" title="Seleccione Acequia" data-actions-box="true" style="width: 500%;"
-                        data-style="btn-success" data-count="<?php echo $contador_acequia;?>" required>
-                      
-                    <?php
-												foreach ($acequia as $i) {
-													echo '<option value ="'.$i->valor.'" style="background: #5cb85c; color: #fff;">'.$i->valor.'</option>';
-												}
-											}
-                    ?>
-                    </select>
-                </div>
-            </li>
-
-						<br>
-            <li>
-                <button id="btn_buscar_filtros" type="button" class="btn btn-success waves-effect waves-light mt-2"
-                    style="margin-top: 3rem;">Listar Coincidencias</button>
-            </li>
-
-
-
-        </ul>
-        <!-- /.sidebar-menu -->
-    </section>
-    <!-- /.sidebar -->
-</div>
+											?>
+											</select>
+									</div>
+							</li>
+							<br>
+							<li>
+									<button id="btn_buscar_filtros" type="button" class="btn btn-success waves-effect waves-light mt-2"
+											style="margin-top: 3rem;">Listar Coincidencias</button>
+							</li>
+					</ul>
+					<!-- /.sidebar-menu -->
+			</section>
+			<!-- /.sidebar -->
+	</div>
 </aside>
+
 </body>
 
 <script>
