@@ -320,7 +320,7 @@
 
 
     $("#btn_buscar_filtros").click(function(e) {
-        
+
 
         var censo_select = $("#censo_select").val();
         var fec_desde = $("#fec_desde").val();

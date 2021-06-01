@@ -170,7 +170,7 @@ for ($i=0;$i<count($array_aliniacion_arbol);$i++)
     {
      $datos = "alineacion_list=".$array_aliniacion_arbol[$i]; 
        $array_contenedor_aliniacion_arbol[] = $datos;
-       $str_dato_array = implode("&",$array_contenedor_aliniacion_arbol); 
+       $str_dato_array = implode("&",$array_contenedor_aliniacion_arbol);
        $this->session->set_userdata('datos_aliniacion_arbol',$str_dato_array);
       } 
 
@@ -187,7 +187,7 @@ for ($i=0;$i<count($array_estado_sanitario);$i++)
        $array_contenedor_estado_sanitario[] = $datos;
        $str_dato_array = implode("&",$array_contenedor_estado_sanitario); 
        $this->session->set_userdata('datos_estado_sanitario',$str_dato_array);
-      } 
+      }
 
 $datos_estado_sanitario = $this->session->userdata('datos_estado_sanitario');
 
@@ -219,10 +219,18 @@ for ($i=0;$i<count($array_acequia);$i++)
 
 $datos_acequia = $this->session->userdata('datos_acequia');
 
-///////////
+///////////http://10.142.0.13:8280/services/arboladoReportsDS/arboles/avanzado/cens_id/54/fec_desde/1980-01-01/fec_hasta/2023-12-31?depa_id_list=25&arge_id_list=1109&manz_id_list=0&call_id_list=0&taza_list=TODOS&alineacion_list=TODOS&estado_list=TODOS&tapa_list=TODOS&acequia_list=TODOS
 ////////////////
 
-$resource = "/arboles/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana&$datos_calle&$datos_tipo_taza&$datos_especie&$datos_aliniacion_arbol&$estado_sanitario&$datos_tapa_taza_incrustada&$datos_acequia";
+//$resource = "/arboles/avanzado/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana&$datos_calle&$datos_tipo_taza&$datos_especie&$datos_aliniacion_arbol&$estado_sanitario&$datos_tapa_taza_incrustada&$datos_acequia";
+
+//$resource = "/arboles/avanzado/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana&$datos_calle&$datos_tipo_taza&$datos_aliniacion_arbol&$estado_sanitario&$datos_tapa_taza_incrustada&$datos_acequia";
+
+//$resource = "/arboles/avanzado/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana&$datos_calle&$datos_tipo_taza&$datos_aliniacion_arbol/estado_list/$estado_sanitario&$datos_tapa_taza_incrustada&$datos_acequia";
+
+$resource = "/arboles/avanzado/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana&$datos_calle&$datos_tipo_taza&$datos_aliniacion_arbol&estado_list=$estado_sanitario&$datos_tapa_taza_incrustada&$datos_acequia";
+
+
   $url = REST_REPO.$resource;
   $array = $this->rest->callAPI("Get", $url);
  
@@ -243,7 +251,7 @@ function AreaXdepartamento($departamento)
   $count_dptos = count($departamento);
  
   
-  for ($i=0;$i<count($departamento);$i++) 
+  for ($i=0;$i<count($departamento);$i++)
       {
        $datos = "depa_id_list=".$departamento[$i];
          $array_contenedor_dptos[] = $datos;
@@ -277,7 +285,7 @@ function ManzanaXarea($area)
 
  $datos_areas = $str_dato_array;
 
-  $resource = '/manzanas/eliminado/0?'.$datos_areas;	 	
+  $resource = '/manzanas/eliminado/0?'.$datos_areas;
   $url = REST_REPO.$resource;
   $array = $this->rest->callAPI("Get", $url);
 
@@ -293,16 +301,16 @@ function CallesXdepartamento($departamento)
   $count_dptos = count($departamento);
  
   
-  for ($i=0;$i<count($departamento);$i++) 
+  for ($i=0;$i<count($departamento);$i++)
       {
        $datos = "depa_id_list=".$departamento[$i];
          $array_contenedor_dptos[] = $datos;
-         $str_dato_array = implode("&",$array_contenedor_dptos); 
+         $str_dato_array = implode("&",$array_contenedor_dptos);
         } 
 
  $datos_dptos = $str_dato_array;
 
-  $resource = '/calles/eliminado/0?'.$datos_dptos;	 	
+  $resource = '/calles/eliminado/0?'.$datos_dptos;
   $url = REST_REPO.$resource;
   $array = $this->rest->callAPI("Get", $url);
 
