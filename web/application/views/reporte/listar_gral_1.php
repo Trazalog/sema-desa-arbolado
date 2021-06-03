@@ -335,7 +335,7 @@
 					return;
 
 			} else { //no muestras el botón
-				wo();
+
 				//conteo de arrays
 				var leng_departamentos = departamento.length;
 
