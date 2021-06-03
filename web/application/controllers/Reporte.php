@@ -71,22 +71,21 @@ class Reporte extends CI_Controller {
 				$fecha_desde = $_GET["fec_desde"];
 				$fecha_hasta = $_GET["fec_hasta"];
 				$departamento = $_GET["departamento"];
-						$area = $_GET["area"];
+				$area = $_GET["area"];
 				$manzana = $_GET["manzana"];
-			
-				$data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana)->arboles->arbol;
-				
+				$data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana);
+
 				$this->load->view('reporte/listar_table_reporte',$data);
 			}
 		else	{
-			$censo_seleccionada = $this->input->post('censo_select');
-			$fecha_desde = $this->input->post('fec_desde');
-			$fecha_hasta = $this->input->post('fec_hasta');
-			$departamento = $this->input->post('departamento');
-			$area = $this->input->post('area');
-			$manzana = $this->input->post('manzana');
+				$censo_seleccionada = $this->input->post('censo_select');
+				$fecha_desde = $this->input->post('fec_desde');
+				$fecha_hasta = $this->input->post('fec_hasta');
+				$departamento = $this->input->post('departamento');
+				$area = $this->input->post('area');
+				$manzana = $this->input->post('manzana');
+				$data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana);
 
-				$data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana)->arboles->arbol;
 				$this->load->view('reporte/listar_table_reporte',$data);
 			}
 	}

@@ -126,18 +126,20 @@
         </form>
     </div><!-- /box-body -->
 
-    </body>
+</body>
 
-    <script>
+<script>
    	$('select').selectpicker({
 			selectAllText: 'Todos',
 			deselectAllText: 'Nada'
 		});
+
     function jsRemoveWindowLoad() {
         // eliminamos el div que bloquea pantalla
         $("#WindowLoad").remove();
 
     }
+
     $(document).ready(function() {
         $("#WindowLoad").remove();
         $(this).click(jsShowWindowLoad('Se esta Generando la Información'));
@@ -196,8 +198,6 @@
 
     }
 
-
-
     $('#departamento').change(function() {
         debugger;
         $('#area').empty();
@@ -205,28 +205,22 @@
         $('#area').selectpicker('refresh');
 
         var departamento = $("#departamento").val();
-
         var leng_departamentos = departamento.length;
-
         contador_departamento = $('#departamento').attr('data-count');
 
         if (leng_departamentos == 1) {
             var departamento = $("#departamento").val();
-            
         } else if (leng_departamentos == contador_departamento) {
-          
             var departamento = "0";
-
-            }  else {
+        }  else {
             var departamento = $("#departamento").val();
         }
 
-        console.log(departamento)
-
+        console.log(departamento);
         var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
-
         console.log(url)
 
+				wo();
         $.ajax({
             type: 'POST',
             data: {
@@ -235,59 +229,51 @@
             url: 'index.php/Reporte/AreaXdepartamento',
             success: function(data) {
                 var datos = JSON.parse(data);
-
                 var contador_area = datos.areas.length;
                 $('#area').attr('data-count', contador_area);
 
                 for (i = 0; i < datos.areas.length; i++) {
                     $('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i]
                         .nombre + '</option>');
-
                 }
-
+								wc();
             },
             error: function(data) {
+								wc();
                 alert('Error');
             },
             complete: function(data) {
-
+								wc();
                 $('#area').selectpicker('refresh');
-
-                return
+                return;
             }
         });
 
     }); // end buscar area x dpto
 
     $('#area').change(function() {
+
         $('#manzana').empty();
         $('#manzana').prop('disabled', false);
         $('#manzana').selectpicker('refresh');
 
         var area = $("#area").val();
-
         var leng_areas = area.length;
-
         contador_area = $('#area').attr('data-count');
       
             if (leng_areas == 1) {
-
                 var area = $("#area").val();
-
             }   else if (leng_areas == contador_area) {
-
                 var area = "0";
-
             } else {
                 var area = $("#area").val();
             }
 
-        console.log(area)
-
+        console.log(area);
         var url = "Reporte/ManzanaXarea?area=" + area;
+        console.log(url);
 
-        console.log(url)
-
+				wo();
         $.ajax({
             type: 'POST',
             data: {
@@ -295,163 +281,148 @@
             },
             url: 'index.php/Reporte/ManzanaXarea',
             success: function(data) {
-                var datos = JSON.parse(data);
 
+                var datos = JSON.parse(data);
                 var contador_manzana = datos.manzanas.length;
                 $('#manzana').attr('data-count', contador_manzana);
-
                 for (i = 0; i < datos.manzanas.length; i++) {
                     $('#manzana').prepend('<option value=' + datos.manzanas[i].id + '>' + datos
                         .manzanas[i].nombre + '</option>');
                 }
-
+								wc();
             },
             error: function(data) {
+								wc();
                 alert('Error');
             },
             complete: function(data) {
-
+								wc();
                 $('#manzana').selectpicker('refresh');
                 return
             }
         });
     }); // end buscar manzana x area
 
-
-
     $("#btn_buscar_filtros").click(function(e) {
 
+			var censo_select = $("#censo_select").val();
+			var fec_desde = $("#fec_desde").val();
+			var fec_hasta = $("#fec_hasta").val();
+			var departamento = $("#departamento").val();
+			var area = $("#area").val();
+			var manzana = $("#manzana").val();
 
-        var censo_select = $("#censo_select").val();
-        var fec_desde = $("#fec_desde").val();
-        var fec_hasta = $("#fec_hasta").val();
-        var departamento = $("#departamento").val();
-        var area = $("#area").val();
-        var manzana = $("#manzana").val();
+			if (censo_select == "" || departamento == "" || fec_desde == "" || fec_hasta == "" || area == "" ||
+					manzana == "") { //muestras el botón
 
+					Swal.fire({
+							icon: 'error',
+							title: 'Campos Vacios...',
+							text: 'Completa todos los Campos para generar el Reporte!!',
+					})
+					return;
 
-        if (censo_select == "" || departamento == "" || fec_desde == "" || fec_hasta == "" || area == "" ||
-            manzana == "") { //muestras el botón
+			} else { //no muestras el botón
 
-            Swal.fire({
-                icon: 'error',
-                title: 'Campos Vacios...',
-                text: 'Completa todos los Campos para generar el Reporte!!',
-            })
-            return;
+				//conteo de arrays
+				var leng_departamentos = departamento.length;
 
-        } else { //no muestras el botón
+				var leng_areas = area.length;
 
-            //conteo de arrays
-            var leng_departamentos = departamento.length;
+				var leng_manzanas = manzana.length;
 
-            var leng_areas = area.length;
+				contador_departamento = $('#departamento').attr('data-count');
 
-            var leng_manzanas = manzana.length;
-
-            contador_departamento = $('#departamento').attr('data-count');
-
-           if (leng_departamentos == 1) {
-            var departamento = $("#departamento").val();
+				if (leng_departamentos == 1) {
+				var departamento = $("#departamento").val();
             
         } else if (leng_departamentos == contador_departamento) {
           
             var departamento = "0";
 
-            }  else {
+        }  else {
             var departamento = $("#departamento").val();
         }
-//////////
+				//////////
 
-            contador_area = $('#area').attr('data-count');
+				contador_area = $('#area').attr('data-count');
 
-            if (leng_areas == 1) {
+				if (leng_areas == 1) {
+					var area = $("#area").val();
+				}   else if (leng_areas == contador_area) {
+					var area = "0";
+				} else {
+					var area = $("#area").val();
+				}
+				//////////
 
-            var area = $("#area").val();
+				contador_manzana = $('#manzana').attr('data-count');
 
-            }   else if (leng_areas == contador_area) {
+				if (leng_manzanas == 1){
+						var manzana = $("#manzana").val();
+				}
+				else if (leng_manzanas == contador_manzana) {
+						var manzana = "0";
+				} else {
+						var manzana = $("#manzana").val();
+				}
 
-            var area = "0";
+				console.log(censo_select)
+				console.log(fec_desde)
+				console.log(fec_hasta)
+				console.log(departamento)
+				console.log(area)
+				console.log(manzana)
+				console.log("count array dptos:", leng_departamentos)
+				console.log("count array areas:", leng_areas)
+				console.log("count array manzanas:", leng_manzanas)
 
-            } else {
-            var area = $("#area").val();
-            }
-//////////
+				var url = "Reporte/buscar_por_filtro_listar?cens_id=" + censo_select + "&fec_desde=" + fec_desde +
+						"&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" +
+						manzana;
 
-            contador_manzana = $('#manzana').attr('data-count');
+				console.log(url);
 
-            if (leng_manzanas == 1){
+				$("#WindowLoad").remove();
 
-                var manzana = $("#manzana").val();
+        $(this).click(jsShowWindowLoad('Se esta Generando la Información'));
 
-            }
-           else if (leng_manzanas == contador_manzana) {
 
-                var manzana = "0";
-                
-            } else {
-                var manzana = $("#manzana").val();
-            }
+				$.ajax({
+						type: 'POST',
+						data: {
+								censo_select,
+								fec_desde,
+								fec_hasta,
+								departamento,
+								area,
+								manzana
+						},
+						url: 'index.php/Reporte',
+						success: function(data) {
+								debugger;
+								$("#cargar_tabla").load("<?php echo base_url(); ?>" + url + "");
+								
+						},
+						error: function(data) {
+								
+								alert('Error');
+						},
+						complete: function(data) {
 
-            console.log(censo_select)
-            console.log(fec_desde)
-            console.log(fec_hasta)
-            console.log(departamento)
-            console.log(area)
-            console.log(manzana)
-            console.log("count array dptos:", leng_departamentos)
-            console.log("count array areas:", leng_areas)
-            console.log("count array manzanas:", leng_manzanas)
-
-            var url = "Reporte/buscar_por_filtro_listar?cens_id=" + censo_select + "&fec_desde=" + fec_desde +
-                "&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" +
-                manzana;
-
-            console.log(url)
-
-            $("#WindowLoad").remove();
-
-            $(this).click(jsShowWindowLoad('Se esta Generando la Información'));
-
-            $.ajax({
-                type: 'POST',
-                data: {
-                    censo_select,
-                    fec_desde,
-                    fec_hasta,
-                    departamento,
-                    area,
-                    manzana
-                },
-                url: 'index.php/Reporte',
-                success: function(data) {
-                    debugger;
-                    $("#cargar_tabla").load("<?php echo base_url(); ?>" + url + "");
-                  
-                },
-                error: function(data) {
-                    alert('Error');
-                },
-                complete: function(data) {
-                    setTimeout(() => {
-                        jsRemoveWindowLoad();
-                    }, 9000);
-              
-        $('select').selectpicker('deselectAll');
-
-        $("#form")[0].reset();
-                }
-            });
-        }
-
-       
-
+								setTimeout(() => {
+										jsRemoveWindowLoad();
+								}, 9000);
+								$('select').selectpicker('deselectAll');
+								$("#form")[0].reset();
+								wc();
+						}
+				});
+    	}
 
     }); // END BUSCAR
 
-    </script>
-
-
+</script>
 
 
 </div>

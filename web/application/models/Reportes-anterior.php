@@ -53,20 +53,19 @@ function listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $depart
    $datos_manzana = $this->session->userdata('datos_manzana');
 
 
-    $resource = "/arboles/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana";
-    $url = REST_REPO.$resource;
-    $array = $this->rest->callAPI("Get", $url);
-
-    if($array['status'] == true){
-      log_message("DEBUG", "#reporte gral Trae datos".json_encode($array));
-      $data = json_decode($array['data']);
-      return $data->arboles->arbol;
-    }
-    else{
-      log_message('ERROR', '#TRAZA | #REPORTE >> listar_reporte  >> No trae datos');
-      return;
-    }
-}
+$resource = "/arboles/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana";
+  $url = REST_REPO.$resource;
+  $array = $this->rest->callAPI("Get", $url);
+ 
+  if($array['status'] == true){
+    log_message("DEBUG", "#reporte gral Trae datos".json_encode($array));
+    return json_decode($array['data']);
+  }
+  else{
+    log_message('ERROR', '#TRAZA | #REPORTE >> listar_reporte  >> No trae datos');
+    return;
+  }
+}  
 
 
 // listado del reporte reporte gral 2
@@ -233,7 +232,7 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
     log_message('ERROR', '#TRAZA | #REPORTE >> listar_reporte  >> No trae datos');
     return;
   }
-}
+}  
 
 
 # Obtener Informacion de areas por Departamento
@@ -260,7 +259,7 @@ function AreaXdepartamento($departamento)
 }
 
 
-# Obtener Informacion de manzanas por areas
+   # Obtener Informacion de manzanas por areas
 function ManzanaXarea($area)
 {
   $count_areass = count($area);
