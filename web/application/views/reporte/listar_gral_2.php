@@ -158,10 +158,10 @@
 													data-live-search="true" title="Seleccione Taza" data-actions-box="true" style="width: 500%;"
 													data-style="btn-success" data-count="<?php echo $contador_tipo_taza;?>" required>
 											<?php
-													$array = json_decode(json_encode($tipo_taza), true);
-
-													foreach ($array as $i) {
-														echo "<option value =".strval($i['valor'])." style='background: #5cb85c; color: #fff;'>".$i['valor']."</option>";
+													//$array = json_decode(json_encode($tipo_taza), true);
+													foreach ($tipo_taza as $tipoT) {
+														// echo "<option value =".strval($i['valor'])." style='background: #5cb85c; color: #fff;'>".$i['valor']."</option>";
+														echo '<option value ="'.$tipoT->valor.'" style="background: #5cb85c; color: #fff;">'.$tipoT->valor.'</option>';
 													}
 												}
 											?>
@@ -195,19 +195,19 @@
 									<label for="aliniacion_arbol" style="margin-left:10px">Alineación del Arbol:</label>
 									<div class="col-md-6 col-xs-12 input-group">
 											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<?php      if(is_array($alineacion_arbol)){ 
+											<?php
+											if(is_array($alineacion_arbol)){
 													$contador_alineacion_arbol = count($alineacion_arbol);
 															?>
-											<select class="form-control selectpicker" id="aliniacion_arbol" name="aliniacion_arbol"
-													multiple="multiple" data-live-search="true" title="Seleccione Alineación" data-actions-box="true"
-													style="width: 500%;" data-style="btn-success" data-count="<?php $contador_alineacion_arbol;?>" required>
-													<?php 
-																				
-																							foreach ($alineacion_arbol as $i) {
-																									echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
-																								}
-																					}
-																					?>
+												<select class="form-control selectpicker" id="aliniacion_arbol" name="aliniacion_arbol"
+														multiple="multiple" data-live-search="true" title="Seleccione Alineación" data-actions-box="true"
+														style="width: 500%;" data-style="btn-success" data-count="<?php $contador_alineacion_arbol;?>" required>
+														<?php
+																foreach ($alineacion_arbol as $i) {
+																		echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+																	}
+														}
+													?>
 											</select>
 									</div>
 							</li>
@@ -224,11 +224,11 @@
 													style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_estado;?>" required>
 													<?php 
 																				
-																							foreach ($estado as $i) {
-																									echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
-																								}
-																					}
-																					?>
+														foreach ($estado as $i) {
+																		echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+																	}
+														}
+													?>
 											</select>
 									</div>
 							</li>

@@ -108,7 +108,7 @@
         </div>
     </div>
 </div>
-            <script>
+<script>
     $(document).ready(function() {
         $('#tabla_lista').DataTable({
             responsive: true,
@@ -139,49 +139,49 @@
     });
  
 
-    function Detalles(id) {
+function Detalles(id) {
 
-$.ajax({
-    type: 'POST',
-    data: {
-        id: id
-    },
-    url: 'Reporte/getDetalle',
-    success: function(result) {
+  $.ajax({
+      type: 'POST',
+      data: {
+          id: id
+      },
+      url: 'Reporte/getDetalle',
+      success: function(result) {
 
-        $('#modal_detalles').find('.modal-body').html(result.html);
-        $('#modal_detalles').modal('show');
-        $('.modal-body > form').find('input, textarea, button, select').attr('disabled',
-            'disabled');
-        $('#read_only').attr('disabled');
-        $('.frm-save').hide();
-    },
-    dataType: 'json'
-})
+          $('#modal_detalles').find('.modal-body').html(result.html);
+          $('#modal_detalles').modal('show');
+          $('.modal-body > form').find('input, textarea, button, select').attr('disabled',
+              'disabled');
+          $('#read_only').attr('disabled');
+          $('.frm-save').hide();
+      },
+      dataType: 'json'
+  })
 }
 
 function Imagen(id) {
-$.ajax({
-    type: 'POST',
-    data: {
-        id: id
-    },
-    url: 'Reporte/getImagen',
-    success: function(result) {
+  $.ajax({
+      type: 'POST',
+      data: {
+          id: id
+      },
+      url: 'Reporte/getImagen',
+      success: function(result) {
 
-        if(imagen != null || imagen!= '' || imagen != "") {
-          
-            var imagen = result.html.replace('dataimage/jpegbase64', 'data:image/jpeg;base64,');
-        $('#modal_imagen').find('#imagen_modal').prop("src", imagen);
-        $('#modal_imagen').modal('show');
- }
- else {
-   alert('te salio para el culo!');
-}
-       
-    },
-    dataType: 'json'
-})
+          if(imagen != null || imagen!= '' || imagen != "") {
+            
+              var imagen = result.html.replace('dataimage/jpegbase64', 'data:image/jpeg;base64,');
+          $('#modal_imagen').find('#imagen_modal').prop("src", imagen);
+          $('#modal_imagen').modal('show');
+  }
+  else {
+    alert('te salio para el culo!');
+  }
+
+      },
+      dataType: 'json'
+  })
 }
 
   </script>
