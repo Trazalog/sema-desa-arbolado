@@ -103,11 +103,11 @@
 													required>
 													<option value="" disabled  style="background: #5cb85c; color: #fff;">-Seleccione Departamento-</option>
 													<?php
-																						foreach($departamentos as $fila)
-																						{
-																							echo '<option value="'.$fila->id.'" style="background: #5cb85c; color: #fff;">'.$fila->nombre.'</option>' ;
-																						}
-																			?>
+															foreach($departamentos as $fila)
+															{
+																echo '<option value="'.$fila->id.'" style="background: #5cb85c; color: #fff;">'.$fila->nombre.'</option>' ;
+															}
+												?>
 											</select>
 									</div>
 									<br>
@@ -181,7 +181,6 @@
 													data-live-search="true" title="Seleccione Especie" data-actions-box="true" style="width: 500%;"
 													data-style="btn-success" data-count="<?php $contador_listar_arbol_especie; ?>" required>
 											<?php
-																				
 													foreach ($listar_arbol_especie as $i) {
 														echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
 													}
@@ -582,59 +581,38 @@ $("#btn_buscar_filtros").click(function(e) {
     } else { //no muestras el botón
 
         //conteo de arrays
-        var leng_departamentos = departamento.length;
-
-        var leng_areas = area.length;
-
-        var leng_manzanas = manzana.length;
-
-        var leng_calle = calle.length;
-
-        var leng_tipo_taza = tipo_taza.length;
-
-        var leng_especie = especie.length;
-
-        var leng_aliniacion_arbol = aliniacion_arbol.length;
-
-        var leng_estado_sanitario = estado_sanitario.length;
-
-        var leng_tapa_taza_incrustada = tapa_taza_incrustada.length;
-
-        var leng_acequia = acequia.length;
+					var leng_departamentos = departamento.length;
+					var leng_areas = area.length;
+					var leng_manzanas = manzana.length;
+					var leng_calle = calle.length;
+					var leng_tipo_taza = tipo_taza.length;
+					var leng_especie = especie.length;
+					var leng_aliniacion_arbol = aliniacion_arbol.length;
+					var leng_estado_sanitario = estado_sanitario.length;
+					var leng_tapa_taza_incrustada = tapa_taza_incrustada.length;
+					var leng_acequia = acequia.length;
 
         contador_departamento = $('#departamento').attr('data-count');
-
 				if (leng_departamentos == 1) {
 						var departamento = $("#departamento").val();
-
 				} else if (leng_departamentos == contador_departamento) {
-
 						var departamento = "0";
-
-						}  else {
+				}  else {
 						var departamento = $("#departamento").val();
 				}
 
         contador_area = $('#area').attr('data-count');
-              
 				if (leng_areas == 1) {
-
 						var area = $("#area").val();
-
 				}   else if (leng_areas == contador_area) {
-
 						var area = "0";
-
 				} else {
 						var area = $("#area").val();
 				}
 
         contador_manzana = $('#manzana').attr('data-count');
-
         if (leng_manzanas == 1) {
-            
             var manzana = $("#manzana").val();
-
         }else if (leng_manzanas == contador_manzana) {
             var manzana = "0";
         } else {
@@ -642,88 +620,67 @@ $("#btn_buscar_filtros").click(function(e) {
         }
 
         contador_calle = $('#calle').attr('data-count');
-
         if (leng_calle == contador_calle) {
             var calle = "0";
         } else {
-           // var calle = $("#calle").val();
-            var calle = "0";
+           var calle = $("#calle").val();
+            //var calle = "0";
         }
 
         contador_tipo_taza = $('#tipo_taza').attr('data-count');
-
         if (leng_tipo_taza == contador_tipo_taza) {
             var tipo_taza = "TODOS";
         } else {
-            //var tipo_taza = $("#tipo_taza").val();
-            var tipo_taza = "TODOS";
+            var tipo_taza = $("#tipo_taza").val();
+            //var tipo_taza = "TODOS";
         }
 
         contador_especie = $('#especie').attr('data-count');
-
         if (leng_especie == contador_especie) {
             var especie = "TODOS";
         } else {
-           // var especie = $("#especie").val();
-           var especie = "TODOS";
+            var especie = $("#especie").val();
+           //var especie = "TODOS";
         }
 
-
         contador_aliniacion_arbol = $('#aliniacion_arbol').attr('data-count');
-
         if (leng_aliniacion_arbol == contador_aliniacion_arbol) {
             var aliniacion_arbol = "TODOS";
         } else {
-           // var aliniacion_arbol = $("#aliniacion_arbol").val();
-           var aliniacion_arbol = "TODOS";
+            var aliniacion_arbol = $("#aliniacion_arbol").val();
+           //var aliniacion_arbol = "TODOS";
         }
 
         contador_estado_sanitario = $('#estado_sanitario').attr('data-count');
-
         if (leng_estado_sanitario == contador_estado_sanitario) {
             var estado_sanitario = "TODOS";
         } else {
-            //var estado_sanitario = $("#estado_sanitario").val();
-            var aliniacion_arbol = "TODOS";
+            var estado_sanitario = $("#estado_sanitario").val();
+            //var aliniacion_arbol = "TODOS";
         }
 
-
         contador_tapa_taza_incrustada = $('#tapa_taza_incrustada').attr('data-count');
-
         if (leng_tapa_taza_incrustada == contador_tapa_taza_incrustada) {
             var tapa_taza_incrustada = "TODOS";
         } else {
-            var aliniacion_arbol = "TODOS";
-           // var tapa_taza_incrustada = $("#tapa_taza_incrustada").val();
+            //var aliniacion_arbol = "TODOS";
+            var tapa_taza_incrustada = $("#tapa_taza_incrustada").val();
         }
 
-
         contador_acequia = $('#acequia').attr('data-count');
-
         if (leng_acequia == contador_acequia) {
             var acequia = "TODOS";
         } else {
-            var aliniacion_arbol = "TODOS";
-            //var acequia = $("#acequia").val();
+            //var aliniacion_arbol = "TODOS";
+            var acequia = $("#acequia").val();
         }
 
 
-        console.log(censo_select)
-        console.log(fec_desde)
-        console.log(fec_hasta)
-        console.log(departamento)
-        console.log(area)
-        console.log(manzana)
-        console.log("count array dptos:", leng_departamentos)
-        console.log("count array areas:", leng_areas)
-        console.log("count array manzanas:", leng_manzanas)
-
-
-        var url = "Reporte/buscar_por_filtro_listar_gral_2?cens_id=" + censo_select + "&fec_desde=" +
+        var url = encodeURI("Reporte/buscar_por_filtro_listar_gral_2?cens_id=" + censo_select + "&fec_desde=" +
             fec_desde +
             "&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" +
             manzana + "&calle=" + calle + "&tipo_taza=" + tipo_taza + "&especie=" + especie +
-            "&aliniacion_arbol=" + aliniacion_arbol + "&estado_sanitario=" + estado_sanitario + "&tapa_taza_incrustada=" + tapa_taza_incrustada + "&acequia=" + acequia;
+            "&aliniacion_arbol=" + aliniacion_arbol + "&estado_sanitario=" + estado_sanitario + "&tapa_taza_incrustada=" + tapa_taza_incrustada + "&acequia=" + acequia);
 
         console.log(url)
 
@@ -739,7 +696,12 @@ $("#btn_buscar_filtros").click(function(e) {
                 fec_hasta,
                 departamento,
                 area,
-                manzana
+                manzana,
+								calle,
+								tipo_taza,
+								aliniacion_arbol,
+								tapa_taza_incrustada,
+								acequia
             },
             url: 'index.php/Reporte',
             success: function(data) {
@@ -765,62 +727,6 @@ $("#btn_buscar_filtros").click(function(e) {
 
 }); // END BUSCAR
 
-// function validarFormulario() {
-//     $("#form").validate({
-//         ignore: ":hidden:not(.selectpicker)",
-
-//         rules: {
-//             censo_select: {
-//                 required: true
-
-//             },
-//             fec_desde: {
-//                 required: true
-//             },
-//             fec_hasta: {
-//                 required: true
-//             },
-//             departamento: {
-//                 required: true
-//             },
-//             area: {
-//                 required: true
-//             },
-//             manzana: {
-//                 required: true
-//             }
-
-
-//         },
-//         messages: {
-//             censo_select: {
-//                 required: "Debe seleccionar Censo"
-//             },
-//             fec_desde: {
-//                 required: "Debe seleccionar Fecha"
-
-//             },
-//             fec_hasta: {
-//                 required: "Debe seleccionar Fecha"
-//             },
-//             departamento: {
-//                 required: "Debe seleccionar Departamento"
-//             },
-//             area: {
-//                 required: "Debe seleccionar Area"
-//             },
-//             manzana: {
-//                 required: "Debe seleccionar Manzana"
-//             }
-//         },
-
-//         submitHandler: function(form) {
-
-//             form.submit();
-
-//         }
-//     });
-// };
 </script>
 
 
