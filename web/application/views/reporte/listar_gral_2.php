@@ -200,10 +200,10 @@
 															?>
 												<select class="form-control selectpicker" id="aliniacion_arbol" name="aliniacion_arbol"
 														multiple="multiple" data-live-search="true" title="Seleccione Alineación" data-actions-box="true"
-														style="width: 500%;" data-style="btn-success" data-count="<?php $contador_alineacion_arbol;?>" required>
+														style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_alineacion_arbol;?>" required>
 														<?php
-																foreach ($alineacion_arbol as $i) {
-																		echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
+																foreach ($alineacion_arbol as $aliArbol) {
+																		echo "<option value = $aliArbol->valor style='background: #5cb85c; color: #fff;'>$aliArbol->valor</option>";
 																	}
 														}
 													?>
