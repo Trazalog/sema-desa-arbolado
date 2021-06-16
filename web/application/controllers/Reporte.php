@@ -143,7 +143,7 @@ class Reporte extends CI_Controller {
 
 			
 				$data['reportes'] = $this->Reportes->listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana, $calle, $tipo_taza, $especie, $aliniacion_arbol, $estado_sanitario, $tapa_taza_incrustada, $acequia)->arboles->arbol;
-				
+
 				$this->load->view('reporte/listar_table_reporte_gral_2',$data);
 			}
 		else	{
@@ -237,7 +237,96 @@ class Reporte extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	/**
+	* exporta a excel datos buscados por filtros
+	* @param array con datos de filtros
+	* @return planilla excel
+	*/
+	function reporteGral2Excel()
+	{
+		if($_GET)
+		{
+			$censo_seleccionada = $_GET["cens_id"];
+			$fecha_desde = $_GET["fec_desde"];
+			$fecha_hasta = $_GET["fec_hasta"];
+			$departamento = $_GET["departamento"];
+			$area = $_GET["area"];
+			$manzana = $_GET["manzana"];
+			$calle = $_GET["calle"];
+			$tipo_taza = $_GET["tipo_taza"];
+			$especie = $_GET["especie"];
+			$aliniacion_arbol = $_GET["aliniacion_arbol"];
+			$estado_sanitario = $_GET["estado_sanitario"];
+			$tapa_taza_incrustada = $_GET["tapa_taza_incrustada"];
+			$acequia = $_GET["acequia"];
+			$reporte = $this->Reportes->listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana, $calle, $tipo_taza, $especie, $aliniacion_arbol, $estado_sanitario, $tapa_taza_incrustada, $acequia)->arboles->arbol;
 
+			if ($reporte == null) {
+				echo "<h3>No se encontraron datos para mostrar...</h3>";
+			} else {
+				//Cargamos la librería de excel.
+				$this->load->library('excel'); $this->excel->setActiveSheetIndex(0);
+				$this->excel->getActiveSheet()->setTitle('Listado Gral 2');
+
+				$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+
+				//Le aplicamos ancho las columnas.
+					foreach(range('A','N') as $columnID) {
+						$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+						$this->excel->getActiveSheet()->getStyle("A{$columnID}")->getFont()->setBold(true);
+						//$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+					}
+
+				//Contador de filas
+					$contador = 1;
+
+				//Definimos los títulos de la cabecera.
+					$this->excel->getActiveSheet()->setCellValue("A{$contador}", 'Número');
+					$this->excel->getActiveSheet()->setCellValue("B{$contador}", 'Departamento');
+					$this->excel->getActiveSheet()->setCellValue("C{$contador}", 'Area Geográfica');
+					$this->excel->getActiveSheet()->setCellValue("D{$contador}", 'Manzana');
+					$this->excel->getActiveSheet()->setCellValue("E{$contador}", 'Long/Lat');
+					$this->excel->getActiveSheet()->setCellValue("F{$contador}", 'Calle');
+					$this->excel->getActiveSheet()->setCellValue("G{$contador}", 'Nro.');
+					$this->excel->getActiveSheet()->setCellValue("H{$contador}", 'Barrio');
+					$this->excel->getActiveSheet()->setCellValue("I{$contador}", 'Tipo Taza');
+					$this->excel->getActiveSheet()->setCellValue("J{$contador}", 'Especie');
+					$this->excel->getActiveSheet()->setCellValue("K{$contador}", 'Alineacion del arbol');
+					$this->excel->getActiveSheet()->setCellValue("L{$contador}", 'Estado Sanitario General');
+					$this->excel->getActiveSheet()->setCellValue("M{$contador}", 'Tapa de Taza Incrust.');
+					$this->excel->getActiveSheet()->setCellValue("N{$contador}", 'Acequia');
+				//Definimos la data del cuerpo.Nro
+					foreach($reporte as $l){
+							//Incrementamos una fila más, para ir a la siguiente.
+							$contador++;
+							//Informacion de las filas de la consulta.
+							$this->excel->getActiveSheet()->setCellValue("A{$contador}", $l->arbo_id);
+							$this->excel->getActiveSheet()->setCellValue("B{$contador}", $l->departamento);
+							$this->excel->getActiveSheet()->setCellValue("C{$contador}", $l->area_geografica);
+							$this->excel->getActiveSheet()->setCellValue("D{$contador}", $l->manzana);
+							$this->excel->getActiveSheet()->setCellValue("E{$contador}", $l->lat_long_gps);
+							$this->excel->getActiveSheet()->setCellValue("F{$contador}", $l->calle);
+							$this->excel->getActiveSheet()->setCellValue("G{$contador}", $l->altura);
+							$this->excel->getActiveSheet()->setCellValue("H{$contador}", $l->barrio);
+							$this->excel->getActiveSheet()->setCellValue("I{$contador}", $l->taza);
+							$this->excel->getActiveSheet()->setCellValue("J{$contador}", $l->especie);
+							$this->excel->getActiveSheet()->setCellValue("K{$contador}", $l->ALINEACION_DEL_ARBOL);
+							$this->excel->getActiveSheet()->setCellValue("L{$contador}", $l->ESTADO_SANITARIO_GENERAL);
+							$this->excel->getActiveSheet()->setCellValue("M{$contador}", $l->TAPA_DE_TAZA_INSCRUSTADA);
+							$this->excel->getActiveSheet()->setCellValue("N{$contador}", $l->ACEQUIA);
+					}
+				//Le ponemos un nombre al archivo que se va a generar.
+					$fecha = date('d-m-Y');
+					$archivo = "reporte_gral_2_{$fecha}.xls";
+					header('Content-Type: application/vnd.ms-excel');
+					header('Content-Disposition: attachment;filename="'.$archivo.'"');
+					header('Cache-Control: max-age=0');
+
+				//Hacemos una salida al navegador con el archivo Excel.
+					$objWriter->save('php://output');
+			}
+		}
+	}
 		
-  } 
+}
 ?>
