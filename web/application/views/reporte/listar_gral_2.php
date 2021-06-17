@@ -52,7 +52,7 @@
 
                 <div class="form-group col-md-2" style="width:35%">
 
-                    <label for="fec_hasta" class="col-6 col-form-label">Fecha Hata:</label>
+                    <label for="fec_hasta" class="col-6 col-form-label">Fecha Hasta:</label>
                     <input class="form-control" type="date" id="fec_hasta" name="fec_hasta" required>
 
                 </div>
@@ -278,6 +278,8 @@
 							<li>
 									<button id="btn_buscar_filtros" type="button" class="btn btn-success waves-effect waves-light mt-2"
 											style="margin-top: 3rem;">Listar Coincidencias</button>
+									<button id="btn_exportar" type="button" class="btn btn-success waves-effect waves-light mt-2"
+											style="margin-top: 3rem;">Exportar Excel</button>
 							</li>
 					</ul>
 					<!-- /.sidebar-menu -->
@@ -554,6 +556,7 @@ $('#manzana').change(function() {
 $("#btn_buscar_filtros").click(function(e) {
     debugger;
     var censo_select = $("#censo_select").val();
+		var censo_name = $("#censo_select").text();
     var fec_desde = $("#fec_desde").val();
     var fec_hasta = $("#fec_hasta").val();
     var departamento = $("#departamento").val();
@@ -726,6 +729,135 @@ $("#btn_buscar_filtros").click(function(e) {
 
 
 }); // END BUSCAR
+
+// Boton de descarga de Excel
+$("#btn_exportar").click(function(e) {
+    debugger;
+    var censo_select = $("#censo_select").val();
+    var fec_desde = $("#fec_desde").val();
+    var fec_hasta = $("#fec_hasta").val();
+    var departamento = $("#departamento").val();
+    var area = $("#area").val();
+    var manzana = $("#manzana").val();
+    var calle = $("#calle").val();
+    var tipo_taza = $("#tipo_taza").val();
+    var especie = $("#especie").val();
+    var aliniacion_arbol = $("#aliniacion_arbol").val();
+    var estado_sanitario = $("#estado_sanitario").val();
+    var tapa_taza_incrustada = $("#tapa_taza_incrustada").val();
+    var acequia = $("#acequia").val();
+
+    if (censo_select == "" || departamento == "" || fec_desde == "" || fec_hasta == "" || area == "" || manzana == "") { //muestras el botón
+        Swal.fire({
+            icon: 'error',
+            title: 'Campos Vacios...',
+            text: 'Completa todos los Campos para generar el Reporte!!',
+        })
+        return;
+    } else { //no muestras el botón
+        //conteo de arrays
+					var leng_departamentos = departamento.length;
+					var leng_areas = area.length;
+					var leng_manzanas = manzana.length;
+					var leng_calle = calle.length;
+					var leng_tipo_taza = tipo_taza.length;
+					var leng_especie = especie.length;
+					var leng_aliniacion_arbol = aliniacion_arbol.length;
+					var leng_estado_sanitario = estado_sanitario.length;
+					var leng_tapa_taza_incrustada = tapa_taza_incrustada.length;
+					var leng_acequia = acequia.length;
+
+        contador_departamento = $('#departamento').attr('data-count');
+				if (leng_departamentos == 1) {
+						var departamento = $("#departamento").val();
+				} else if (leng_departamentos == contador_departamento) {
+						var departamento = "0";
+				}  else {
+						var departamento = $("#departamento").val();
+				}
+
+        contador_area = $('#area').attr('data-count');
+				if (leng_areas == 1) {
+						var area = $("#area").val();
+				}   else if (leng_areas == contador_area) {
+						var area = "0";
+				} else {
+						var area = $("#area").val();
+				}
+
+        contador_manzana = $('#manzana').attr('data-count');
+        if (leng_manzanas == 1) {
+            var manzana = $("#manzana").val();
+        }else if (leng_manzanas == contador_manzana) {
+            var manzana = "0";
+        } else {
+            var manzana = $("#manzana").val();
+        }
+
+        contador_calle = $('#calle').attr('data-count');
+        if (leng_calle == contador_calle) {
+            var calle = "0";
+        } else {
+           var calle = $("#calle").val();
+        }
+
+        contador_tipo_taza = $('#tipo_taza').attr('data-count');
+        if (leng_tipo_taza == contador_tipo_taza) {
+            var tipo_taza = "TODOS";
+        } else {
+            var tipo_taza = $("#tipo_taza").val();
+        }
+
+        contador_especie = $('#especie').attr('data-count');
+        if (leng_especie == contador_especie) {
+            var especie = "TODOS";
+        } else {
+            var especie = $("#especie").val();
+        }
+
+        contador_aliniacion_arbol = $('#aliniacion_arbol').attr('data-count');
+        if (leng_aliniacion_arbol == contador_aliniacion_arbol) {
+            var aliniacion_arbol = "TODOS";
+        } else {
+            var aliniacion_arbol = $("#aliniacion_arbol").val();
+        }
+
+        contador_estado_sanitario = $('#estado_sanitario').attr('data-count');
+        if (leng_estado_sanitario == contador_estado_sanitario) {
+            var estado_sanitario = "TODOS";
+        } else {
+            var estado_sanitario = $("#estado_sanitario").val();
+        }
+
+        contador_tapa_taza_incrustada = $('#tapa_taza_incrustada').attr('data-count');
+        if (leng_tapa_taza_incrustada == contador_tapa_taza_incrustada) {
+            var tapa_taza_incrustada = "TODOS";
+        } else {
+            var tapa_taza_incrustada = $("#tapa_taza_incrustada").val();
+        }
+
+        contador_acequia = $('#acequia').attr('data-count');
+        if (leng_acequia == contador_acequia) {
+            var acequia = "TODOS";
+        } else {
+            var acequia = $("#acequia").val();
+        }
+
+        var url = encodeURI("Reporte/reporteGral2Excel?cens_id=" + censo_select + "&fec_desde=" +
+            fec_desde +
+            "&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" +
+            manzana + "&calle=" + calle + "&tipo_taza=" + tipo_taza + "&especie=" + especie +
+            "&aliniacion_arbol=" + aliniacion_arbol + "&estado_sanitario=" + estado_sanitario + "&tapa_taza_incrustada=" + tapa_taza_incrustada + "&acequia=" + acequia);
+
+        console.log(url)
+
+        $("#WindowLoad").remove();
+				// abro nueva pestaña y traigo excel
+				url = "<?php echo base_url(); ?>" + url;
+				window.open(url);
+    }
+
+});
 
 </script>
 

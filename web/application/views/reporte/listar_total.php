@@ -1,19 +1,19 @@
 <style>
-.dt-button {
-    padding: 0;
-    border: none;
-}
+    .dt-button {
+        padding: 0;
+        border: none;
+    }
 
-#WindowLoad {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 3200;
-    filter: alpha(opacity=65);
-    -moz-opacity: 65;
-    opacity: 0.65;
-    background: #000000;
-}
+    #WindowLoad {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        z-index: 3200;
+        filter: alpha(opacity=65);
+        -moz-opacity: 65;
+        opacity: 0.65;
+        background: #000000;
+    }
 </style>
 
 <div class="box">
@@ -50,7 +50,7 @@
 
                 <div class="form-group col-md-2" >
 
-                    <label for="fec_hasta" class="col-6 col-form-label">Fecha Hata:</label>
+                    <label for="fec_hasta" class="col-6 col-form-label">Fecha Hasta:</label>
                     <input class="form-control" type="date" id="fec_hasta" name="fec_hasta" required>
 
                 </div>

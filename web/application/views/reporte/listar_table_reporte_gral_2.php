@@ -29,7 +29,7 @@
                 </tr>
               </thead>
               <tbody>
-              
+
                 <?php
                 
                 if(isset($reportes))
@@ -137,7 +137,7 @@
     ]
         });
     });
- 
+
 
 function Detalles(id) {
 
