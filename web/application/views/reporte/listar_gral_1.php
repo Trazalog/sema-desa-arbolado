@@ -50,7 +50,7 @@
 
                 <div class="form-group col-md-2" >
 
-                    <label for="fec_hasta" class="col-6 col-form-label">Fecha Hata:</label>
+                    <label for="fec_hasta" class="col-6 col-form-label">Fecha Hasta:</label>
                     <input class="form-control" type="date" id="fec_hasta" name="fec_hasta" required>
 
                 </div>

@@ -274,7 +274,6 @@ class Reporte extends CI_Controller {
 					foreach(range('A','N') as $columnID) {
 						$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
 						$this->excel->getActiveSheet()->getStyle("A{$columnID}")->getFont()->setBold(true);
-						//$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
 					}
 
 				//Contador de filas
