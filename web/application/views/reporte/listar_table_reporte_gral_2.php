@@ -39,7 +39,7 @@
                           echo '<tr  id="'.$fila->arbo_id.'" data-json:'.json_encode($fila).'>';
                          
                           echo '<td>'.$fila->arbo_id.'</td>';
-                          echo '<td>'.$fila->departamento.'</td>'; 
+                          echo '<td>'.$fila->departamento.'</td>';
                           echo '<td>'.$fila->area_geografica.'</td>';
                           echo '<td>'.$fila->manzana.'</td>';
                           echo '<td>'.$fila->lat_long_gps.'</td>';
