@@ -57,13 +57,13 @@
 
                 </div>
 
-								<div class="col-xs-12">
+								<!-- <div class="col-xs-12">
 									<button class="btn btn-primary pull-left" data-toggle="control-sidebar">Abrir / Cerrar panel de Filtros</button>
 								</div>
 
 								<div class="col-xs-12">
                     <hr>
-                </div>
+                </div> -->
 
                 <div class="col-md-12 table-responsive" id="cargar_tabla">
 
@@ -73,6 +73,36 @@
                 </div><!-- /.row -->
 
             </div><!-- /.row -->
+
+						<div class="row">
+                <div class="form-group col-md-2">
+                    <label for="departamento" class="col-6 col-form-label">Departamento:</label>
+                    <div class="input-group date" id="carg" class="col-md-2">
+                        <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                        <select class="form-control" id="departamento" name="departamento" title="Seleccione Departamento" style="width: 50%;" data-style="btn-success" data-count="<?php echo count($departamentos);?>" required>
+                            <option value="" disabled>-Seleccione Departamento-</option>
+														<option value="TODOS">Todos los Departamentos</option>
+                            <?php
+															foreach($departamentos as $fila)
+															{
+																echo '<option value="'.$fila->id.'">'.$fila->nombre.'</option>' ;
+															}
+														?>
+                        </select>
+                    </div>
+                </div>
+						</div>
+
+						<div class="row">
+
+							<div class="col-md-2">
+									<br>
+									<!-- <button id="btn_buscar_filtros" type="button" class="btn btn-success waves-effect waves-light mt-2" style="margin-top: 1rem;">Listar Coincidencias</button> -->
+									<button id="btn_exportar" type="button" class="btn btn-success waves-effect waves-light mt-2"
+								style="margin-top: 3rem;">Exportar Excel</button>
+							</div>
+						</div>
+
 				</form>
 
 		</div><!-- box-body -->
@@ -82,211 +112,6 @@
 
 </div><!-- /box -->
 
-<!-- Left side column. contains the logo and sidebar -->
-<aside class="control-sidebar control-sidebar-dark control-sidebar-close" style="width:20%;">
-	<div class="box-body">
-			<!-- sidebar: style can be found in sidebar.less -->
-			<section class="sidebar">
-
-					<!-- Sidebar Menu -->
-					<ul class="sidebar-menu" data-widget="tree">
-							<li class="header" style="height: 5px;"></li>
-							<!-- Optionally, you can add icons to the links -->
-
-							<li class="departamento">
-									<label for="departamento" class="col-6 col-form-label">Departamento:</label>
-									<div class="input-group date" id="carg" class="col-md-2">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<select class="form-control" id="departamento" name="departamento" multiple="multiple"
-													data-live-search="true" title="Seleccione Departamento" data-actions-box="true"
-													style="width: 50%;" data-style="btn-success" data-count="<?php echo count($departamentos);?>"
-													required>
-													<option value="" disabled  style="background: #5cb85c; color: #fff;">-Seleccione Departamento-</option>
-													<?php
-															foreach($departamentos as $fila)
-															{
-																echo '<option value="'.$fila->id.'" style="background: #5cb85c; color: #fff;">'.$fila->nombre.'</option>' ;
-															}
-												?>
-											</select>
-									</div>
-									<br>
-							</li>
-							<li class="area">
-									<label for="area" style="margin-left:10px">Area:</label>
-									<div class="input-group date" id="c" class="col-md-2">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<select class="form-control" id="area" name="area" multiple="multiple" data-live-search="true"
-													title="Seleccione Area" data-actions-box="true" style="width: 500%;" data-style="btn-success"
-													data-count="" required>
-											<!--   <option value="" disabled style="background: #5cb85c; color: #fff;">Seleccione Area</option> -->
-											</select>
-									</div>
-							</li>
-							<br>
-							<li class="manzana">
-									<label for="manzana" style="margin-left:10px">Manzana:</label>
-									<div class="col-md-6 col-xs-12 input-group">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<select class="form-control selectpicker" id="manzana" name="manzana" multiple="multiple"
-													data-live-search="true" title="Seleccione Manzana" data-actions-box="true" style="width: 500%;"
-													data-style="btn-success" data-count="" required>
-											</select>
-									</div>
-							</li>
-							<br>
-							<li class="calle">
-									<label for="calle" style="margin-left:10px">Calle:</label>
-									<div class="col-md-6 col-xs-12 input-group">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<select class="form-control" id="calle" name="calle" multiple="multiple"
-													data-live-search="true" title="Seleccione Calle" data-actions-box="true" style="width: 500%;"
-													data-style="btn-success" data-count="" required>
-											</select>
-									</div>
-							</li>
-							<br>
-							<li class="tipo_taza">
-									<label for="tipo_taza" style="margin-left:10px">Tipo de Taza:</label>
-									<div class="col-md-6 col-xs-12 input-group">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<?php
-												if(is_array($tipo_taza)){
-													$contador_tipo_taza = count($tipo_taza);
-											?>
-													<select class="form-control selectpicker" id="tipo_taza" name="tipo_taza" multiple="multiple"
-													data-live-search="true" title="Seleccione Taza" data-actions-box="true" style="width: 500%;"
-													data-style="btn-success" data-count="<?php echo $contador_tipo_taza;?>" required>
-											<?php
-													//$array = json_decode(json_encode($tipo_taza), true);
-													foreach ($tipo_taza as $tipoT) {
-														// echo "<option value =".strval($i['valor'])." style='background: #5cb85c; color: #fff;'>".$i['valor']."</option>";
-														echo '<option value ="'.$tipoT->valor.'" style="background: #5cb85c; color: #fff;">'.$tipoT->valor.'</option>';
-													}
-												}
-											?>
-													</select>
-									</div>
-							</li>
-							<br>
-							<li class="especie">
-									<label for="especie" style="margin-left:10px">Especie:</label>
-									<div class="col-md-6 col-xs-12 input-group">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<?php
-												if(is_array($listar_arbol_especie)){
-													$contador_listar_arbol_especie = count($listar_arbol_especie);
-											?>
-													<select class="form-control selectpicker" id="especie" name="especie" multiple="multiple"
-													data-live-search="true" title="Seleccione Especie" data-actions-box="true" style="width: 500%;"
-													data-style="btn-success" data-count="<?php $contador_listar_arbol_especie; ?>" required>
-											<?php
-													foreach ($listar_arbol_especie as $i) {
-														echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
-													}
-											}
-											?>
-													</select>
-									</div>
-							</li>
-							<br>
-							<li class="aliniacion_arbol">
-									<label for="aliniacion_arbol" style="margin-left:10px">Alineación del Arbol:</label>
-									<div class="col-md-6 col-xs-12 input-group">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<?php
-											if(is_array($alineacion_arbol)){
-													$contador_alineacion_arbol = count($alineacion_arbol);
-															?>
-												<select class="form-control selectpicker" id="aliniacion_arbol" name="aliniacion_arbol"
-														multiple="multiple" data-live-search="true" title="Seleccione Alineación" data-actions-box="true"
-														style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_alineacion_arbol;?>" required>
-														<?php
-																foreach ($alineacion_arbol as $aliArbol) {
-																		echo "<option value = $aliArbol->valor style='background: #5cb85c; color: #fff;'>$aliArbol->valor</option>";
-																	}
-														}
-													?>
-											</select>
-									</div>
-							</li>
-							<br>
-							<li class="estado_sanitario">
-									<label for="estado_sanitario" style="margin-left:10px">Estado Sanitario:</label>
-									<div class="col-md-6 col-xs-12 input-group">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<?php      if(is_array($estado)){ 
-													$contador_estado = count($estado);
-															?>
-											<select class="form-control selectpicker" id="estado_sanitario" name="estado_sanitario"
-													multiple="multiple" data-live-search="true" title="Seleccione Estado" data-actions-box="true"
-													style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_estado;?>" required>
-													<?php 
-																				
-														foreach ($estado as $i) {
-																		echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
-																	}
-														}
-													?>
-											</select>
-									</div>
-							</li>
-							<br>
-							<li class="tapa_taza_incrustada">
-									<label for="tapa_taza_incrustada" style="margin-left:10px">Tapa Taza Incrustada:</label>
-									<div class="col-md-6 col-xs-12 input-group">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<?php
-												if(is_array($taza_inscrustada)){
-													$contador_taza_inscrustada = count($taza_inscrustada);
-											?>
-													<select class="form-control selectpicker" id="tapa_taza_incrustada" name="tapa_taza_incrustada"
-													multiple="multiple" data-live-search="true" title="Seleccione Tapa" data-actions-box="true"
-													style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_taza_inscrustada;?>" required>
-											<?php
-													foreach ($taza_inscrustada as $i) {
-														echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
-													}
-												}
-											?>
-											</select>
-									</div>
-							</li>
-							<br>
-							<li class="acequia">
-									<label for="acequia" style="margin-left:10px">Acequia:</label>
-									<div class="col-md-6 col-xs-12 input-group">
-											<div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-											<?php
-												if(is_array($acequia)){
-													$contador_acequia = count($acequia);
-											?>
-													<select class="form-control selectpicker" id="acequia" name="acequia" multiple="multiple"
-													data-live-search="true" title="Seleccione Acequia" data-actions-box="true" style="width: 500%;"
-													data-style="btn-success" data-count="<?php echo $contador_acequia;?>" required>
-												
-											<?php
-													foreach ($acequia as $i) {
-														echo '<option value ="'.$i->valor.'" style="background: #5cb85c; color: #fff;">'.$i->valor.'</option>';
-													}
-												}
-											?>
-											</select>
-									</div>
-							</li>
-							<br>
-							<li>
-									<button id="btn_buscar_filtros" type="button" class="btn btn-success waves-effect waves-light mt-2"
-											style="margin-top: 3rem;">Listar Coincidencias</button>
-									<button id="btn_exportar" type="button" class="btn btn-success waves-effect waves-light mt-2"
-											style="margin-top: 3rem;">Exportar Excel</button>
-							</li>
-					</ul>
-					<!-- /.sidebar-menu -->
-			</section>
-			<!-- /.sidebar -->
-	</div>
-</aside>
 
 </body>
 
@@ -306,7 +131,7 @@ $(document).ready(function() {
     $(this).click(jsShowWindowLoad('Se esta Generando la Información'));
     setTimeout(() => {
         jsRemoveWindowLoad();
-    }, 10000);
+    }, 100);
 });
 
 function jsShowWindowLoad(mensaje) {
@@ -360,68 +185,68 @@ function jsShowWindowLoad(mensaje) {
 }
 
 
-$('#departamento').change(function() {
+// $('#departamento').change(function() {
 
-				wo();
-        $('#area').empty();
-        $('#area').prop('disabled', false);
-        $('#area').selectpicker('refresh');
+	// 				wo();
+	//         $('#area').empty();
+	//         $('#area').prop('disabled', false);
+	//         $('#area').selectpicker('refresh');
 
-        var departamento = $("#departamento").val();
+	//         var departamento = $("#departamento").val();
 
-        var leng_departamentos = departamento.length;
+	//         var leng_departamentos = departamento.length;
 
-        contador_departamento = $('#departamento').attr('data-count');
+	//         contador_departamento = $('#departamento').attr('data-count');
 
-        if (leng_departamentos == 1) {
-            var departamento = $("#departamento").val();
-            
-        } else if (leng_departamentos == contador_departamento) {
-          
-            var departamento = "0";
+	//         if (leng_departamentos == 1) {
+	//             var departamento = $("#departamento").val();
 
-            }  else {
-            var departamento = $("#departamento").val();
-        }
+	//         } else if (leng_departamentos == contador_departamento) {
+						
+	//             var departamento = "0";
 
-        console.log(departamento)
+	//             }  else {
+	//             var departamento = $("#departamento").val();
+	//         }
 
-        var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
+	//         console.log(departamento)
 
-        console.log(url)
+	//         var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
 
-        $.ajax({
-            type: 'POST',
-            data: {
-                departamento
-            },
-            url: 'index.php/Reporte/AreaXdepartamento',
-            success: function(data) {
-							wc();
-                var datos = JSON.parse(data);
+	//         console.log(url)
 
-                var contador_area = datos.areas.length;
-                $('#area').attr('data-count', contador_area);
+	//         $.ajax({
+	//             type: 'POST',
+	//             data: {
+	//                 departamento
+	//             },
+	//             url: 'index.php/Reporte/AreaXdepartamento',
+	//             success: function(data) {
+	// 							wc();
+	//                 var datos = JSON.parse(data);
+
+	//                 var contador_area = datos.areas.length;
+	//                 $('#area').attr('data-count', contador_area);
 
 
-                for (i = 0; i < datos.areas.length; i++) {
-                    $('#area').append('<option style="background: #5cb85c; color: #fff"; value="' + datos.areas[i].id + '">' + datos.areas[i].nombre + '</option>');
-                }
+	//                 for (i = 0; i < datos.areas.length; i++) {
+	//                     $('#area').append('<option style="background: #5cb85c; color: #fff"; value="' + datos.areas[i].id + '">' + datos.areas[i].nombre + '</option>');
+	//                 }
 
-            },
-            error: function(data) {
-								wc();
-                alert('Error');
-            },
-            complete: function(data) {
-								wc();
-                $('#area').selectpicker('refresh');
+	//             },
+	//             error: function(data) {
+	// 								wc();
+	//                 alert('Error');
+	//             },
+	//             complete: function(data) {
+	// 								wc();
+	//                 $('#area').selectpicker('refresh');
 
-                return
-            }
-        });
+	//                 return
+	//             }
+	//         });
 
-}); // end buscar area x dpto
+// }); // end buscar area x dpto
 
 $('#area').change(function() {
 		wo();
@@ -737,15 +562,15 @@ $("#btn_exportar").click(function(e) {
     var fec_desde = $("#fec_desde").val();
     var fec_hasta = $("#fec_hasta").val();
     var departamento = $("#departamento").val();
-    var area = $("#area").val();
-    var manzana = $("#manzana").val();
-    var calle = $("#calle").val();
-    var tipo_taza = $("#tipo_taza").val();
-    var especie = $("#especie").val();
-    var aliniacion_arbol = $("#aliniacion_arbol").val();
-    var estado_sanitario = $("#estado_sanitario").val();
-    var tapa_taza_incrustada = $("#tapa_taza_incrustada").val();
-    var acequia = $("#acequia").val();
+		var area = "0";
+    var manzana = "0";
+    var calle = "0";
+    var tipo_taza = "TODOS";
+    var especie = "TODOS";
+    var aliniacion_arbol = "TODOS";
+    var estado_sanitario = "TODOS";
+    var tapa_taza_incrustada = "TODOS";
+    var acequia = "TODOS";
 
     if (censo_select == "" || departamento == "" || fec_desde == "" || fec_hasta == "" || area == "" || manzana == "") { //muestras el botón
         Swal.fire({
@@ -755,93 +580,6 @@ $("#btn_exportar").click(function(e) {
         })
         return;
     } else { //no muestras el botón
-        //conteo de arrays
-					var leng_departamentos = departamento.length;
-					var leng_areas = area.length;
-					var leng_manzanas = manzana.length;
-					var leng_calle = calle.length;
-					var leng_tipo_taza = tipo_taza.length;
-					var leng_especie = especie.length;
-					var leng_aliniacion_arbol = aliniacion_arbol.length;
-					var leng_estado_sanitario = estado_sanitario.length;
-					var leng_tapa_taza_incrustada = tapa_taza_incrustada.length;
-					var leng_acequia = acequia.length;
-
-        contador_departamento = $('#departamento').attr('data-count');
-				if (leng_departamentos == 1) {
-						var departamento = $("#departamento").val();
-				} else if (leng_departamentos == contador_departamento) {
-						var departamento = "0";
-				}  else {
-						var departamento = $("#departamento").val();
-				}
-
-        contador_area = $('#area').attr('data-count');
-				if (leng_areas == 1) {
-						var area = $("#area").val();
-				}   else if (leng_areas == contador_area) {
-						var area = "0";
-				} else {
-						var area = $("#area").val();
-				}
-
-        contador_manzana = $('#manzana').attr('data-count');
-        if (leng_manzanas == 1) {
-            var manzana = $("#manzana").val();
-        }else if (leng_manzanas == contador_manzana) {
-            var manzana = "0";
-        } else {
-            var manzana = $("#manzana").val();
-        }
-
-        contador_calle = $('#calle').attr('data-count');
-        if (leng_calle == contador_calle) {
-            var calle = "0";
-        } else {
-           var calle = $("#calle").val();
-        }
-
-        contador_tipo_taza = $('#tipo_taza').attr('data-count');
-        if (leng_tipo_taza == contador_tipo_taza) {
-            var tipo_taza = "TODOS";
-        } else {
-            var tipo_taza = $("#tipo_taza").val();
-        }
-
-        contador_especie = $('#especie').attr('data-count');
-        if (leng_especie == contador_especie) {
-            var especie = "TODOS";
-        } else {
-            var especie = $("#especie").val();
-        }
-
-        contador_aliniacion_arbol = $('#aliniacion_arbol').attr('data-count');
-        if (leng_aliniacion_arbol == contador_aliniacion_arbol) {
-            var aliniacion_arbol = "TODOS";
-        } else {
-            var aliniacion_arbol = $("#aliniacion_arbol").val();
-        }
-
-        contador_estado_sanitario = $('#estado_sanitario').attr('data-count');
-        if (leng_estado_sanitario == contador_estado_sanitario) {
-            var estado_sanitario = "TODOS";
-        } else {
-            var estado_sanitario = $("#estado_sanitario").val();
-        }
-
-        contador_tapa_taza_incrustada = $('#tapa_taza_incrustada').attr('data-count');
-        if (leng_tapa_taza_incrustada == contador_tapa_taza_incrustada) {
-            var tapa_taza_incrustada = "TODOS";
-        } else {
-            var tapa_taza_incrustada = $("#tapa_taza_incrustada").val();
-        }
-
-        contador_acequia = $('#acequia').attr('data-count');
-        if (leng_acequia == contador_acequia) {
-            var acequia = "TODOS";
-        } else {
-            var acequia = $("#acequia").val();
-        }
 
         var url = encodeURI("Reporte/reporteGral2Excel?cens_id=" + censo_select + "&fec_desde=" +
             fec_desde +
@@ -849,9 +587,8 @@ $("#btn_exportar").click(function(e) {
             manzana + "&calle=" + calle + "&tipo_taza=" + tipo_taza + "&especie=" + especie +
             "&aliniacion_arbol=" + aliniacion_arbol + "&estado_sanitario=" + estado_sanitario + "&tapa_taza_incrustada=" + tapa_taza_incrustada + "&acequia=" + acequia);
 
-        console.log(url)
+        console.log(url);
 
-        $("#WindowLoad").remove();
 				// abro nueva pestaña y traigo excel
 				url = "<?php echo base_url(); ?>" + url;
 				window.open(url);

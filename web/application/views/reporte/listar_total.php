@@ -77,7 +77,7 @@
                         </select> -->
 												<select class="form-control" id="departamento" name="departamento" title="Seleccione Departamento" style="width: 50%;" data-style="btn-success" data-count="<?php echo count($departamentos);?>" required>
                             <option value="" disabled>-Seleccione Departamento-</option>
-														<option value="TODOS">Todos los Departamentos</option>
+														<option value="0">Todos los Departamentos</option>
                             <?php
 																	foreach($departamentos as $fila)
 																	{
@@ -157,7 +157,7 @@
         $(this).click(jsShowWindowLoad('Se esta Generando la Información'));
         setTimeout(() => {
             jsRemoveWindowLoad();
-        }, 10000);
+        }, 100);
     });
 
     function jsShowWindowLoad(mensaje) {
@@ -211,55 +211,55 @@
     }
 
     // $('#departamento').change(function() {
-    //     debugger;
-    //     $('#area').empty();
-    //     $('#area').prop('disabled', false);
-    //     $('#area').selectpicker('refresh');
+			//     debugger;
+			//     $('#area').empty();
+			//     $('#area').prop('disabled', false);
+			//     $('#area').selectpicker('refresh');
 
-    //     var departamento = $("#departamento").val();
-    //     var leng_departamentos = departamento.length;
-    //     contador_departamento = $('#departamento').attr('data-count');
+			//     var departamento = $("#departamento").val();
+			//     var leng_departamentos = departamento.length;
+			//     contador_departamento = $('#departamento').attr('data-count');
 
-    //     if (leng_departamentos == 1) {
-    //         var departamento = $("#departamento").val();
-    //     } else if (leng_departamentos == contador_departamento) {
-    //         var departamento = "0";
-    //     }  else {
-    //         var departamento = $("#departamento").val();
-    //     }
+			//     if (leng_departamentos == 1) {
+			//         var departamento = $("#departamento").val();
+			//     } else if (leng_departamentos == contador_departamento) {
+			//         var departamento = "0";
+			//     }  else {
+			//         var departamento = $("#departamento").val();
+			//     }
 
-    //     console.log(departamento);
-    //     var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
-    //     console.log(url)
+			//     console.log(departamento);
+			//     var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
+			//     console.log(url)
 
-		// 		wo();
-    //     $.ajax({
-    //         type: 'POST',
-    //         data: {
-    //             departamento
-    //         },
-    //         url: 'index.php/Reporte/AreaXdepartamento',
-    //         success: function(data) {
-    //             var datos = JSON.parse(data);
-    //             var contador_area = datos.areas.length;
-    //             $('#area').attr('data-count', contador_area);
+			// 		wo();
+			//     $.ajax({
+			//         type: 'POST',
+			//         data: {
+			//             departamento
+			//         },
+			//         url: 'index.php/Reporte/AreaXdepartamento',
+			//         success: function(data) {
+			//             var datos = JSON.parse(data);
+			//             var contador_area = datos.areas.length;
+			//             $('#area').attr('data-count', contador_area);
 
-    //             for (i = 0; i < datos.areas.length; i++) {
-    //                 $('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i]
-    //                     .nombre + '</option>');
-    //             }
-		// 						wc();
-    //         },
-    //         error: function(data) {
-		// 						wc();
-    //             alert('Error');
-    //         },
-    //         complete: function(data) {
-		// 						wc();
-    //             $('#area').selectpicker('refresh');
-    //             return;
-    //         }
-    //     });
+			//             for (i = 0; i < datos.areas.length; i++) {
+			//                 $('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i]
+			//                     .nombre + '</option>');
+			//             }
+			// 						wc();
+			//         },
+			//         error: function(data) {
+			// 						wc();
+			//             alert('Error');
+			//         },
+			//         complete: function(data) {
+			// 						wc();
+			//             $('#area').selectpicker('refresh');
+			//             return;
+			//         }
+			//     });
 
     // }); // end buscar area x dpto
 
@@ -437,21 +437,20 @@
 
 		$("#btn_exportar").click(function(e) {
 			debugger;
-				var censo_select = $("#censo_select").val();
-				var fec_desde = $("#fec_desde").val();
-				var fec_hasta = $("#fec_hasta").val();
-				var departamento = $("#departamento").val();
-				var area = "0";
-				var manzana = "0";
+			var censo_select = $("#censo_select").val();
+			var fec_desde = $("#fec_desde").val();
+			var fec_hasta = $("#fec_hasta").val();
+			var departamento = $("#departamento").val();
+			var area = "0";
+			var manzana = "0";
 
-				var url = "Reporte/reporteTotalExcel?cens_id=" + censo_select + "&fec_desde=" + fec_desde +	"&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" + manzana;
+			var url = "Reporte/reporteTotalExcel?cens_id=" + censo_select + "&fec_desde=" + fec_desde +	"&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" + manzana;
 
-        console.log(url)
+			console.log(url);
 
-        //$("#WindowLoad").remove();
-				// abro nueva pestaña y traigo excel
-				url = "<?php echo base_url(); ?>" + url;
-				window.open(url);
+			// abro nueva pestaña y traigo excel
+			url = "<?php echo base_url(); ?>" + url;
+			window.open(url);
 
 		});
 

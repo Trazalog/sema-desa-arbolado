@@ -28,7 +28,7 @@ function listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $depart
   $array_area = explode(",", $area);
 
 
-  for ($i=0;$i<count($array_area);$i++) 
+  for ($i=0;$i<count($array_area);$i++)
       {
        $datos = "arge_id_list=".$array_area[$i]; 
          $array_contenedor_areas[] = $datos;
@@ -67,7 +67,6 @@ function listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $depart
       return;
     }
 }
-
 
 // listado del reporte reporte gral 2
 function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana, $calle, $tipo_taza, $especie, $aliniacion_arbol, $estado_sanitario, $tapa_taza_incrustada, $acequia){
@@ -230,7 +229,6 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
   }
 }
 
-
 # Obtener Informacion de areas por Departamento
 function AreaXdepartamento($departamento)
 {
@@ -253,7 +251,6 @@ function AreaXdepartamento($departamento)
   log_message("DEBUG", "#Reporte/AreaXdepartamento".json_encode($array));
   return json_decode($array['data']);
 }
-
 
 # Obtener Informacion de manzanas por areas
 function ManzanaXarea($area)
@@ -278,8 +275,6 @@ function ManzanaXarea($area)
   log_message("DEBUG", "#Reporte/ManzanaXarea".json_encode($array));
   return json_decode($array['data']);
 }
-
-
 
 # Obtener Informacion de calles por Departamento
 function CallesXdepartamento($departamento)

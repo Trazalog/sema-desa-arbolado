@@ -37,16 +37,15 @@ class Reporte extends CI_Controller {
 
 			$data['censos'] = $this->Censos->listar()->censos->censo;
 			$data['departamentos'] = $this->Departamentos->listar()->departamentos->departamento;
-			$data['tipo_taza'] = $this->Reportes->tipo_taza()->tablas->tabla;
-			$data['listar_arbol_especie'] = $this->Reportes->listar_arbol_especie()->tablas->tabla;
-			$data['alineacion_arbol'] = $this->Reportes->alineacion_arbol()->tablas->tabla;
-			$data['estado'] = $this->Reportes->estado()->tablas->tabla;
-			$data['taza_inscrustada'] = $this->Reportes->taza_inscrustada()->tablas->tabla;
-			$data['acequia'] = $this->Reportes->acequia()->tablas->tabla;
+			// $data['tipo_taza'] = $this->Reportes->tipo_taza()->tablas->tabla;
+			// $data['listar_arbol_especie'] = $this->Reportes->listar_arbol_especie()->tablas->tabla;
+			// $data['alineacion_arbol'] = $this->Reportes->alineacion_arbol()->tablas->tabla;
+			// $data['estado'] = $this->Reportes->estado()->tablas->tabla;
+			// $data['taza_inscrustada'] = $this->Reportes->taza_inscrustada()->tablas->tabla;
+			// $data['acequia'] = $this->Reportes->acequia()->tablas->tabla;
 
 			$this->load->view('reporte/listar_gral_2',$data);
 	}
-	
 
 	public function buscar_por_filtros()
 	{
@@ -87,7 +86,6 @@ class Reporte extends CI_Controller {
 			}
 	}
 
-
 	//buscar por filtros para reporte gral 1
 	public function buscar_por_filtro_listar_gral_1()
 	{
@@ -99,9 +97,9 @@ class Reporte extends CI_Controller {
 				$departamento = $_GET["departamento"];
 						$area = $_GET["area"];
 				$manzana = $_GET["manzana"];
-			
+
 				$data['reportes'] = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana)->arboles->arbol;
-				
+
 				$this->load->view('reporte/listar_table_reporte_gral_1',$data);
 			}
 		else	{
@@ -116,7 +114,6 @@ class Reporte extends CI_Controller {
 				$this->load->view('reporte/listar_table_reporte_gral_1',$data);
 			}
 	}
-
 
 	//buscar por filtros para reporte gral 2
 	public function buscar_por_filtro_listar_gral_2()
@@ -180,7 +177,6 @@ class Reporte extends CI_Controller {
 					echo json_encode($data);
 				}
 	}
-
 
 	function ManzanaXarea(){
 		if($_GET){
@@ -256,7 +252,7 @@ class Reporte extends CI_Controller {
 				} else {
 					//Cargamos la librería de excel.
 						$this->load->library('excel'); $this->excel->setActiveSheetIndex(0);
-						$this->excel->getActiveSheet()->setTitle('Listado Gral 2');
+						$this->excel->getActiveSheet()->setTitle('Listado Total');
 						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
 					//Le aplicamos ancho las columnas.
 						foreach(range('A','AN') as $columnID) {
@@ -336,10 +332,8 @@ class Reporte extends CI_Controller {
 							$this->excel->getActiveSheet()->setCellValue("U{$contador}", $l->CODOMINANCIA);
 							$this->excel->getActiveSheet()->setCellValue("V{$contador}", $l->INTERFIERE_CABLES);
 							$this->excel->getActiveSheet()->setCellValue("W{$contador}", $l->CIRCUNFERENCIA_ALTURA_PECHO__CM__CAP);
-							$copaMedida2 = $l->COPA__M__-_MEDIDA_2;
-							$copaMedida1 = $l->COPA__M__-_MEDIDA_1;
-							$this->excel->getActiveSheet()->setCellValue("X{$contador}", $l->$copaMedida2);
-							$this->excel->getActiveSheet()->setCellValue("Y{$contador}", $l->copaMedida1);
+							$this->excel->getActiveSheet()->setCellValue("X{$contador}", $l->{'$COPA__M__-_MEDIDA_2'});
+							$this->excel->getActiveSheet()->setCellValue("Y{$contador}", $l->{'$COPA__M__-_MEDIDA_1'});
 							$this->excel->getActiveSheet()->setCellValue("Z{$contador}", $l->POSTES_CERCA);
 							$this->excel->getActiveSheet()->setCellValue("AA{$contador}", $l->ALTA);
 							$this->excel->getActiveSheet()->setCellValue("AB{$contador}", $l->OTRO);
@@ -369,6 +363,81 @@ class Reporte extends CI_Controller {
 	}
 
 	/**
+	* exporta a xcel datos buscado por fitros
+	* @param array con datos de filtros
+	* @return planilla excel
+	*/
+	function reporteGral1Excel()
+	{
+		if($_GET)
+		{
+				$censo_seleccionada = $_GET["cens_id"];
+				$fecha_desde = $_GET["fec_desde"];
+				$fecha_hasta = $_GET["fec_hasta"];
+				$departamento = $_GET["departamento"];
+				$area = $_GET["area"];
+				$manzana = $_GET["manzana"];
+
+				$reporte = $this->Reportes->listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana);
+
+				if ($reporte == null) {
+					echo "<h3>No se encontraron datos para mostrar...</h3>";
+				} else {
+					//Cargamos la librería de excel.
+						$this->load->library('excel'); $this->excel->setActiveSheetIndex(0);
+						$this->excel->getActiveSheet()->setTitle('Listado Gral 1');
+						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+					//Le aplicamos ancho las columnas.
+						foreach(range('A','J') as $columnID) {
+							$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+							$this->excel->getActiveSheet()->getStyle("A{$columnID}")->getFont()->setBold(true);
+						}
+					//Contador de filas
+						$contador = 1;
+
+					//Definimos los títulos de la cabecera.
+						$this->excel->getActiveSheet()->setCellValue("A{$contador}", 'Número');
+						$this->excel->getActiveSheet()->setCellValue("B{$contador}", 'Departamento');
+						$this->excel->getActiveSheet()->setCellValue("C{$contador}", 'Area Geográfica');
+						$this->excel->getActiveSheet()->setCellValue("D{$contador}", 'Manzana');
+						$this->excel->getActiveSheet()->setCellValue("E{$contador}", 'Long/Lat');
+						$this->excel->getActiveSheet()->setCellValue("F{$contador}", 'Calle');
+						$this->excel->getActiveSheet()->setCellValue("G{$contador}", 'Nro.');
+						$this->excel->getActiveSheet()->setCellValue("H{$contador}", 'Barrio');
+						$this->excel->getActiveSheet()->setCellValue("I{$contador}", 'Tipo Taza');
+						$this->excel->getActiveSheet()->setCellValue("J{$contador}", 'Especie');
+
+					//Definimos la data del cuerpo.
+					foreach($reporte as $l){
+						//Incrementamos una fila más, para ir a la siguiente.
+							$contador++;
+						//Informacion de las filas de la consulta.
+							$this->excel->getActiveSheet()->setCellValue("A{$contador}", $l->arbo_id);
+							$this->excel->getActiveSheet()->setCellValue("B{$contador}", $l->departamento);
+							$this->excel->getActiveSheet()->setCellValue("C{$contador}", $l->area_geografica);
+							$this->excel->getActiveSheet()->setCellValue("D{$contador}", $l->manzana);
+							$this->excel->getActiveSheet()->setCellValue("E{$contador}", $l->lat_long_gps);
+							$this->excel->getActiveSheet()->setCellValue("F{$contador}", $l->calle);
+							$this->excel->getActiveSheet()->setCellValue("G{$contador}", $l->altura);
+							$this->excel->getActiveSheet()->setCellValue("H{$contador}", $l->barrio);
+							$this->excel->getActiveSheet()->setCellValue("I{$contador}", $l->taza);
+							$this->excel->getActiveSheet()->setCellValue("J{$contador}", $l->especie);
+					}
+
+					//Le ponemos un nombre al archivo que se va a generar.
+						$fecha = date('d-m-Y');
+						$archivo = "reporte_gral_1_{$fecha}.xls";
+						header('Content-Type: application/vnd.ms-excel');
+						header('Content-Disposition: attachment;filename="'.$archivo.'"');
+						header('Cache-Control: max-age=0');
+					//Hacemos una salida al navegador con el archivo Excel.
+						$objWriter->save('php://output');
+				}
+
+		}
+	}
+
+	/**
 	* exporta a excel datos buscados por filtros
 	* @param array con datos de filtros
 	* @return planilla excel
@@ -390,6 +459,7 @@ class Reporte extends CI_Controller {
 			$estado_sanitario = $_GET["estado_sanitario"];
 			$tapa_taza_incrustada = $_GET["tapa_taza_incrustada"];
 			$acequia = $_GET["acequia"];
+
 			$reporte = $this->Reportes->listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana, $calle, $tipo_taza, $especie, $aliniacion_arbol, $estado_sanitario, $tapa_taza_incrustada, $acequia)->arboles->arbol;
 
 			if ($reporte == null) {
