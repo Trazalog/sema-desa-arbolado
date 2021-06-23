@@ -81,7 +81,7 @@
                         <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
                         <select class="form-control" id="departamento" name="departamento" title="Seleccione Departamento" style="width: 50%;" data-style="btn-success" data-count="<?php echo count($departamentos);?>" required>
                             <option value="" disabled>-Seleccione Departamento-</option>
-														<option value="TODOS">Todos los Departamentos</option>
+														<option value="0">Todos los Departamentos</option>
                             <?php
 															foreach($departamentos as $fila)
 															{
