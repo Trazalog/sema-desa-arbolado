@@ -186,32 +186,41 @@
 <script>
 
 $(document).ready(function() {
-  $('#tabla_lista').DataTable({
-    responsive: true,
-    language: {
-        url: '<?php base_url() ?>lib/bower_components/datatables.net/js/es-ar.json' //Ubicacion del archivo con el json del idioma.
-    },
-    dom: 'lfrtipB',
-    buttons: [{
-        //Botón para Excel
-        extend: 'excel',
-        footer: true,
-        title: 'Reporte Arbolado',
-        filename: 'Reporte_Arbolado',
+  
+  
+  $(document).ready(function() {
+    $('#tabla_lista').DataTable( {
+        responsive: true
+    } );
+  } );
+  
+  
+  // $('#tabla_lista').DataTable({
+  //   responsive: true,
+  //   language: {
+  //       url: '<?php //base_url() ?>lib/bower_components/datatables.net/js/es-ar.json' //Ubicacion del archivo con el json del idioma.
+  //   },
+  //   dom: 'lfrtipB'
+  //   // buttons: [{
+  //   //     //Botón para Excel
+  //   //     extend: 'excel',
+  //   //     footer: true,
+  //   //     title: 'Reporte Arbolado',
+  //   //     filename: 'Reporte_Arbolado',
 
-        //Aquí es donde generas el botón personalizado
-        text: '<button class="btn btn-success">Exportar a Excel <i class="fas fa-file-excel"></i></button>'
-        }
-        // //Botón para PDF
-        // {
-        //   extend: 'pdf',
-        //   footer: true,
-        //   title: 'Reporte Arbolado',
-        //   filename: 'Reporte_Arbolado_pdf',
-        //   text: '<button class="btn btn-danger">Exportar a PDF <i class="far fa-file-pdf"></i></button>'
-        // }
-    ]
-  });
+  //   //     //Aquí es donde generas el botón personalizado
+  //   //     text: '<button class="btn btn-success">Exportar a Excel <i class="fas fa-file-excel"></i></button>'
+  //   //     }
+  //   //     // //Botón para PDF
+  //   //     // {
+  //   //     //   extend: 'pdf',
+  //   //     //   footer: true,
+  //   //     //   title: 'Reporte Arbolado',
+  //   //     //   filename: 'Reporte_Arbolado_pdf',
+  //   //     //   text: '<button class="btn btn-danger">Exportar a PDF <i class="far fa-file-pdf"></i></button>'
+  //   //     // }
+  //   // ]
+  // });
 });
 
 function Detalles(id) {

@@ -62,22 +62,9 @@
                     <label for="departamento" class="col-6 col-form-label">Departamento:</label>
                     <div class="input-group date" id="carg" class="col-md-2">
                         <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                        <!-- <select class="form-control" id="departamento" name="departamento" multiple="multiple"
-                            data-live-search="true" title="Seleccione Departamento" data-actions-box="true"
-                            style="width: 50%;" data-style="btn-success"
-                            data-count="<?php echo count($departamentos);?>" required>
+                        <select class="form-control" id="departamento" name="departamento" data-live-search="true" title="Seleccione Departamento" data-actions-box="true" style="width: 50%;" data-style="btn-success" data-count="<?php echo count($departamentos);?>" required>
                             <option value="" disabled>-Seleccione Departamento-</option>
-														<option value="TODOS">Todos los Departamentos</option>
-                            <?php
-																	foreach($departamentos as $fila)
-																	{
-																		echo '<option value="'.$fila->id.'">'.$fila->nombre.'</option>' ;
-																	}
-														?>
-                        </select> -->
-												<select class="form-control" id="departamento" name="departamento" title="Seleccione Departamento" style="width: 50%;" data-style="btn-success" data-count="<?php echo count($departamentos);?>" required>
-                            <option value="" disabled>-Seleccione Departamento-</option>
-														<option value="0">Todos los Departamentos</option>
+														<!-- <option value="TODOS">Todos los Departamentos</option> -->
                             <?php
 																	foreach($departamentos as $fila)
 																	{
@@ -85,10 +72,20 @@
 																	}
 														?>
                         </select>
+												<!-- <select class="form-control" id="departamento" name="departamento" title="Seleccione Departamento" style="width: 50%;" data-style="btn-success" data-count="<?php //echo count($departamentos);?>" required>
+                            <option value="" disabled>-Seleccione Departamento-</option>
+														<option value="0">Todos los Departamentos</option>
+                            <?php
+																	// foreach($departamentos as $fila)
+																	// {
+																	// 	echo '<option value="'.$fila->id.'">'.$fila->nombre.'</option>' ;
+																	// }
+														?>
+                        </select> -->
                     </div>
                 </div>
                 </div><!-- /.row -->
-                <!-- <div class="row">
+                <div class="row">
 									<div class="form-group col-md-3" style="width:20%">
 											<label for="area" style="margin-left:10px">Area:</label>
 											<div class="input-group date" id="c" class="col-md-2">
@@ -98,8 +95,8 @@
 													</select>
 											</div>
 									</div>
-                </div> -->
-                <!-- <div class="row">
+                </div>
+                <div class="row">
 									<div class="form-group col-md-3">
 											<label for="manzana" style="margin-left:10px">Manzana:</label>
 											<div class="col-md-6 col-xs-12 input-group">
@@ -109,20 +106,20 @@
 															required>
 													</select>
 											</div>
-									</div> -->
+									</div>
                 </div>
                 <div class="row">
 
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <br>
-                        <!-- <button id="btn_buscar_filtros" type="button"
+                        <button id="btn_buscar_filtros" type="button"
                             class="btn btn-success waves-effect waves-light mt-2" style="margin-top: 1rem;">Listar
-                            Coincidencias</button> -->
+                            Coincidencias</button>
 												<button id="btn_exportar" type="button" class="btn btn-success waves-effect waves-light mt-2"
-											style="margin-top: 1rem;">Exportar Excel</button>
+											style="margin-top: 1rem;">Exportar Info Departamento</button>
                     </div>
 
                     <div class="col-xs-12">
@@ -210,58 +207,59 @@
 
     }
 
-    // $('#departamento').change(function() {
-			//     debugger;
-			//     $('#area').empty();
-			//     $('#area').prop('disabled', false);
-			//     $('#area').selectpicker('refresh');
+    $('#departamento').change(function() {
 
-			//     var departamento = $("#departamento").val();
-			//     var leng_departamentos = departamento.length;
-			//     contador_departamento = $('#departamento').attr('data-count');
+			    $('#area').empty();
+			    $('#area').prop('disabled', false);
+			    $('#area').selectpicker('refresh');
 
-			//     if (leng_departamentos == 1) {
-			//         var departamento = $("#departamento").val();
-			//     } else if (leng_departamentos == contador_departamento) {
-			//         var departamento = "0";
-			//     }  else {
-			//         var departamento = $("#departamento").val();
-			//     }
+			    var departamento = $("#departamento").val();
+			    var leng_departamentos = departamento.length;
+			    contador_departamento = $('#departamento').attr('data-count');
 
-			//     console.log(departamento);
-			//     var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
-			//     console.log(url)
+			    if (leng_departamentos == 1) {
+			        var departamento = $("#departamento").val();
+			    } else if (leng_departamentos == contador_departamento) {
+			        var departamento = "0";
+			    }  else {
+			        var departamento = $("#departamento").val();
+			    }
 
-			// 		wo();
-			//     $.ajax({
-			//         type: 'POST',
-			//         data: {
-			//             departamento
-			//         },
-			//         url: 'index.php/Reporte/AreaXdepartamento',
-			//         success: function(data) {
-			//             var datos = JSON.parse(data);
-			//             var contador_area = datos.areas.length;
-			//             $('#area').attr('data-count', contador_area);
+			    console.log(departamento);
+			    var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
+			    console.log(url)
 
-			//             for (i = 0; i < datos.areas.length; i++) {
-			//                 $('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i]
-			//                     .nombre + '</option>');
-			//             }
-			// 						wc();
-			//         },
-			//         error: function(data) {
-			// 						wc();
-			//             alert('Error');
-			//         },
-			//         complete: function(data) {
-			// 						wc();
-			//             $('#area').selectpicker('refresh');
-			//             return;
-			//         }
-			//     });
+					wo();
+			    $.ajax({
+			        type: 'POST',
+			        data: {
+			            departamento
+			        },
+			        url: 'index.php/Reporte/AreaXdepartamento',
+			        success: function(data) {
+								wc();
+			            var datos = JSON.parse(data);
+			            var contador_area = datos.areas.length;
+			            $('#area').attr('data-count', contador_area);
 
-    // }); // end buscar area x dpto
+			            for (i = 0; i < datos.areas.length; i++) {
+			                $('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i]
+			                    .nombre + '</option>');
+			            }
+
+			        },
+			        error: function(data) {
+									wc();
+			            alert('Error');
+			        },
+			        complete: function(data) {
+									wc();
+			            $('#area').selectpicker('refresh');
+			            return;
+			        }
+			    });
+
+    }); // end buscar area x dpto
 
     $('#area').change(function() {
 
@@ -293,7 +291,7 @@
             },
             url: 'index.php/Reporte/ManzanaXarea',
             success: function(data) {
-
+							wc();
                 var datos = JSON.parse(data);
                 var contador_manzana = datos.manzanas.length;
                 $('#manzana').attr('data-count', contador_manzana);
@@ -301,7 +299,7 @@
                     $('#manzana').prepend('<option value=' + datos.manzanas[i].id + '>' + datos
                         .manzanas[i].nombre + '</option>');
                 }
-								wc();
+								
             },
             error: function(data) {
 								wc();
@@ -436,7 +434,7 @@
 
 
 		$("#btn_exportar").click(function(e) {
-			debugger;
+
 			var censo_select = $("#censo_select").val();
 			var fec_desde = $("#fec_desde").val();
 			var fec_hasta = $("#fec_hasta").val();
@@ -444,14 +442,25 @@
 			var area = "0";
 			var manzana = "0";
 
-			var url = "Reporte/reporteTotalExcel?cens_id=" + censo_select + "&fec_desde=" + fec_desde +	"&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" + manzana;
+			if (censo_select == "" || departamento == "" || fec_desde == "" || fec_hasta == "") { //muestras el botón
 
-			console.log(url);
+					Swal.fire({
+							icon: 'error',
+							title: 'Campos Vacios...',
+							text: 'Completa todos los Campos para generar el Reporte!!',
+					})
+					return;
 
-			// abro nueva pestaña y traigo excel
-			url = "<?php echo base_url(); ?>" + url;
-			window.open(url);
+			} else {
 
+					var url = "Reporte/reporteTotalExcel?cens_id=" + censo_select + "&fec_desde=" + fec_desde +	"&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" + manzana;
+
+					console.log(url);
+
+					// abro nueva pestaña y traigo excel
+					url = "<?php echo base_url(); ?>" + url;
+					window.open(url);
+			}
 		});
 
 </script>

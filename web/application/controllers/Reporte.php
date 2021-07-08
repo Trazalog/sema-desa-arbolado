@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+require_once APPPATH."libraries/PHPExcel.php";
+
 class Reporte extends CI_Controller {
 	function __construct(){
 
@@ -251,14 +253,19 @@ class Reporte extends CI_Controller {
 					echo "<h3>No se encontraron datos para mostrar...</h3>";
 				} else {
 					//Cargamos la librería de excel.
+						$cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_phpTemp;
+						$cacheSettings = array('memoryCacheSize'=>'512MB');
+						PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
 						$this->load->library('excel'); $this->excel->setActiveSheetIndex(0);
 						$this->excel->getActiveSheet()->setTitle('Listado Total');
-						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'CSV');
+						$objWriter->setDelimiter(',');
+         		$objWriter->setEnclosure('');
 					//Le aplicamos ancho las columnas.
-						foreach(range('A','AN') as $columnID) {
-							$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
-							$this->excel->getActiveSheet()->getStyle("A{$columnID}")->getFont()->setBold(true);
-						}
+						// foreach(range('A','AN') as $columnID) {
+						// 	$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+						// 	$this->excel->getActiveSheet()->getStyle("A{$columnID}")->getFont()->setBold(true);
+						// }
 					//Contador de filas
 						$contador = 1;
 					//Definimos los títulos de la cabecera.
@@ -352,12 +359,15 @@ class Reporte extends CI_Controller {
 
 					//Le ponemos un nombre al archivo que se va a generar.
 						$fecha = date('d-m-Y');
-						$archivo = "reporte_total_{$fecha}.xls";
+						$archivo = "reporte_total_{$fecha}.csv";
 						header('Content-Type: application/vnd.ms-excel');
 						header('Content-Disposition: attachment;filename="'.$archivo.'"');
 						header('Cache-Control: max-age=0');
 					//Hacemos una salida al navegador con el archivo Excel.
 						$objWriter->save('php://output');
+						$this->excel->disconnectWorksheets();
+						$this->excel->garbageCollect();
+						unset($this->excel);
 				}
 			}
 	}
@@ -371,6 +381,9 @@ class Reporte extends CI_Controller {
 	{
 		if($_GET)
 		{
+				set_time_limit(6000);
+				ini_set('memory_limit','-1');
+
 				$censo_seleccionada = $_GET["cens_id"];
 				$fecha_desde = $_GET["fec_desde"];
 				$fecha_hasta = $_GET["fec_hasta"];
@@ -384,14 +397,20 @@ class Reporte extends CI_Controller {
 					echo "<h3>No se encontraron datos para mostrar...</h3>";
 				} else {
 					//Cargamos la librería de excel.
+						$cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_phpTemp;
+						$cacheSettings = array('memoryCacheSize'=>'512MB');
+						PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+
 						$this->load->library('excel'); $this->excel->setActiveSheetIndex(0);
 						$this->excel->getActiveSheet()->setTitle('Listado Gral 1');
-						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'CSV');
+						$objWriter->setDelimiter(',');
+            $objWriter->setEnclosure('');
 					//Le aplicamos ancho las columnas.
-						foreach(range('A','J') as $columnID) {
-							$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
-							$this->excel->getActiveSheet()->getStyle("A{$columnID}")->getFont()->setBold(true);
-						}
+						// foreach(range('A','J') as $columnID) {
+						// 	$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+						// 	$this->excel->getActiveSheet()->getStyle("A{$columnID}")->getFont()->setBold(true);
+						// }
 					//Contador de filas
 						$contador = 1;
 
@@ -426,12 +445,15 @@ class Reporte extends CI_Controller {
 
 					//Le ponemos un nombre al archivo que se va a generar.
 						$fecha = date('d-m-Y');
-						$archivo = "reporte_gral_1_{$fecha}.xls";
+						$archivo = "reporte_gral_1_{$fecha}.csv";
 						header('Content-Type: application/vnd.ms-excel');
 						header('Content-Disposition: attachment;filename="'.$archivo.'"');
 						header('Cache-Control: max-age=0');
 					//Hacemos una salida al navegador con el archivo Excel.
 						$objWriter->save('php://output');
+						$this->excel->disconnectWorksheets();
+						$this->excel->garbageCollect();
+						unset($this->excel);
 				}
 
 		}
@@ -446,6 +468,9 @@ class Reporte extends CI_Controller {
 	{
 		if($_GET)
 		{
+			set_time_limit(6000);
+      ini_set('memory_limit','-1');
+
 			$censo_seleccionada = $_GET["cens_id"];
 			$fecha_desde = $_GET["fec_desde"];
 			$fecha_hasta = $_GET["fec_hasta"];
@@ -466,14 +491,20 @@ class Reporte extends CI_Controller {
 				echo "<h3>No se encontraron datos para mostrar...</h3>";
 			} else {
 				//Cargamos la librería de excel.
+					$cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_phpTemp;
+					$cacheSettings = array('memoryCacheSize'=>'512MB');
+					PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+
 					$this->load->library('excel'); $this->excel->setActiveSheetIndex(0);
 					$this->excel->getActiveSheet()->setTitle('Listado Gral 2');
-					$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel5');
+					$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'CSV');
+					$objWriter->setDelimiter(',');
+          $objWriter->setEnclosure('');
 				//Le aplicamos ancho las columnas.
-					foreach(range('A','N') as $columnID) {
-						$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
-						$this->excel->getActiveSheet()->getStyle("A{$columnID}")->getFont()->setBold(true);
-					}
+					// foreach(range('A','N') as $columnID) {
+					// 	$this->excel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+					// 	$this->excel->getActiveSheet()->getStyle("A{$columnID}")->getFont()->setBold(true);
+					// }
 				//Contador de filas
 					$contador = 1;
 				//Definimos los títulos de la cabecera.
@@ -513,12 +544,15 @@ class Reporte extends CI_Controller {
 					}
 				//Le ponemos un nombre al archivo que se va a generar.
 					$fecha = date('d-m-Y');
-					$archivo = "reporte_gral_2_{$fecha}.xls";
+					$archivo = "reporte_gral_2_{$fecha}.csv";
 					header('Content-Type: application/vnd.ms-excel');
 					header('Content-Disposition: attachment;filename="'.$archivo.'"');
 					header('Cache-Control: max-age=0');
 				//Hacemos una salida al navegador con el archivo Excel.
 					$objWriter->save('php://output');
+					$this->excel->disconnectWorksheets();
+					$this->excel->garbageCollect();
+					unset($this->excel);
 			}
 		}
 	}
