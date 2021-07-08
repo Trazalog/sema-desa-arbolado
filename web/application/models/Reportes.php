@@ -235,16 +235,17 @@ function AreaXdepartamento($departamento)
   $count_dptos = count($departamento);
  
   
-  for ($i=0;$i<count($departamento);$i++)
-      {
-       $datos = "depa_id_list=".$departamento[$i];
-         $array_contenedor_dptos[] = $datos;
-         $str_dato_array = implode("&",$array_contenedor_dptos); 
-        } 
+//   for ($i=0;$i<count($departamento);$i++)
+//   {
+//       $datos = "depa_id_list=".$departamento[$i];
+//       $array_contenedor_dptos[] = $datos;
+//       $str_dato_array = implode("&",$array_contenedor_dptos);
+//   }
 
- $datos_dptos = $str_dato_array;
+//  $datos_dptos = $str_dato_array;
 
-  $resource = '/areasGeograficas/eliminado/0?'.$datos_dptos;
+  // $resource = '/areasGeograficas/eliminado/0?'.$datos_dptos;
+  $resource = '/areasGeograficas/eliminado/0?depa_id_list='.$departamento;
   $url = REST_REPO.$resource;
   $array = $this->rest->callAPI("Get", $url);
 
