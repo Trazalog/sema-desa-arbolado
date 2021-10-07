@@ -219,10 +219,10 @@ for ($i=0;$i<count($array_acequia);$i++)
 
 $datos_acequia = $this->session->userdata('datos_acequia');
 
-///////////
+///////////http://10.142.0.13:8280/services/arboladoReportsDS/arboles/avanzado/cens_id/54/fec_desde/1980-01-01/fec_hasta/2023-12-31?depa_id_list=25&arge_id_list=1109&manz_id_list=0&call_id_list=0&taza_list=TODOS&alineacion_list=TODOS&estado_list=TODOS&tapa_list=TODOS&acequia_list=TODOS
 ////////////////
 
-$resource = "/arboles/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana&$datos_calle&$datos_tipo_taza&$datos_especie&$datos_aliniacion_arbol&$estado_sanitario&$datos_tapa_taza_incrustada&$datos_acequia";
+$resource = "/arboles/avanzado/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana&$datos_calle&$datos_tipo_taza&$datos_especie&$datos_aliniacion_arbol&$estado_sanitario&$datos_tapa_taza_incrustada&$datos_acequia";
   $url = REST_REPO.$resource;
   $array = $this->rest->callAPI("Get", $url);
  

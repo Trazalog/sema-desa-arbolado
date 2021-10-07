@@ -144,13 +144,14 @@
                 <label for="tipo_taza" style="margin-left:10px">Tipo de Taza:</label>
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                    <?php      if(is_array($tipo_taza)){ 
+                        $contador_tipo_taza = count($tipo_taza);
+                            ?>
                     <select class="form-control selectpicker" id="tipo_taza" name="tipo_taza" multiple="multiple"
                         data-live-search="true" title="Seleccione Taza" data-actions-box="true" style="width: 500%;"
-                        data-style="btn-success" data-count="" required>
+                        data-style="btn-success" data-count="<?php echo $contador_tipo_taza;?>" required>
                         <?php 
-                                        if(is_array($tipo_taza)){
-
-                                           $array = json_decode(json_encode($tipo_taza), true);
+                                          $array = json_decode(json_encode($tipo_taza), true);
 
                                             foreach ($array as $i) {
                                                 echo "<option value =".strval($i['valor'])." style='background: #5cb85c; color: #fff;'>".$i['valor']."</option>";
@@ -165,11 +166,14 @@
                 <label for="especie" style="margin-left:10px">Especie:</label>
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                    <?php      if(is_array($listar_arbol_especie)){ 
+                        $contador_listar_arbol_especie = count($listar_arbol_especie);
+                            ?>
                     <select class="form-control selectpicker" id="especie" name="especie" multiple="multiple"
                         data-live-search="true" title="Seleccione Especie" data-actions-box="true" style="width: 500%;"
-                        data-style="btn-success" data-count="" required>
+                        data-style="btn-success" data-count="<?php $contador_listar_arbol_especie; ?>" required>
                                               <?php 
-                                        if(is_array($listar_arbol_especie)){
+                                      
                                             foreach ($listar_arbol_especie as $i) {
                                                 echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
                                               }
@@ -183,11 +187,14 @@
                 <label for="aliniacion_arbol" style="margin-left:10px">Alineación del Arbol:</label>
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                    <?php      if(is_array($alineacion_arbol)){ 
+                        $contador_alineacion_arbol = count($alineacion_arbol);
+                            ?>
                     <select class="form-control selectpicker" id="aliniacion_arbol" name="aliniacion_arbol"
                         multiple="multiple" data-live-search="true" title="Seleccione Alineación" data-actions-box="true"
-                        style="width: 500%;" data-style="btn-success" data-count="" required>
+                        style="width: 500%;" data-style="btn-success" data-count="<?php $contador_alineacion_arbol;?>" required>
                         <?php 
-                                        if(is_array($alineacion_arbol)){
+                                       
                                             foreach ($alineacion_arbol as $i) {
                                                 echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
                                               }
@@ -201,11 +208,14 @@
                 <label for="estado_sanitario" style="margin-left:10px">Estado Sanitario:</label>
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                    <?php      if(is_array($estado)){ 
+                        $contador_estado = count($estado);
+                            ?>
                     <select class="form-control selectpicker" id="estado_sanitario" name="estado_sanitario"
                         multiple="multiple" data-live-search="true" title="Seleccione Estado" data-actions-box="true"
-                        style="width: 500%;" data-style="btn-success" data-count="" required>
+                        style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_estado;?>" required>
                         <?php 
-                                        if(is_array($estado)){
+                                      
                                             foreach ($estado as $i) {
                                                 echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
                                               }
@@ -219,11 +229,14 @@
                 <label for="tapa_taza_incrustada" style="margin-left:10px">Tapa Taza Incrustada:</label>
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                    <?php      if(is_array($taza_inscrustada)){ 
+                        $contador_taza_inscrustada = count($taza_inscrustada);
+                            ?>
                     <select class="form-control selectpicker" id="tapa_taza_incrustada" name="tapa_taza_incrustada"
                         multiple="multiple" data-live-search="true" title="Seleccione Tapa" data-actions-box="true"
-                        style="width: 500%;" data-style="btn-success" data-count="" required>
+                        style="width: 500%;" data-style="btn-success" data-count="<?php echo $contador_taza_inscrustada;?>" required>
                         <?php 
-                                        if(is_array($taza_inscrustada)){
+                                        
                                             foreach ($taza_inscrustada as $i) {
                                                 echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
                                               }
@@ -237,11 +250,15 @@
                 <label for="acequia" style="margin-left:10px">Acequia:</label>
                 <div class="col-md-6 col-xs-12 input-group">
                     <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
+                    <?php      if(is_array($acequia)){ 
+                        $contador_acequia = count($acequia);
+                            ?>
                     <select class="form-control selectpicker" id="acequia" name="acequia" multiple="multiple"
                         data-live-search="true" title="Seleccione Acequia" data-actions-box="true" style="width: 500%;"
-                        data-style="btn-success" data-count="" required>
+                        data-style="btn-success" data-count="<?php echo $contador_acequia;?>" required>
+                      
                         <?php 
-                                        if(is_array($acequia)){
+                                    
                                             foreach ($acequia as $i) {
                                                 echo "<option value = $i->valor style='background: #5cb85c; color: #fff;'>$i->valor</option>";
                                               }
@@ -613,7 +630,8 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_calle == contador_calle) {
             var calle = "0";
         } else {
-            var calle = $("#calle").val();
+           // var calle = $("#calle").val();
+            var calle = "0";
         }
 
         contador_tipo_taza = $('#tipo_taza').attr('data-count');
@@ -621,7 +639,8 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_tipo_taza == contador_tipo_taza) {
             var tipo_taza = "TODOS";
         } else {
-            var tipo_taza = $("#tipo_taza").val();
+            //var tipo_taza = $("#tipo_taza").val();
+            var tipo_taza = "TODOS";
         }
 
         contador_especie = $('#especie').attr('data-count');
@@ -629,7 +648,8 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_especie == contador_especie) {
             var especie = "TODOS";
         } else {
-            var especie = $("#especie").val();
+           // var especie = $("#especie").val();
+           var especie = "TODOS";
         }
 
 
@@ -638,7 +658,8 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_aliniacion_arbol == contador_aliniacion_arbol) {
             var aliniacion_arbol = "TODOS";
         } else {
-            var aliniacion_arbol = $("#aliniacion_arbol").val();
+           // var aliniacion_arbol = $("#aliniacion_arbol").val();
+           var aliniacion_arbol = "TODOS";
         }
 
         contador_estado_sanitario = $('#estado_sanitario').attr('data-count');
@@ -646,7 +667,8 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_estado_sanitario == contador_estado_sanitario) {
             var estado_sanitario = "TODOS";
         } else {
-            var estado_sanitario = $("#estado_sanitario").val();
+            //var estado_sanitario = $("#estado_sanitario").val();
+            var aliniacion_arbol = "TODOS";
         }
 
 
@@ -655,7 +677,8 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_tapa_taza_incrustada == contador_tapa_taza_incrustada) {
             var tapa_taza_incrustada = "TODOS";
         } else {
-            var tapa_taza_incrustada = $("#tapa_taza_incrustada").val();
+            var aliniacion_arbol = "TODOS";
+           // var tapa_taza_incrustada = $("#tapa_taza_incrustada").val();
         }
 
 
@@ -664,7 +687,8 @@ $("#btn_buscar_filtros").click(function(e) {
         if (leng_acequia == contador_acequia) {
             var acequia = "TODOS";
         } else {
-            var acequia = $("#acequia").val();
+            var aliniacion_arbol = "TODOS";
+            //var acequia = $("#acequia").val();
         }
 
 

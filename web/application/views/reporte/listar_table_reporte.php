@@ -72,28 +72,12 @@
 
       if(isset($reportes))
       {
-            foreach($reportes as $fila)
-            {   
-                echo '<tr  id="'.$fila->arbo_id.'" data-json:'.json_encode($fila).'>';
-                echo '<td></td>';
-                echo '<td>'.$fila->arbo_id.'</td>';
-                echo '<td>'.$fila->fecha.'</td>';
-                echo '<td><button type="button" class="btn btn-info btn-sm" onclick="Imagen('.$fila->arbo_id.')">Imagen</button></td>';
-                echo '<td>'.$fila->departamento.'</td>';
-                echo '<td>'.$fila->area_geografica.'</td>';
-                echo '<td>'.$fila->manzana.'</td>';
-                echo '<td>'.$fila->lat_long_gps.'</td>';
-                echo '<td>'.$fila->calle.'</td>';
-                echo '<td>'.$fila->altura.'</td>';
-                echo '<td>'.$fila->barrio.'</td>';
-                echo '<td>'.$fila->taza.'</td>';
-                echo '<td>'.$fila->especie.'</td>';
-                echo '<td>'.$fila->ALINEACION_DEL_ARBOL.'</td>';
-                echo '<td>'.$fila->ALTURA_TOTAL__M_.'</td>';
-                echo '<td>'.$fila->ALTURA_DEL_FUSTE__M_.'</td>';
-                echo '<td>'.$fila->CIRCUNFERENCIA_ALTURA_PECHO__CM__CAP.'</td>';
-                echo '<td>'.$fila->ALTURA_MEDICION_DEL_CAP.'</td>';
-                echo '<td>'.$fila->.{'COPA__M__-_MEDIDA_1'}.'</td>';
+        $array = json_decode(json_encode($reportes), true);
+
+            foreach($array as $data)
+            {  
+              
+                echo '<td>'.$data['COPA__M__-_MEDIDA_1'].'</td>';
                 echo '<td>'.$fila->.{'COPA__M__-_MEDIDA_2'}.'</td>';
                 echo '<td>'.$fila->DESCUBIERTAS.'</td>';
                 echo '<td>'.$fila->CUELLO_VISIBLE.'</td>';
