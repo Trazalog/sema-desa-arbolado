@@ -50,34 +50,31 @@
 
                 <div class="form-group col-md-2" >
 
-                    <label for="fec_hasta" class="col-6 col-form-label">Fecha Hata:</label>
+                    <label for="fec_hasta" class="col-6 col-form-label">Fecha Hasta:</label>
                     <input class="form-control" type="date" id="fec_hasta" name="fec_hasta" required>
 
                 </div>
 
             </div><!-- /.row -->
             <div class="row">
-
                 <div class="form-group col-md-2">
                     <label for="departamento" class="col-6 col-form-label">Departamento:</label>
                     <div class="input-group date" id="carg" class="col-md-2">
                         <div class="input-group-addon"><i class="glyphicon glyphicon-check"></i></div>
-                        <select class="form-control" id="departamento" name="departamento" multiple="multiple"
-                            data-live-search="true" title="Seleccione Departamento" data-actions-box="true"
-                            style="width: 50%;" data-style="btn-success"
-                            data-count="<?php echo count($departamentos);?>" required>
+                        <select class="form-control" id="departamento" name="departamento" title="Seleccione Departamento" style="width: 50%;" data-style="btn-success" data-count="<?php echo count($departamentos);?>" required>
                             <option value="" disabled>-Seleccione Departamento-</option>
+														<option value="0">Todos los Departamentos</option>
                             <?php
-                                          foreach($departamentos as $fila)
-                                          {
-                                            echo '<option value="'.$fila->id.'">'.$fila->nombre.'</option>' ;
-                                          }
-                                    ?>
+															foreach($departamentos as $fila)
+															{
+																echo '<option value="'.$fila->id.'">'.$fila->nombre.'</option>' ;
+															}
+														?>
                         </select>
                     </div>
                 </div>
                 </div><!-- /.row -->
-                <div class="row">    
+                <!-- <div class="row">
                 <div class="form-group col-md-3" style="width:20%">
                     <label for="area" style="margin-left:10px">Area:</label>
                     <div class="input-group date" id="c" class="col-md-2">
@@ -87,7 +84,7 @@
                         </select>
                     </div>
                 </div>
-                </div><!-- /.row -->
+                </div>
                 <div class="row">
                 <div class="form-group col-md-3">
                     <label for="manzana" style="margin-left:10px">Manzana:</label>
@@ -99,7 +96,7 @@
                         </select>
                     </div>
                 </div>
-                </div><!-- /.row -->
+                </div> -->
                 <div class="row">
 
                     <div class="col-md-10">
@@ -107,9 +104,9 @@
 
                     <div class="col-md-2">
                         <br>
-                        <button id="btn_buscar_filtros" type="button"
-                            class="btn btn-success waves-effect waves-light mt-2" style="margin-top: 1rem;">Listar
-                            Coincidencias</button>
+                        <!-- <button id="btn_buscar_filtros" type="button" class="btn btn-success waves-effect waves-light mt-2" style="margin-top: 1rem;">Listar Coincidencias</button> -->
+												<button id="btn_exportar" type="button" class="btn btn-success waves-effect waves-light mt-2"
+											style="margin-top: 3rem;">Exportar Excel</button>
                     </div>
 
                     <div class="col-xs-12">
@@ -132,7 +129,7 @@
     selectAllText: 'Todos',
     deselectAllText: 'Nada'
 	});
-   
+
 	function jsRemoveWindowLoad() {
 			// eliminamos el div que bloquea pantalla
 			$("#WindowLoad").remove();
@@ -143,7 +140,7 @@
 			$(this).click(jsShowWindowLoad('Se esta Generando la Información'));
 			setTimeout(() => {
 					jsRemoveWindowLoad();
-			}, 10000);
+			}, 100);
 	});
 
 	function jsShowWindowLoad(mensaje) {
@@ -196,67 +193,67 @@
 
 	}
 
-	$('#departamento').change(function() {
-			debugger;
-			$('#area').empty();
-			$('#area').prop('disabled', false);
-			$('#area').selectpicker('refresh');
+	// $('#departamento').change(function() {
+		// 		debugger;
+		// 		$('#area').empty();
+		// 		$('#area').prop('disabled', false);
+		// 		$('#area').selectpicker('refresh');
 
-			var departamento = $("#departamento").val();
+		// 		var departamento = $("#departamento").val();
 
-			var leng_departamentos = departamento.length;
+		// 		var leng_departamentos = departamento.length;
 
-			contador_departamento = $('#departamento').attr('data-count');
+		// 		contador_departamento = $('#departamento').attr('data-count');
 
-			if (leng_departamentos == 1) {
-					var departamento = $("#departamento").val();
+		// 		if (leng_departamentos == 1) {
+		// 				var departamento = $("#departamento").val();
+						
+		// 		} else if (leng_departamentos == contador_departamento) {
 					
-			} else if (leng_departamentos == contador_departamento) {
-				
-					var departamento = "0";
+		// 				var departamento = "0";
 
-					}  else {
-					var departamento = $("#departamento").val();
-			}
+		// 				}  else {
+		// 				var departamento = $("#departamento").val();
+		// 		}
 
-			console.log(departamento);
-			var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
-			console.log(url);
+		// 		console.log(departamento);
+		// 		var url = "Reporte/AreaXdepartamento?departamento=" + departamento;
+		// 		console.log(url);
 
-			wo();
-			$.ajax({
-					type: 'POST',
-					data: {
-							departamento
-					},
-					url: 'index.php/Reporte/AreaXdepartamento',
-					success: function(data) {
-							var datos = JSON.parse(data);
+		// 		wo();
+		// 		$.ajax({
+		// 				type: 'POST',
+		// 				data: {
+		// 						departamento
+		// 				},
+		// 				url: 'index.php/Reporte/AreaXdepartamento',
+		// 				success: function(data) {
+		// 						var datos = JSON.parse(data);
 
-							var contador_area = datos.areas.length;
-							$('#area').attr('data-count', contador_area);
+		// 						var contador_area = datos.areas.length;
+		// 						$('#area').attr('data-count', contador_area);
 
-							for (i = 0; i < datos.areas.length; i++) {
-									$('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i]
-											.nombre + '</option>');
+		// 						for (i = 0; i < datos.areas.length; i++) {
+		// 								$('#area').prepend('<option value=' + datos.areas[i].id + '>' + datos.areas[i]
+		// 										.nombre + '</option>');
 
-							}
-							wc();
+		// 						}
+		// 						wc();
 
-					},
-					error: function(data) {
-							wc();
-							alert('Error');
-					},
-					complete: function(data) {
-							wc();
-							$('#area').selectpicker('refresh');
+		// 				},
+		// 				error: function(data) {
+		// 						wc();
+		// 						alert('Error');
+		// 				},
+		// 				complete: function(data) {
+		// 						wc();
+		// 						$('#area').selectpicker('refresh');
 
-							return
-					}
-			});
+		// 						return
+		// 				}
+		// 		});
 
-	}); // end buscar area x dpto
+	// }); // end buscar area x dpto
 
 	$('#area').change(function() {
 			$('#manzana').empty();
@@ -438,7 +435,25 @@
     	}
 
   }); // END BUSCAR
-  
+
+	// exporta lostado a excel
+	$("#btn_exportar").click(function(e) {
+			debugger;
+		var censo_select = $("#censo_select").val();
+		var fec_desde = $("#fec_desde").val();
+		var fec_hasta = $("#fec_hasta").val();
+		var departamento = $("#departamento").val();
+		var area = "0";
+		var manzana = "0";
+
+		var url = "Reporte/reporteGral1Excel?cens_id=" + censo_select + "&fec_desde=" + fec_desde +	"&fec_hasta=" + fec_hasta + "&departamento=" + departamento + "&area=" + area + "&manzana=" + manzana;
+		console.log(url);
+
+		// abro nueva pestaña y traigo excel
+		url = "<?php echo base_url(); ?>" + url;
+		window.open(url);
+	});
+
 </script>
 
 

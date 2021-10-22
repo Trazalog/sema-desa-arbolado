@@ -6,7 +6,7 @@ class Reportes extends CI_Model
 	function __construct()
 	{
     parent::__construct();
-  }  
+  }
 
 // listado del reporte total y reporte gral 1
 function listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento , $area, $manzana){
@@ -28,7 +28,7 @@ function listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $depart
   $array_area = explode(",", $area);
 
 
-  for ($i=0;$i<count($array_area);$i++) 
+  for ($i=0;$i<count($array_area);$i++)
       {
        $datos = "arge_id_list=".$array_area[$i]; 
          $array_contenedor_areas[] = $datos;
@@ -68,7 +68,6 @@ function listar_reporte($censo_seleccionada, $fecha_desde, $fecha_hasta, $depart
     }
 }
 
-
 // listado del reporte reporte gral 2
 function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $departamento, $area, $manzana, $calle, $tipo_taza, $especie, $aliniacion_arbol, $estado_sanitario, $tapa_taza_incrustada, $acequia){
   
@@ -89,7 +88,7 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
   $array_area = explode(",", $area);
 
 
-  for ($i=0;$i<count($array_area);$i++) 
+  for ($i=0;$i<count($array_area);$i++)
   {
     $datos = "arge_id_list=".$array_area[$i];
       $array_contenedor_areas[] = $datos;
@@ -123,9 +122,9 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
 
   for ($i=0;$i<count($array_calle);$i++)
     {
-     $datos = "call_id_list=".$array_calle[$i]; 
+     $datos = "call_id_list=".$array_calle[$i];
        $array_contenedor_calle[] = $datos;
-       $str_dato_array = implode("&",$array_contenedor_calle); 
+       $str_dato_array = implode("&",$array_contenedor_calle);
        $this->session->set_userdata('datos_calle',$str_dato_array);
       } 
 
@@ -134,11 +133,9 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
 
   //select multiple tipo taza
   $array_tipo_taza = explode(",", $tipo_taza);
-
-
   for ($i=0;$i<count($array_tipo_taza);$i++)
   {
-    $datos = "taza_list=".$array_tipo_taza[$i];
+    $datos = "taza_list=".rawurlencode ($array_tipo_taza[$i]);// FIXME: ACA
     $array_contenedor_tipo_taza[] = $datos;
     $str_dato_array = implode("&",$array_contenedor_tipo_taza);
     $this->session->set_userdata('datos_tipo_taza',$str_dato_array);
@@ -149,13 +146,11 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
 
   //select multiple tipo especie
   $array_especie = explode(",", $especie);
-
-
   for ($i=0;$i<count($array_especie);$i++)
   {
     $datos = "especie_id_list=".$array_especie[$i];
       $array_contenedor_especie[] = $datos;
-      $str_dato_array = implode("&",$array_contenedor_especie); 
+      $str_dato_array = implode("&",$array_contenedor_especie);
       $this->session->set_userdata('datos_especie',$str_dato_array);
   }
 
@@ -165,11 +160,9 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
 
   //select multiple aliniacion_arbol
   $array_aliniacion_arbol = explode(",", $aliniacion_arbol);
-
-
   for ($i=0;$i<count($array_aliniacion_arbol);$i++)
   {
-    $datos = "alineacion_list=".$array_aliniacion_arbol[$i];
+    $datos = "alineacion_list=".rawurlencode ($array_aliniacion_arbol[$i]);
     $array_contenedor_aliniacion_arbol[] = $datos;
     $str_dato_array = implode("&",$array_contenedor_aliniacion_arbol);
     $this->session->set_userdata('datos_aliniacion_arbol',$str_dato_array);
@@ -180,8 +173,6 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
 
   //select multiple estado_sanitario
   $array_estado_sanitario = explode(",", $estado_sanitario);
-
-
   for ($i=0;$i<count($array_estado_sanitario);$i++)
   {
     $datos = "estado_list=".$array_estado_sanitario[$i];
@@ -220,6 +211,9 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
 
   $datos_acequia = $this->session->userdata('datos_acequia');
 
+  //saco los espacios
+  //$datos_tipo_taza = urlencode($datos_tipo_taza);
+
   $resource = "/arboles/avanzado/cens_id/$censo_seleccionada/fec_desde/$fecha_desde/fec_hasta/$fecha_hasta?$datos_dptos&$datos_arge&$datos_manzana&$datos_calle&$datos_tipo_taza&$datos_aliniacion_arbol&estado_list=$estado_sanitario&$datos_tapa_taza_incrustada&$datos_acequia";
 
   $url = REST_REPO.$resource;
@@ -235,30 +229,29 @@ function listar_reporte_gral2($censo_seleccionada, $fecha_desde, $fecha_hasta, $
   }
 }
 
-
 # Obtener Informacion de areas por Departamento
 function AreaXdepartamento($departamento)
 {
   $count_dptos = count($departamento);
  
   
-  for ($i=0;$i<count($departamento);$i++)
-      {
-       $datos = "depa_id_list=".$departamento[$i];
-         $array_contenedor_dptos[] = $datos;
-         $str_dato_array = implode("&",$array_contenedor_dptos); 
-        } 
+//   for ($i=0;$i<count($departamento);$i++)
+//   {
+//       $datos = "depa_id_list=".$departamento[$i];
+//       $array_contenedor_dptos[] = $datos;
+//       $str_dato_array = implode("&",$array_contenedor_dptos);
+//   }
 
- $datos_dptos = $str_dato_array;
+//  $datos_dptos = $str_dato_array;
 
-  $resource = '/areasGeograficas/eliminado/0?'.$datos_dptos;
+  // $resource = '/areasGeograficas/eliminado/0?'.$datos_dptos;
+  $resource = '/areasGeograficas/eliminado/0?depa_id_list='.$departamento;
   $url = REST_REPO.$resource;
   $array = $this->rest->callAPI("Get", $url);
 
   log_message("DEBUG", "#Reporte/AreaXdepartamento".json_encode($array));
   return json_decode($array['data']);
 }
-
 
 # Obtener Informacion de manzanas por areas
 function ManzanaXarea($area)
@@ -283,8 +276,6 @@ function ManzanaXarea($area)
   log_message("DEBUG", "#Reporte/ManzanaXarea".json_encode($array));
   return json_decode($array['data']);
 }
-
-
 
 # Obtener Informacion de calles por Departamento
 function CallesXdepartamento($departamento)
