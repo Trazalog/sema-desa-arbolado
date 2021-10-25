@@ -270,45 +270,61 @@ class Reporte extends CI_Controller {
 						$contador = 1;
 					//Definimos los títulos de la cabecera.
 						$this->excel->getActiveSheet()->setCellValue("A{$contador}", 'Nro. Arbol');
-						$this->excel->getActiveSheet()->setCellValue("B{$contador}", 'Lat/Long');
-						$this->excel->getActiveSheet()->setCellValue("C{$contador}", 'Levantamiento Pavimento');
-						$this->excel->getActiveSheet()->setCellValue("D{$contador}", 'Secas');
-						$this->excel->getActiveSheet()->setCellValue("E{$contador}", 'Altura de medición del cap');
-						$this->excel->getActiveSheet()->setCellValue("F{$contador}", 'Media');
-						$this->excel->getActiveSheet()->setCellValue("G{$contador}", 'Censista');
-						$this->excel->getActiveSheet()->setCellValue("H{$contador}", 'Observaciones');
-						$this->excel->getActiveSheet()->setCellValue("I{$contador}", 'Altura del Fuste M');
-						$this->excel->getActiveSheet()->setCellValue("J{$contador}", 'Bajas');
-						$this->excel->getActiveSheet()->setCellValue("K{$contador}", 'Area Geográfica');
-						$this->excel->getActiveSheet()->setCellValue("L{$contador}", 'Fructificaciones Fúngicas');
-						$this->excel->getActiveSheet()->setCellValue("M{$contador}", 'Manzana');
-						$this->excel->getActiveSheet()->setCellValue("N{$contador}", 'Descopado y Brotación');
-						$this->excel->getActiveSheet()->setCellValue("O{$contador}", 'Cuello visible');
-						$this->excel->getActiveSheet()->setCellValue("P{$contador}", 'Acequia');
-						$this->excel->getActiveSheet()->setCellValue("Q{$contador}", 'Clorosis');
-						$this->excel->getActiveSheet()->setCellValue("R{$contador}", 'Vereda');
-						$this->excel->getActiveSheet()->setCellValue("S{$contador}", 'Fecha');
-						$this->excel->getActiveSheet()->setCellValue("T{$contador}", 'Altura');
-						$this->excel->getActiveSheet()->setCellValue("U{$contador}", 'Codominancia');
-						$this->excel->getActiveSheet()->setCellValue("V{$contador}", 'Interfiere Cables');
-						$this->excel->getActiveSheet()->setCellValue("W{$contador}", 'Circunf Altura Pecho CM Cap');
-						//$this->excel->getActiveSheet()->setCellValue("X{$contador}", 'Copa M Medida 2');
-						//$this->excel->getActiveSheet()->setCellValue("Y{$contador}", 'Copa M Medida 1');
-						$this->excel->getActiveSheet()->setCellValue("Z{$contador}", 'Postes Cerca');
-						$this->excel->getActiveSheet()->setCellValue("AA{$contador}", 'Alta');
-						$this->excel->getActiveSheet()->setCellValue("AB{$contador}", 'Otro');
-						$this->excel->getActiveSheet()->setCellValue("AC{$contador}", 'Especie');
-						$this->excel->getActiveSheet()->setCellValue("AD{$contador}", 'Descortezamiento');
-						$this->excel->getActiveSheet()->setCellValue("AF{$contador}", 'Levant. de Veredas');
-						$this->excel->getActiveSheet()->setCellValue("AG{$contador}", 'Bifurcado');
-						$this->excel->getActiveSheet()->setCellValue("AH{$contador}", 'Descubiertas');
-						$this->excel->getActiveSheet()->setCellValue("AI{$contador}", 'Basal');
-						$this->excel->getActiveSheet()->setCellValue("AJ{$contador}", 'Codominantes');
-						$this->excel->getActiveSheet()->setCellValue("AK{$contador}", 'Dens. del follaje');
-						$this->excel->getActiveSheet()->setCellValue("AL{$contador}", 'Barrio');
-						$this->excel->getActiveSheet()->setCellValue("AM{$contador}", 'Taza');
-						$this->excel->getActiveSheet()->setCellValue("AN{$contador}", 'Altura Total M');
+						$this->excel->getActiveSheet()->setCellValue("B{$contador}", 'Fecha');
+						$this->excel->getActiveSheet()->setCellValue("C{$contador}", 'Departamento');
+						$this->excel->getActiveSheet()->setCellValue("D{$contador}", 'Area Geográfica');
+						$this->excel->getActiveSheet()->setCellValue("E{$contador}", 'Manzana');
+						$this->excel->getActiveSheet()->setCellValue("F{$contador}", 'Lat/Long');
+						$this->excel->getActiveSheet()->setCellValue("G{$contador}", 'Calle');
+						$this->excel->getActiveSheet()->setCellValue("H{$contador}", 'Nro.');
+						$this->excel->getActiveSheet()->setCellValue("I{$contador}", 'Barrio');
+						$this->excel->getActiveSheet()->setCellValue("J{$contador}", 'Taza');
+						$this->excel->getActiveSheet()->setCellValue("K{$contador}", 'Especie');
+						$this->excel->getActiveSheet()->setCellValue("L{$contador}", 'Alineacion del arbol');
+						$this->excel->getActiveSheet()->setCellValue("M{$contador}", 'Altura Total M');
+						$this->excel->getActiveSheet()->setCellValue("N{$contador}", 'Altura del Fuste M');
+						$this->excel->getActiveSheet()->setCellValue("O{$contador}", 'Circunf Altura Pecho CM Cap');
+						$this->excel->getActiveSheet()->setCellValue("P{$contador}", 'Altura de medición del cap');
+						$this->excel->getActiveSheet()->setCellValue("Q{$contador}", 'Copa M Medida 1');
+						$this->excel->getActiveSheet()->setCellValue("R{$contador}", 'Copa M Medida 2');
+						$this->excel->getActiveSheet()->setCellValue("S{$contador}", 'Raices Descubiertas');
+						$this->excel->getActiveSheet()->setCellValue("T{$contador}", 'Cuello visible');
+						$this->excel->getActiveSheet()->setCellValue("U{$contador}", 'Levant. de Veredas');
+						$this->excel->getActiveSheet()->setCellValue("V{$contador}", 'Levantamiento Pavimento');
+						$this->excel->getActiveSheet()->setCellValue("W{$contador}", 'Fuste ünico');
+						//fuste unico? UNICO
+						$this->excel->getActiveSheet()->setCellValue("X{$contador}", 'Fuste Bifurcado');
+						$this->excel->getActiveSheet()->setCellValue("Y{$contador}", 'Inclinación mayor a 45');
+						// Fuste inclinacion mayor a 45° INCLINACION_MAYOR_A_45_
+						$this->excel->getActiveSheet()->setCellValue("Z{$contador}", 'Descortezamiento Fuste');
+						$this->excel->getActiveSheet()->setCellValue("AA{$contador}", 'Fructificaciones Fúngicas');
+						$this->excel->getActiveSheet()->setCellValue("AB{$contador}", 'Deformación Fuste');
+						//Deformacion fuste DEFORMACION
+						$this->excel->getActiveSheet()->setCellValue("AC{$contador}", 'Codominancia');
+						$this->excel->getActiveSheet()->setCellValue("AD{$contador}", 'Cavidad Expuesta');
+						//Cavidad expuesta NO_PRESENTA_CAVIDADES
+						$this->excel->getActiveSheet()->setCellValue("AE{$contador}", 'Cav. Expuesta Basal');
+						$this->excel->getActiveSheet()->setCellValue("AF{$contador}", 'Cav. Expuesta Alta');
+						$this->excel->getActiveSheet()->setCellValue("AG{$contador}", 'Cav. Expuesta Media');
+						$this->excel->getActiveSheet()->setCellValue("AH{$contador}", 'Ramas Bajas');
+						$this->excel->getActiveSheet()->setCellValue("AI{$contador}", 'Ramas Secas');
+						$this->excel->getActiveSheet()->setCellValue("AJ{$contador}", 'Ramas Quebradas');
+						//Ramas quebradas QUEBRADAS
+						$this->excel->getActiveSheet()->setCellValue("AK{$contador}", 'Ramas Codominantes');
 
+						$this->excel->getActiveSheet()->setCellValue("AL{$contador}", 'Agallas/cancros');
+						//Agallas/cancros AGALLA_CANCROS
+						$this->excel->getActiveSheet()->setCellValue("AM{$contador}", 'Descopado y Brotación');
+						$this->excel->getActiveSheet()->setCellValue("AN{$contador}", 'Clorosis');
+						$this->excel->getActiveSheet()->setCellValue("AO{$contador}", 'Dens. del follaje');
+						$this->excel->getActiveSheet()->setCellValue("AP{$contador}", 'Estado Sanitario General');
+						$this->excel->getActiveSheet()->setCellValue("AQ{$contador}", 'Acequia');
+						$this->excel->getActiveSheet()->setCellValue("AR{$contador}", 'Postes Cerca');
+						$this->excel->getActiveSheet()->setCellValue("AS{$contador}", 'Vereda');
+						$this->excel->getActiveSheet()->setCellValue("AT{$contador}", 'Interfiere Cables');
+						$this->excel->getActiveSheet()->setCellValue("AU{$contador}", 'Tapa de Taza Incrust.');
+						$this->excel->getActiveSheet()->setCellValue("AV{$contador}", 'Observaciones');
+						$this->excel->getActiveSheet()->setCellValue("AW{$contador}", 'Censista');
 
 
 					//Definimos la data del cuerpo
@@ -317,44 +333,55 @@ class Reporte extends CI_Controller {
 							$contador++;
 							//Informacion de las filas de la consulta.
 							$this->excel->getActiveSheet()->setCellValue("A{$contador}", $l->arbo_id);
-							$this->excel->getActiveSheet()->setCellValue("B{$contador}", $l->lat_long);
-							$this->excel->getActiveSheet()->setCellValue("C{$contador}", $l->LEVANTAMIENTO_DE_PAVIMENTO);
-							$this->excel->getActiveSheet()->setCellValue("D{$contador}", $l->SECAS);
-							$this->excel->getActiveSheet()->setCellValue("E{$contador}", $l->ALTURA_MEDICION_DEL_CAP);
-							$this->excel->getActiveSheet()->setCellValue("F{$contador}", $l->MEDIA);
-							$this->excel->getActiveSheet()->setCellValue("G{$contador}", $l->censista);
-							$this->excel->getActiveSheet()->setCellValue("H{$contador}", $l->OBSERVACIONES);
-							$this->excel->getActiveSheet()->setCellValue("I{$contador}", $l->ALTURA_DEL_FUSTE__M_);
-							$this->excel->getActiveSheet()->setCellValue("J{$contador}", $l->BAJAS);
-							$this->excel->getActiveSheet()->setCellValue("K{$contador}", $l->area_geografica);
-							$this->excel->getActiveSheet()->setCellValue("L{$contador}", $l->FRUCTIFICACIONES_FUNGICAS);
-							$this->excel->getActiveSheet()->setCellValue("M{$contador}", $l->manzana);
-							$this->excel->getActiveSheet()->setCellValue("N{$contador}", $l->DESCOPADO_Y_BROTACION);
-							$this->excel->getActiveSheet()->setCellValue("O{$contador}", $l->CUELLO_VISIBLE);
-							$this->excel->getActiveSheet()->setCellValue("P{$contador}", $l->ACEQUIA);
-							$this->excel->getActiveSheet()->setCellValue("Q{$contador}", $l->CLOROSIS);
-							$this->excel->getActiveSheet()->setCellValue("R{$contador}", $l->VEREDA);
-							$this->excel->getActiveSheet()->setCellValue("S{$contador}", $l->fecha);
-							$this->excel->getActiveSheet()->setCellValue("T{$contador}", $l->altura);
-							$this->excel->getActiveSheet()->setCellValue("U{$contador}", $l->CODOMINANCIA);
-							$this->excel->getActiveSheet()->setCellValue("V{$contador}", $l->INTERFIERE_CABLES);
-							$this->excel->getActiveSheet()->setCellValue("W{$contador}", $l->CIRCUNFERENCIA_ALTURA_PECHO__CM__CAP);
-							$this->excel->getActiveSheet()->setCellValue("X{$contador}", $l->{'$COPA__M__-_MEDIDA_2'});
-							$this->excel->getActiveSheet()->setCellValue("Y{$contador}", $l->{'$COPA__M__-_MEDIDA_1'});
-							$this->excel->getActiveSheet()->setCellValue("Z{$contador}", $l->POSTES_CERCA);
-							$this->excel->getActiveSheet()->setCellValue("AA{$contador}", $l->ALTA);
-							$this->excel->getActiveSheet()->setCellValue("AB{$contador}", $l->OTRO);
-							$this->excel->getActiveSheet()->setCellValue("AC{$contador}", $l->especie);
-							$this->excel->getActiveSheet()->setCellValue("AD{$contador}", $l->DESCORTEZAMIENTO);
-							$this->excel->getActiveSheet()->setCellValue("AF{$contador}", $l->LEVANTAMIENTO_DE_VEREDAS);
-							$this->excel->getActiveSheet()->setCellValue("AG{$contador}", $l->BIFURCADO);
-							$this->excel->getActiveSheet()->setCellValue("AH{$contador}", $l->DESCUBIERTAS);
-							$this->excel->getActiveSheet()->setCellValue("AI{$contador}", $l->BASAL);
-							$this->excel->getActiveSheet()->setCellValue("AJ{$contador}", $l->CODOMINANTES);
-							$this->excel->getActiveSheet()->setCellValue("AK{$contador}", $l->DENSIDAD_DEL_FOLLAJE);
-							$this->excel->getActiveSheet()->setCellValue("AL{$contador}", $l->barrio);
-							$this->excel->getActiveSheet()->setCellValue("AM{$contador}", $l->taza);
-							$this->excel->getActiveSheet()->setCellValue("AN{$contador}", $l->ALTURA_TOTAL__M_);
+							$this->excel->getActiveSheet()->setCellValue("B{$contador}", $l->fecha);
+							$this->excel->getActiveSheet()->setCellValue("C{$contador}", $l->departamento);
+							$this->excel->getActiveSheet()->setCellValue("D{$contador}", $l->area_geografica);
+							$this->excel->getActiveSheet()->setCellValue("E{$contador}", $l->manzana);
+							$this->excel->getActiveSheet()->setCellValue("F{$contador}", $l->lat_long);
+							$this->excel->getActiveSheet()->setCellValue("G{$contador}", $l->calle);
+							$this->excel->getActiveSheet()->setCellValue("H{$contador}", $l->altura);
+							$this->excel->getActiveSheet()->setCellValue("I{$contador}", $l->barrio);
+							$this->excel->getActiveSheet()->setCellValue("J{$contador}", $l->taza);
+							$this->excel->getActiveSheet()->setCellValue("K{$contador}", $l->especie);
+							$this->excel->getActiveSheet()->setCellValue("L{$contador}", $l->ALINEACION_DEL_ARBOL);
+							$this->excel->getActiveSheet()->setCellValue("M{$contador}", $l->ALTURA_TOTAL__M_);
+							$this->excel->getActiveSheet()->setCellValue("N{$contador}", $l->ALTURA_DEL_FUSTE__M_);
+							$this->excel->getActiveSheet()->setCellValue("O{$contador}", $l->CIRCUNFERENCIA_ALTURA_PECHO__CM__CAP);
+							$this->excel->getActiveSheet()->setCellValue("P{$contador}", $l->ALTURA_MEDICION_DEL_CAP);
+							$this->excel->getActiveSheet()->setCellValue("Q{$contador}", $l->{'$COPA__M__-_MEDIDA_1'});
+							$this->excel->getActiveSheet()->setCellValue("R{$contador}", $l->{'$COPA__M__-_MEDIDA_2'});
+							$this->excel->getActiveSheet()->setCellValue("S{$contador}", $l->DESCUBIERTAS);
+							$this->excel->getActiveSheet()->setCellValue("T{$contador}", $l->CUELLO_VISIBLE);
+							$this->excel->getActiveSheet()->setCellValue("U{$contador}", $l->LEVANTAMIENTO_DE_VEREDAS);
+							$this->excel->getActiveSheet()->setCellValue("V{$contador}", $l->LEVANTAMIENTO_DE_PAVIMENTO);
+							$this->excel->getActiveSheet()->setCellValue("W{$contador}", $l->UNICO);
+							$this->excel->getActiveSheet()->setCellValue("X{$contador}", $l->BIFURCADO);
+							$this->excel->getActiveSheet()->setCellValue("Y{$contador}", $l->INCLINACION_MAYOR_A_45_);
+							$this->excel->getActiveSheet()->setCellValue("Z{$contador}", $l->DESCORTEZAMIENTO);
+							$this->excel->getActiveSheet()->setCellValue("AA{$contador}", $l->FRUCTIFICACIONES_FUNGICAS);
+							$this->excel->getActiveSheet()->setCellValue("AB{$contador}", $l->DEFORMACION);
+							$this->excel->getActiveSheet()->setCellValue("AC{$contador}", $l->CODOMINANTES);
+							$this->excel->getActiveSheet()->setCellValue("AD{$contador}", $l->NO_PRESENTA_CAVIDADES);
+							$this->excel->getActiveSheet()->setCellValue("AE{$contador}", $l->BASAL);
+							$this->excel->getActiveSheet()->setCellValue("AF{$contador}", $l->ALTA);
+							$this->excel->getActiveSheet()->setCellValue("AG{$contador}", $l->MEDIA);
+							$this->excel->getActiveSheet()->setCellValue("AH{$contador}", $l->BAJAS);
+							$this->excel->getActiveSheet()->setCellValue("AI{$contador}", $l->SECAS);
+							$this->excel->getActiveSheet()->setCellValue("AJ{$contador}", $l->QUEBRADAS);
+							$this->excel->getActiveSheet()->setCellValue("AK{$contador}", $l->CODOMINANCIA);
+							$this->excel->getActiveSheet()->setCellValue("AL{$contador}", $l->AGALLA_CANCROS);
+							$this->excel->getActiveSheet()->setCellValue("AM{$contador}", $l->DESCOPADO_Y_BROTACION);
+							$this->excel->getActiveSheet()->setCellValue("AN{$contador}", $l->CLOROSIS);
+							$this->excel->getActiveSheet()->setCellValue("AO{$contador}", $l->DENSIDAD_DEL_FOLLAJE);
+							$this->excel->getActiveSheet()->setCellValue("AP{$contador}", $l->ESTADO_SANITARIO_GENERAL);
+							$this->excel->getActiveSheet()->setCellValue("AQ{$contador}", $l->ACEQUIA);
+							$this->excel->getActiveSheet()->setCellValue("AR{$contador}", $l->POSTES_CERCA);
+							$this->excel->getActiveSheet()->setCellValue("AS{$contador}", $l->VEREDA);
+							$this->excel->getActiveSheet()->setCellValue("AT{$contador}", $l->INTERFIERE_CABLES);
+							$this->excel->getActiveSheet()->setCellValue("AU{$contador}", $l->TAPA_DE_TAZA_INSCRUSTADA);
+							$this->excel->getActiveSheet()->setCellValue("AV{$contador}", $l->OBSERVACIONES);
+							$this->excel->getActiveSheet()->setCellValue("AW{$contador}", $l->censista);
+
 						}
 
 					//Le ponemos un nombre al archivo que se va a generar.
@@ -425,6 +452,7 @@ class Reporte extends CI_Controller {
 						$this->excel->getActiveSheet()->setCellValue("H{$contador}", 'Barrio');
 						$this->excel->getActiveSheet()->setCellValue("I{$contador}", 'Tipo Taza');
 						$this->excel->getActiveSheet()->setCellValue("J{$contador}", 'Especie');
+						$this->excel->getActiveSheet()->setCellValue("K{$contador}", 'Alineacion del arbol');
 
 					//Definimos la data del cuerpo.
 					foreach($reporte as $l){
@@ -441,6 +469,8 @@ class Reporte extends CI_Controller {
 							$this->excel->getActiveSheet()->setCellValue("H{$contador}", $l->barrio);
 							$this->excel->getActiveSheet()->setCellValue("I{$contador}", $l->taza);
 							$this->excel->getActiveSheet()->setCellValue("J{$contador}", $l->especie);
+							$this->excel->getActiveSheet()->setCellValue("K{$contador}", $l->ALINEACION_DEL_ARBOL);
+
 					}
 
 					//Le ponemos un nombre al archivo que se va a generar.
