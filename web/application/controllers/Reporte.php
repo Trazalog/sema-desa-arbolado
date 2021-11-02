@@ -259,7 +259,7 @@ class Reporte extends CI_Controller {
 						$this->load->library('excel'); $this->excel->setActiveSheetIndex(0);
 						$this->excel->getActiveSheet()->setTitle('Listado Total');
 						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'CSV');
-						$objWriter->setDelimiter(',');
+						$objWriter->setDelimiter(';');
          		$objWriter->setEnclosure('');
 					//Le aplicamos ancho las columnas.
 						// foreach(range('A','AN') as $columnID) {
@@ -431,7 +431,7 @@ class Reporte extends CI_Controller {
 						$this->load->library('excel'); $this->excel->setActiveSheetIndex(0);
 						$this->excel->getActiveSheet()->setTitle('Listado Gral 1');
 						$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'CSV');
-						$objWriter->setDelimiter(',');
+						$objWriter->setDelimiter(';');
            				 $objWriter->setEnclosure('');
 					//Le aplicamos ancho las columnas.
 						// foreach(range('A','J') as $columnID) {
@@ -535,7 +535,7 @@ class Reporte extends CI_Controller {
 					$this->load->library('excel'); $this->excel->setActiveSheetIndex(0);
 					$this->excel->getActiveSheet()->setTitle('Listado Gral 2');
 					$objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'CSV');
-					$objWriter->setDelimiter(',');
+					$objWriter->setDelimiter(';');
           $objWriter->setEnclosure('');
 				//Le aplicamos ancho las columnas.
 					// foreach(range('A','N') as $columnID) {
