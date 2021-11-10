@@ -390,6 +390,8 @@ class Reporte extends CI_Controller {
 						header('Content-Type: application/vnd.ms-excel');
 						header('Content-Disposition: attachment;filename="'.$archivo.'"');
 						header('Cache-Control: max-age=0');
+						echo "\xEF\xBB\xBF";
+						
 					//Hacemos una salida al navegador con el archivo Excel.
 						$objWriter->save('php://output');
 						$this->excel->disconnectWorksheets();
@@ -486,6 +488,8 @@ class Reporte extends CI_Controller {
 						header('Content-Type: application/vnd.ms-excel');
 						header('Content-Disposition: attachment;filename="'.$archivo.'"');
 						header('Cache-Control: max-age=0');
+						echo "\xEF\xBB\xBF";
+						
 					//Hacemos una salida al navegador con el archivo Excel.
 						$objWriter->save('php://output');
 						$this->excel->disconnectWorksheets();
@@ -592,6 +596,7 @@ class Reporte extends CI_Controller {
 					header('Content-Type: application/vnd.ms-excel');
 					header('Content-Disposition: attachment;filename="'.$archivo.'"');
 					header('Cache-Control: max-age=0');
+					echo "\xEF\xBB\xBF";
 				//Hacemos una salida al navegador con el archivo Excel.
 					$objWriter->save('php://output');
 					$this->excel->disconnectWorksheets();
